@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="3" skipped="0" tests="12" time="0.046" timestamp="2026-09-24T04:30:31.921705-07:00" hostname="omnia"><testcase classname="tests.test_suite" name="test_reads_cache_depends_on_order" time="0.000"><failure message="AssertionError: cache was not warmed before this test ran&#10;assert 'warm' in set()">def test_reads_cache_depends_on_order() -&gt; None:
+&gt;       assert "warm" in _seen, "cache was not warmed before this test ran"
+E       AssertionError: cache was not warmed before this test ran
+E       assert 'warm' in set()
+
+tests/test_suite.py:100: AssertionError</failure></testcase><testcase classname="tests.test_suite" name="test_sleep_a_bit" time="0.004" /><testcase classname="tests.test_suite" name="test_dict_merge" time="0.000" /><testcase classname="tests.test_suite" name="test_tight_timeout_race" time="0.017"><failure message="AssertionError: took 0.0164s, budget 0.0125s&#10;assert 0.01641281699994579 &lt; 0.0125">def test_tight_timeout_race() -&gt; None:
+        budget = 0.0125
+        # FLAKEMAP_DEMO_RUNNER_EXTRA_DELAY models one runner class in the fleet
+        # being consistently slower than another (a real, common CI phenomenon);
+        # generate_demo_data.py sets it per simulated runner. The delay is a real
+        # measured sleep either way -- only the offset is scripted.
+        extra = float(os.environ.get("FLAKEMAP_DEMO_RUNNER_EXTRA_DELAY", "0"))
+        delay = random.uniform(0.005, 0.015) + extra
+        start = time.perf_counter()
+        time.sleep(delay)
+        elapsed = time.perf_counter() - start
+&gt;       assert elapsed &lt; budget, f"took {elapsed:.4f}s, budget {budget:.4f}s"
+E       AssertionError: took 0.0164s, budget 0.0125s
+E       assert 0.01641281699994579 &lt; 0.0125
+
+tests/test_suite.py:72: AssertionError</failure></testcase><testcase classname="tests.test_suite" name="test_addition" time="0.000" /><testcase classname="tests.test_suite" name="test_string_split" time="0.000" /><testcase classname="tests.test_suite" name="test_regression_after_commit" time="0.000"><failure message="Failed: off-by-one regression introduced at commit 130">def test_regression_after_commit() -&gt; None:
+        seq = int(os.environ.get("FLAKEMAP_DEMO_COMMIT_SEQ", "0"))
+        if seq &gt;= BUG_INTRODUCED_AT:
+&gt;           pytest.fail(f"off-by-one regression introduced at commit {BUG_INTRODUCED_AT}")
+E           Failed: off-by-one regression introduced at commit 130
+
+tests/test_suite.py:117: Failed</failure></testcase><testcase classname="tests.test_suite" name="test_probabilistic_threshold" time="0.000" /><testcase classname="tests.test_suite" name="test_populate_cache_first" time="0.000" /><testcase classname="tests.test_suite" name="test_sorted_is_stable" time="0.000" /><testcase classname="tests.test_suite" name="test_list_comprehension" time="0.000" /><testcase classname="tests.test_suite" name="test_string_formatting" time="0.000" /></testsuite></testsuites>

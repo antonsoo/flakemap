@@ -1,0 +1,9 @@
+{
+  "run_id": "run-0123",
+  "commit": "00069aaaaaaa",
+  "branch": "main",
+  "timestamp": "2026-06-03T01:15:00+00:00",
+  "runner": "ubuntu-latest",
+  "os": "linux",
+  "sequence": 123
+}

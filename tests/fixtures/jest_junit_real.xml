@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="3" failures="1" errors="0" time="0.243">
+  <testsuite name="undefined" errors="0" failures="1" skipped="1" timestamp="2026-09-24T11:23:54" time="0.146" tests="3">
+    <testcase classname=" passes" name=" passes" time="0.002">
+    </testcase>
+    <testcase classname=" fails" name=" fails" time="0.001">
+      <failure>Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 3
+Received: 2
+    at Object.toBe (/tmp/flakemap-demo/dialect-jest/sample.test.js:6:17)
+    at Promise.finally.completed (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:1834:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:1774:10)
+    at _callCircusTest (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:1167:40)
+    at processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at _runTestInContext (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:1103:3)
+    at runTestWithContext (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:996:5)
+    at _runTestsForDescribeBlockOnce (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:1008:11)
+    at _runTestsForDescribeBlock (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:824:5)
+    at run (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:789:3)
+    at runAndTransformResultsToJestFormat (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/jestAdapterInit.js:2300:21)
+    at jestAdapter (/tmp/flakemap-demo/dialect-jest/node_modules/jest-circus/build/runner.js:111:19)
+    at runTestInternal (/tmp/flakemap-demo/dialect-jest/node_modules/jest-runner/build/index.js:247:16)
+    at runTest (/tmp/flakemap-demo/dialect-jest/node_modules/jest-runner/build/index.js:315:7)</failure>
+    </testcase>
+    <testcase classname=" skipped" name=" skipped" time="0">
+      <skipped/>
+    </testcase>
+  </testsuite>
+</testsuites>

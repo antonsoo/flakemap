@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite tests="3" failures="1" errors="0" skipped="1" time="0.006" name="github.com/example/pkg">
+    <properties>
+      <property name="go.version" value="go1.22.4"></property>
+    </properties>
+    <testcase classname="github.com/example/pkg" name="TestAdd" time="0.001"></testcase>
+    <testcase classname="github.com/example/pkg" name="TestDivide" time="0.002">
+      <failure message="Failed" type="">=== RUN   TestDivide
+--- FAIL: TestDivide (0.00s)
+    math_test.go:22: expected 2, got 3
+FAIL</failure>
+    </testcase>
+    <testcase classname="github.com/example/pkg" name="TestSlow" time="0.000">
+      <skipped message="skipping in short mode"></skipped>
+    </testcase>
+  </testsuite>
+</testsuites>

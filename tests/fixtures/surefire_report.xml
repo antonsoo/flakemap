@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.CalculatorTest" tests="3" failures="1" errors="1" skipped="0" time="0.045" timestamp="2026-09-24T04:00:00">
+  <properties>
+    <property name="java.version" value="17.0.9"/>
+  </properties>
+  <testcase name="testAdd" classname="com.example.CalculatorTest" time="0.012"/>
+  <testcase name="testDivideByZero" classname="com.example.CalculatorTest" time="0.008">
+    <error message="/ by zero" type="java.lang.ArithmeticException">java.lang.ArithmeticException: / by zero
+	at com.example.Calculator.divide(Calculator.java:15)
+	at com.example.CalculatorTest.testDivideByZero(CalculatorTest.java:22)
+</error>
+  </testcase>
+  <testcase name="testSubtract" classname="com.example.CalculatorTest" time="0.010">
+    <failure message="expected:&lt;5&gt; but was:&lt;3&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;5&gt; but was: &lt;3&gt;
+	at com.example.CalculatorTest.testSubtract(CalculatorTest.java:30)
+</failure>
+  </testcase>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

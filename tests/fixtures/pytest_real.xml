@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="1" tests="4" time="0.021" timestamp="2026-09-24T04:23:10.803135-07:00" hostname="omnia"><testcase classname="test_sample" name="test_pass" time="0.000" /><testcase classname="test_sample" name="test_fail" time="0.000"><failure message="assert (1 + 1) == 3">def test_fail():
+&gt;       assert 1 + 1 == 3
+E       assert (1 + 1) == 3
+
+/tmp/flakemap-demo/dialect-pytest/test_sample.py:7: AssertionError</failure></testcase><testcase classname="test_sample" name="test_error" time="0.000"><failure message="RuntimeError: boom">def test_error():
+&gt;       raise RuntimeError("boom")
+E       RuntimeError: boom
+
+/tmp/flakemap-demo/dialect-pytest/test_sample.py:10: RuntimeError</failure></testcase><testcase classname="test_sample" name="test_skip" time="0.000"><skipped type="pytest.skip" message="not ready">/tmp/flakemap-demo/dialect-pytest/test_sample.py:12: not ready</skipped></testcase></testsuite></testsuites>

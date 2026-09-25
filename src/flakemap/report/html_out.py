@@ -16,6 +16,7 @@ from collections import defaultdict
 from html import escape
 
 from flakemap.models import Run, Status, TestCaseResult
+from flakemap.report.names import common_prefix, short_name
 from flakemap.stats.analyze import AnalysisResult, TestStats
 
 _STATUS_CLASS = {
@@ -106,7 +107,9 @@ def _test_detail(t: TestStats) -> str:
     return "".join(parts)
 
 
-def _test_row(t: TestStats, runs: list[Run], matrix: dict[str, dict[str, TestCaseResult]]) -> str:
+def _test_row(
+    t: TestStats, runs: list[Run], matrix: dict[str, dict[str, TestCaseResult]], prefix: str = ""
+) -> str:
     cells = "".join(
         _cell(run, matrix.get(t.full_name, {}).get(run.metadata.run_id)) for run in runs
     )
@@ -118,10 +121,10 @@ def _test_row(t: TestStats, runs: list[Run], matrix: dict[str, dict[str, TestCas
   <summary>
     <span class="row-name">
       <span class="dot dot-{t.classification}"></span>
-      <span class="name-text" title="{escape(t.full_name)}">{escape(t.full_name)}</span>
+      <span class="name-text" title="{escape(t.full_name)}">{escape(short_name(t.full_name, prefix))}</span>
       {stamp_html}
     </span>
-    <span class="row-heatmap">{cells}</span>
+    <span class="row-heatmap" style="--runs:{len(runs)}">{cells}</span>
     <span class="row-rate">{ci}</span>
   </summary>
   <div class="detail">{_test_detail(t)}</div>
@@ -215,8 +218,13 @@ section.heatmap h2 {
   display: inline-block; flex: none; white-space: nowrap;
 }
 .stamp-broken { color: var(--broken); } .stamp-flaky { color: var(--flaky); }
-.row-heatmap { flex: 1 1 auto; display: flex; gap: 1px; overflow-x: auto; padding: 2px 0; }
-.cell { width: 6px; height: 14px; flex: none; border-radius: 1px; }
+/* Every run gets a column that fits the row: a scrolling strip would hide the most
+   recent runs, which is exactly where a newly broken test shows up. */
+.row-heatmap {
+  flex: 1 1 auto; min-width: 0; padding: 2px 0;
+  display: grid; grid-template-columns: repeat(var(--runs, 1), minmax(0, 1fr)); column-gap: 1px;
+}
+.cell { height: 14px; border-radius: 1px; }
 .s-pass { background: var(--pass); } .s-fail { background: var(--fail); }
 .s-error { background: var(--error); } .s-skip { background: var(--skip); }
 .s-missing { background: var(--missing); }
@@ -226,10 +234,12 @@ section.heatmap h2 {
 .stat-label { flex: 0 0 15rem; color: var(--ink-soft); }
 .stat-value { font-family: var(--font-mono); }
 .messages { margin: 0.2rem 0 0.6rem; padding-left: 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; }
+.prefix { margin: -0.4rem 0 0.8rem; font-size: 0.8rem; color: var(--ink-soft); }
 .legend { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.9rem 0.1rem 0; font-size: 0.78rem; color: var(--ink-soft); align-items: center; }
-.legend .cell { display: inline-block; vertical-align: middle; margin-right: 0.3em; }
+.legend .cell { display: inline-block; width: 6px; vertical-align: middle; margin-right: 0.3em; }
 footer { padding: 2rem 1.5rem 0; font-size: 0.8rem; color: var(--ink-soft); }
 footer a { color: var(--accent); }
+@media (max-width: 900px) { .row-heatmap { column-gap: 0; } .cell { border-radius: 0; } }
 @media (max-width: 600px) {
   .row-name { flex-basis: 120px; font-size: 0.7rem; }
   .stat-label { flex-basis: 9rem; }
@@ -247,7 +257,13 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
             -t.flakiness_score,
         ),
     )
-    rows_html = "".join(_test_row(t, runs, matrix) for t in tests_ranked)
+    prefix = common_prefix([t.full_name for t in result.tests])
+    rows_html = "".join(_test_row(t, runs, matrix, prefix) for t in tests_ranked)
+    prefix_html = (
+        f'<p class="prefix">Tests under <code>{escape(prefix.rstrip("."))}</code></p>'
+        if prefix
+        else ""
+    )
 
     counts = {
         k: sum(1 for t in result.tests if t.classification == k)
@@ -295,6 +311,7 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
 </div>
 <section class="heatmap">
   <h2>Test &times; run heatmap</h2>
+  {prefix_html}
   <div class="rows">{rows_html}</div>
   <div class="legend">
     <span><span class="cell s-pass"></span>pass</span>

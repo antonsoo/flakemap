@@ -79,3 +79,16 @@ def test_markdown_output_contains_table_header(tmp_path: Path, capsys) -> None: 
     assert code == 0
     out = capsys.readouterr().out
     assert "| Test |" in out
+
+
+def test_common_prefix_drops_shared_components_only() -> None:
+    from flakemap.report.names import common_prefix, short_name
+
+    names = ["tests.test_suite.test_a", "tests.test_suite.test_b", "tests.test_suite.sub.test_c"]
+    prefix = common_prefix(names)
+    assert prefix == "tests.test_suite."
+    assert short_name(names[2], prefix) == "sub.test_c"
+    assert common_prefix(["a.x", "b.y"]) == ""
+    assert common_prefix(["only.one"]) == ""
+    # never swallow a whole name: the last component always stays
+    assert common_prefix(["pkg.test_a", "pkg.test_a"]) == "pkg."

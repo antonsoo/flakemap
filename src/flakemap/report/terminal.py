@@ -6,6 +6,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.text import Text
 
+from flakemap.report.names import common_prefix, short_name
 from flakemap.stats.analyze import AnalysisResult, TestStats
 
 _STYLE = {
@@ -47,8 +48,14 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
         console.print("[green]No flaky or broken tests in this window.[/green]")
         return
 
-    table = Table(title=f"Top {len(ranked)} by flakiness score", show_lines=False)
-    table.add_column("Test", overflow="fold", max_width=48)
+    prefix = common_prefix([t.full_name for t in result.tests])
+    title = f"Top {len(ranked)} by flakiness score"
+    table = Table(
+        title=title,
+        caption=f"tests under {prefix.rstrip('.')}" if prefix else None,
+        show_lines=False,
+    )
+    table.add_column("Test", overflow="fold", min_width=16, max_width=48, ratio=3)
     table.add_column("Status")
     table.add_column("Score", justify="right")
     table.add_column("Fail rate (95% CI)", justify="right")
@@ -64,7 +71,7 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
         )
         since = t.change_point_run_id or "-"
         table.add_row(
-            t.full_name,
+            short_name(t.full_name, prefix),
             _classification_cell(t),
             f"{t.flakiness_score:.2f}",
             ci,

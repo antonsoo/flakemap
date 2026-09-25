@@ -30,7 +30,7 @@ classifiers = [
 dependencies = ["rich>=13.7"]
 
 [project.urls]
-Homepage = "https://github.com/antonsoo/flakemap"
+Homepage = "https://antonsoo.github.io/flakemap/"
 Repository = "https://github.com/antonsoo/flakemap"
 Issues = "https://github.com/antonsoo/flakemap/issues"
 

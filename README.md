@@ -5,6 +5,7 @@ ranked, statistically honest flake report.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Live demo](https://img.shields.io/badge/live%20demo-heatmap%20report-1c4f63)](https://antonsoo.github.io/flakemap/)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-workbench-ffd21e)](https://huggingface.co/spaces/antonsoloviev/flakemap)
 
 Every CI system already writes JUnit XML on every run. That history has the answer
 to which tests are flaky, how badly, since when, and whether a failure correlates

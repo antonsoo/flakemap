@@ -1,26 +1,57 @@
 # flakemap
 
-**Find the flaky tests in your CI history. Drop in JUnit XML from past runs, get a
-ranked, statistically honest flake report.**
+**Find the failures that green retries hide. Inspect JUnit history locally, down
+to the failed attempts and source records.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Live demo](https://img.shields.io/badge/live%20demo-heatmap%20report-1c4f63)](https://antonsoo.github.io/flakemap/)
 [![Hugging Face](https://img.shields.io/badge/Hugging%20Face-workbench-ffd21e)](https://huggingface.co/spaces/antonsoloviev/flakemap)
 
-Every CI system already writes JUnit XML on every run. That history has the answer
-to which tests are flaky, how badly, since when, and whether a failure correlates
-with a runner, a time of day, or a slow run -- but almost nobody looks, because the
-data is scattered across hundreds of build artifacts and nobody wants to eyeball
-them. Engineers re-run until green instead, and every re-run trains the team a
-little further to stop reading failures. `flakemap` reads a directory of JUnit
-reports from many runs and produces a ranked flake report: which tests are
-actually nondeterministic (not just occasionally broken), how confident that
-claim is given the sample size, and when it started. It runs locally, reads XML
-you already have, and has no SaaS dependency. It pairs with the same author's
+CI can turn green after a test fails twice and passes on its third attempt.
+Surefire preserves those failures as `<flakyFailure>` records, but a reader that
+only looks for `<failure>` sees an ordinary pass. Flakemap keeps the failed
+attempts, distinguishes retry recovery from final failure rate, and lets you
+inspect the source file and testcase behind each finding.
+
+Give it one report to inspect retries, or a history of reports to rank intermittent
+failures, compare runners, and look for regressions. Duplicate identifiers and
+conflicting shard metadata stay visibly excluded instead of becoming extra
+statistical samples. Reports are local, self-contained files, with no CI-provider
+account or service required. It pairs with the same author's
 [`logdelta`](https://github.com/antonsoo/logdelta) (diff logs from a failing CI
 run against known-good baselines) once you know *which* test to look at.
 
 <p align="center"><img src="docs/assets/hero-heatmap.png" width="820" alt="flakemap HTML report: an inspection-report-styled page with a test x run heatmap. 222 runs, 12 tests, 1 broken (red DEFECT stamp) and 3 flaky (amber INTERMITTENT stamps) rows shown above 8 healthy rows, each row a strip of small green/red cells for pass/fail across chronological runs, with a failure rate percentage on the right"></p>
+
+## What a green result can hide
+
+```bash
+uv run flakemap examples/retry_history --html retry-report.html
+uv run flakemap examples/retry_history --json --fail-on-retry > retry-report.json
+```
+
+The second command writes valid JSON and exits **1**: two tests in this fixture
+passed only after failures. The fixture was produced by **Maven Surefire 3.5.4**
+running the [included Java tests](examples/retry_project/README.md), with controlled
+failures. It is not evidence about a production project's reliability.
+
+| Test | Reporter evidence | Final outcome | Counted toward rate |
+|---|---|---|---|
+| `recoversAfterTwoFailures` | 2 failed attempts, then a pass | pass, flagged flaky | 1 run |
+| `recoversFromError` | 1 error, then a pass | pass, flagged flaky | 1 run |
+| `alwaysFails` | failure plus 2 failed retries | fail | 1 run |
+| `alwaysErrors` | error plus 2 errored retries | error | 1 run |
+
+The XML's suite counter says **13 tests**; there are **6 testcases**, including
+an ordinary pass and a skip. Attempt totals do not become sample sizes. One
+reported recovery is direct evidence of a passed-on-retry result, but one run
+cannot estimate its long-term frequency precisely. The exhausted cases therefore
+remain `insufficient_data`, rather than being labeled permanently broken.
+
+![Actual Surefire retry evidence, including source records and failed attempts](docs/assets/retry-evidence.png)
+
+Retry inspection is available in the source CLI and generated HTML reports.
+The linked hosted demos are snapshots of the earlier release.
 
 ## Quickstart
 
@@ -38,11 +69,17 @@ aren't published yet, so install from source or straight from GitHub:
 
 ## Features
 
-- **Dialect-tolerant JUnit XML parsing**: pytest, Jest (jest-junit), and
-  Maven/Gradle Surefire verified against real tool output; go-junit-report
-  supported against its documented format. Malformed and truncated files
+- **JUnit XML parsing**: pytest, Jest (jest-junit), and Maven Surefire checked
+  against real tool output; Gradle merged retries and go-junit-report supported
+  against their documented formats. Malformed and truncated files
   degrade to a warning, never a crash. Details and sources:
   [`docs/formats.md`](docs/formats.md).
+- **Retry evidence**: explicit recovered and exhausted attempts, source file and
+  testcase positions, failure messages, and a separate recovered-run count.
+  Retries never inflate the per-run failure-rate denominator.
+- **Input integrity**: duplicate test identifiers and inconsistent run metadata
+  are excluded with inspectable records. Warnings survive JSON, Markdown, and
+  HTML export. `--fail-on-incomplete` makes these omissions fail a CI check.
 - **Run metadata** (commit, branch, timestamp, runner, OS) from a sidecar
   JSON, a directory-per-run layout, or file mtime as a last resort.
 - **Per-test statistics**: Wilson-interval failure rate, flip rate,
@@ -58,6 +95,8 @@ aren't published yet, so install from source or straight from GitHub:
   detail, and failure-message clustering.
 - **`--fail-on-new-flake`** for CI gating: exit 1 if a test's change-point
   falls inside a trailing window and it's classified flaky or broken.
+- **`--fail-on-retry`** exits 1 for any explicitly recovered test in the supplied
+  history, including a single run. Pass only the current run when gating a build.
 
 ## Usage
 
@@ -85,25 +124,32 @@ external requests -- open it from a CI artifact zip with no network.
 Full formulas and citations are in the module docstrings
 (`src/flakemap/stats/`); this is the summary.
 
-- **Failure rate**: `fails / (pass + fail + error)` (skips excluded from the
-  denominator), reported with a **Wilson score interval**
+- **Final failure rate**: `fails / (pass + fail + error)`, one outcome per test
+  per run. Skips, ambiguous duplicates, and contradictory outcomes are excluded.
+  A passed-on-retry test remains a final pass, with its recovery counted separately.
+  The rate is reported with a **Wilson score interval**
   (Wilson, E.B., 1927, *"Probable Inference, the Law of Succession, and
   Statistical Inference,"* JASA 22(158):209-212) rather than a plain Wald
   interval, because Wald intervals can extend past [0, 1] and have poor
   coverage exactly where most tests live: small samples, rates near 0 or 1.
-- **Flip rate**: the fraction of consecutive run pairs where a test's outcome
-  changed (pass -> fail or fail -> pass).
-- **Same-commit rerun disagreement**: among commits with 2+ runs, the
-  fraction where the test both passed and failed on *identical code* -- the
-  textbook definition of flaky when your CI reruns on failure (cf. Lam et al.,
+- **Flip rate**: the fraction of consecutive observed, non-skipped outcome pairs
+  that changed (pass -> fail or fail -> pass). Unknown outcomes break pairs;
+  absent tests and skips are not observations. `flip_pairs` gives the denominator.
+- **Same-context rerun disagreement**: group by commit, branch, runner and OS;
+  among groups with 2+ runs, report the fraction with both a pass and a failure.
+  This avoids treating a Linux pass and a Windows failure as a rerun on the same
+  environment. Unrecorded configuration can still differ (cf. Lam et al.,
   *"iDFlakies: A Framework for Detecting and Partially Classifying Flaky
   Tests,"* ICST 2019, which uses repeated execution on a fixed revision as the
   ground-truth signal for flakiness).
 - **Flakiness score** (0-1, a heuristic, not a literature standard):
-  `confidence * (0.4 * flip_rate + 0.4 * rerun_signal + 0.2 * intermittency)`,
+  `confidence * (0.4 * flip_rate + 0.4 * max(rerun_signal, recovered_runs/n) + 0.2 * intermittency)`,
   where `intermittency = 2 * min(p, 1-p)` (0 when always-pass or always-fail,
   1 at p=0.5) and `confidence = min(1, n/20)` shrinks the score for
-  small samples so a test seen twice can't outrank one seen 200 times.
+  small samples to reduce their influence on the ranking.
+  Recovery is based only on explicit retry markers; its observed frequency is
+  not an estimate of unreported retries. No retry markers means no change to
+  the previous score formula.
 - **Change point**: a single-change-point likelihood-ratio detector for a
   Bernoulli sequence (see Chen, J. & Gupta, A.K., *Parametric Statistical
   Change Point Analysis*, 2nd ed., Birkhauser, 2012, ch. 3) -- the split that
@@ -111,26 +157,32 @@ Full formulas and citations are in the module docstrings
   subject to a minimum segment length (3) and minimum rate shift (0.2) so it
   doesn't fire on a single stray failure. **Known limitation**: it is not
   corrected for multiple comparisons (every split is scanned), so a
-  persistently flaky test can show a spurious change point; trust it most
-  when the classification is `broken`, where the before/after effect size is
-  unambiguous (see [Accuracy and limitations](#accuracy-and-limitations)).
+  persistently flaky test can show a spurious change point. Inspect the observed
+  before/after outcomes; the selected split is not proof of the cause or onset.
 - **Duration signals**: an OLS trend (seconds per run) and the
   **point-biserial correlation** between duration and outcome (Tate, R.F.,
   1954, *"Correlation Between a Discrete and a Continuous Variable,"* Annals
   of Mathematical Statistics 25(3):603-607) -- the signature of a
   timeout-driven flake is a positive correlation (failures ran longer).
+  Retry-bearing records are excluded: Surefire's `time` describes a single
+  attempt, not the retry cost. Missing/invalid durations stay unknown; trend is
+  per usable duration observation, which may skip runs.
 - **Runner/OS correlation**: per-category Wilson intervals rather than a
   chi-square p-value. With the handful of runners and modest per-category
   sample sizes typical of a CI matrix, a hypothesis test would overstate
   precision; a report should show the spread and let a non-overlapping
   interval speak for itself.
-- **Classification** (`src/flakemap/stats/analyze.py::_classify`): fewer than
+- **Classification**: an explicit recovered retry is labeled `flaky`, even from
+  one run. Otherwise (`src/flakemap/stats/analyze.py::_classify`), fewer than
   5 observations -> `insufficient_data`. Zero failures and zero flips ->
   `healthy`. Flip rate > 8% or any rerun disagreement -> `flaky`. A change
   point with a post-change failure rate >= 75%, or an overall failure rate >=
   60% -> `broken`. Any remaining failures -> `flaky`. These thresholds are
   documented, not tuned against a labeled corpus beyond the synthetic one
   below -- treat them as a reasonable default, not a calibrated model.
+  Excluded outcomes prevent a `healthy` label and suppress change-point inference
+  for that test. The confidence interval measures final-failure frequency, not
+  confidence in the classification or a claim about the cause.
 
 ## Honest real demo data
 
@@ -169,14 +221,22 @@ Reproduce this table: `uv run flakemap examples/demo_project/runs --json`.
 - **Change-point false positives on IID-flaky tests.** As noted above, the
   detector isn't multiple-comparisons-corrected; on a long history of a
   constant-but-nonzero failure rate it can report a change point that isn't
-  real. It doesn't affect the `broken`/`flaky` classification (which needs a
-  high post-change rate to call something broken), only the "since" run shown
-  for flaky tests -- read that as informational, not causal.
-- **go-junit-report and Surefire fixtures are hand-authored**, not generated
-  by running Go/Maven/Gradle locally (unavailable in the build environment).
-  They match the documented output shape; see
+  real. It can affect the `broken` classification if the other thresholds are
+  also met. Both the "since" run and the classification are triage hints, not
+  causal or statistically calibrated conclusions.
+- **Format coverage is explicit.** The original basic Go/Surefire fixtures were
+  hand-authored. Retry support now also has real Surefire output; Gradle's merged
+  retry convention is checked against documentation, not a local Gradle run. See
   [`docs/formats.md`](docs/formats.md) for exactly what was and wasn't
   verified against real tool output.
+- **Unmerged retries are ambiguous.** Repeated `<testcase>` identifiers can also
+  mean parameter collisions or copied artifacts. Flakemap excludes them instead
+  of assuming order or counting them as independent runs. For Gradle, enable
+  `mergeReruns`; for CI job reruns or matrix variants, supply distinct `run_id`s.
+- **Reports can omit retry history.** A clean-looking record proves only that
+  no supported retry markers were present. No attempt times or causal diagnosis
+  are reconstructed. Failure messages are limited to their first 500-character
+  line; source pointers refer to testcase ordinals, not line numbers.
 - **.NET (trx) is not supported.** It's a different XML schema, not a JUnit
   dialect; feeding it to flakemap yields a parse warning and no testcases,
   not a crash, but there's no MSTest support here.
@@ -221,9 +281,17 @@ jobs:
         with: { python-version: "3.12" }
       # download-artifact (or your artifact store) into ci-runs/<run_id>/report.xml
       # each with a meta.json sidecar -- see docs/formats.md's convention.
-      - run: uv run --with flakemap flakemap ci-runs/ --markdown >> "$GITHUB_STEP_SUMMARY"
-      - run: uv run --with flakemap flakemap ci-runs/ --fail-on-new-flake
+      - run: uv run --with 'git+https://github.com/antonsoo/flakemap' flakemap ci-runs/ --markdown >> "$GITHUB_STEP_SUMMARY"
+      - run: uv run --with 'git+https://github.com/antonsoo/flakemap' flakemap ci-runs/ --fail-on-new-flake --fail-on-incomplete
 ```
+
+Use `--fail-on-retry` on a current-run artifact to gate on observed retry recovery.
+Exit codes: **0** report completed with no requested gate hit; **1** a requested
+flake/retry gate hit; **2** an input/output error, no usable outcomes, or an
+incomplete report with `--fail-on-incomplete`. Code 2 takes precedence. Diagnostics
+go to stderr, so `--json --html report.html --fail-on-retry` still emits one valid
+JSON document on stdout. [JSON schema version 2](docs/formats.md#json-output-version-2)
+includes retry and excluded-record evidence.
 
 ## Contributing
 

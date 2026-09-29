@@ -20,6 +20,22 @@ $ uv run mypy                 # typecheck (strict)
 All four must pass before a PR is merged. There is no separate style guide:
 `ruff format` is authoritative.
 
+For report changes, generate both fixtures and check keyboard operation, narrow
+layouts, light/dark themes and offline loading with Chromium:
+
+```bash
+uv run flakemap examples/retry_history --html /tmp/flakemap-retry.html
+uv run flakemap examples/demo_project/runs --html /tmp/flakemap-history.html
+node scripts/check_report.mjs /tmp/flakemap-retry.html /tmp/flakemap-history.html
+```
+
+The optional browser script needs an existing Playwright installation and its
+Chromium browser. It can resolve a shared installation through `NODE_PATH`.
+It makes no external requests. Inspect a screenshot as well as the assertions.
+The Java fixture is regenerated separately as described in
+[`examples/retry_project/README.md`](examples/retry_project/README.md); ordinary
+tests read the committed XML and do not need Java or Maven.
+
 ## Adding a JUnit dialect
 
 If you hit a report `flakemap` mis-parses, please attach a redacted sample

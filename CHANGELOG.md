@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## Unreleased
+
+- Preserve Surefire/Gradle merged retry evidence: distinguish recovered and
+  exhausted retries, expose failed records and source testcase positions, and
+  count each test/run once. Add `--fail-on-retry` for explicit recovery gating.
+- Exclude duplicate identifiers, contradictory outcomes, and runs with conflicting
+  shard metadata. Statistics and HTML now use the same observations.
+- Honor sequence-only metadata over mtimes and inherit metadata through nested
+  shard directories. Scope same-commit rerun comparison by branch/runner/OS.
+- Add `--fail-on-incomplete`; carry warnings through every output format. Keep
+  JSON stdout valid alongside HTML output and failing CI gates. Return exit 2
+  when there are no usable observations.
+- JSON schema version 2 adds retry/exclusion evidence and nullable failure rates
+  for empty samples; rerun group keys replace the old commit-count keys.
+- Add an actual Surefire retry fixture, its Java source and reproduction script,
+  parser/history/output regressions, and report evidence views.
+
 ## [0.1.0] - 2026-09-24
 
 Initial release.

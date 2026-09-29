@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
+from typing import Literal
 
 
 class Status(str, Enum):
@@ -17,20 +18,45 @@ class Status(str, Enum):
 
     Dialects disagree on vocabulary (pytest uses ``<failure>``/``<error>``, Jest's
     junit reporter never emits ``<error>``, Go's runner reports panics as failures,
-    ...). flakemap collapses them to four outcomes because that is what every
-    downstream statistic needs to distinguish: did the test run, and if so, did the
-    code under test behave.
+    ...). Unknown is reserved for ambiguous or contradictory evidence and is
+    excluded from statistics.
     """
 
     PASS = "pass"
     FAIL = "fail"
     ERROR = "error"
     SKIP = "skip"
+    UNKNOWN = "unknown"
 
     @property
     def is_failure(self) -> bool:
         """Errors count as failures for flakiness purposes: both mean "not green"."""
         return self in (Status.FAIL, Status.ERROR)
+
+
+@dataclass(frozen=True, slots=True)
+class SourceLocation:
+    report: str
+    testcase: int
+    """One-based testcase ordinal in this report (not a source line number)."""
+
+
+@dataclass(frozen=True, slots=True)
+class AttemptFailure:
+    tag: str
+    status: Status
+    message: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class RetryEvidence:
+    outcome: Literal["recovered", "exhausted"]
+    failures: tuple[AttemptFailure, ...]
+    """Explicit failing records in XML order; no inferred timestamps or durations."""
+
+    @property
+    def attempts(self) -> int:
+        return len(self.failures) + (self.outcome == "recovered")
 
 
 @dataclass(frozen=True, slots=True)
@@ -43,6 +69,10 @@ class TestCaseResult:
     duration: float | None = None
     message: str | None = None
     """First line of the failure/error message, if any. Used for clustering."""
+    retry: RetryEvidence | None = None
+    source: SourceLocation | None = None
+    issue: str | None = None
+    """Why the outcome is unknown, if the report is contradictory or ambiguous."""
 
     @property
     def full_name(self) -> str:
@@ -89,13 +119,14 @@ class RunMetadata:
 
 @dataclass(slots=True)
 class Run:
-    """One JUnit XML file's worth of testcases, plus the metadata describing it."""
+    """A logical run, potentially assembled from several report files."""
 
     metadata: RunMetadata
     testcases: list[TestCaseResult]
     path: Path
     warnings: list[str] = field(default_factory=list)
     """Non-fatal parse issues (unknown dialect quirks, malformed subtrees skipped)."""
+    integrity_issue: str | None = None
 
 
 def run_sort_key(run: Run) -> tuple[int, float, int, str]:

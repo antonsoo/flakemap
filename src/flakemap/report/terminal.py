@@ -39,45 +39,60 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
         f"|  [bold red]{broken} broken[/bold red]  [bold yellow]{flaky} flaky[/bold yellow]  "
         f"[green]{healthy} healthy[/green]  [dim]{insufficient} insufficient data[/dim]"
     )
-    if result.mtime_fallback_warning:
-        console.print(f"[yellow]warning:[/yellow] {result.mtime_fallback_warning}")
+    recovered = sum(t.recovered_runs for t in result.tests)
+    excluded = sum(t.n_unknown for t in result.tests)
+    console.print(
+        f"{recovered} test-runs passed on retry; {excluded} ambiguous test-runs excluded."
+    )
+    for warning in result.warnings[:5]:
+        console.print(Text(f"warning: {warning}", style="yellow"))
+    if len(result.warnings) > 5:
+        console.print(
+            f"[yellow]{len(result.warnings) - 5} more warnings; see JSON or HTML.[/yellow]"
+        )
     console.print()
 
     ranked = [t for t in result.tests if t.classification in ("flaky", "broken")][:top_n]
     if not ranked:
-        console.print("[green]No flaky or broken tests in this window.[/green]")
+        console.print("No flaky or broken tests detected in the usable observations.")
         return
 
     prefix = common_prefix([t.full_name for t in result.tests])
     title = f"Top {len(ranked)} by flakiness score"
     table = Table(
         title=title,
-        caption=f"tests under {prefix.rstrip('.')}" if prefix else None,
+        caption=Text(f"tests under {prefix.rstrip('.')}") if prefix else None,
         show_lines=False,
     )
     table.add_column("Test", overflow="fold", min_width=16, max_width=48, ratio=3)
     table.add_column("Status")
     table.add_column("Score", justify="right")
-    table.add_column("Fail rate (95% CI)", justify="right")
-    table.add_column("Flip rate", justify="right")
-    table.add_column("Reruns", justify="right")
+    table.add_column("Final fail (95% CI)", justify="right")
+    wide = console.width >= 110
+    if wide:
+        table.add_column("Flip rate", justify="right")
+    table.add_column("Recovered", justify="right")
     table.add_column("Runs", justify="right")
-    table.add_column("Since")
+    if wide:
+        table.add_column("Since")
 
     for t in ranked:
         ci = f"{t.failure_rate.point:.0%} ({t.failure_rate.low:.0%}–{t.failure_rate.high:.0%})"
-        reruns = (
-            f"{t.rerun_commits_flaky}/{t.rerun_commits_total}" if t.rerun_commits_total else "-"
-        )
         since = t.change_point_run_id or "-"
-        table.add_row(
-            short_name(t.full_name, prefix),
+        cells: list[str | Text] = [
+            Text(short_name(t.full_name, prefix)),
             _classification_cell(t),
             f"{t.flakiness_score:.2f}",
             ci,
-            f"{t.flip_rate:.0%}",
-            reruns,
-            str(t.n),
-            since,
-        )
+        ]
+        if wide:
+            cells.append(f"{t.flip_rate:.0%}" if t.flip_pairs else "-")
+        cells.extend([str(t.recovered_runs), str(t.n)])
+        if wide:
+            cells.append(Text(since))
+        table.add_row(*cells)
     console.print(table)
+    if recovered:
+        console.print(
+            "[dim]Recovered = passed after explicit failed attempts. Final failure rate counts each run once. Use --html or --json for retry evidence.[/dim]"
+        )

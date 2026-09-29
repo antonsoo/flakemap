@@ -13,7 +13,8 @@ from collections import Counter, defaultdict
 from dataclasses import dataclass
 from datetime import datetime
 
-from flakemap.models import Run, Status, TestCaseResult
+from flakemap.models import Run, Status, run_sort_key
+from flakemap.observations import Observation, history_observations
 from flakemap.stats.changepoint import ChangePoint, detect_change_point
 from flakemap.stats.correlation import GroupRate, group_failure_rates, linear_trend, point_biserial
 from flakemap.stats.wilson import Interval, wilson_interval
@@ -30,12 +31,6 @@ W_RERUN = 0.4
 W_INTERMITTENCY = 0.2
 
 _MSG_NORMALIZE_RE = re.compile(r"\d+")
-
-
-@dataclass(frozen=True, slots=True)
-class Observation:
-    run: Run
-    result: TestCaseResult
 
 
 @dataclass(frozen=True, slots=True)
@@ -74,6 +69,12 @@ class TestStats:
     runs_since_change: int | None
     """Length of the after-change-point segment, i.e. how many of the most
     recent runs reflect the new regime. `None` if no change point was found."""
+    n_unknown: int
+    flip_pairs: int
+    recovered_runs: int
+    exhausted_runs: int
+    retry_observations: list[Observation]
+    excluded_observations: list[Observation]
 
 
 @dataclass(slots=True)
@@ -83,6 +84,7 @@ class AnalysisResult:
     run_id_range: tuple[str, str] | None
     timestamp_range: tuple[datetime, datetime] | None
     mtime_fallback_warning: str | None
+    warnings: list[str]
 
 
 def _classify(
@@ -108,11 +110,12 @@ def _classify(
 
 
 def _cluster_messages(observations: list[Observation], top_n: int = 5) -> list[MessageCluster]:
-    messages = [
-        obs.result.message
-        for obs in observations
-        if obs.result.status.is_failure and obs.result.message
-    ]
+    messages: list[str] = []
+    for obs in observations:
+        if obs.result.retry:
+            messages.extend(f.message for f in obs.result.retry.failures if f.message)
+        elif obs.result.status.is_failure and obs.result.message:
+            messages.append(obs.result.message)
     by_key: dict[str, Counter[str]] = defaultdict(Counter)
     for msg in messages:
         key = _MSG_NORMALIZE_RE.sub("#", msg)
@@ -129,21 +132,34 @@ def _cluster_messages(observations: list[Observation], top_n: int = 5) -> list[M
 
 def _test_stats(full_name: str, observations: list[Observation]) -> TestStats:
     suite = observations[0].result.suite
-    non_skip = [o for o in observations if o.result.status != Status.SKIP]
+    non_skip = [o for o in observations if o.result.status not in (Status.SKIP, Status.UNKNOWN)]
     n = len(non_skip)
-    n_skip = len(observations) - n
+    n_skip = sum(o.result.status == Status.SKIP for o in observations)
+    excluded = [o for o in observations if o.result.status == Status.UNKNOWN]
+    retries = [o for o in non_skip if o.result.retry]
+    recovered = sum(
+        o.result.retry is not None and o.result.retry.outcome == "recovered" for o in retries
+    )
+    exhausted = len(retries) - recovered
     outcomes = [1 if o.result.status.is_failure else 0 for o in non_skip]
     n_fail = sum(outcomes)
     n_pass = n - n_fail
     failure_rate = wilson_interval(n_fail, n)
 
-    flips = sum(1 for a, b in zip(outcomes, outcomes[1:], strict=False) if a != b)
-    flip_rate = flips / (n - 1) if n > 1 else 0.0
+    # Skips keep the existing "consecutive observed outcomes" convention, but
+    # an excluded outcome interrupts that sequence: do not bridge ambiguity.
+    sequence = [o.result.status for o in observations if o.result.status != Status.SKIP]
+    pairs = [
+        (a, b) for a, b in zip(sequence, sequence[1:], strict=False) if Status.UNKNOWN not in (a, b)
+    ]
+    flips = sum(a.is_failure != b.is_failure for a, b in pairs)
+    flip_rate = flips / len(pairs) if pairs else 0.0
 
-    by_commit: dict[str, list[int]] = defaultdict(list)
+    by_commit: dict[tuple[str, str | None, str | None, str | None], list[int]] = defaultdict(list)
     for obs, outcome in zip(non_skip, outcomes, strict=True):
-        if obs.run.metadata.commit:
-            by_commit[obs.run.metadata.commit].append(outcome)
+        md = obs.run.metadata
+        if md.commit:
+            by_commit[(md.commit, md.branch, md.runner, md.os)].append(outcome)
     reruns = {commit: outs for commit, outs in by_commit.items() if len(outs) > 1}
     rerun_commits_total = len(reruns)
     rerun_commits_flaky = sum(1 for outs in reruns.values() if len(set(outs)) > 1)
@@ -153,10 +169,13 @@ def _test_stats(full_name: str, observations: list[Observation]) -> TestStats:
     intermittency = 2 * min(p, 1 - p)
     confidence = min(1.0, n / 20)
     flakiness_score = confidence * (
-        W_FLIP * flip_rate + W_RERUN * rerun_signal + W_INTERMITTENCY * intermittency
+        W_FLIP * flip_rate
+        + W_RERUN * max(rerun_signal, recovered / n if n else 0.0)
+        + W_INTERMITTENCY * intermittency
     )
 
-    change_point = detect_change_point(outcomes)
+    # Incomplete histories cannot locate an onset without guessing across gaps.
+    change_point = detect_change_point(outcomes) if not excluded else None
     change_point_run_id = None
     change_point_commit = None
     runs_since_change = None
@@ -166,13 +185,22 @@ def _test_stats(full_name: str, observations: list[Observation]) -> TestStats:
         runs_since_change = n - change_point.index
 
     classification = _classify(n, p, flip_rate, rerun_signal, change_point)
+    if recovered:
+        classification = "flaky"  # direct runner evidence, even from one run
+    elif excluded and classification == "healthy":
+        classification = "insufficient_data"
 
-    durations = [o.result.duration for o in non_skip if o.result.duration is not None]
-    duration_outcomes = [
-        outcome
+    # Surefire's time describes the last passing or first failing attempt, not
+    # retry cost. Mixing it into ordinary-run duration signals would mislead.
+    duration_observations = [
+        (o, outcome)
         for o, outcome in zip(non_skip, outcomes, strict=True)
-        if o.result.duration is not None
+        if o.result.duration is not None and o.result.retry is None
     ]
+    durations = [
+        o.result.duration for o, _ in duration_observations if o.result.duration is not None
+    ]
+    duration_outcomes = [outcome for o, outcome in duration_observations]
     duration_trend = linear_trend(durations) if len(durations) >= 2 else None
     duration_failure_correlation = (
         point_biserial(durations, duration_outcomes) if len(durations) >= 2 else None
@@ -222,6 +250,12 @@ def _test_stats(full_name: str, observations: list[Observation]) -> TestStats:
         last_seen=max(timestamps) if timestamps else None,
         last_status=observations[-1].result.status,
         runs_since_change=runs_since_change,
+        n_unknown=len(excluded),
+        flip_pairs=len(pairs),
+        recovered_runs=recovered,
+        exhausted_runs=exhausted,
+        retry_observations=retries,
+        excluded_observations=excluded,
     )
 
 
@@ -232,9 +266,8 @@ def analyze(runs: list[Run]) -> AnalysisResult:
     which guarantees this).
     """
     by_test: dict[str, list[Observation]] = defaultdict(list)
-    for run in runs:
-        for result in run.testcases:
-            by_test[result.full_name].append(Observation(run=run, result=result))
+    for observation in history_observations(runs):
+        by_test[observation.result.full_name].append(observation)
 
     tests = [_test_stats(name, obs) for name, obs in by_test.items()]
     tests.sort(key=lambda t: t.flakiness_score, reverse=True)
@@ -253,10 +286,34 @@ def analyze(runs: list[Run]) -> AnalysisResult:
             "(e.g. after a fresh checkout)."
         )
 
+    warnings = [f"run {r.metadata.run_id}: {w}" for r in runs for w in r.warnings]
+    warnings.extend(
+        f"run {o.run.metadata.run_id}, {t.full_name}: {o.result.issue}; excluded from rates"
+        for t in tests
+        for o in t.excluded_observations
+    )
+    if mtime_warning:
+        warnings.append(mtime_warning)
+    ordering_tiers = {
+        0 if r.metadata.timestamp else 1 if r.metadata.sequence is not None else 2 for r in runs
+    }
+    if len(ordering_tiers) > 1:
+        warnings.append(
+            "Mixed ordering sources: timestamped runs sort before sequence-only runs. "
+            "Supply a timestamp for every run or a sequence for every run to compare chronology."
+        )
+    order_keys = [run_sort_key(r)[:3] for r in runs]
+    if len(set(order_keys)) != len(order_keys):
+        warnings.append(
+            "Some runs have tied ordering values; run ids break ties lexically. "
+            "Provide distinct timestamps or sequences before interpreting temporal statistics."
+        )
+
     return AnalysisResult(
         tests=tests,
         total_runs=len(runs),
         run_id_range=run_id_range,
         timestamp_range=timestamp_range,
         mtime_fallback_warning=mtime_warning,
+        warnings=warnings,
     )

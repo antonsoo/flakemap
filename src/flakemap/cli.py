@@ -41,6 +41,16 @@ def build_parser() -> argparse.ArgumentParser:
         "--html", type=Path, metavar="PATH", help="write a self-contained HTML report"
     )
     parser.add_argument(
+        "--fail-on-retry",
+        action="store_true",
+        help="exit 1 if any test passed after explicit failed attempts in the supplied history",
+    )
+    parser.add_argument(
+        "--fail-on-incomplete",
+        action="store_true",
+        help="exit 2 if input/ordering warnings or ambiguous outcomes make this report incomplete",
+    )
+    parser.add_argument(
         "--top", type=int, default=20, help="max rows in the terminal table (default: 20)"
     )
     parser.add_argument(
@@ -65,39 +75,49 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
     console = Console()
+    errors = Console(stderr=True)
+    if args.top < 1 or args.new_flake_window < 1:
+        parser.error("--top and --new-flake-window must be positive")
 
     if not args.reports_dir.is_dir():
-        console.print(f"[red]error:[/red] {args.reports_dir} is not a directory")
+        errors.print(f"error: {args.reports_dir} is not a directory", style="red", markup=False)
         return 2
 
     runs = load_runs(args.reports_dir, pattern=args.pattern)
     if not runs:
-        console.print(
-            f"[red]error:[/red] no report files matching '{args.pattern}' found under "
-            f"{args.reports_dir}"
+        errors.print(
+            f"error: no report files matching '{args.pattern}' found under {args.reports_dir}",
+            style="red",
+            markup=False,
         )
         return 2
-
-    parse_issues = [(r.metadata.run_id, w) for r in runs for w in r.warnings]
-    if parse_issues and not args.json:
-        shown = parse_issues[:5]
-        for run_id, warning in shown:
-            console.print(f"[yellow]warning:[/yellow] run '{run_id}': {warning}")
-        if len(parse_issues) > len(shown):
-            console.print(f"[yellow]warning:[/yellow] ({len(parse_issues) - len(shown)} more)")
 
     result = analyze(runs)
 
     if args.json:
-        print(json.dumps(to_json_dict(result), indent=2))
+        print(json.dumps(to_json_dict(result), indent=2, allow_nan=False))
     elif args.markdown:
         print(render_markdown(result), end="")
     else:
         render_terminal(result, console, top_n=args.top)
 
     if args.html:
-        args.html.write_text(render_html(result, runs), encoding="utf-8")
-        console.print(f"[dim]HTML report written to {args.html}[/dim]")
+        try:
+            args.html.write_text(render_html(result, runs), encoding="utf-8")
+        except OSError as exc:
+            errors.print(f"error writing HTML report: {exc}", style="red", markup=False)
+            return 2
+        errors.print(f"HTML report written to {args.html}", style="dim", markup=False)
+
+    if not any(t.n for t in result.tests):
+        errors.print("error: no usable pass/fail/error observations", style="red")
+        return 2
+    if args.fail_on_incomplete and result.warnings:
+        errors.print("error: incomplete report; inspect the reported warnings", style="red")
+        return 2
+    if args.fail_on_retry and any(t.recovered_runs for t in result.tests):
+        errors.print("passed-on-retry tests detected in the supplied history", style="red")
+        return 1
 
     if args.fail_on_new_flake:
         new_flakes = [
@@ -110,7 +130,7 @@ def main(argv: list[str] | None = None) -> int:
         if new_flakes:
             names = ", ".join(t.full_name for t in new_flakes[:5])
             more = f" (+{len(new_flakes) - 5} more)" if len(new_flakes) > 5 else ""
-            console.print(f"[bold red]new flake(s) detected:[/bold red] {names}{more}")
+            errors.print(f"new flake(s) detected: {names}{more}", style="bold red", markup=False)
             return 1
 
     return 0

@@ -12,10 +12,10 @@ format Ant/Surefire popularized decades ago. The differences that matter here:
   (go-junit-report / gotestsum) put the Go package path there and may have no
   classname at all for package-level failures (build errors). flakemap does not
   assume a Java-style class exists, only that it's a grouping string.
-- **status**: a testcase with no ``<failure>``/``<error>``/``<skipped>`` child is a
-  pass. A ``<skipped>`` child wins even if the runner (incorrectly) also emits a
-  duration. flakemap treats FAIL and ERROR as "not green" everywhere except the
-  raw per-test report, where the distinction is kept.
+- **status**: a testcase without terminal outcome markers is a pass. Explicit
+  flakyFailure/flakyError markers preserve failed attempts before that pass;
+  rerunFailure/rerunError preserve exhausted retries. Contradictory markers are
+  unknown. FAIL and ERROR both count toward final-failure frequency.
 - **partial files**: a CI job killed mid-run can leave a JUnit file with an
   unclosed root tag. ``parse_junit_file`` falls back to salvaging every
   well-formed ``<testsuite>...</testsuite>`` or ``<testcase>...</testcase>``
@@ -27,11 +27,13 @@ Real-world samples used to validate each dialect are cited in ``docs/formats.md`
 
 from __future__ import annotations
 
+import math
 import re
+from dataclasses import replace
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from flakemap.models import Status, TestCaseResult
+from flakemap.models import AttemptFailure, RetryEvidence, SourceLocation, Status, TestCaseResult
 
 _MAX_MESSAGE_LEN = 500
 
@@ -61,10 +63,14 @@ def _parse_duration(raw: str | None) -> float | None:
         value = float(raw)
     except ValueError:
         return None
-    return value if value >= 0 else None
+    # Squared differences feed duration correlations; keep arithmetic finite
+    # even for corrupt, astronomically large (but representable) input numbers.
+    return value if math.isfinite(value) and 0 <= value <= 1e100 else None
 
 
-def _testcase_from_element(el: ET.Element, default_classname: str) -> TestCaseResult:
+def _testcase_from_element(
+    el: ET.Element, default_classname: str, warnings: list[str]
+) -> TestCaseResult:
     name = el.get("name") or "(unnamed)"
     classname = el.get("classname") or el.get("class") or default_classname
 
@@ -85,28 +91,77 @@ def _testcase_from_element(el: ET.Element, default_classname: str) -> TestCaseRe
     else:
         status = Status.PASS
 
+    flaky = [child for child in el if child.tag in ("flakyFailure", "flakyError")]
+    reruns = [child for child in el if child.tag in ("rerunFailure", "rerunError")]
+    terminal = [child for child in el if child.tag in ("failure", "error", "skipped")]
+    retry = None
+    issue = None
+    if (
+        (skipped is not None and (failure is not None or error is not None))
+        or (flaky and (terminal or reruns))
+        or (reruns and (len(terminal) != 1 or skipped is not None))
+    ):
+        status = Status.UNKNOWN
+        issue = "contradictory or incomplete outcome/retry markers"
+    elif flaky or reruns:
+        failed = (
+            flaky
+            if flaky
+            else [
+                child
+                for child in el
+                if child.tag in ("failure", "error", "rerunFailure", "rerunError")
+            ]
+        )
+        retry = RetryEvidence(
+            outcome="recovered" if flaky else "exhausted",
+            failures=tuple(
+                AttemptFailure(
+                    tag=child.tag,
+                    status=Status.ERROR if child.tag.lower().endswith("error") else Status.FAIL,
+                    message=_first_line(child.get("message"))
+                    or _first_line(child.findtext("stackTrace"))
+                    or _first_line(child.text),
+                )
+                for child in failed
+            ),
+        )
+
     duration = _parse_duration(el.get("time"))
+    if el.get("time") is not None and duration is None:
+        warnings.append(f"{classname}.{name}: invalid duration; retained as unknown")
     return TestCaseResult(
-        name=name, classname=classname, status=status, duration=duration, message=message
+        name=name,
+        classname=classname,
+        status=status,
+        duration=duration,
+        message=message,
+        retry=retry,
+        issue=issue,
     )
 
 
-def _testcases_from_suite(suite_el: ET.Element) -> list[TestCaseResult]:
-    suite_name = suite_el.get("name") or ""
+def _testcases_from_suite(suite_el: ET.Element, warnings: list[str]) -> list[TestCaseResult]:
     cases = []
-    for case_el in suite_el.findall("testcase"):
-        try:
-            cases.append(_testcase_from_element(case_el, default_classname=suite_name))
-        except Exception:  # noqa: BLE001 - one bad <testcase> must not sink the file
-            continue
+    pending = [(suite_el, "")]
+    while pending:
+        element, suite_name = pending.pop()
+        if element.tag == "testcase":
+            cases.append(
+                _testcase_from_element(element, default_classname=suite_name, warnings=warnings)
+            )
+        else:
+            suite_name = element.get("name") or suite_name
+            pending.extend(
+                (child, suite_name)
+                for child in reversed(element)
+                if child.tag in ("testcase", "testsuite", "testsuites")
+            )
     return cases
 
 
 def _suites_from_root(root: ET.Element) -> list[ET.Element]:
-    if root.tag == "testsuites":
-        suites = root.findall("testsuite")
-        return suites if suites else [root]
-    if root.tag == "testsuite":
+    if root.tag in ("testsuite", "testsuites"):
         return [root]
     # Some tools (older gotestsum configs) emit a bare list of <testcase> with no
     # <testsuite> wrapper at all.
@@ -127,7 +182,7 @@ def _salvage(raw: str) -> tuple[list[TestCaseResult], list[str]]:
             el = ET.fromstring(frag)
         except ET.ParseError:
             continue
-        cases.extend(_testcases_from_suite(el))
+        cases.extend(_testcases_from_suite(el, warnings))
         consumed.add(frag)
     if suite_fragments:
         warnings.append(
@@ -143,11 +198,8 @@ def _salvage(raw: str) -> tuple[list[TestCaseResult], list[str]]:
             el = ET.fromstring(frag)
         except ET.ParseError:
             continue
-        try:
-            cases.append(_testcase_from_element(el, default_classname=""))
-            ok += 1
-        except Exception:  # noqa: BLE001
-            continue
+        cases.append(_testcase_from_element(el, default_classname="", warnings=warnings))
+        ok += 1
     if case_fragments:
         warnings.append(
             f"file was not well-formed XML; salvaged {ok}/{len(case_fragments)} "
@@ -158,36 +210,55 @@ def _salvage(raw: str) -> tuple[list[TestCaseResult], list[str]]:
     return cases, warnings
 
 
-def parse_junit_file(path: Path) -> tuple[list[TestCaseResult], list[str]]:
+def parse_junit_file(
+    path: Path, *, source: str | None = None
+) -> tuple[list[TestCaseResult], list[str]]:
     """Parse one JUnit XML report file.
 
     Returns ``(testcases, warnings)``. Never raises on a malformed or empty file;
     an unparseable file yields ``([], [warning])`` instead so a whole batch job
     doesn't abort on one bad report.
     """
+    warnings: list[str] = []
     try:
-        raw = path.read_text(encoding="utf-8", errors="replace")
+        raw_bytes = path.read_bytes()
     except OSError as exc:
         return [], [f"could not read file: {exc}"]
+    try:
+        raw = raw_bytes.decode("utf-8-sig")
+    except UnicodeDecodeError:
+        raw = raw_bytes.decode("utf-8-sig", errors="replace")
+        warnings.append(
+            "invalid UTF-8 bytes were replaced; verify test identifiers before using this report"
+        )
 
     if not raw.strip():
         return [], ["file is empty"]
 
+    if re.search(r"<!\s*(?:DOCTYPE|ENTITY)\b", raw, re.IGNORECASE):
+        return [], ["DTD and entity declarations are not supported"]
+    cases: list[TestCaseResult] = []
     try:
         root = ET.fromstring(raw)
     except ET.ParseError:
-        return _salvage(raw)
+        cases, recovery_warnings = _salvage(raw)
+        warnings.extend(recovery_warnings)
+    else:
+        suites = _suites_from_root(root)
+        if not suites:
+            return [], ["no <testsuite> or <testcase> elements found"]
+        for suite_el in suites:
+            cases.extend(_testcases_from_suite(suite_el, warnings))
 
-    warnings: list[str] = []
-    suites = _suites_from_root(root)
-    if not suites:
-        return [], ["no <testsuite> or <testcase> elements found"]
+    cases = [
+        replace(case, source=SourceLocation(source or path.name, i))
+        for i, case in enumerate(cases, 1)
+    ]
+    for case in cases:
+        if case.issue:
+            warnings.append(f"{case.full_name}: {case.issue}; excluded from rates")
 
-    cases: list[TestCaseResult] = []
-    for suite_el in suites:
-        cases.extend(_testcases_from_suite(suite_el))
-
-    if not cases:
+    if not cases and not warnings:
         warnings.append("parsed successfully but contained zero <testcase> elements")
 
     return cases, warnings

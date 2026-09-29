@@ -5,15 +5,15 @@ context lives in the CI system, not the file. flakemap supports three ways to ge
 it back, tried in this order for each report file:
 
 1. **Sidecar JSON.** A file named ``<report-stem>.meta.json`` next to the report,
-   or a single ``meta.json`` shared by every report in that directory (checked in
+   or the nearest ancestor ``meta.json`` within the scan root (checked in
    that order — the more specific file wins). Recognized keys, all optional:
    ``run_id``, ``commit``, ``branch``, ``timestamp`` (ISO 8601), ``runner``, ``os``,
    ``sequence`` (an integer used to order runs when there is no timestamp). Unknown
    keys are kept under ``extra`` and shown in reports but not used statistically.
-2. **Directory-per-run layout.** ``<root>/<run_id>/*.xml`` — the immediate parent
-   directory's name becomes ``run_id`` even with no sidecar present. This is the
+2. **Directory-per-run layout.** ``<root>/<run_id>/*.xml`` — the first directory
+   beneath the scan root becomes ``run_id`` even with no sidecar present. This is the
    natural shape of "download each CI run's artifact into its own folder".
-3. **File mtime fallback.** If nothing above supplies a timestamp, the report
+3. **File mtime fallback.** If nothing supplies a timestamp or sequence, the report
    file's modification time is used, and the run is marked so reports can flag
    that its ordering is only as reliable as the filesystem's mtimes (e.g. after a
    `git clone`, mtimes may all collapse to checkout time — flakemap warns about
@@ -47,26 +47,30 @@ def _parse_timestamp(raw: Any) -> datetime | None:
     return dt
 
 
-def _load_sidecar(path: Path) -> dict[str, Any] | None:
-    candidates = [
-        path.parent / f"{path.stem}.meta.json",
-        path.parent / "meta.json",
-    ]
+def _load_sidecar(path: Path, root: Path, warnings: list[str]) -> dict[str, Any] | None:
+    candidates = [path.with_suffix(".meta.json")]
+    for parent in path.parents:
+        candidates.append(parent / "meta.json")
+        if parent == root or not parent.is_relative_to(root):
+            break
     for candidate in candidates:
         if candidate.is_file():
             try:
                 data = json.loads(candidate.read_text(encoding="utf-8"))
-            except (OSError, json.JSONDecodeError):
-                continue
+            except (OSError, ValueError) as exc:
+                warnings.append(f"invalid metadata sidecar {candidate.name}: {exc}")
+                return None
             if isinstance(data, dict):
                 return data
+            warnings.append(f"metadata sidecar {candidate.name} must contain an object")
+            return None
     return None
 
 
 _KNOWN_KEYS = {"run_id", "commit", "branch", "timestamp", "runner", "os", "sequence"}
 
 
-def resolve_metadata(path: Path, root: Path) -> RunMetadata:
+def resolve_metadata(path: Path, root: Path, *, warnings: list[str] | None = None) -> RunMetadata:
     """Build a `RunMetadata` for a single report file found under `root`."""
     try:
         rel = path.relative_to(root)
@@ -76,20 +80,30 @@ def resolve_metadata(path: Path, root: Path) -> RunMetadata:
     # Directory-per-run layout: <root>/<run_id>/anything.xml
     dir_run_id = rel.parts[0] if len(rel.parts) > 1 else path.stem
 
-    sidecar = _load_sidecar(path)
+    warnings = warnings if warnings is not None else []
+    sidecar = _load_sidecar(path, root, warnings)
 
     if sidecar:
+        for key in ("run_id", "commit", "branch", "runner", "os"):
+            value = sidecar.get(key)
+            if value is not None and (not isinstance(value, str) or not value.strip()):
+                warnings.append(f"metadata {key} must be a nonempty string; ignored")
+                sidecar.pop(key)
         run_id = str(sidecar.get("run_id") or dir_run_id)
         commit = sidecar.get("commit")
         branch = sidecar.get("branch")
         runner = sidecar.get("runner")
         os_name = sidecar.get("os")
         sequence = sidecar.get("sequence")
-        sequence = int(sequence) if isinstance(sequence, (int, float)) else None
+        if sequence is not None and (type(sequence) is not int or sequence < 0):
+            warnings.append("metadata sequence must be a nonnegative integer; ignored")
+            sequence = None
         timestamp = _parse_timestamp(sidecar.get("timestamp"))
+        if sidecar.get("timestamp") is not None and timestamp is None:
+            warnings.append("metadata timestamp must be an ISO 8601 string; ignored")
         extra = {k: str(v) for k, v in sidecar.items() if k not in _KNOWN_KEYS}
         source = "sidecar" if timestamp is not None or sequence is not None else "path"
-        if timestamp is None:
+        if timestamp is None and sequence is None:
             mtime = path.stat().st_mtime if path.exists() else None
             timestamp = (
                 datetime.fromtimestamp(mtime, tz=timezone.utc) if mtime is not None else None

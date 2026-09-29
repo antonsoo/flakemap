@@ -14,3 +14,4 @@ node_modules/
 .DS_Store
 /scratch/
 /site/
+/examples/retry_project/target/

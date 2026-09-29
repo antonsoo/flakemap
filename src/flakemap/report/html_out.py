@@ -16,6 +16,7 @@ from collections import defaultdict
 from html import escape
 
 from flakemap.models import Run, Status, TestCaseResult
+from flakemap.observations import history_observations
 from flakemap.report.names import common_prefix, short_name
 from flakemap.stats.analyze import AnalysisResult, TestStats
 
@@ -24,21 +25,23 @@ _STATUS_CLASS = {
     Status.FAIL: "s-fail",
     Status.ERROR: "s-error",
     Status.SKIP: "s-skip",
+    Status.UNKNOWN: "s-unknown",
 }
 _STATUS_LABEL = {
     Status.PASS: "pass",
     Status.FAIL: "fail",
     Status.ERROR: "error",
     Status.SKIP: "skip",
+    Status.UNKNOWN: "unknown; excluded",
 }
 _STAMP = {"broken": "DEFECT", "flaky": "INTERMITTENT"}
 
 
 def _build_matrix(runs: list[Run]) -> dict[str, dict[str, TestCaseResult]]:
     matrix: dict[str, dict[str, TestCaseResult]] = defaultdict(dict)
-    for run in runs:
-        for tc in run.testcases:
-            matrix[tc.full_name][run.metadata.run_id] = tc
+    for observation in history_observations(runs):
+        tc = observation.result
+        matrix[tc.full_name][observation.run.metadata.run_id] = tc
     return matrix
 
 
@@ -50,12 +53,19 @@ def _cell(run: Run, tc: TestCaseResult | None) -> str:
         return f'<span class="cell s-missing" title="{escape(title)}"></span>'
     dur = f"{tc.duration:.2f}s" if tc.duration is not None else "n/a"
     label = _STATUS_LABEL[tc.status]
+    css = _STATUS_CLASS[tc.status]
+    if tc.retry:
+        label += f"; {tc.retry.outcome} after {len(tc.retry.failures)} recorded failure(s)"
+        if tc.retry.outcome == "recovered":
+            css = "s-recovered"
     title = f"{md.run_id} · {when} · {label} · {dur}"
     if md.commit:
         title += f" · {md.commit[:12]}"
     if tc.message:
         title += f" · {tc.message}"
-    return f'<span class="cell {_STATUS_CLASS[tc.status]}" title="{escape(title)}"></span>'
+    if tc.issue:
+        title += f" · {tc.issue}"
+    return f'<span class="cell {css}" role="img" aria-label="{escape(title)}" title="{escape(title)}"></span>'
 
 
 def _stat_row(label: str, value: str) -> str:
@@ -65,13 +75,25 @@ def _stat_row(label: str, value: str) -> str:
 def _test_detail(t: TestStats) -> str:
     parts = [
         _stat_row(
-            "Failure rate (95% Wilson CI)",
-            f"{t.failure_rate.point:.1%}  [{t.failure_rate.low:.1%}, {t.failure_rate.high:.1%}]",
+            "Final failure rate (95% CI)",
+            f"{t.failure_rate.point:.1%}  [{t.failure_rate.low:.1%}, {t.failure_rate.high:.1%}]"
+            if t.n
+            else "unknown: no usable outcomes",
         ),
-        _stat_row("Flip rate", f"{t.flip_rate:.1%} of consecutive run pairs"),
+        _stat_row("Usable outcomes", f"runs: {t.n}; skipped: {t.n_skip}; excluded: {t.n_unknown}"),
         _stat_row(
-            "Same-commit rerun disagreement",
-            f"{t.rerun_commits_flaky}/{t.rerun_commits_total} commits with reruns"
+            "Passed on retry", f"{t.recovered_runs} (explicit failed attempts before a pass)"
+        ),
+        _stat_row("Retry exhaustion", f"{t.exhausted_runs} (every recorded attempt failed)"),
+        _stat_row(
+            "Flip rate",
+            f"{t.flip_rate:.1%} of {t.flip_pairs} usable consecutive pairs"
+            if t.flip_pairs
+            else "unavailable: no usable consecutive pairs",
+        ),
+        _stat_row(
+            "Same-context rerun disagreement",
+            f"{t.rerun_commits_flaky}/{t.rerun_commits_total} commit/branch/runner/OS groups"
             if t.rerun_commits_total
             else "no commits with multiple runs observed",
         ),
@@ -82,12 +104,16 @@ def _test_detail(t: TestStats) -> str:
             _stat_row(
                 "Change point",
                 f"{t.change_point.rate_before:.0%} → {t.change_point.rate_after:.0%} "
-                f"failure rate at run {escape(t.change_point_run_id or '?')}"
+                f"failure rate at run {t.change_point_run_id or '?'}"
                 + (f" (commit {t.change_point_commit[:12]})" if t.change_point_commit else ""),
             )
         )
     if t.duration_trend is not None:
-        parts.append(_stat_row("Duration trend", f"{t.duration_trend * 1000:+.1f} ms/run"))
+        parts.append(
+            _stat_row(
+                "Duration trend (without retries)", f"{t.duration_trend * 1000:+.1f} ms/observation"
+            )
+        )
     if t.duration_failure_correlation is not None:
         parts.append(
             _stat_row("Duration × failure correlation", f"{t.duration_failure_correlation:+.2f}")
@@ -104,6 +130,44 @@ def _test_detail(t: TestStats) -> str:
         parts.append(
             f'<div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages">{msgs}</ul>'
         )
+    if t.retry_observations or t.excluded_observations:
+        parts.append(
+            '<h3>Recorded evidence</h3><p class="evidence-note">Sources identify a file and its '
+            "1-based testcase position. Failure records follow XML order. Attempt timing and "
+            "total retry cost are not inferred.</p>"
+        )
+    for obs in t.retry_observations + t.excluded_observations:
+        label = obs.result.retry.outcome if obs.result.retry else "excluded"
+        parts.append(
+            f'<article class="evidence"><h4><code>{escape(obs.run.metadata.run_id)}</code> '
+            f"&mdash; {label}</h4>"
+        )
+        if obs.result.issue:
+            parts.append(f"<p>{escape(obs.result.issue)}</p>")
+        for record in obs.records:
+            source = (
+                f"{record.source.report} :: testcase {record.source.testcase}"
+                if record.source
+                else "source location not supplied"
+            )
+            parts.append(
+                f'<p class="source"><code>{escape(source)}</code> '
+                f"&mdash; reported {record.status.value}</p>"
+            )
+            if record.retry:
+                parts.append(
+                    f"<p>{record.retry.attempts} recorded attempts; "
+                    f'{len(record.retry.failures)} failed.</p><ul class="messages">'
+                )
+                for failure in record.retry.failures:
+                    parts.append(
+                        f"<li><code>&lt;{escape(failure.tag)}&gt;</code> "
+                        f"{escape(failure.message or '(no message recorded)')}</li>"
+                    )
+                parts.append("</ul>")
+            elif record.message:
+                parts.append(f"<p>{escape(record.message)}</p>")
+        parts.append("</article>")
     return "".join(parts)
 
 
@@ -115,7 +179,7 @@ def _test_row(
     )
     stamp = _STAMP.get(t.classification)
     stamp_html = f'<span class="stamp stamp-{t.classification}">{stamp}</span>' if stamp else ""
-    ci = f"{t.failure_rate.point:.0%}"
+    ci = f"{t.failure_rate.point:.0%}" if t.n else "n/a"
     return f"""
 <details class="row row-{t.classification}">
   <summary>
@@ -125,7 +189,7 @@ def _test_row(
       {stamp_html}
     </span>
     <span class="row-heatmap" style="--runs:{len(runs)}">{cells}</span>
-    <span class="row-rate">{ci}</span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">{ci}</span>
   </summary>
   <div class="detail">{_test_detail(t)}</div>
 </details>"""
@@ -228,11 +292,19 @@ section.heatmap h2 {
 .s-pass { background: var(--pass); } .s-fail { background: var(--fail); }
 .s-error { background: var(--error); } .s-skip { background: var(--skip); }
 .s-missing { background: var(--missing); }
+.s-recovered { background: var(--flaky); box-shadow: inset 0 -3px var(--pass); }
+.s-unknown { background: repeating-linear-gradient(135deg, var(--ink-soft) 0 2px, var(--paper) 2px 4px); }
 .row-rate { flex: 0 0 3.2rem; text-align: right; color: var(--ink-soft); }
 .detail { padding: 0.7rem 1rem 1rem 2.4rem; background: var(--paper); font-size: 0.83rem; }
 .stat { display: flex; gap: 0.6rem; padding: 0.15rem 0; }
 .stat-label { flex: 0 0 15rem; color: var(--ink-soft); }
-.stat-value { font-family: var(--font-mono); }
+.stat-value { font-family: var(--font-mono); min-width: 0; }
+.detail, .warning, .meta-strip { overflow-wrap: anywhere; }
+.evidence { border-left: 3px solid var(--flaky); padding: 0.1rem 1rem; margin: 0.8rem 0; background: var(--paper-raised); }
+.evidence h4 { margin: 0.65rem 0; }
+.evidence p { margin: 0.5rem 0; }
+.evidence-note, .source { color: var(--ink-soft); }
+.warning summary { cursor: pointer; }
 .messages { margin: 0.2rem 0 0.6rem; padding-left: 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; }
 .prefix { margin: -0.4rem 0 0.8rem; font-size: 0.8rem; color: var(--ink-soft); }
 .legend { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.9rem 0.1rem 0; font-size: 0.78rem; color: var(--ink-soft); align-items: center; }
@@ -241,8 +313,12 @@ footer { padding: 2rem 1.5rem 0; font-size: 0.8rem; color: var(--ink-soft); }
 footer a { color: var(--accent); }
 @media (max-width: 900px) { .row-heatmap { column-gap: 0; } .cell { border-radius: 0; } }
 @media (max-width: 600px) {
-  .row-name { flex-basis: 120px; font-size: 0.7rem; }
-  .stat-label { flex-basis: 9rem; }
+  .row summary { flex-wrap: wrap; gap: 0.5rem; }
+  .row-name { flex: 1 1 70%; font-size: 0.7rem; }
+  .row-heatmap { order: 3; flex-basis: 100%; }
+  .stat { display: block; padding: 0.35rem 0; }
+  .stat-label, .stat-value { display: block; }
+  .detail { padding: 0.8rem; }
 }
 """
 
@@ -278,8 +354,14 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
         ts_range = f"<span><b>window</b> {a:%Y-%m-%d} → {b:%Y-%m-%d}</span>"
 
     warning_html = (
-        f'<div class="warning">{escape(result.mtime_fallback_warning)}</div>'
-        if result.mtime_fallback_warning
+        (
+            '<details class="warning"><summary>'
+            f"{len(result.warnings)} input / ordering warnings &mdash; inspect before using this report"
+            "</summary><ul>"
+            + "".join(f"<li>{escape(w)}</li>" for w in result.warnings)
+            + "</ul></details>"
+        )
+        if result.warnings
         else ""
     )
 
@@ -308,6 +390,8 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
   <div class="tally-item tally-flaky"><b>{counts["flaky"]}</b>flaky</div>
   <div class="tally-item tally-healthy"><b>{counts["healthy"]}</b>healthy</div>
   <div class="tally-item tally-na"><b>{counts["insufficient_data"]}</b>insufficient data</div>
+  <div class="tally-item tally-flaky"><b>{sum(t.recovered_runs for t in result.tests)}</b>test-runs passed on retry</div>
+  <div class="tally-item tally-na"><b>{sum(t.n_unknown for t in result.tests)}</b>test-runs excluded</div>
 </div>
 <section class="heatmap">
   <h2>Test &times; run heatmap</h2>
@@ -315,10 +399,13 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
   <div class="rows">{rows_html}</div>
   <div class="legend">
     <span><span class="cell s-pass"></span>pass</span>
+    <span><span class="cell s-recovered"></span>passed on retry</span>
     <span><span class="cell s-fail"></span>fail</span>
     <span><span class="cell s-error"></span>error</span>
     <span><span class="cell s-skip"></span>skip</span>
     <span><span class="cell s-missing"></span>not run</span>
+    <span><span class="cell s-unknown"></span>unknown / excluded</span>
+    <span>Rates use the final outcome of each run; retry attempts do not increase the sample size.</span>
     <span>Rows sorted broken &rarr; flaky &rarr; insufficient data &rarr; healthy, then by score. Columns are runs in chronological order. Click a row for detail. Hover a cell for the run.</span>
   </div>
 </section>

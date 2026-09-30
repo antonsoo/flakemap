@@ -104,7 +104,7 @@ aren't published yet, so install from source or straight from GitHub:
 $ flakemap examples/demo_project/runs --top 10
 ```
 
-<p align="center"><img src="docs/assets/hero-terminal.png" width="760" alt="flakemap terminal output: a summary line (222 runs, 12 tests, 1 broken, 3 flaky, 8 healthy) followed by a table of the 4 non-healthy tests with score, failure rate with 95% CI, flip rate, rerun count, and the run where each started"></p>
+<p align="center"><img src="docs/assets/hero-terminal.png" width="760" alt="flakemap terminal output: a summary line (222 runs, 12 tests, 1 broken, 3 flaky, 8 healthy, no retries or exclusions) followed by a table of the 4 non-healthy tests with score, final failure rate with 95% CI, flip rate, recovered runs, run count, and, for the broken test only, the run where its failures began (run-0152)"></p>
 
 ```console
 $ flakemap examples/demo_project/runs --json | jq '.tests[0]'
@@ -154,11 +154,18 @@ Full formulas and citations are in the module docstrings
   Bernoulli sequence (see Chen, J. & Gupta, A.K., *Parametric Statistical
   Change Point Analysis*, 2nd ed., Birkhauser, 2012, ch. 3) -- the split that
   best explains the run history as two constant-rate segments instead of one,
-  subject to a minimum segment length (3) and minimum rate shift (0.2) so it
-  doesn't fire on a single stray failure. **Known limitation**: it is not
-  corrected for multiple comparisons (every split is scanned), so a
-  persistently flaky test can show a spurious change point. Inspect the observed
-  before/after outcomes; the selected split is not proof of the cause or onset.
+  subject to a minimum segment length (3), a minimum rate shift (0.2), and a
+  significance threshold on the likelihood-ratio statistic (13.8). Scanning
+  every split always finds a best one, even in a test that has failed at the
+  same rate all along; the threshold is the statistic's approximate 99th
+  percentile under no change, from simulation over 50-1000 runs and 5-50%
+  failure rates (`scripts/changepoint_null.py` prints the table). A steadily
+  flaky test now reports a change about 1% of the time, where before the
+  threshold it was up to half the time, and one in its last 10 runs 12-16% of
+  the time (the window `--fail-on-new-flake` gates on). The price is
+  sensitivity to small, recent shifts: a test going from 0% to 20% failures
+  in its last 10 runs is caught about half the time. The selected split is
+  not proof of the cause or onset.
 - **Duration signals**: an OLS trend (seconds per run) and the
   **point-biserial correlation** between duration and outcome (Tate, R.F.,
   1954, *"Correlation Between a Discrete and a Continuous Variable,"* Annals
@@ -218,12 +225,12 @@ Reproduce this table: `uv run flakemap examples/demo_project/runs --json`.
 
 ## Accuracy and limitations
 
-- **Change-point false positives on IID-flaky tests.** As noted above, the
-  detector isn't multiple-comparisons-corrected; on a long history of a
-  constant-but-nonzero failure rate it can report a change point that isn't
-  real. It can affect the `broken` classification if the other thresholds are
-  also met. Both the "since" run and the classification are triage hints, not
-  causal or statistically calibrated conclusions.
+- **Change points are calibrated approximately, not exactly.** The
+  significance threshold is one fixed value from simulation, so the
+  false-positive rate on a constant-rate test varies from about 0% to 2% with
+  history length and failure rate, and short histories are held to a stricter
+  standard than they need. Both the "since" run and the classification are
+  triage hints, not causal conclusions.
 - **Format coverage is explicit.** The original basic Go/Surefire fixtures were
   hand-authored. Retry support now also has real Surefire output; Gradle's merged
   retry convention is checked against documentation, not a local Gradle run. See

@@ -18,6 +18,13 @@ All notable changes to this project are documented in this file.
   for empty samples; rerun group keys replace the old commit-count keys.
 - Add an actual Surefire retry fixture, its Java source and reproduction script,
   parser/history/output regressions, and report evidence views.
+- Change points need a significant likelihood-ratio statistic (13.8, the
+  approximate 99th percentile under no change; `scripts/changepoint_null.py`).
+  A steadily 20-30%-flaky test over 222 runs used to get a change point about
+  half the time, and one in its last 10 runs 12-16% of the time, tripping
+  `--fail-on-new-flake`; now about 1% and almost never. In the demo history
+  the two flaky tests lose their spurious "since" runs; the real regression
+  keeps its commit.
 
 ## [0.1.0] - 2026-09-24
 

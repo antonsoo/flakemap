@@ -8,12 +8,24 @@ Statistical Change Point Analysis*, 2nd ed., Birkhauser, 2012, ch. 3): for each
 candidate split point k, compute the log-likelihood of the two-segment model at
 its per-segment MLE (the segment's own failure rate) and compare it to the
 log-likelihood of the one-segment (no change) model. The split that maximizes
-the likelihood-ratio statistic is the most probable single change-point; a
-minimum segment length and a minimum rate-shift keep it from firing on noise in
-short or nearly-constant sequences. This is a single-change-point detector, not
-full multi-breakpoint segmentation (e.g. PELT) — flakemap's tests rarely change
-regime more than once in a bounded CI history window, and a simpler model is
-easier to explain in a report than a multi-segment one.
+the likelihood-ratio statistic is the most probable single change-point.
+
+Maximizing over every split always finds *some* best split, even in a test
+that has failed at the same rate all along, so the best split has to clear a
+significance threshold as well as a minimum segment length and rate shift.
+Without the threshold, a steadily 20-30%-flaky test over 222 runs got a
+"change point" about half the time and one in its last 10 runs 12-16% of the
+time, which is what `--fail-on-new-flake` gates on. MIN_STATISTIC is the
+approximate 99th percentile of the maximized statistic under no change, from
+simulation over 50-1000 runs and failure rates of 5-50%
+(`scripts/changepoint_null.py` reproduces the table); above it, a steady flake
+reports a change about 1% of the time and almost never in its last 10 runs.
+It is conservative for short histories, whose null percentiles are lower.
+
+This is a single-change-point detector, not full multi-breakpoint segmentation
+(e.g. PELT) — flakemap's tests rarely change regime more than once in a bounded
+CI history window, and a simpler model is easier to explain in a report than a
+multi-segment one.
 """
 
 from __future__ import annotations
@@ -23,6 +35,7 @@ from dataclasses import dataclass
 
 MIN_SEGMENT = 3
 MIN_RATE_SHIFT = 0.2
+MIN_STATISTIC = 13.8
 
 
 @dataclass(frozen=True, slots=True)
@@ -53,8 +66,9 @@ def detect_change_point(series: list[int]) -> ChangePoint | None:
     """Find the most likely single change-point in a 0/1 sequence.
 
     `series` should already be in chronological (run) order, 1 for a failure,
-    0 for a pass. Returns `None` if the series is too short, or if no split
-    clears the minimum-segment and minimum-rate-shift thresholds.
+    0 for a pass. Returns `None` if the series is too short, or if the best
+    split doesn't clear the minimum-segment, minimum-rate-shift and
+    significance (MIN_STATISTIC) thresholds.
     """
     n = len(series)
     if n < 2 * MIN_SEGMENT:
@@ -82,7 +96,7 @@ def detect_change_point(series: list[int]) -> ChangePoint | None:
                 statistic=statistic,
             )
 
-    if best is None:
+    if best is None or best.statistic < MIN_STATISTIC:
         return None
     if abs(best.rate_after - best.rate_before) < MIN_RATE_SHIFT:
         return None

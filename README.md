@@ -50,8 +50,9 @@ remain `insufficient_data`, rather than being labeled permanently broken.
 
 ![Actual Surefire retry evidence, including source records and failed attempts](docs/assets/retry-evidence.png)
 
-Retry inspection is available in the source CLI and generated HTML reports.
-The linked hosted demos are snapshots of the earlier release.
+Retry inspection is in the CLI and in every generated HTML report. The hosted
+demo's pytest history contains no retries, so the retry view shows up only in
+reports built from retry data, like the commands above.
 
 ## Quickstart
 

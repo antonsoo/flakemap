@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented in this file.
 
-## Unreleased
+## [0.2.0] - 2026-09-30
 
 - Preserve Surefire/Gradle merged retry evidence: distinguish recovered and
   exhausted retries, expose failed records and source testcase positions, and

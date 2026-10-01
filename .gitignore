@@ -15,3 +15,6 @@ node_modules/
 /scratch/
 /site/
 /examples/retry_project/target/
+/examples/trx_project/bin/
+/examples/trx_project/obj/
+/examples/trx_project/TestResults/

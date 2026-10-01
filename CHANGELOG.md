@@ -2,6 +2,20 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.0] - 2026-09-30
+
+- .NET TRX reports (`dotnet test --logger trx`, for MSTest, xUnit and NUnit) are
+  read alongside JUnit XML; the default `--pattern` is now `*.xml,*.trx` and
+  accepts several comma-separated globs. Data rows stay separate tests, MSTest's
+  two-line exception messages are joined for clustering, and a TRX file's own
+  start time orders its run when no sidecar does (metadata source `report`).
+  Checked against twelve real MSTest runs in `examples/trx_history`, captured by
+  `examples/trx_project/capture.py`.
+- A regression in a short history was labeled `flaky`: its one pass-to-fail
+  switch is a flip rate over the 8% threshold (1 in 12 runs), and the flip rate
+  was checked before the change point. A significant change point into mostly
+  failing now comes first, so it is `broken`. The demo's labels are unchanged.
+
 ## [0.2.0] - 2026-09-30
 
 - Preserve Surefire/Gradle merged retry evidence: distinguish recovered and

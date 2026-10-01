@@ -14,7 +14,7 @@ the differences that matter for flakiness statistics: root element shape,
 | Jest | [jest-junit](https://github.com/jest-community/jest-junit) reporter | `tests/fixtures/jest_junit_real.xml` | Generated locally: `npx jest --reporters=default --reporters=jest-junit` (jest-junit installed via `npm install jest jest-junit`, current npm registry versions as of 2026-09-24). |
 | Go | [go-junit-report](https://github.com/jstemmer/go-junit-report) / `gotestsum --junitfile` | `tests/fixtures/go_junit_report.xml` | Hand-authored to match the shape documented in the go-junit-report README (`<testsuites><testsuite><properties>` + `<testcase><failure message type>`), since a Go toolchain was not available in the build environment. Not run locally -- flagged here rather than left unstated. |
 | Maven/Gradle Surefire | [Maven Surefire Plugin](https://maven.apache.org/surefire/maven-surefire-plugin/) XML report; Gradle's `Test` task reuses the same shape | `tests/fixtures/surefire_report.xml` | Hand-authored to match the documented Surefire XML report schema (a bare `<testsuite>` root, one file per test class, `<properties>`, `<error>`/`<failure>` with `message`/`type` attributes). Not run locally -- no JDK/Maven/Gradle in the build environment. |
-| .NET (trx) | `dotnet test --logger trx` | -- | **Not supported.** TRX is a different XML schema (MSTest's own format, not JUnit-derived); a stretch goal explicitly called out as unimplemented. Feeding a `.trx` file to flakemap produces a parse warning and zero testcases for that file, not a crash. |
+| .NET (TRX) | `dotnet test --logger trx` (MSTest, xUnit, NUnit) | `examples/trx_history/run-01.trx` … `run-12.trx` | Generated locally: twelve runs of `examples/trx_project` (MSTest 3.6.1, .NET SDK 8.0.425), machine details removed by its `capture.py`. TRX is not a JUnit dialect; `src/flakemap/parse/trx.py` reads it (see below). |
 
 The additional `examples/retry_history/surefire-001/report.xml` fixture was
 generated on 2026-09-29 with **Surefire 3.5.4, JUnit 4.13.2, Maven 3.9.11 and
@@ -29,6 +29,35 @@ uses the same recovered-failure convention.
 Where a dialect couldn't be run locally, the fixture is marked as hand-authored
 in `tests/test_junit_parsing.py`'s module docstring too -- this is stated
 rather than silently presented as "verified".
+
+## TRX (Visual Studio test results)
+
+A file whose root element is `<TestRun>` in the
+`http://microsoft.com/schemas/VisualStudio/TeamTest/2010` namespace is read as
+TRX, whatever its extension; `.trx` files are picked up by the default
+`--pattern` (`*.xml,*.trx`). From each `<UnitTestResult>`:
+
+- **Identity.** The classname comes from the matching `<TestDefinitions>`
+  `<TestMethod className>` (any `, Assembly` suffix dropped). The name is
+  `testName`, minus the class name when it starts with it: MSTest and NUnit
+  write the short name, xUnit the fully qualified one. A data row keeps its
+  arguments (`CurrencyHasMinorUnits ("JPY",0)`), so each row is its own test.
+  The rows nested under `<InnerResults>` are not read separately; their
+  parent's outcome already aggregates them.
+- **Outcome.** `Passed`, `PassedButRunAborted`, `Warning`, `Completed` -> pass;
+  `Failed` -> fail; `Error`, `Timeout`, `Aborted` -> error; `NotExecuted`,
+  `NotRunnable`, `Inconclusive` -> skip; anything else -> unknown, excluded
+  from rates with a warning. MSTest reports a test that throws as `Failed`.
+- **Duration** from `hh:mm:ss.fffffff` (optionally prefixed by `days.`), and
+  the failure **message** from `<Output><ErrorInfo><Message>`. A first line
+  ending in a colon (MSTest's `Test method ... threw exception:`) is joined to
+  the next, which holds the exception.
+- **Run time.** `<Times start>` orders the run when no sidecar or path gives a
+  timestamp or sequence; the run's metadata source is then `report`. A sidecar
+  still wins.
+
+UTF-16 files (with a byte-order mark) are accepted. DTD and entity
+declarations are rejected, as for JUnit XML.
 
 ## What the parser normalizes
 

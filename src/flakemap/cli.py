@@ -10,7 +10,7 @@ from pathlib import Path
 from rich.console import Console
 
 from flakemap import __version__
-from flakemap.loader import load_runs
+from flakemap.loader import DEFAULT_PATTERN, load_runs
 from flakemap.report import render_html, render_markdown, render_terminal, to_json_dict
 from flakemap.stats import analyze
 
@@ -22,10 +22,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--version", action="version", version=f"flakemap {__version__}")
     parser.add_argument(
-        "reports_dir", type=Path, help="directory to scan recursively for JUnit XML reports"
+        "reports_dir", type=Path, help="directory to scan recursively for JUnit XML or TRX reports"
     )
     parser.add_argument(
-        "--pattern", default="*.xml", help="glob pattern for report files (default: *.xml)"
+        "--pattern",
+        default=DEFAULT_PATTERN,
+        help=f"glob pattern(s) for report files, comma-separated (default: {DEFAULT_PATTERN})",
     )
 
     output = parser.add_mutually_exclusive_group()

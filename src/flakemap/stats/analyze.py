@@ -98,10 +98,13 @@ def _classify(
         return "insufficient_data"
     if failure_point == 0.0 and flip_rate == 0.0 and rerun_signal == 0.0:
         return "healthy"
+    # A significant change point into mostly failing is a regression, so it is checked
+    # before the flip rate: in a short history the one pass-to-fail switch alone pushes
+    # the flip rate over the flaky threshold (1 flip in 12 runs is 0.09).
+    if change_point is not None and change_point.rate_after >= 0.75 and rerun_signal == 0.0:
+        return "broken"
     if flip_rate > 0.08 or rerun_signal > 0.0:
         return "flaky"
-    if change_point is not None and change_point.rate_after >= 0.75:
-        return "broken"
     if failure_point >= 0.6:
         return "broken"
     if failure_point > 0.0:

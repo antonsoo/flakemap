@@ -72,7 +72,10 @@ aren't published yet, so install from source or straight from GitHub:
 
 - **JUnit XML parsing**: pytest, Jest (jest-junit), and Maven Surefire checked
   against real tool output; Gradle merged retries and go-junit-report supported
-  against their documented formats. Malformed and truncated files
+  against their documented formats.
+- **.NET TRX**: `dotnet test --logger trx` output (MSTest, xUnit, NUnit), checked
+  against twelve real MSTest runs in `examples/trx_history`. Data rows stay
+  separate tests, and each file's own start time orders the runs. Malformed and truncated files
   degrade to a warning, never a crash. Details and sources:
   [`docs/formats.md`](docs/formats.md).
 - **Retry evidence**: explicit recovered and exhausted attempts, source file and
@@ -183,9 +186,12 @@ Full formulas and citations are in the module docstrings
 - **Classification**: an explicit recovered retry is labeled `flaky`, even from
   one run. Otherwise (`src/flakemap/stats/analyze.py::_classify`), fewer than
   5 observations -> `insufficient_data`. Zero failures and zero flips ->
-  `healthy`. Flip rate > 8% or any rerun disagreement -> `flaky`. A change
-  point with a post-change failure rate >= 75%, or an overall failure rate >=
-  60% -> `broken`. Any remaining failures -> `flaky`. These thresholds are
+  `healthy`. A significant change point with a post-change failure rate >= 75%
+  (and no rerun disagreement) -> `broken`; this comes before the flip rate,
+  because in a short history the one pass-to-fail switch of a regression is
+  itself a flip rate over 8%. Flip rate > 8% or any rerun disagreement ->
+  `flaky`. An overall failure rate >= 60% -> `broken`. Any remaining failures
+  -> `flaky`. These thresholds are
   documented, not tuned against a labeled corpus beyond the synthetic one
   below -- treat them as a reasonable default, not a calibrated model.
   Excluded outcomes prevent a `healthy` label and suppress change-point inference
@@ -245,9 +251,6 @@ Reproduce this table: `uv run flakemap examples/demo_project/runs --json`.
   no supported retry markers were present. No attempt times or causal diagnosis
   are reconstructed. Failure messages are limited to their first 500-character
   line; source pointers refer to testcase ordinals, not line numbers.
-- **.NET (trx) is not supported.** It's a different XML schema, not a JUnit
-  dialect; feeding it to flakemap yields a parse warning and no testcases,
-  not a crash, but there's no MSTest support here.
 - **mtime-ordered runs are only as reliable as the filesystem.** A fresh
   `git clone` or artifact re-download can collapse many files to nearly the
   same mtime; flakemap warns when more than half a batch falls back to mtime,

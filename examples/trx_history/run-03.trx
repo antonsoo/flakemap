@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TestRun xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" id="e015c4cc-46b8-4612-9b98-eb9bc5344c76" name="flakemap-example run-03">
+  <Times creation="2026-09-30T20:46:05.3974169-07:00" queuing="2026-09-30T20:46:05.3974169-07:00" start="2026-09-30T20:46:04.9212878-07:00" finish="2026-09-30T20:46:05.4019175-07:00" />
+  <TestSettings name="default" id="b66841a0-abe1-4ca0-bde8-b20d9146d668">
+    <Deployment runDeploymentRoot="run-03" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="3d713b22-1a85-4105-9ae6-fff7a6f4e622" testId="f3a45a80-4e60-6ec7-61af-3400f64f8d97" testName="RefundReachesSandbox" computerName="ci-runner" startTime="2026-09-30T20:46:05.2930589-07:00" endTime="2026-09-30T20:46:05.2936749-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3d713b22-1a85-4105-9ae6-fff7a6f4e622">
+      <Output>
+        <ErrorInfo>
+          <Message>payment sandbox is down</Message>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+    <UnitTestResult executionId="93f86bc2-425e-4def-be5c-5b8e59a02c9b" testId="ecb5da50-50ef-2f7b-27c9-7e247474f852" testName="CacheWarmsBeforeFirstRequest" computerName="ci-runner" duration="00:00:00.0002892" startTime="2026-09-30T20:46:05.2879713-07:00" endTime="2026-09-30T20:46:05.2884023-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="93f86bc2-425e-4def-be5c-5b8e59a02c9b" />
+    <UnitTestResult executionId="816ab43e-fa7b-4851-8150-cf83847b98d0" testId="8dd85446-d0f1-08c0-38a1-0a35fb7a2bca" testName="DiscountCodeIsCaseInsensitive" computerName="ci-runner" duration="00:00:00.0000529" startTime="2026-09-30T20:46:05.2885992-07:00" endTime="2026-09-30T20:46:05.2887074-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="816ab43e-fa7b-4851-8150-cf83847b98d0" />
+    <UnitTestResult executionId="749243b3-cfed-4c76-affd-5ef93ef479cd" testId="bde8dd31-c8f0-fda0-1cc9-afc5b38b591b" testName="CurrencyHasMinorUnits (&quot;EUR&quot;,2)" computerName="ci-runner" duration="00:00:00.0002974" startTime="2026-09-30T20:46:05.2887340-07:00" endTime="2026-09-30T20:46:05.2927324-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="749243b3-cfed-4c76-affd-5ef93ef479cd" />
+    <UnitTestResult executionId="2a840ceb-a2fa-4108-b9ca-f6c4cc260c09" testId="ebda21e8-bb45-d946-a990-90f117f0ab53" testName="CurrencyHasMinorUnits (&quot;JPY&quot;,0)" computerName="ci-runner" duration="00:00:00.0001691" startTime="2026-09-30T20:46:05.2927658-07:00" endTime="2026-09-30T20:46:05.2930298-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2a840ceb-a2fa-4108-b9ca-f6c4cc260c09" />
+    <UnitTestResult executionId="452bd9d4-3103-48bb-a124-5e054ec69e06" testId="e0173646-80dd-5fa4-5673-1e0160753f1b" testName="TotalIncludesTax" computerName="ci-runner" duration="00:00:00.0021535" startTime="2026-09-30T20:46:05.2744363-07:00" endTime="2026-09-30T20:46:05.2847002-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="452bd9d4-3103-48bb-a124-5e054ec69e06" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="RefundReachesSandbox" storage="flakydotnet.tests.dll" id="f3a45a80-4e60-6ec7-61af-3400f64f8d97">
+      <Execution id="3d713b22-1a85-4105-9ae6-fff7a6f4e622" />
+      <TestMethod codeBase="FlakyDotnet.Tests.dll" adapterTypeName="executor://mstestadapter/v2" className="FlakyDotnet.Tests.CheckoutTests" name="RefundReachesSandbox" />
+    </UnitTest>
+    <UnitTest name="DiscountCodeIsCaseInsensitive" storage="flakydotnet.tests.dll" id="8dd85446-d0f1-08c0-38a1-0a35fb7a2bca">
+      <Execution id="816ab43e-fa7b-4851-8150-cf83847b98d0" />
+      <TestMethod codeBase="FlakyDotnet.Tests.dll" adapterTypeName="executor://mstestadapter/v2" className="FlakyDotnet.Tests.CheckoutTests" name="DiscountCodeIsCaseInsensitive" />
+    </UnitTest>
+    <UnitTest name="CacheWarmsBeforeFirstRequest" storage="flakydotnet.tests.dll" id="ecb5da50-50ef-2f7b-27c9-7e247474f852">
+      <Execution id="93f86bc2-425e-4def-be5c-5b8e59a02c9b" />
+      <TestMethod codeBase="FlakyDotnet.Tests.dll" adapterTypeName="executor://mstestadapter/v2" className="FlakyDotnet.Tests.CheckoutTests" name="CacheWarmsBeforeFirstRequest" />
+    </UnitTest>
+    <UnitTest name="TotalIncludesTax" storage="flakydotnet.tests.dll" id="e0173646-80dd-5fa4-5673-1e0160753f1b">
+      <Execution id="452bd9d4-3103-48bb-a124-5e054ec69e06" />
+      <TestMethod codeBase="FlakyDotnet.Tests.dll" adapterTypeName="executor://mstestadapter/v2" className="FlakyDotnet.Tests.CheckoutTests" name="TotalIncludesTax" />
+    </UnitTest>
+    <UnitTest name="CurrencyHasMinorUnits (&quot;JPY&quot;,0)" storage="flakydotnet.tests.dll" id="ebda21e8-bb45-d946-a990-90f117f0ab53">
+      <Execution id="2a840ceb-a2fa-4108-b9ca-f6c4cc260c09" />
+      <TestMethod codeBase="FlakyDotnet.Tests.dll" adapterTypeName="executor://mstestadapter/v2" className="FlakyDotnet.Tests.CheckoutTests" name="CurrencyHasMinorUnits" />
+    </UnitTest>
+    <UnitTest name="CurrencyHasMinorUnits (&quot;EUR&quot;,2)" storage="flakydotnet.tests.dll" id="bde8dd31-c8f0-fda0-1cc9-afc5b38b591b">
+      <Execution id="749243b3-cfed-4c76-affd-5ef93ef479cd" />
+      <TestMethod codeBase="FlakyDotnet.Tests.dll" adapterTypeName="executor://mstestadapter/v2" className="FlakyDotnet.Tests.CheckoutTests" name="CurrencyHasMinorUnits" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="f3a45a80-4e60-6ec7-61af-3400f64f8d97" executionId="3d713b22-1a85-4105-9ae6-fff7a6f4e622" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ecb5da50-50ef-2f7b-27c9-7e247474f852" executionId="93f86bc2-425e-4def-be5c-5b8e59a02c9b" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8dd85446-d0f1-08c0-38a1-0a35fb7a2bca" executionId="816ab43e-fa7b-4851-8150-cf83847b98d0" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="bde8dd31-c8f0-fda0-1cc9-afc5b38b591b" executionId="749243b3-cfed-4c76-affd-5ef93ef479cd" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ebda21e8-bb45-d946-a990-90f117f0ab53" executionId="2a840ceb-a2fa-4108-b9ca-f6c4cc260c09" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="e0173646-80dd-5fa4-5673-1e0160753f1b" executionId="452bd9d4-3103-48bb-a124-5e054ec69e06" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="6" executed="5" passed="5" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>Test 'RefundReachesSandbox' was skipped in the test run.
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

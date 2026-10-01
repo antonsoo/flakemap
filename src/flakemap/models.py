@@ -112,7 +112,8 @@ class RunMetadata:
     """Explicit ordering hint (e.g. from a sidecar's ``"sequence"`` key) used when
     no timestamp is available. Lower runs first."""
     source: str = "unknown"
-    """Where this metadata came from: 'sidecar', 'path', 'mtime', or 'unknown'.
+    """Where this metadata came from: 'sidecar', 'path', 'report' (a TRX file's own
+    start time), 'mtime', or 'unknown'.
     Surfaced in reports so users can judge how trustworthy the ordering is."""
     extra: dict[str, str] = field(default_factory=dict)
 

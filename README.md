@@ -64,9 +64,9 @@ $ uv run flakemap examples/demo_project/runs
 
 That last command analyzes the ~220 real `pytest` runs committed in this repo
 (see [Honest real demo data](#honest-real-demo-data)) and prints the terminal
-report below -- no setup, no fixtures to write yourself. Prebuilt packages
-aren't published yet, so install from source or straight from GitHub:
-`pip install git+https://github.com/antonsoo/flakemap`.
+report below -- no setup, no fixtures to write yourself. To use it on your own
+reports, install it from PyPI: `pip install flakemap`, or run it without
+installing: `uvx flakemap path/to/reports`.
 
 ## Features
 
@@ -292,8 +292,8 @@ jobs:
         with: { python-version: "3.12" }
       # download-artifact (or your artifact store) into ci-runs/<run_id>/report.xml
       # each with a meta.json sidecar -- see docs/formats.md's convention.
-      - run: uv run --with 'git+https://github.com/antonsoo/flakemap' flakemap ci-runs/ --markdown >> "$GITHUB_STEP_SUMMARY"
-      - run: uv run --with 'git+https://github.com/antonsoo/flakemap' flakemap ci-runs/ --fail-on-new-flake --fail-on-incomplete
+      - run: uvx flakemap ci-runs/ --markdown >> "$GITHUB_STEP_SUMMARY"
+      - run: uvx flakemap ci-runs/ --fail-on-new-flake --fail-on-incomplete
 ```
 
 Use `--fail-on-retry` on a current-run artifact to gate on observed retry recovery.

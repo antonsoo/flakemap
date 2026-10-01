@@ -1,8 +1,8 @@
 [project]
 name = "flakemap"
-version = "0.3.0"
+version = "0.3.1"
 description = "Find the flaky tests in your CI history from JUnit XML reports."
-readme = "README.md"
+dynamic = ["readme"]
 license = { text = "MIT" }
 authors = [{ name = "Anton Soloviev", email = "anton@praviel.com" }]
 requires-python = ">=3.10"
@@ -38,8 +38,36 @@ Issues = "https://github.com/antonsoo/flakemap/issues"
 flakemap = "flakemap.cli:main"
 
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-fancy-pypi-readme"]
 build-backend = "hatchling.build"
+
+# PyPI doesn't resolve relative links, so the README's images and links are
+# rewritten to absolute GitHub URLs when the package is built: images first,
+# then every link that is still relative.
+[tool.hatch.metadata.hooks.fancy-pypi-readme]
+content-type = "text/markdown"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.fragments]]
+path = "README.md"
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '!\[([^\]]*)\]\((?!https?://)([^)\s]+)\)'
+replacement = '![\1](https://raw.githubusercontent.com/antonsoo/flakemap/main/\2)'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = 'src="(?!https?://)([^"]+)"'
+replacement = 'src="https://raw.githubusercontent.com/antonsoo/flakemap/main/\1"'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = '\]\((?!https?://|#|mailto:)([^)\s]+)\)'
+replacement = '](https://github.com/antonsoo/flakemap/blob/main/\1)'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = 'href="(?!https?://|#|mailto:)([^"]+)"'
+replacement = 'href="https://github.com/antonsoo/flakemap/blob/main/\1"'
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/docs/*.md", "/README.md", "/CHANGELOG.md", "/LICENSE*", "/pyproject.toml"]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/flakemap"]

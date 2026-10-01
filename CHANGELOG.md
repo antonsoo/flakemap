@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.1] - 2026-10-01
+
+- Published to PyPI: `pip install flakemap`, or `uvx flakemap <reports>` to run
+  it without installing. The README's images and links are rewritten to
+  absolute URLs at build time so they work on the project page.
+
 ## [0.3.0] - 2026-09-30
 
 - .NET TRX reports (`dotnet test --logger trx`, for MSTest, xUnit and NUnit) are

@@ -18,3 +18,4 @@ node_modules/
 /examples/trx_project/bin/
 /examples/trx_project/obj/
 /examples/trx_project/TestResults/
+.venv-minimums/

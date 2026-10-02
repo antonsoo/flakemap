@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.5] - 2026-10-02
+
+### Accessibility
+
+- The HTML report, checked with axe-core (WCAG 2.1 A and AA, and its best-practice rules) in light and dark,
+  at desktop and phone widths: no findings now.
+  In the light theme the "flaky" stamp and tally were amber on pale paper
+  (2.8:1); as text the amber is darker (4.5:1), and the heatmap cells keep
+  their colour. The report has a `main` landmark.
+
 ## [0.3.4] - 2026-10-02
 
 - The HTML report carries a Content-Security-Policy. It is one file with no

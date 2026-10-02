@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.2] - 2026-10-02
+
+- The report in a CI log. Written to a pipe or a file, the terminal report was
+  laid out 80 columns wide: a test's name was folded over two lines, so
+  searching the log for it found nothing; the summary line broke before its
+  last word; and the flip-rate and "since" columns, kept for wide terminals,
+  were left out. A pipe now gets every line whole, with all the columns, and
+  the names in the `--fail-on-new-flake` message on one line. A terminal is
+  laid out as before, and `COLUMNS`, when set, is respected.
+
 ## [0.3.1] - 2026-10-01
 
 - Published to PyPI: `pip install flakemap`, or `uvx flakemap <reports>` to run

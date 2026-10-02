@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -73,11 +74,31 @@ def build_parser() -> argparse.ArgumentParser:
     return parser
 
 
+# Wider than any line this prints: a console this wide never wraps or folds.
+PIPE_WIDTH = 10_000
+
+
+def _console(stderr: bool = False) -> Console:
+    """The console for one output stream.
+
+    A stream that isn't a terminal is a CI log or a file, which is where this report is
+    mostly read. rich lays those out 80 columns wide, so a test's name was folded over two
+    lines (and a search of the log for it found nothing), the summary line broke in the
+    middle, and the two columns kept for wide terminals were left out. Nothing resizes a
+    pipe, so it gets every line whole. COLUMNS, when it is set, is the user's own answer to
+    the question and is left alone.
+    """
+    console = Console(stderr=stderr)
+    if console.is_terminal or console.is_jupyter or os.environ.get("COLUMNS", "").isdigit():
+        return console
+    return Console(stderr=stderr, width=PIPE_WIDTH)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    console = Console()
-    errors = Console(stderr=True)
+    console = _console()
+    errors = _console(stderr=True)
     if args.top < 1 or args.new_flake_window < 1:
         parser.error("--top and --new-flake-window must be positive")
 

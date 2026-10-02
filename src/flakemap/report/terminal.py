@@ -64,7 +64,10 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
         caption=Text(f"tests under {prefix.rstrip('.')}") if prefix else None,
         show_lines=False,
     )
-    table.add_column("Test", overflow="fold", min_width=16, max_width=48, ratio=3)
+    # In a terminal the name column is capped, so a long name folds and the numbers stay in
+    # view. Written to a pipe, each name stays on one line, where a search can find it.
+    name_cap = 48 if console.is_terminal else None
+    table.add_column("Test", overflow="fold", min_width=16, max_width=name_cap, ratio=3)
     table.add_column("Status")
     table.add_column("Score", justify="right")
     table.add_column("Final fail (95% CI)", justify="right")

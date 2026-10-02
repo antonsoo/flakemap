@@ -1,4 +1,7 @@
 import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 
 from flakemap.cli import main
@@ -92,3 +95,58 @@ def test_common_prefix_drops_shared_components_only() -> None:
     assert common_prefix(["only.one"]) == ""
     # never swallow a whole name: the last component always stays
     assert common_prefix(["pkg.test_a", "pkg.test_a"]) == "pkg."
+
+
+# A parametrized test, named the way pytest and Playwright name them: long, and with brackets.
+LONG_NAME = (
+    "test_checkout_total_matches_the_cart[chromium-desktop-1280x720-logged-in-user-with-coupon]"
+)
+
+
+def _write_history(root: Path) -> None:
+    for i in range(30):
+        d = root / f"run-{i:02d}"
+        d.mkdir(parents=True)
+        # Passes for 24 runs, then fails: a change the new-flake gate reports.
+        failure = '<failure message="timeout">timeout</failure>' if i >= 24 else ""
+        (d / "report.xml").write_text(
+            f"""<testsuites><testsuite name="s" tests="2" failures="{1 if failure else 0}">
+<testcase classname="tests.e2e.test_checkout" name="{LONG_NAME}" time="0.1">{failure}</testcase>
+<testcase classname="tests.e2e.test_checkout" name="test_ok" time="0.1"></testcase>
+</testsuite></testsuites>"""
+        )
+        (d / "meta.json").write_text(json.dumps({"commit": f"c{i}", "sequence": i}))
+
+
+def _run_piped(root: Path, columns: str | None) -> subprocess.CompletedProcess[str]:
+    env = {k: v for k, v in os.environ.items() if k != "COLUMNS"}
+    if columns:
+        env["COLUMNS"] = columns
+    return subprocess.run(
+        [sys.executable, "-m", "flakemap.cli", str(root), "--fail-on-new-flake"],
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        env={**env, "PYTHONIOENCODING": "utf-8"},
+    )
+
+
+def test_a_pipe_gets_every_line_whole(tmp_path: Path) -> None:
+    """A CI log is where the report is read, and searching it for a test's name has to work."""
+    _write_history(tmp_path)
+    result = _run_piped(tmp_path, columns=None)
+    lines = result.stdout.splitlines()
+    assert any(LONG_NAME in line for line in lines), result.stdout
+    assert lines[0].endswith("0 insufficient data")
+    header = next(line for line in lines if "Final fail (95% CI)" in line)
+    assert "Flip rate" in header and "Since" in header
+    # stderr is a pipe too: the names in the exit message stay on one line.
+    assert any(LONG_NAME in line for line in result.stderr.splitlines()), result.stderr
+
+
+def test_columns_is_respected_when_set(tmp_path: Path) -> None:
+    _write_history(tmp_path)
+    result = _run_piped(tmp_path, columns="80")
+    lines = result.stdout.splitlines()
+    assert all(len(line) <= 80 for line in lines)
+    assert not any(LONG_NAME in line for line in lines)  # folded to fit, as in a terminal

@@ -47,6 +47,18 @@ def _parse_timestamp(raw: Any) -> datetime | None:
     return dt
 
 
+def _sidecar_text(raw: bytes) -> str:
+    """A sidecar's text, as shells write it.
+
+    Windows PowerShell's `>` and `Out-File` write UTF-16 with a byte-order mark, and its
+    `-Encoding utf8` writes UTF-8 with one. Read as plain UTF-8, either lost the run its
+    commit and its place in the order, with a warning about a file that looked fine.
+    """
+    if raw.startswith((b"\xff\xfe", b"\xfe\xff")):
+        return raw.decode("utf-16")
+    return raw.decode("utf-8-sig")
+
+
 def _load_sidecar(path: Path, root: Path, warnings: list[str]) -> dict[str, Any] | None:
     candidates = [path.with_suffix(".meta.json")]
     for parent in path.parents:
@@ -56,7 +68,7 @@ def _load_sidecar(path: Path, root: Path, warnings: list[str]) -> dict[str, Any]
     for candidate in candidates:
         if candidate.is_file():
             try:
-                data = json.loads(candidate.read_text(encoding="utf-8"))
+                data = json.loads(_sidecar_text(candidate.read_bytes()))
             except (OSError, ValueError) as exc:
                 warnings.append(f"invalid metadata sidecar {candidate.name}: {exc}")
                 return None

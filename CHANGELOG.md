@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.3] - 2026-10-02
+
+- `flakemap runs --markdown > report.md` on Windows. Before 3.15, Python gives
+  a redirected stdout the system's code page (cp1252 in the west), which has
+  no emoji, so the Markdown report stopped with `UnicodeEncodeError` at its
+  first status marker; the terminal report did the same on a test name outside
+  the code page. Output to a pipe or a file is UTF-8 now. (Reproduced on Linux
+  by giving the pipe cp1252 with `PYTHONIOENCODING`; the tests do the same.)
+- A `meta.json` written by Windows PowerShell: `>` and `Out-File` write UTF-16
+  with a byte-order mark, `-Encoding utf8` writes UTF-8 with one. Either was
+  reported as an invalid sidecar and the run lost its commit and its place in
+  the order. Both are read.
+
 ## [0.3.2] - 2026-10-02
 
 - The report in a CI log. Written to a pipe or a file, the terminal report was

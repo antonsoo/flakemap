@@ -94,9 +94,27 @@ def _console(stderr: bool = False) -> Console:
     return Console(stderr=stderr, width=PIPE_WIDTH)
 
 
+def _text_streams() -> None:
+    """Make stdout and stderr able to carry any text.
+
+    A pipe or a file gets UTF-8: before 3.15, Python on Windows gives it the system's code
+    page, where this report's own symbols, or a test name outside it, raised ``UnicodeEncodeError``. A terminal keeps its own encoding
+    and shows a character it cannot encode as an escape.
+    """
+    for stream in (sys.stdout, sys.stderr):
+        reconfigure = getattr(stream, "reconfigure", None)
+        if reconfigure is None:  # replaced by something that isn't a text file
+            continue
+        if stream.isatty():
+            reconfigure(errors="backslashreplace")
+        else:
+            reconfigure(encoding="utf-8")
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    _text_streams()
     console = _console()
     errors = _console(stderr=True)
     if args.top < 1 or args.new_flake_window < 1:

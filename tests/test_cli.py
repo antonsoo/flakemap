@@ -150,3 +150,43 @@ def test_columns_is_respected_when_set(tmp_path: Path) -> None:
     lines = result.stdout.splitlines()
     assert all(len(line) <= 80 for line in lines)
     assert not any(LONG_NAME in line for line in lines)  # folded to fit, as in a terminal
+
+
+def _run_with_code_page(root: Path, *flags: str) -> subprocess.CompletedProcess[bytes]:
+    # What Python on Windows gives a redirected stdout: the system's code page.
+    env = {k: v for k, v in os.environ.items() if k not in ("COLUMNS", "PYTHONUTF8")}
+    env["PYTHONIOENCODING"] = "cp1252"
+    return subprocess.run(
+        [sys.executable, "-m", "flakemap.cli", str(root), *flags], capture_output=True, env=env
+    )
+
+
+def test_markdown_to_a_file_is_utf8_whatever_the_code_page(tmp_path: Path) -> None:
+    # `flakemap runs --markdown > report.md`: the status markers are emoji, which cp1252
+    # doesn't have, so this raised UnicodeEncodeError.
+    _write_history(tmp_path)
+    result = _run_with_code_page(tmp_path, "--markdown")
+    assert result.returncode == 0, result.stderr.decode("utf-8", "replace")
+    report = result.stdout.decode("utf-8")
+    assert "\U0001f534" in report  # the red circle of a broken test
+    assert LONG_NAME in report
+
+
+def test_a_test_name_outside_the_code_page_reaches_the_log(tmp_path: Path) -> None:
+    name = "test_\u6ce8\u6587_\u5408\u8a08"
+    for i in range(30):
+        d = tmp_path / f"run-{i:02d}"
+        d.mkdir(parents=True)
+        failure = '<failure message="x">x</failure>' if i >= 24 else ""
+        (d / "report.xml").write_text(
+            f"""<testsuites><testsuite name="s" tests="2">
+<testcase classname="tests.t" name="{name}" time="0.1">{failure}</testcase>
+<testcase classname="tests.t" name="test_ok" time="0.1"></testcase>
+</testsuite></testsuites>""",
+            encoding="utf-8",
+        )
+        (d / "meta.json").write_text(json.dumps({"commit": f"c{i}", "sequence": i}))
+    result = _run_with_code_page(tmp_path, "--fail-on-new-flake")
+    assert result.returncode == 1, result.stderr.decode("utf-8", "replace")
+    assert name in result.stdout.decode("utf-8")
+    assert name in result.stderr.decode("utf-8")

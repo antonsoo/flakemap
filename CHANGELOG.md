@@ -2,6 +2,15 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.4] - 2026-10-02
+
+- The HTML report carries a Content-Security-Policy. It is one file with no
+  script in it, and the policy has the browser hold it to that: nothing in it
+  may run or be fetched, whatever a test's name or a failure message says.
+  Both are escaped; the policy is for the day one is not. Opened from disk in
+  Chromium and Firefox: no violations, and the report is pixel for pixel what
+  it was.
+
 ## [0.3.3] - 2026-10-02
 
 - `flakemap runs --markdown > report.md` on Windows. Before 3.15, Python gives

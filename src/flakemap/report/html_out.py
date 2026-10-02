@@ -323,6 +323,12 @@ footer a { color: var(--accent); }
 """
 
 
+# The report is one file with no script in it, and this has the browser hold it to that:
+# nothing in it may run or be fetched, whatever a test's name or a failure message says.
+# Test names and messages are escaped; the policy is for the day one is not.
+_CSP = "default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'"
+
+
 def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap report") -> str:
     """Render the full self-contained HTML report for `result` over `runs`."""
     matrix = _build_matrix(runs)
@@ -369,6 +375,7 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="{_CSP}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{escape(title)}</title>
 <style>{_CSS}</style>

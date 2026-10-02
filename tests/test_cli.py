@@ -53,6 +53,13 @@ def test_cli_html_report_is_written(tmp_path: Path, capsys) -> None:  # type: ig
     html = out_file.read_text()
     assert "<!doctype html>" in html.lower()
     assert "tests.mod.test_thing" in html
+    # One file, no script, and a policy that has the browser hold it to that.
+    assert "<script" not in html
+    assert (
+        '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; '
+        "style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'\">"
+    ) in html
+    assert html.index("Content-Security-Policy") < html.index("<style")
 
 
 def test_fail_on_new_flake_exits_1_for_recently_broken_test(tmp_path: Path, capsys) -> None:  # type: ignore[no-untyped-def]

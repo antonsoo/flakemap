@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented in this file.
 
+## Unreleased
+
+### Maintenance
+
+- The uv configuration and lock now explicitly prefer stable dependency releases,
+  keeping local development and CI consistent.
+
 ## [0.3.7] - 2026-10-03
 
 ### Fixed

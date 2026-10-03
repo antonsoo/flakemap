@@ -100,3 +100,7 @@ testpaths = ["tests"]
 # We use plain functions for tests, never classes; silence pytest trying (and
 # failing) to collect flakemap's own `TestCaseResult`/`TestStats` dataclasses.
 python_classes = "NoClassBasedTests"
+
+# Keep developer machines and CI on stable-preferred dependency resolution.
+[tool.uv]
+prerelease = "if-necessary"

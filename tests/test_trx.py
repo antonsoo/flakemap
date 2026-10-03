@@ -156,3 +156,22 @@ def test_trx_saved_as_xml_is_sniffed_and_junit_is_not(tmp_path: Path) -> None:  
     )
     statuses = sorted(c.status.value for r in load_runs(tmp_path) for c in r.testcases)
     assert statuses == ["fail", "pass"]
+
+
+def test_a_colour_code_in_a_message_does_not_cost_the_report(tmp_path: Path) -> None:
+    # The same report with a colour code in the failure message, as test output carries it:
+    # XML 1.0 does not allow the ESC, and the whole report used to be refused.
+    text = (HISTORY / "run-07.trx").read_text(encoding="utf-8-sig")
+    marked = text.replace(
+        "InvalidOperationException", "&#x1B;[31mInvalidOperationException&#x1B;[0m", 1
+    )
+    assert marked != text
+    path = tmp_path / "run-07.trx"
+    path.write_text(marked, encoding="utf-8")
+    cases, warnings, _ = parse_trx_file(path)
+    assert warnings == []
+    assert len(cases) == 6
+    failed = next(c for c in cases if c.status is Status.FAIL)
+    assert (
+        failed.message is not None and "InvalidOperationException: discount code" in failed.message
+    )

@@ -8,6 +8,17 @@ once and each test by its remainder.
 
 from __future__ import annotations
 
+import re
+
+# XML keeps C0 control characters out of a report, but allows the C1 range, where U+009B is an
+# 8-bit CSI that some terminals act on. Test names, run ids and messages are shown, not sent.
+_CONTROL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]")
+
+
+def visible(text: str) -> str:
+    """``text`` with each control character (bar tab and line breaks) written as ``\\xNN``."""
+    return _CONTROL.sub(lambda m: f"\\x{ord(m.group()):02x}", text)
+
 
 def common_prefix(names: list[str]) -> str:
     """Longest dotted prefix (ending in '.') shared by all names, or ''.

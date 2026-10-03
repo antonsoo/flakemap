@@ -2,6 +2,24 @@
 
 All notable changes to this project are documented in this file.
 
+## [0.3.7] - 2026-10-03
+
+### Fixed
+
+- A report whose failure message held a terminal colour code lost every test in it. Test output
+  carries colour codes (ESC `[31m`) into failure messages, and some reporters write that ESC
+  into the XML raw or as `&#27;`, which XML 1.0 does not allow: the file failed to parse, and
+  so did every fragment the recovery scan tried. Since only failing runs carry those messages,
+  a test failing one run in three read as healthy. Such reports are repaired and read in full
+  now: colour codes are dropped, and any other control character becomes U+FFFD, with a
+  warning saying how many. The same holds for TRX.
+
+### Security
+
+- XML allows the C1 control characters, among them U+009B, an 8-bit CSI some terminals act on.
+  One in a test name, run id or warning reached the terminal and the Markdown report as it
+  was; each is now written as a visible escape (`t_\x9b8m`).
+
 ## [0.3.6] - 2026-10-03
 
 ### Compatibility

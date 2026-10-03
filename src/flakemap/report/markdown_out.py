@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from html import escape
 
+from flakemap.report.names import visible
 from flakemap.stats.analyze import AnalysisResult, TestStats
 
 _BADGE = {
@@ -16,7 +17,7 @@ _BADGE = {
 
 def _safe(text: str) -> str:
     return (
-        escape(text)
+        escape(visible(text))
         .replace("|", "&#124;")
         .replace("`", "&#96;")
         .replace("\n", " ")

@@ -36,6 +36,7 @@ from xml.etree import ElementTree as ET
 
 from flakemap.models import SourceLocation, Status, TestCaseResult
 from flakemap.parse.junit import _first_line
+from flakemap.parse.xmltext import repair_xml_text, replaced_warning
 
 _OUTCOMES = {
     "passed": Status.PASS,
@@ -137,8 +138,15 @@ def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], da
     raw = re.sub(r"^\s*<\?xml[^>]*\?>", "", raw)
     try:
         root = ET.fromstring(raw)
-    except ET.ParseError as exc:
-        return [], [f"not well-formed TRX XML ({exc})"], None
+    except ET.ParseError:
+        # As for JUnit: control characters from test output are the usual reason.
+        raw, _, replaced = repair_xml_text(raw)
+        try:
+            root = ET.fromstring(raw)
+        except ET.ParseError as exc:
+            return [], [f"not well-formed TRX XML ({exc})"], None
+        if replaced:
+            warnings.append(replaced_warning(replaced))
     if _local(root.tag) != "TestRun":
         return [], ["not a TRX <TestRun> document"], None
 

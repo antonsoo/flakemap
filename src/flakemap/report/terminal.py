@@ -6,7 +6,7 @@ from rich.console import Console
 from rich.table import Table
 from rich.text import Text
 
-from flakemap.report.names import common_prefix, short_name
+from flakemap.report.names import common_prefix, short_name, visible
 from flakemap.stats.analyze import AnalysisResult, TestStats
 
 _STYLE = {
@@ -45,7 +45,7 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
         f"{recovered} test-runs passed on retry; {excluded} ambiguous test-runs excluded."
     )
     for warning in result.warnings[:5]:
-        console.print(Text(f"warning: {warning}", style="yellow"))
+        console.print(Text(f"warning: {visible(warning)}", style="yellow"))
     if len(result.warnings) > 5:
         console.print(
             f"[yellow]{len(result.warnings) - 5} more warnings; see JSON or HTML.[/yellow]"
@@ -61,7 +61,7 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
     title = f"Top {len(ranked)} by flakiness score"
     table = Table(
         title=title,
-        caption=Text(f"tests under {prefix.rstrip('.')}") if prefix else None,
+        caption=Text(f"tests under {visible(prefix.rstrip('.'))}") if prefix else None,
         show_lines=False,
     )
     # In a terminal the name column is capped, so a long name folds and the numbers stay in
@@ -83,7 +83,7 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
         ci = f"{t.failure_rate.point:.0%} ({t.failure_rate.low:.0%}–{t.failure_rate.high:.0%})"
         since = t.change_point_run_id or "-"
         cells: list[str | Text] = [
-            Text(short_name(t.full_name, prefix)),
+            Text(visible(short_name(t.full_name, prefix))),
             _classification_cell(t),
             f"{t.flakiness_score:.2f}",
             ci,
@@ -92,7 +92,7 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
             cells.append(f"{t.flip_rate:.0%}" if t.flip_pairs else "-")
         cells.extend([str(t.recovered_runs), str(t.n)])
         if wide:
-            cells.append(Text(since))
+            cells.append(Text(visible(since)))
         table.add_row(*cells)
     console.print(table)
     if recovered:

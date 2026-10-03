@@ -34,6 +34,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from flakemap.models import AttemptFailure, RetryEvidence, SourceLocation, Status, TestCaseResult
+from flakemap.parse.xmltext import repair_xml_text, replaced_warning
 
 _MAX_MESSAGE_LEN = 500
 
@@ -241,6 +242,16 @@ def parse_junit_file(
     try:
         root = ET.fromstring(raw)
     except ET.ParseError:
+        # A colour code or another control character in a failure message is the usual reason;
+        # taking those out lets the whole file parse instead of losing every test in it.
+        raw, _, replaced = repair_xml_text(raw)
+        try:
+            root = ET.fromstring(raw)
+        except ET.ParseError:
+            root = None
+        if replaced:
+            warnings.append(replaced_warning(replaced))
+    if root is None:
         cases, recovery_warnings = _salvage(raw)
         warnings.extend(recovery_warnings)
     else:

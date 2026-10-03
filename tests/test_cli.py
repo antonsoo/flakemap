@@ -197,3 +197,48 @@ def test_a_test_name_outside_the_code_page_reaches_the_log(tmp_path: Path) -> No
     assert result.returncode == 1, result.stderr.decode("utf-8", "replace")
     assert name in result.stdout.decode("utf-8")
     assert name in result.stderr.decode("utf-8")
+
+
+def test_failing_runs_with_colour_codes_still_count(tmp_path: Path, capsys) -> None:  # type: ignore[no-untyped-def]
+    # Every failing run's report held a colour code in its failure message, which made it
+    # unreadable XML: those runs were dropped and a test failing one run in three read as healthy.
+    root = tmp_path / "runs"
+    for i in range(12):
+        d = root / f"run-{i}"
+        d.mkdir(parents=True)
+        failure = (
+            '<failure message="boom">&#27;[31mAssertionError&#27;[0m: boom</failure>'
+            if i % 3 == 0
+            else ""
+        )
+        (d / "report.xml").write_text(
+            '<testsuites><testsuite name="s" tests="1">'
+            f'<testcase classname="tests.mod" name="test_thing" time="0.1">{failure}</testcase>'
+            "</testsuite></testsuites>"
+        )
+        (d / "meta.json").write_text(json.dumps({"commit": "c1", "sequence": i}))
+    assert main([str(root), "--json"]) == 0
+    test = json.loads(capsys.readouterr().out)["tests"][0]
+    assert test["runs"]["total"] == 12
+    assert test["runs"]["fail"] == 4
+    assert test["classification"] == "flaky"
+
+
+def test_a_c1_control_in_a_test_name_is_shown_not_sent(tmp_path: Path, capsys) -> None:  # type: ignore[no-untyped-def]
+    # XML allows U+009B, an 8-bit CSI some terminals act on: it reached the terminal and the
+    # Markdown report as it was.
+    root = tmp_path / "runs"
+    for i in range(8):
+        d = root / f"run-{i}"
+        d.mkdir(parents=True)
+        failure = '<failure message="x">x</failure>' if i % 2 else ""
+        (d / "report.xml").write_text(
+            '<testsuite name="s" tests="1">'
+            f'<testcase classname="c" name="t_&#x9b;8mhidden">{failure}</testcase></testsuite>'
+        )
+        (d / "meta.json").write_text(json.dumps({"commit": "c1", "sequence": i}))
+    for flags in ([], ["--markdown"]):
+        main([str(root), *flags])
+        out = capsys.readouterr().out
+        assert "\x9b" not in out
+        assert "t_\\x9b8mhidden" in out

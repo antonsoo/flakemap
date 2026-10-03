@@ -90,3 +90,38 @@ def test_garbage_file(tmp_path: Path) -> None:
     cases, warnings = parse_junit_file(garbage)
     assert cases == []
     assert warnings
+
+
+def _report(tmp_path: Path, failure_text: str) -> Path:
+    path = tmp_path / "report.xml"
+    path.write_text(
+        '<testsuite name="unit" tests="3" failures="1">'
+        '<testcase classname="app.Math" name="adds"/>'
+        f'<testcase classname="app.Math" name="divides">'
+        f'<failure message="{failure_text}">{failure_text}</failure></testcase>'
+        '<testcase classname="app.Math" name="subtracts"/>'
+        "</testsuite>",
+        encoding="utf-8",
+    )
+    return path
+
+
+def test_colour_codes_in_a_failure_message_do_not_cost_the_file(tmp_path: Path) -> None:
+    # Test output's colour codes reach some reports as a raw ESC or as &#27;, which XML 1.0
+    # does not allow: the parser, and every fragment the recovery scan tried, rejected the
+    # file, so all three tests were lost.
+    for text in ("&#27;[31mAssertionError&#27;[0m: got 3", "\x1b[31mAssertionError\x1b[0m: got 3"):
+        cases, warnings = parse_junit_file(_report(tmp_path, text))
+        assert [c.name for c in cases] == ["adds", "divides", "subtracts"]
+        assert cases[1].status is Status.FAIL
+        assert cases[1].message == "AssertionError: got 3"
+        assert warnings == []
+
+
+def test_other_control_characters_are_replaced_and_reported(tmp_path: Path) -> None:
+    cases, warnings = parse_junit_file(_report(tmp_path, "got\x01 3 &#2; here"))
+    assert [c.name for c in cases] == ["adds", "divides", "subtracts"]
+    assert cases[1].message == "got\ufffd 3 \ufffd here"
+    assert warnings == [
+        "4 characters XML does not allow (control characters) replaced with U+FFFD to read the file"
+    ]

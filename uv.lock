@@ -96,7 +96,7 @@ wheels = [
 
 [[package]]
 name = "flakemap"
-version = "0.3.5"
+version = "0.3.6"
 source = { editable = "." }
 dependencies = [
     { name = "rich" },

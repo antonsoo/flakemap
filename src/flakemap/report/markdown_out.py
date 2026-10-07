@@ -35,6 +35,50 @@ def _row(t: TestStats) -> str:
     )
 
 
+def _cofailure_summary(result: AnalysisResult) -> list[str]:
+    groups = result.cofailure.groups
+    if not groups:
+        return []
+    lines = [
+        "## Tests that fail together",
+        "",
+        "Exact matching outcomes and coverage; shared history does not establish a cause.",
+        "",
+        "| Members | Final-failure runs | Recovered runs |",
+        "|---|---|---|",
+    ]
+    for group in groups[:5]:
+        names = [f"<code>{_safe(name)}</code>" for name in group.tests[:3]]
+        if len(group.tests) > 3:
+            names.append(f"+ {len(group.tests) - 3} more tests")
+        failed = set(group.states["failed"] + group.states["exhausted"])
+        failed_ids = [md.run_id for md in result.cofailure.runs if md.run_id in failed]
+        cells = ["<br>".join(names)]
+        for ids in (failed_ids, list(group.states["recovered"])):
+            label = ", ".join(f"<code>{_safe(run_id)}</code>" for run_id in ids[:5]) or "none"
+            if len(ids) > 5:
+                label += f" (+ {len(ids) - 5} more)"
+            cells.append(label)
+        lines.append("| " + " | ".join(cells) + " |")
+    lines.extend(
+        [
+            "",
+            f"Showing {min(len(groups), 5)} of {len(groups)} cohorts. "
+            "Use `--html` or `--json` for all members, run states and source evidence.",
+            "",
+        ]
+    )
+    if result.cofailure.excluded_tests:
+        lines.extend(
+            [
+                f"{len(result.cofailure.excluded_tests)} tests have ambiguous outcomes "
+                "and are excluded from grouping.",
+                "",
+            ]
+        )
+    return lines
+
+
 def render_markdown(result: AnalysisResult, top_n: int = 15) -> str:
     lines = ["# flakemap report", ""]
     lines.append(
@@ -49,12 +93,15 @@ def render_markdown(result: AnalysisResult, top_n: int = 15) -> str:
     for warning in result.warnings:
         lines.append(f"\n> Warning: {_safe(warning)}")
     lines.append("")
+    lines.extend(_cofailure_summary(result))
 
     notable = [t for t in result.tests if t.classification in ("flaky", "broken")][:top_n]
     if not notable:
         lines.append("No flaky or broken tests detected in this window.")
         return "\n".join(lines) + "\n"
 
+    if result.cofailure.groups:
+        lines.extend(["## Individual tests", ""])
     lines.append(
         "| Test | Status | Score | Final failure rate (95% CI) | Recovered | Flip rate | Runs |"
     )

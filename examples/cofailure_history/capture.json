@@ -1,0 +1,389 @@
+{
+  "description": "Controlled pytest failures against a real loopback HTTP service; not production data",
+  "python": "3.12.12",
+  "platform": "Linux",
+  "test_source_sha256": "d6b2553008ef2045bcbfe299c247d9edc3992dda9958a02e052354748a03ee75",
+  "outage_runs": [
+    4,
+    5,
+    10
+  ],
+  "independent_failure_run": 7,
+  "runs": [
+    {
+      "run_id": "run-01",
+      "exit_code": 0,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-02",
+      "exit_code": 0,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-03",
+      "exit_code": 0,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-04",
+      "exit_code": 1,
+      "outcomes": {
+        "test_inventory_endpoint": "fail",
+        "test_shipping_endpoint": "fail",
+        "test_pricing_endpoint": "fail",
+        "test_optional_endpoint": "skip",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-05",
+      "exit_code": 1,
+      "outcomes": {
+        "test_inventory_endpoint": "fail",
+        "test_shipping_endpoint": "fail",
+        "test_pricing_endpoint": "fail",
+        "test_optional_endpoint": "fail",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-06",
+      "exit_code": 0,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-07",
+      "exit_code": 1,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "fail",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-08",
+      "exit_code": 0,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-09",
+      "exit_code": 0,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-10",
+      "exit_code": 1,
+      "outcomes": {
+        "test_inventory_endpoint": "fail",
+        "test_shipping_endpoint": "fail",
+        "test_pricing_endpoint": "fail",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-11",
+      "exit_code": 0,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    },
+    {
+      "run_id": "run-12",
+      "exit_code": 0,
+      "outcomes": {
+        "test_inventory_endpoint": "pass",
+        "test_shipping_endpoint": "pass",
+        "test_pricing_endpoint": "pass",
+        "test_optional_endpoint": "pass",
+        "test_independent_math": "pass",
+        "test_healthy_control": "pass"
+      }
+    }
+  ],
+  "requests": [
+    {
+      "run": 1,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 1,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 1,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 1,
+      "path": "/optional",
+      "status": 200
+    },
+    {
+      "run": 2,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 2,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 2,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 2,
+      "path": "/optional",
+      "status": 200
+    },
+    {
+      "run": 3,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 3,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 3,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 3,
+      "path": "/optional",
+      "status": 200
+    },
+    {
+      "run": 4,
+      "path": "/inventory",
+      "status": 503
+    },
+    {
+      "run": 4,
+      "path": "/shipping",
+      "status": 503
+    },
+    {
+      "run": 4,
+      "path": "/pricing",
+      "status": 503
+    },
+    {
+      "run": 5,
+      "path": "/inventory",
+      "status": 503
+    },
+    {
+      "run": 5,
+      "path": "/shipping",
+      "status": 503
+    },
+    {
+      "run": 5,
+      "path": "/pricing",
+      "status": 503
+    },
+    {
+      "run": 5,
+      "path": "/optional",
+      "status": 503
+    },
+    {
+      "run": 6,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 6,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 6,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 6,
+      "path": "/optional",
+      "status": 200
+    },
+    {
+      "run": 7,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 7,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 7,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 7,
+      "path": "/optional",
+      "status": 200
+    },
+    {
+      "run": 8,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 8,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 8,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 8,
+      "path": "/optional",
+      "status": 200
+    },
+    {
+      "run": 9,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 9,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 9,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 9,
+      "path": "/optional",
+      "status": 200
+    },
+    {
+      "run": 10,
+      "path": "/inventory",
+      "status": 503
+    },
+    {
+      "run": 10,
+      "path": "/shipping",
+      "status": 503
+    },
+    {
+      "run": 10,
+      "path": "/pricing",
+      "status": 503
+    },
+    {
+      "run": 11,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 11,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 11,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 11,
+      "path": "/optional",
+      "status": 200
+    },
+    {
+      "run": 12,
+      "path": "/inventory",
+      "status": 200
+    },
+    {
+      "run": 12,
+      "path": "/shipping",
+      "status": 200
+    },
+    {
+      "run": 12,
+      "path": "/pricing",
+      "status": 200
+    },
+    {
+      "run": 12,
+      "path": "/optional",
+      "status": 200
+    }
+  ]
+}

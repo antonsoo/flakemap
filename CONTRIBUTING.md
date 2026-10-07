@@ -38,6 +38,12 @@ The Java fixture is regenerated separately as described in
 [`examples/retry_project/README.md`](examples/retry_project/README.md); ordinary
 tests read the committed XML and do not need Java or Maven.
 
+The shared-outage fixture is captured from real loopback HTTP requests and
+controlled pytest failures; see
+[`examples/cofailure_project/README.md`](examples/cofailure_project/README.md).
+Browser checks also exercise the four generated gallery pages, full JSON downloads,
+member links, and bounded previews whose downloads retain all omitted evidence.
+
 ## Adding a JUnit dialect
 
 If you hit a report `flakemap` mis-parses, please attach a redacted sample

@@ -10,12 +10,13 @@ from __future__ import annotations
 
 import re
 from collections import Counter, defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 
 from flakemap.models import Run, Status, run_sort_key
 from flakemap.observations import Observation, history_observations
 from flakemap.stats.changepoint import ChangePoint, detect_change_point
+from flakemap.stats.cofailure import CoFailureAnalysis, group_failures
 from flakemap.stats.correlation import GroupRate, group_failure_rates, linear_trend, point_biserial
 from flakemap.stats.wilson import Interval, wilson_interval
 
@@ -86,6 +87,7 @@ class AnalysisResult:
     timestamp_range: tuple[datetime, datetime] | None
     mtime_fallback_warning: str | None
     warnings: list[str]
+    cofailure: CoFailureAnalysis = field(default_factory=CoFailureAnalysis)
 
 
 def _classify(
@@ -325,4 +327,5 @@ def analyze(runs: list[Run]) -> AnalysisResult:
         timestamp_range=timestamp_range,
         mtime_fallback_warning=mtime_warning,
         warnings=warnings,
+        cofailure=group_failures(runs, by_test),
     )

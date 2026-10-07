@@ -27,6 +27,52 @@ def _classification_cell(t: TestStats) -> Text:
     return Text(_LABEL[t.classification], style=_STYLE[t.classification])
 
 
+def _cofailure_summary(result: AnalysisResult, console: Console) -> None:
+    groups = result.cofailure.groups
+    if not groups:
+        return
+    console.print("[bold]Tests that fail together[/bold]")
+    console.print(
+        "Exact matching outcomes and coverage; shared history does not establish a cause."
+    )
+    prefix = (
+        common_prefix([name for group in groups for name in group.tests])
+        if console.is_terminal
+        else ""
+    )
+    table = Table(
+        show_lines=True,
+        caption=Text(f"tests under {visible(prefix.rstrip('.'))}") if prefix else None,
+    )
+    table.add_column("Members", overflow="fold", ratio=3)
+    table.add_column("Final-failure runs", overflow="fold", ratio=2)
+    table.add_column("Recovered runs", overflow="fold", ratio=2)
+    for group in groups[:5]:
+        names = [visible(short_name(name, prefix)) for name in group.tests[:3]]
+        if len(group.tests) > 3:
+            names.append(f"+ {len(group.tests) - 3} more tests")
+        failed = set(group.states["failed"] + group.states["exhausted"])
+        failed_ids = [md.run_id for md in result.cofailure.runs if md.run_id in failed]
+        cells = [Text("\n".join(names))]
+        for ids in (failed_ids, list(group.states["recovered"])):
+            label = ", ".join(visible(run_id) for run_id in ids[:5]) or "none"
+            if len(ids) > 5:
+                label += f" (+ {len(ids) - 5} more)"
+            cells.append(Text(label))
+        table.add_row(*cells)
+    console.print(table)
+    console.print(
+        f"Showing {min(len(groups), 5)} of {len(groups)} cohorts. "
+        "Use --html or --json for all members, run states and source evidence."
+    )
+    if result.cofailure.excluded_tests:
+        console.print(
+            f"{len(result.cofailure.excluded_tests)} tests have ambiguous outcomes "
+            "and are excluded from grouping."
+        )
+    console.print()
+
+
 def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -> None:
     """Print the human-facing report: a summary line plus a ranked table."""
     flaky = sum(1 for t in result.tests if t.classification == "flaky")
@@ -51,6 +97,7 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
             f"[yellow]{len(result.warnings) - 5} more warnings; see JSON or HTML.[/yellow]"
         )
     console.print()
+    _cofailure_summary(result, console)
 
     ranked = [t for t in result.tests if t.classification in ("flaky", "broken")][:top_n]
     if not ranked:

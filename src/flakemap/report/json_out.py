@@ -7,6 +7,7 @@ from typing import Any
 from flakemap.models import TestCaseResult
 from flakemap.observations import Observation
 from flakemap.stats.analyze import AnalysisResult, TestStats
+from flakemap.stats.cofailure import CoFailureAnalysis, FailureCohort
 
 
 def record_to_dict(record: TestCaseResult) -> dict[str, Any]:
@@ -39,6 +40,39 @@ def _evidence(obs: Observation) -> dict[str, Any]:
         "commit": obs.run.metadata.commit,
         "reason": obs.result.issue,
         "records": [record_to_dict(r) for r in obs.records],
+    }
+
+
+def cohort_to_dict(group: FailureCohort) -> dict[str, Any]:
+    return {
+        "id": group.id,
+        "tests": list(group.tests),
+        "run_states": {state: list(ids) for state, ids in group.states.items()},
+        "failed_runs": group.failed_runs,
+        "recovered_runs": group.recovered_runs,
+        "affected_test_runs": group.affected_test_runs,
+        "evidence": [{"test": obs.result.full_name, **_evidence(obs)} for obs in group.evidence],
+    }
+
+
+def cofailure_to_dict(analysis: CoFailureAnalysis) -> dict[str, Any]:
+    return {
+        "method": "exact_outcome_history",
+        "ambiguous_tests_excluded": list(analysis.excluded_tests),
+        "runs": [
+            {
+                "run_id": md.run_id,
+                "commit": md.commit,
+                "branch": md.branch,
+                "timestamp": md.timestamp.isoformat() if md.timestamp else None,
+                "runner": md.runner,
+                "os": md.os,
+                "sequence": md.sequence,
+                "metadata_source": md.source,
+            }
+            for md in analysis.runs
+        ],
+        "groups": [cohort_to_dict(group) for group in analysis.groups],
     }
 
 
@@ -143,6 +177,8 @@ def to_json_dict(result: AnalysisResult) -> dict[str, Any]:
                 [t.isoformat() for t in result.timestamp_range] if result.timestamp_range else None
             ),
             "total_tests": len(result.tests),
+            "cofailure_groups": len(result.cofailure.groups),
+            "cofailure_tests": sum(len(group.tests) for group in result.cofailure.groups),
             "recovered_test_runs": sum(t.recovered_runs for t in result.tests),
             "exhausted_test_runs": sum(t.exhausted_runs for t in result.tests),
             "excluded_test_runs": sum(t.n_unknown for t in result.tests),
@@ -154,5 +190,6 @@ def to_json_dict(result: AnalysisResult) -> dict[str, Any]:
             ),
         },
         "warnings": result.warnings,
+        "cofailure": cofailure_to_dict(result.cofailure),
         "tests": [_test_to_dict(t) for t in result.tests],
     }

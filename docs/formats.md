@@ -241,6 +241,11 @@ retry evidence. Consumers of version 1 must account for these changes:
 | `tests[].rerun_signal.groups_with_reruns` / `groups_with_flip` | Replace the version 1 `commits_with_*` keys; groups include branch/runner/OS |
 | `tests[].retries` | Recovered/exhausted counts, observed failed-attempt count, and evidence |
 | `tests[].excluded` | Excluded observations with reason and original records |
+| `summary.cofailure_groups` / `cofailure_tests` | Exact shared-outcome cohort count and number of member tests (source checkout) |
+| `cofailure.method` | `exact_outcome_history`; descriptive matching, not causal inference |
+| `cofailure.runs` | Ordered metadata for every supplied run, including runner/OS, commit, branch and metadata source |
+| `cofailure.ambiguous_tests_excluded` | Tests excluded from grouping because any outcome was ambiguous |
+| `cofailure.groups[]` | Report-local ID, members, all six `run_states`, final-failure/recovered counts, affected test-run count and original affected evidence |
 
 Each evidence entry contains `run_id`, `commit`, `reason`, and `records`.
 A record carries the original `name` and `classname`, `source: {report, testcase}` (relative report path and 1-based
@@ -248,6 +253,9 @@ ordinal), `status`, `message`, `reported_duration_seconds`, `issue`, and optiona
 `retry: {outcome, attempts, failures}`. The `failures` array retains each marker's
 `tag`, `status` and `message`. Library callers that construct records without
 source information get `source: null`; provenance is never invented.
+
+Shared-outcome evidence adds `test` to that same evidence shape. See
+[matching rules and the complete download contract](shared-outcomes.md).
 
 Use `--fail-on-incomplete` to make any warning exit 2. With all records unusable,
 the CLI exits 2 even without this flag. JSON remains on stdout and diagnostics

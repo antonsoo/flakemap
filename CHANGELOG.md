@@ -4,6 +4,16 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Added
+
+- Exact shared-outcome cohorts across tests in terminal, Markdown, JSON and HTML.
+  Matching includes run coverage and retry states; ambiguous histories are excluded.
+  Source evidence and member links support investigation without claiming a common
+  cause. Bounded HTML previews have a complete offline JSON download.
+- A captured twelve-run pytest/loopback-service example separates shared outages,
+  an independent failure and partial coverage. The demo builder adds navigable
+  shared-failure, retry and interrupted-input examples with explicit provenance.
+
 ### Fixed
 
 - Truncated JUnit reports retain completed testcases with their suite context;

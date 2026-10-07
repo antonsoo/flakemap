@@ -55,6 +55,27 @@ Retry inspection is in the CLI and in every generated HTML report. The hosted
 demo's pytest history contains no retries, so the retry view shows up only in
 reports built from retry data, like the commands above.
 
+## When several failures belong to the same investigation
+
+The source checkout also groups tests with identical outcome histories. In the
+[controlled HTTP capture](examples/cofailure_project/README.md), inventory,
+pricing and shipping tests all fail on runs 04, 05 and 10. An independent math
+failure and an endpoint test with missing coverage stay separate.
+
+```bash
+uv run flakemap examples/cofailure_history --html shared.html --json > shared.json
+```
+
+Open **Tests that fail together** for run IDs, original statuses, source positions
+and messages. Download every group's evidence from the offline report or follow
+a member link to its individual statistics. Skips, missing results, retries and
+ambiguous records cannot silently become matching passes. Shared history is an
+investigation lead, not proof of a common cause. [Rules and limits](docs/shared-outcomes.md).
+
+`uv run python scripts/build_demo_site.py` builds a local example gallery under
+`site/`, including shared outages, Surefire retries and interrupted input alongside
+the original long-history report. Each example states its provenance.
+
 ## Quickstart
 
 ```console
@@ -85,6 +106,9 @@ installing: `uvx flakemap path/to/reports`.
 - **Input integrity**: duplicate test identifiers and inconsistent run metadata
   are excluded with inspectable records. Warnings survive JSON, Markdown, and
   HTML export. `--fail-on-incomplete` makes these omissions fail a CI check.
+- **Shared outcomes** (source checkout): exact matching failure/retry histories
+  with member links, run metadata, source records and complete offline JSON
+  downloads. Missing, skipped and ambiguous observations retain their meaning.
 - **Run metadata** (commit, branch, timestamp, runner, OS) from a sidecar
   JSON, a directory-per-run layout, or file mtime as a last resort.
 - **Per-test statistics**: Wilson-interval failure rate, flip rate,

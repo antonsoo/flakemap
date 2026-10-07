@@ -17,6 +17,7 @@ from html import escape
 
 from flakemap.models import Run, Status, TestCaseResult
 from flakemap.observations import history_observations
+from flakemap.report.cofailure_html import COFAILURE_CSS, render_cofailure
 from flakemap.report.names import common_prefix, short_name
 from flakemap.stats.analyze import AnalysisResult, TestStats
 
@@ -173,7 +174,11 @@ def _test_detail(t: TestStats) -> str:
 
 
 def _test_row(
-    t: TestStats, runs: list[Run], matrix: dict[str, dict[str, TestCaseResult]], prefix: str = ""
+    t: TestStats,
+    runs: list[Run],
+    matrix: dict[str, dict[str, TestCaseResult]],
+    prefix: str = "",
+    anchor: str = "",
 ) -> str:
     cells = "".join(
         _cell(run, matrix.get(t.full_name, {}).get(run.metadata.run_id)) for run in runs
@@ -183,7 +188,7 @@ def _test_row(
     ci = f"{t.failure_rate.point:.0%}" if t.n else "n/a"
     return f"""
 <details class="row row-{t.classification}">
-  <summary>
+  <summary id="{anchor}">
     <span class="row-name">
       <span class="dot dot-{t.classification}"></span>
       <span class="name-text" title="{escape(t.full_name)}">{escape(short_name(t.full_name, prefix))}</span>
@@ -343,7 +348,10 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
         ),
     )
     prefix = common_prefix([t.full_name for t in result.tests])
-    rows_html = "".join(_test_row(t, runs, matrix, prefix) for t in tests_ranked)
+    test_anchors = {test.full_name: f"test-{index}" for index, test in enumerate(tests_ranked)}
+    rows_html = "".join(
+        _test_row(t, runs, matrix, prefix, test_anchors[t.full_name]) for t in tests_ranked
+    )
     prefix_html = (
         f'<p class="prefix">Tests under <code>{escape(prefix.rstrip("."))}</code></p>'
         if prefix
@@ -381,7 +389,7 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
 <meta http-equiv="Content-Security-Policy" content="{_CSP}">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{escape(title)}</title>
-<style>{_CSS}</style>
+<style>{_CSS}{COFAILURE_CSS}</style>
 </head>
 <body>
 <header class="masthead">
@@ -404,6 +412,7 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
   <div class="tally-item tally-flaky"><b>{sum(t.recovered_runs for t in result.tests)}</b>test-runs passed on retry</div>
   <div class="tally-item tally-na"><b>{sum(t.n_unknown for t in result.tests)}</b>test-runs excluded</div>
 </div>
+{render_cofailure(result, test_anchors)}
 <section class="heatmap">
   <h2>Test &times; run heatmap</h2>
   {prefix_html}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="6" time="0.043" timestamp="2026-10-07T13:23:30.351202-07:00" hostname="omnia"><testcase classname="tests.test_service" name="test_inventory_endpoint" time="0.004"><failure message="AssertionError: Inventory endpoint returned HTTP 503&#10;assert 503 == 200">def test_inventory_endpoint() -&gt; None:
+        status, body = request("/inventory")
+&gt;       assert status == 200, f"Inventory endpoint returned HTTP {status}"
+E       AssertionError: Inventory endpoint returned HTTP 503
+E       assert 503 == 200
+
+tests/test_service.py:22: AssertionError</failure></testcase><testcase classname="tests.test_service" name="test_shipping_endpoint" time="0.002"><failure message="AssertionError: Shipping endpoint returned HTTP 503&#10;assert 503 == 200">def test_shipping_endpoint() -&gt; None:
+        status, body = request("/shipping")
+&gt;       assert status == 200, f"Shipping endpoint returned HTTP {status}"
+E       AssertionError: Shipping endpoint returned HTTP 503
+E       assert 503 == 200
+
+tests/test_service.py:28: AssertionError</failure></testcase><testcase classname="tests.test_service" name="test_pricing_endpoint" time="0.001"><failure message="AssertionError: Pricing endpoint returned HTTP 503&#10;assert 503 == 200">def test_pricing_endpoint() -&gt; None:
+        status, body = request("/pricing")
+&gt;       assert status == 200, f"Pricing endpoint returned HTTP {status}"
+E       AssertionError: Pricing endpoint returned HTTP 503
+E       assert 503 == 200
+
+tests/test_service.py:34: AssertionError</failure></testcase><testcase classname="tests.test_service" name="test_optional_endpoint" time="0.002"><failure message="AssertionError: Optional endpoint returned HTTP 503&#10;assert 503 == 200">def test_optional_endpoint() -&gt; None:
+        if os.environ["CAPTURE_RUN"] == "4":
+            pytest.skip("Deliberately unscheduled optional check in capture run 4")
+        status, body = request("/optional")
+&gt;       assert status == 200, f"Optional endpoint returned HTTP {status}"
+E       AssertionError: Optional endpoint returned HTTP 503
+E       assert 503 == 200
+
+tests/test_service.py:42: AssertionError</failure></testcase><testcase classname="tests.test_service" name="test_independent_math" time="0.000" /><testcase classname="tests.test_service" name="test_healthy_control" time="0.000" /></testsuite></testsuites>

@@ -1,0 +1,7 @@
+{
+  "run_id": "run-12",
+  "sequence": 12,
+  "timestamp": "2026-10-07T20:23:31.356139+00:00",
+  "runner": "controlled-loopback-capture",
+  "os": "Linux"
+}

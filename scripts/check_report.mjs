@@ -46,6 +46,25 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.equal(await page.locator(".row-heatmap .cell").count(), fixture.runs * fixture.tests);
               assert.equal(await page.locator("script, iframe, object").count(), 0);
               assert.match(await page.locator('meta[http-equiv="Content-Security-Policy"]').getAttribute("content"), /default-src 'none'/);
+              if (fixture.name.startsWith("gallery/")) {
+                const nav = page.getByRole("navigation", { name: "Report examples" });
+                assert.equal(await nav.getByRole("link").count(), 4);
+                assert.equal(await nav.locator('[aria-current="page"]').count(), 1);
+                assert.equal(await nav.locator('[aria-current="page"]').getAttribute("href"), `${fixture.name.split("/")[1]}.html`);
+                const destination = fixture.name === "gallery/cofailure" ? "retry.html" : "cofailure.html";
+                const link = nav.locator(`a[href="${destination}"]`);
+                await link.focus();
+                await page.keyboard.press("Enter");
+                await page.waitForURL(`**/${destination}`);
+                assert.equal(await page.locator(".cofailure").count(), 1);
+                await page.goBack();
+                await page.waitForURL(`**/${fixture.name}.html`);
+                const pending = page.waitForEvent("download");
+                await page.getByRole("link", { name: "Download this analysis as JSON" }).click();
+                const download = await pending;
+                assert.deepEqual(JSON.parse(await readFile(await download.path(), "utf8")),
+                  JSON.parse(await readFile(resolve(directory, `${fixture.name}.json`), "utf8")));
+              }
               if (fixture.name === "retry") {
                 assert.equal(await page.locator(".row-heatmap .s-recovered").count(), 2);
                 assert.equal(await page.locator(".row-heatmap .s-fail").count(), 1);
@@ -84,6 +103,65 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 assert.match(await failure.innerText(), /<img src=x onerror=alert\(1\)>/);
                 assert.equal(await page.locator("img").count(), 0);
               }
+              const companion = JSON.parse(await readFile(resolve(directory, `${fixture.name}.json`), "utf8"));
+              if (companion.cofailure.groups.length) {
+                const groups = page.locator("details.cohort");
+                assert.equal(await groups.count(), Math.min(20, companion.cofailure.groups.length));
+                const first = groups.first();
+                await first.locator("summary").focus();
+                // A download click can leave Firefox in pointer modality after history
+                // navigation. Enter alone on a programmatically focused element does not
+                // establish keyboard focus. Exercise real tab navigation before checking it.
+                await page.keyboard.press("Tab");
+                await page.keyboard.press("Shift+Tab");
+                assert(await first.locator("summary").evaluate(el => el === document.activeElement));
+                await page.keyboard.press("Enter");
+                assert.equal(await first.getAttribute("open"), "");
+                assert.notEqual(await first.locator("summary").evaluate(el => getComputedStyle(el).outlineStyle), "none");
+                assert.equal(await first.locator("tbody tr").count(), Math.min(40, companion.cofailure.groups[0].evidence.length));
+                const pending = page.waitForEvent("download");
+                await page.locator(".cofailure-download").click();
+                const download = await pending;
+                assert.equal(download.suggestedFilename(), "flakemap-cofailure.json");
+                const exported = JSON.parse(await readFile(await download.path(), "utf8"));
+                assert.deepEqual(exported, {
+                  schema_version: 1, input_complete: companion.summary.input_complete,
+                  warnings: companion.warnings, cofailure: companion.cofailure,
+                });
+                // A member link moves keyboard focus to the actual per-test disclosure.
+                const link = first.locator(".cohort-members a").first();
+                const target = await link.getAttribute("href");
+                await link.focus();
+                await page.keyboard.press("Enter");
+                assert.equal(await page.evaluate(() => document.activeElement.id), target.slice(1));
+                await page.keyboard.press("Enter");
+                assert.equal(await page.locator(target).evaluate(el => el.parentElement.open), true);
+                if (width === 320) {
+                  const scroller = first.locator(".cohort-scroll");
+                  await scroller.focus();
+                  await page.keyboard.press("ArrowRight");
+                  await page.waitForFunction(() => document.querySelector(".cohort-scroll").scrollLeft > 0);
+                }
+                await first.locator("summary").focus();
+                await page.keyboard.press("Space");
+                assert.equal(await first.getAttribute("open"), null);
+                if (fixture.name === "cofailure") {
+                  assert.match(await page.locator(".cofailure").innerText(), /3 tests in 1 exact outcome cohort/);
+                  assert.equal(companion.cofailure.groups[0].evidence.length, 9);
+                }
+                if (fixture.name === "cofailure-bounds") {
+                  assert.equal(companion.cofailure.groups.length, 22);
+                  assert.equal(companion.cofailure.ambiguous_tests_excluded.length, 2);
+                  assert.equal(companion.cofailure.groups[0].evidence.length, 625);
+                  assert.equal(await first.locator(".cohort-members li").count(), 20);
+                  await first.locator("summary").click();
+                  assert.match(await first.innerText(), /Showing 40 of 625/);
+                  assert.match(await first.innerText(), /5 more members/);
+                  assert.match(await first.innerText(), /5 more in JSON/);
+                  assert.match(await first.innerText(), /full text in JSON/);
+                  assert.equal(await page.locator("img").count(), 0);
+                }
+              }
               await page.locator("details").evaluateAll(rows => rows.forEach(row => row.open = true));
               assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
               assert.equal(await page.locator('.row-heatmap [role="img"]:not([aria-label])').count(), 0);
@@ -99,7 +177,12 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.deepEqual(errors, []);
               assert.deepEqual(network, []);
               assert.deepEqual(await page.evaluate(() => window.reportCspViolations), []);
-              if (["retry", "incomplete"].includes(fixture.name)) {
+              if (["retry", "incomplete", "cofailure"].includes(fixture.name)) {
+                await page.evaluate(() => {
+                  document.querySelectorAll(".cohort-scroll").forEach(el => { el.scrollLeft = 0; });
+                  window.scrollTo(0, 0);
+                });
+                await page.waitForTimeout(200);
                 await page.screenshot({ path: resolve(screenshots, `${engine}-${width}-${colorScheme}-${fixture.name}.png`), fullPage: true });
               }
               results.push({ engine, browserVersion: browser.version(), width, colorScheme,

@@ -1,0 +1,85 @@
+{
+  "verified_at": "2026-10-07T10:31:02.556342+00:00",
+  "implementation_commit": "789c6123e153ceea5e308cf22fb2b8c5c5245990",
+  "platform": "Linux-6.18.40.1-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+  "published": false,
+  "checks": {
+    "python_310": {
+      "tests": 239,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "versions": {
+        "python": "3.10.21",
+        "rich": "13.7.0",
+        "pytest": "9.0.3"
+      }
+    },
+    "python_312": {
+      "tests": 239,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "versions": {
+        "python": "3.12.12",
+        "rich": "15.0.0",
+        "pytest": "9.1.1"
+      }
+    },
+    "python_314": {
+      "tests": 239,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "versions": {
+        "python": "3.14.7",
+        "rich": "15.0.0",
+        "pytest": "9.1.1"
+      }
+    },
+    "ruff_lint": "pass",
+    "ruff_format": "pass",
+    "mypy": "pass, 23 source files",
+    "build": "sdist and wheel",
+    "node_install": "npm ci, Node 24.21.0",
+    "npm_audit_vulnerabilities": 0,
+    "wheel": {
+      "python": "3.10.21",
+      "checks": [
+        "installed CLI reads retry_history: 1 runs, 6 tests",
+        "installed CLI reads trx_history: 12 runs, 6 tests",
+        "installed CLI reads demo_project/runs: 222 runs, 12 tests",
+        "installed CLI reads incomplete_history: 3 runs, 6 tests",
+        "gates: recovered retry=1; incomplete takes precedence=2",
+        "incomplete HTML+strict JSON retain unknown outcome, sparse timing and warning evidence",
+        "input-alias export returns 2 and preserves source bytes",
+        "old onset ages through 30 absent-test runs; recent-onset gate returns 0",
+        "same onset with explicitly wider 40-run gate returns 1"
+      ]
+    },
+    "browser_scenarios": 32,
+    "local_and_clean_report_hashes_match": true
+  },
+  "artifacts": [
+    {
+      "path": "dist/.gitignore",
+      "bytes": 1,
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    {
+      "path": "dist/flakemap-0.3.7-py3-none-any.whl",
+      "bytes": 57099,
+      "sha256": "c59af3d933cc9815c19f48e72f711b5d2ba24a7a35cd8b74c1f8f462d2bb197b"
+    },
+    {
+      "path": "dist/flakemap-0.3.7.tar.gz",
+      "bytes": 63962,
+      "sha256": "b4130e8c7fecfd8e18d15b4128247fb08c15e55d4c2219a87048325d019355f6"
+    },
+    {
+      "path": "site/index.html",
+      "bytes": 569997,
+      "sha256": "0824c252193d4628d0fb108f6801c12807eb2326ce227922eb1a1d9236d11949"
+    }
+  ]
+}

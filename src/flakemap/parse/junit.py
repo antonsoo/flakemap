@@ -17,10 +17,9 @@ format Ant/Surefire popularized decades ago. The differences that matter here:
   rerunFailure/rerunError preserve exhausted retries. Contradictory markers are
   unknown. FAIL and ERROR both count toward final-failure frequency.
 - **partial files**: a CI job killed mid-run can leave a JUnit file with an
-  unclosed root tag. ``parse_junit_file`` falls back to salvaging every
-  well-formed ``<testsuite>...</testsuite>`` or ``<testcase>...</testcase>``
-  fragment it can find via a bounded regex scan, and records what it had to
-  discard as a warning rather than raising.
+  unclosed root tag. ``parse_junit_file`` retains completed testcase elements
+  before the first XML error. Comments and CDATA are never interpreted as
+  test records. Incomplete records and the unparsed remainder stay unknown.
 
 Real-world samples used to validate each dialect are cited in ``docs/formats.md``.
 """
@@ -34,27 +33,29 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from flakemap.models import AttemptFailure, RetryEvidence, SourceLocation, Status, TestCaseResult
+from flakemap.parse.xmlinput import (
+    MAX_REPORT_BYTES,
+    MAX_XML_DEPTH,
+    MAX_XML_ELEMENTS,
+    contains_dtd,
+    exclude_lossy_identifiers,
+    read_xml_file,
+    without_declaration,
+    xml_events,
+)
 from flakemap.parse.xmltext import repair_xml_text, replaced_warning
 
 _MAX_MESSAGE_LEN = 500
-
-# Matches a complete <testsuite ...>...</testsuite> or self-closed <testsuite .../>
-# fragment, used only as a last-resort recovery path for truncated/malformed files.
-_SUITE_FRAGMENT_RE = re.compile(
-    r"<testsuite\b[^>]*(?:/>|>.*?</testsuite\s*>)", re.DOTALL | re.IGNORECASE
-)
-_CASE_FRAGMENT_RE = re.compile(
-    r"<testcase\b[^>]*(?:/>|>.*?</testcase\s*>)", re.DOTALL | re.IGNORECASE
-)
 
 
 def _first_line(text: str | None, limit: int = _MAX_MESSAGE_LEN) -> str | None:
     if not text:
         return None
-    line = text.strip().splitlines()[0].strip() if text.strip() else None
-    if not line:
+    first = re.search(r"\S", text)
+    if first is None:
         return None
-    return line[:limit]
+    # Never split an entire multi-megabyte log just to display its first line.
+    return text[first.start() : first.start() + limit].splitlines()[0].strip() or None
 
 
 def _parse_duration(raw: str | None) -> float | None:
@@ -128,6 +129,10 @@ def _testcase_from_element(
             ),
         )
 
+    if not (el.get("name") or "").strip():
+        status, retry = Status.UNKNOWN, None
+        issue = "missing JUnit test name; cannot identify this observation"
+
     duration = _parse_duration(el.get("time"))
     if el.get("time") is not None and duration is None:
         warnings.append(f"{classname}.{name}: invalid duration; retained as unknown")
@@ -142,134 +147,101 @@ def _testcase_from_element(
     )
 
 
-def _testcases_from_suite(suite_el: ET.Element, warnings: list[str]) -> list[TestCaseResult]:
-    cases = []
-    pending = [(suite_el, "")]
-    while pending:
-        element, suite_name = pending.pop()
-        if element.tag == "testcase":
-            cases.append(
-                _testcase_from_element(element, default_classname=suite_name, warnings=warnings)
-            )
-        else:
-            suite_name = element.get("name") or suite_name
-            pending.extend(
-                (child, suite_name)
-                for child in reversed(element)
-                if child.tag in ("testcase", "testsuite", "testsuites")
-            )
-    return cases
+def _structural_cases(raw: str) -> tuple[list[TestCaseResult], list[str], str | None]:
+    """Collect only completed records in recognized structural positions.
 
-
-def _suites_from_root(root: ET.Element) -> list[ET.Element]:
-    if root.tag in ("testsuite", "testsuites"):
-        return [root]
-    # Some tools (older gotestsum configs) emit a bare list of <testcase> with no
-    # <testsuite> wrapper at all.
-    if root.findall("testcase"):
-        return [root]
-    return []
-
-
-def _salvage(raw: str) -> tuple[list[TestCaseResult], list[str]]:
-    """Best-effort recovery for a file that failed to parse as well-formed XML."""
-    warnings: list[str] = []
+    Feed small chunks and detach consumed subtrees, so a long run does not keep
+    a second copy of every testcase in an XML DOM. Child outcome markers stay
+    attached until their testcase ends. Completed cases survive a truncated tail.
+    """
+    stack: list[tuple[ET.Element, str, bool]] = []
     cases: list[TestCaseResult] = []
+    warnings: list[str] = []
+    case_depth: int | None = None
+    elements = 0
+    containers = {"testsuite", "testsuites"}
+    try:
+        for event, element in xml_events(raw):
+            if event == "start":
+                elements += 1
+                if elements > MAX_XML_ELEMENTS:
+                    return cases, warnings, f"XML exceeds the {MAX_XML_ELEMENTS} element limit"
+                if len(stack) >= MAX_XML_DEPTH:
+                    return (
+                        cases,
+                        warnings,
+                        f"XML nesting exceeds the {MAX_XML_DEPTH} level limit",
+                    )
+                element.tag = element.tag.rsplit("}", 1)[-1]
+                parent_accepts = (
+                    not stack
+                    or (stack[-1][2] and stack[-1][0].tag in containers)
+                    or (len(stack) == 1 and element.tag == "testcase" and case_depth is None)
+                )
+                eligible = parent_accepts and element.tag in (*containers, "testcase")
+                suite_name = (
+                    stack[-1][1]
+                    if stack
+                    else (element.get("name", "") if element.tag != "testcase" else "")
+                )
+                if eligible and element.tag in containers:
+                    suite_name = element.get("name") or suite_name
+                stack.append((element, suite_name, eligible))
+                if eligible and element.tag == "testcase":
+                    case_depth = len(stack)
+            else:
+                _, suite_name, eligible = stack.pop()
+                if eligible and element.tag == "testcase":
+                    cases.append(_testcase_from_element(element, suite_name, warnings))
+                    case_depth = None
+                if case_depth is None:
+                    element.clear()
+                    if stack:
+                        stack[-1][0].remove(element)
+    except ET.ParseError as exc:
+        return cases, warnings, str(exc)
+    return cases, warnings, None
 
-    suite_fragments = _SUITE_FRAGMENT_RE.findall(raw)
-    consumed = set()
-    for frag in suite_fragments:
-        try:
-            el = ET.fromstring(frag)
-        except ET.ParseError:
-            continue
-        cases.extend(_testcases_from_suite(el, warnings))
-        consumed.add(frag)
-    if suite_fragments:
-        warnings.append(
-            f"file was not well-formed XML; salvaged {len(consumed)}/{len(suite_fragments)} "
-            "<testsuite> fragment(s) by regex recovery"
-        )
-        return cases, warnings
 
-    case_fragments = _CASE_FRAGMENT_RE.findall(raw)
-    ok = 0
-    for frag in case_fragments:
-        try:
-            el = ET.fromstring(frag)
-        except ET.ParseError:
-            continue
-        cases.append(_testcase_from_element(el, default_classname="", warnings=warnings))
-        ok += 1
-    if case_fragments:
+def read_junit(raw: str, source: str) -> tuple[list[TestCaseResult], list[str]]:
+    """Read decoded XML, retaining completed records before the first error."""
+    if len(raw) > MAX_REPORT_BYTES:
+        return [], [
+            f"decoded report exceeds the {MAX_REPORT_BYTES} character limit; report omitted"
+        ]
+    if not raw.strip():
+        return [], ["file is empty"]
+    if contains_dtd(raw):
+        return [], ["DTD and entity declarations are not supported"]
+    raw = without_declaration(raw)
+    cases, warnings, error = _structural_cases(raw)
+    if error:
+        repaired, _, replaced = repair_xml_text(raw)
+        if repaired != raw:
+            cases, warnings, error = _structural_cases(repaired)
+        if replaced:
+            warnings.append(replaced_warning(replaced))
+    if error:
         warnings.append(
-            f"file was not well-formed XML; salvaged {ok}/{len(case_fragments)} "
-            "<testcase> fragment(s) by regex recovery"
+            f"file was not well-formed XML ({error}); salvaged {len(cases)} completed "
+            "<testcase> element(s) before the error; incomplete records and the remainder omitted"
         )
-    else:
-        warnings.append("file was not well-formed XML and no recoverable fragments were found")
-    return cases, warnings
+    cases = [replace(case, source=SourceLocation(source, i)) for i, case in enumerate(cases, 1)]
+    for case in cases:
+        if case.issue:
+            warnings.append(f"{case.full_name}: {case.issue}; excluded from rates")
+    if not cases and not warnings:
+        warnings.append("parsed successfully but contained zero <testcase> elements")
+    return exclude_lossy_identifiers(cases, warnings), warnings
 
 
 def parse_junit_file(
     path: Path, *, source: str | None = None
 ) -> tuple[list[TestCaseResult], list[str]]:
-    """Parse one JUnit XML report file.
-
-    Returns ``(testcases, warnings)``. Never raises on a malformed or empty file;
-    an unparseable file yields ``([], [warning])`` instead so a whole batch job
-    doesn't abort on one bad report.
-    """
-    warnings: list[str] = []
-    try:
-        raw_bytes = path.read_bytes()
-    except OSError as exc:
-        return [], [f"could not read file: {exc}"]
-    try:
-        raw = raw_bytes.decode("utf-8-sig")
-    except UnicodeDecodeError:
-        raw = raw_bytes.decode("utf-8-sig", errors="replace")
-        warnings.append(
-            "invalid UTF-8 bytes were replaced; verify test identifiers before using this report"
-        )
-
-    if not raw.strip():
-        return [], ["file is empty"]
-
-    if re.search(r"<!\s*(?:DOCTYPE|ENTITY)\b", raw, re.IGNORECASE):
-        return [], ["DTD and entity declarations are not supported"]
-    cases: list[TestCaseResult] = []
-    try:
-        root = ET.fromstring(raw)
-    except ET.ParseError:
-        # A colour code or another control character in a failure message is the usual reason;
-        # taking those out lets the whole file parse instead of losing every test in it.
-        raw, _, replaced = repair_xml_text(raw)
-        try:
-            root = ET.fromstring(raw)
-        except ET.ParseError:
-            root = None
-        if replaced:
-            warnings.append(replaced_warning(replaced))
-    if root is None:
-        cases, recovery_warnings = _salvage(raw)
-        warnings.extend(recovery_warnings)
-    else:
-        suites = _suites_from_root(root)
-        if not suites:
-            return [], ["no <testsuite> or <testcase> elements found"]
-        for suite_el in suites:
-            cases.extend(_testcases_from_suite(suite_el, warnings))
-
-    cases = [
-        replace(case, source=SourceLocation(source or path.name, i))
-        for i, case in enumerate(cases, 1)
-    ]
-    for case in cases:
-        if case.issue:
-            warnings.append(f"{case.full_name}: {case.issue}; excluded from rates")
-
-    if not cases and not warnings:
-        warnings.append("parsed successfully but contained zero <testcase> elements")
-
-    return cases, warnings
+    """Read one bounded JUnit XML file; malformed reports return coverage warnings."""
+    raw, warnings = read_xml_file(path)
+    if raw is None:
+        return [], warnings
+    cases, more = read_junit(raw, source or path.name)
+    warnings.extend(more)
+    return exclude_lossy_identifiers(cases, warnings), warnings

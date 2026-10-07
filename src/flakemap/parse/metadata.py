@@ -25,11 +25,43 @@ See ``docs/formats.md`` for worked examples of both layouts.
 from __future__ import annotations
 
 import json
+import math
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from flakemap.models import RunMetadata
+
+MAX_METADATA_BYTES = 1024 * 1024
+MAX_METADATA_DEPTH = 128
+
+
+def _validate_structure(data: Any) -> None:
+    """Keep metadata behavior consistent across Python JSON implementations."""
+    pending = [(data, 0)]
+    while pending:
+        value, depth = pending.pop()
+        if depth > MAX_METADATA_DEPTH:
+            raise ValueError(f"exceeds the {MAX_METADATA_DEPTH} level nesting limit")
+        if isinstance(value, dict):
+            pending.extend((item, depth + 1) for item in value.values())
+        elif isinstance(value, list):
+            pending.extend((item, depth + 1) for item in value)
+        elif isinstance(value, float) and not math.isfinite(value):
+            raise ValueError("nonfinite JSON number")
+
+
+def _unique_object(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    result: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in result:
+            raise ValueError("duplicate JSON object key")
+        result[key] = value
+    return result
+
+
+def _nonfinite(_: str) -> Any:
+    raise ValueError("nonfinite JSON number")
 
 
 def _parse_timestamp(raw: Any) -> datetime | None:
@@ -54,6 +86,8 @@ def _sidecar_text(raw: bytes) -> str:
     `-Encoding utf8` writes UTF-8 with one. Read as plain UTF-8, either lost the run its
     commit and its place in the order, with a warning about a file that looked fine.
     """
+    if raw.startswith((b"\xff\xfe\x00\x00", b"\x00\x00\xfe\xff")):
+        return raw.decode("utf-32")
     if raw.startswith((b"\xff\xfe", b"\xfe\xff")):
         return raw.decode("utf-16")
     return raw.decode("utf-8-sig")
@@ -68,8 +102,15 @@ def _load_sidecar(path: Path, root: Path, warnings: list[str]) -> dict[str, Any]
     for candidate in candidates:
         if candidate.is_file():
             try:
-                data = json.loads(_sidecar_text(candidate.read_bytes()))
-            except (OSError, ValueError) as exc:
+                with candidate.open("rb") as handle:
+                    raw = handle.read(MAX_METADATA_BYTES + 1)
+                if len(raw) > MAX_METADATA_BYTES:
+                    raise ValueError(f"exceeds the {MAX_METADATA_BYTES} byte limit")
+                data = json.loads(
+                    _sidecar_text(raw), object_pairs_hook=_unique_object, parse_constant=_nonfinite
+                )
+                _validate_structure(data)
+            except (OSError, ValueError, RecursionError) as exc:
                 warnings.append(f"invalid metadata sidecar {candidate.name}: {exc}")
                 return None
             if isinstance(data, dict):
@@ -113,7 +154,13 @@ def resolve_metadata(path: Path, root: Path, *, warnings: list[str] | None = Non
         timestamp = _parse_timestamp(sidecar.get("timestamp"))
         if sidecar.get("timestamp") is not None and timestamp is None:
             warnings.append("metadata timestamp must be an ISO 8601 string; ignored")
-        extra = {k: str(v) for k, v in sidecar.items() if k not in _KNOWN_KEYS}
+        extra = {}
+        for key, value in sidecar.items():
+            if key not in _KNOWN_KEYS:
+                try:
+                    extra[key] = str(value)
+                except RecursionError:
+                    warnings.append("nested metadata value omitted: too deeply nested")
         source = "sidecar" if timestamp is not None or sequence is not None else "path"
         if timestamp is None and sequence is None:
             mtime = path.stat().st_mtime if path.exists() else None

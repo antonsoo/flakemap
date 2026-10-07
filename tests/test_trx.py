@@ -98,7 +98,9 @@ def write(tmp_path: Path, text: str, name: str = "r.trx", encoding: str = "utf-8
         ("Timeout", Status.ERROR),
         ("Aborted", Status.ERROR),
         ("NotExecuted", Status.SKIP),
-        ("Inconclusive", Status.SKIP),
+        ("Inconclusive", Status.UNKNOWN),
+        ("Completed", Status.UNKNOWN),
+        ("Warning", Status.UNKNOWN),
         ("Pending", Status.UNKNOWN),
     ],
 )

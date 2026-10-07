@@ -4,24 +4,20 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from flakemap.models import Run, run_sort_key
-from flakemap.parse.junit import parse_junit_file
+from flakemap.models import Run, TestCaseResult, run_sort_key
+from flakemap.parse.junit import read_junit
 from flakemap.parse.metadata import resolve_metadata
-from flakemap.parse.trx import is_trx, parse_trx_file
+from flakemap.parse.trx import is_trx, read_trx
+from flakemap.parse.xmlinput import exclude_lossy_identifiers, read_xml_file
 
 DEFAULT_PATTERN = "*.xml,*.trx"
 
 
-def _looks_like_trx(path: Path) -> bool:
-    if path.suffix.lower() == ".trx":
-        return True
-    try:
-        with path.open("rb") as handle:
-            head = handle.read(4096)
-    except OSError:
-        return False
-    encoding = "utf-16" if head[:2] in (b"\xff\xfe", b"\xfe\xff") else "utf-8-sig"
-    return is_trx(head.decode(encoding, errors="ignore"))
+def report_patterns(pattern: str) -> list[str]:
+    globs = [glob.strip() for glob in pattern.split(",") if glob.strip()]
+    if not globs or any(Path(glob).is_absolute() or ".." in Path(glob).parts for glob in globs):
+        raise ValueError("report patterns must be nonempty relative globs within the scan root")
+    return globs
 
 
 def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
@@ -33,17 +29,24 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
     orders its run when no sidecar or path metadata does (source ``report``).
     """
     root = root.resolve()
-    globs = [g.strip() for g in pattern.split(",") if g.strip()]
+    globs = report_patterns(pattern)
     files = sorted({p for g in globs for p in root.rglob(g) if p.is_file()})
 
     by_run_id: dict[str, Run] = {}
     for path in files:
         source = path.relative_to(root).as_posix()
         started = None
-        if _looks_like_trx(path):
-            cases, warnings, started = parse_trx_file(path, source=source)
+        raw, warnings = read_xml_file(path)
+        cases: list[TestCaseResult]
+        if raw is None:
+            cases = []
+        elif path.suffix.lower() == ".trx" or is_trx(raw):
+            cases, more, started = read_trx(raw, source)
+            warnings.extend(more)
         else:
-            cases, warnings = parse_junit_file(path, source=source)
+            cases, more = read_junit(raw, source)
+            warnings.extend(more)
+        cases = exclude_lossy_identifiers(cases, warnings)
         metadata = resolve_metadata(path, root, warnings=warnings)
         # Without a sidecar timestamp or sequence the run would be ordered by file mtime
         # (sources "path", "mtime"); the report's own start time is more trustworthy.

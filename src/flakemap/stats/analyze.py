@@ -59,6 +59,7 @@ class TestStats:
     change_point_run_id: str | None
     change_point_commit: str | None
     duration_trend: float | None
+    duration_n: int
     duration_failure_correlation: float | None
     runner_rates: list[GroupRate]
     os_rates: list[GroupRate]
@@ -67,8 +68,8 @@ class TestStats:
     last_seen: datetime | None
     last_status: Status
     runs_since_change: int | None
-    """Length of the after-change-point segment, i.e. how many of the most
-    recent runs reflect the new regime. `None` if no change point was found."""
+    """Runs in the supplied history from the change point through its end,
+    including runs where this test is skipped or absent. `None` without a change."""
     n_unknown: int
     flip_pairs: int
     recovered_runs: int
@@ -133,7 +134,9 @@ def _cluster_messages(observations: list[Observation], top_n: int = 5) -> list[M
     return clusters[:top_n]
 
 
-def _test_stats(full_name: str, observations: list[Observation]) -> TestStats:
+def _test_stats(
+    full_name: str, observations: list[Observation], run_positions: dict[str, int]
+) -> TestStats:
     suite = observations[0].result.suite
     non_skip = [o for o in observations if o.result.status not in (Status.SKIP, Status.UNKNOWN)]
     n = len(non_skip)
@@ -185,7 +188,7 @@ def _test_stats(full_name: str, observations: list[Observation]) -> TestStats:
     if change_point is not None:
         change_point_run_id = non_skip[change_point.index].run.metadata.run_id
         change_point_commit = non_skip[change_point.index].run.metadata.commit
-        runs_since_change = n - change_point.index
+        runs_since_change = len(run_positions) - run_positions[change_point_run_id]
 
     classification = _classify(n, p, flip_rate, rerun_signal, change_point)
     if recovered:
@@ -204,7 +207,8 @@ def _test_stats(full_name: str, observations: list[Observation]) -> TestStats:
         o.result.duration for o, _ in duration_observations if o.result.duration is not None
     ]
     duration_outcomes = [outcome for o, outcome in duration_observations]
-    duration_trend = linear_trend(durations) if len(durations) >= 2 else None
+    duration_positions = [run_positions[o.run.metadata.run_id] for o, _ in duration_observations]
+    duration_trend = linear_trend(durations, duration_positions) if len(durations) >= 2 else None
     duration_failure_correlation = (
         point_biserial(durations, duration_outcomes) if len(durations) >= 2 else None
     )
@@ -245,6 +249,7 @@ def _test_stats(full_name: str, observations: list[Observation]) -> TestStats:
         change_point_run_id=change_point_run_id,
         change_point_commit=change_point_commit,
         duration_trend=duration_trend,
+        duration_n=len(durations),
         duration_failure_correlation=duration_failure_correlation,
         runner_rates=runner_rates,
         os_rates=os_rates,
@@ -272,7 +277,8 @@ def analyze(runs: list[Run]) -> AnalysisResult:
     for observation in history_observations(runs):
         by_test[observation.result.full_name].append(observation)
 
-    tests = [_test_stats(name, obs) for name, obs in by_test.items()]
+    run_positions = {run.metadata.run_id: i for i, run in enumerate(runs)}
+    tests = [_test_stats(name, obs, run_positions) for name, obs in by_test.items()]
     tests.sort(key=lambda t: t.flakiness_score, reverse=True)
 
     run_id_range = (runs[0].metadata.run_id, runs[-1].metadata.run_id) if runs else None

@@ -54,7 +54,7 @@ def _cell(run: Run, tc: TestCaseResult | None) -> str:
     dur = f"{tc.duration:.2f}s" if tc.duration is not None else "n/a"
     label = _STATUS_LABEL[tc.status]
     css = _STATUS_CLASS[tc.status]
-    if tc.retry:
+    if tc.retry and tc.status is not Status.UNKNOWN:
         label += f"; {tc.retry.outcome} after {len(tc.retry.failures)} recorded failure(s)"
         if tc.retry.outcome == "recovered":
             css = "s-recovered"
@@ -111,9 +111,10 @@ def _test_detail(t: TestStats) -> str:
     if t.duration_trend is not None:
         parts.append(
             _stat_row(
-                "Duration trend (without retries)", f"{t.duration_trend * 1000:+.1f} ms/observation"
+                "Duration trend (without retries)", f"{t.duration_trend * 1000:+.1f} ms/history run"
             )
         )
+    parts.append(_stat_row("Timing observations (without retries)", str(t.duration_n)))
     if t.duration_failure_correlation is not None:
         parts.append(
             _stat_row("Duration × failure correlation", f"{t.duration_failure_correlation:+.2f}")
@@ -191,7 +192,7 @@ def _test_row(
     <span class="row-heatmap" style="--runs:{len(runs)}">{cells}</span>
     <span class="row-rate" title="Final failure rate; one outcome per run">{ci}</span>
   </summary>
-  <div class="detail">{_test_detail(t)}</div>
+  <div class="detail"><h3 class="test-identity">{escape(t.full_name)}</h3>{_test_detail(t)}</div>
 </details>"""
 
 
@@ -297,6 +298,7 @@ section.heatmap h2 {
 .s-unknown { background: repeating-linear-gradient(135deg, var(--ink-soft) 0 2px, var(--paper) 2px 4px); }
 .row-rate { flex: 0 0 3.2rem; text-align: right; color: var(--ink-soft); }
 .detail { padding: 0.7rem 1rem 1rem 2.4rem; background: var(--paper); font-size: 0.83rem; }
+.test-identity { font-family: var(--font-mono); font-size: 0.85rem; margin: 0 0 0.65rem; }
 .stat { display: flex; gap: 0.6rem; padding: 0.15rem 0; }
 .stat-label { flex: 0 0 15rem; color: var(--ink-soft); }
 .stat-value { font-family: var(--font-mono); min-width: 0; }
@@ -384,7 +386,7 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
 <body>
 <header class="masthead">
   <h1>flakemap &mdash; inspection report</h1>
-  <p class="tagline">Test reliability across CI history, computed from JUnit XML.</p>
+  <p class="tagline">Test reliability across CI history, computed from JUnit XML and TRX.</p>
   <div class="meta-strip">
     <span><b>runs</b> {result.total_runs}</span>
     <span><b>tests</b> {len(result.tests)}</span>

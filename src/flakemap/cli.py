@@ -6,12 +6,13 @@ import argparse
 import json
 import os
 import sys
+import tempfile
 from pathlib import Path
 
 from rich.console import Console
 
 from flakemap import __version__
-from flakemap.loader import DEFAULT_PATTERN, load_runs
+from flakemap.loader import DEFAULT_PATTERN, load_runs, report_patterns
 from flakemap.report import render_html, render_markdown, render_terminal, to_json_dict
 from flakemap.stats import analyze
 
@@ -111,6 +112,31 @@ def _text_streams() -> None:
             reconfigure(encoding="utf-8")
 
 
+def _write_html(path: Path, text: str, root: Path, pattern: str) -> None:
+    """A report must not destroy the input needed to review its conclusions."""
+    if path.is_symlink():
+        raise OSError("HTML output cannot be a symbolic link")
+    for glob in [*report_patterns(pattern), "meta.json", "*.meta.json"]:
+        for source in root.rglob(glob):
+            if source.is_file() and (
+                source.resolve() == path.resolve() or (path.exists() and source.samefile(path))
+            ):
+                raise OSError("HTML output must be distinct from input reports and metadata")
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w", encoding="utf-8", dir=path.parent, prefix=f".{path.name}.", delete=False
+        ) as handle:
+            temporary = Path(handle.name)
+            handle.write(text)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, path)
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -124,7 +150,11 @@ def main(argv: list[str] | None = None) -> int:
         errors.print(f"error: {args.reports_dir} is not a directory", style="red", markup=False)
         return 2
 
-    runs = load_runs(args.reports_dir, pattern=args.pattern)
+    try:
+        runs = load_runs(args.reports_dir, pattern=args.pattern)
+    except (OSError, ValueError) as exc:
+        errors.print(f"error reading reports: {exc}", style="red", markup=False)
+        return 2
     if not runs:
         errors.print(
             f"error: no report files matching '{args.pattern}' found under {args.reports_dir}",
@@ -144,7 +174,7 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.html:
         try:
-            args.html.write_text(render_html(result, runs), encoding="utf-8")
+            _write_html(args.html, render_html(result, runs), args.reports_dir, args.pattern)
         except OSError as exc:
             errors.print(f"error writing HTML report: {exc}", style="red", markup=False)
             return 2

@@ -18,10 +18,11 @@ TRX is not a JUnit dialect. A ``<TestRun>`` (namespace
 - ``<Times start=...>``: when the run started, used to order runs that have
   no sidecar metadata (see `flakemap.loader`).
 
-Outcomes, from the TRX schema's ``TestOutcome``: ``Passed``,
-``PassedButRunAborted``, ``Warning`` and ``Completed`` are passes; ``Failed``
-is a failure; ``Error``, ``Timeout`` and ``Aborted`` are errors;
-``NotExecuted``, ``NotRunnable`` and ``Inconclusive`` are skips; anything else
+Outcomes, from VSTest's ``TestOutcome``: ``Passed`` and
+``PassedButRunAborted`` establish a pass; ``Failed`` is a failure;
+``Error``, ``Timeout`` and ``Aborted`` are errors;
+``NotExecuted`` and ``NotRunnable`` are skips. ``Inconclusive``, ``Completed``
+and the run-level ``Warning`` do not establish a test outcome; anything else
 (``Pending``, ``InProgress``, ``Disconnected``) is unknown and excluded from
 rates.
 """
@@ -36,23 +37,34 @@ from xml.etree import ElementTree as ET
 
 from flakemap.models import SourceLocation, Status, TestCaseResult
 from flakemap.parse.junit import _first_line
+from flakemap.parse.xmlinput import (
+    MAX_REPORT_BYTES,
+    MAX_XML_DEPTH,
+    MAX_XML_ELEMENTS,
+    contains_dtd,
+    exclude_lossy_identifiers,
+    read_xml_file,
+    without_declaration,
+    xml_events,
+)
 from flakemap.parse.xmltext import repair_xml_text, replaced_warning
 
 _OUTCOMES = {
     "passed": Status.PASS,
     "passedbutrunaborted": Status.PASS,
-    "warning": Status.PASS,
-    "completed": Status.PASS,
     "failed": Status.FAIL,
     "error": Status.ERROR,
     "timeout": Status.ERROR,
     "aborted": Status.ERROR,
     "notexecuted": Status.SKIP,
     "notrunnable": Status.SKIP,
-    "inconclusive": Status.SKIP,
 }
 
-_DURATION = re.compile(r"^(?:(\d+)\.)?(\d{1,2}):(\d{2}):(\d{2}(?:\.\d+)?)$")
+_DURATION = re.compile(
+    r"^(?:([0-9]{1,8})\.)?([0-9]{1,2}):([0-9]{2}):([0-9]{2})(?:\.([0-9]{1,7}))?$"
+)
+_TICKS_PER_SECOND = 10_000_000
+_MAX_TIMESPAN_TICKS = (1 << 63) - 1
 
 
 def _local(tag: str) -> str:
@@ -71,8 +83,42 @@ def _child(el: ET.Element, name: str) -> ET.Element | None:
 
 def is_trx(raw: str) -> bool:
     """True if the document's root element is a TRX ``<TestRun>``."""
-    head = re.sub(r"<\?xml[^>]*\?>|<!--.*?-->", "", raw[:4096], flags=re.DOTALL).lstrip()
-    return re.match(r"<(?:[\w.-]+:)?TestRun[\s>/]", head) is not None
+    pos = 0
+    while pos < len(raw):
+        if raw[pos].isspace() or raw[pos] == "\ufeff":
+            pos += 1
+            continue
+        terminator = (
+            "-->" if raw.startswith("<!--", pos) else "?>" if raw.startswith("<?", pos) else None
+        )
+        if terminator is None:
+            return re.compile(r"<(?:[\w.-]+:)?TestRun[\s>/]").match(raw, pos) is not None
+        end = raw.find(terminator, pos + 2)
+        if end == -1:
+            return False
+        pos = end + len(terminator)
+    return False
+
+
+def _parse_root(raw: str) -> ET.Element:
+    depth = 0
+    elements = 0
+    root = None
+    for event, element in xml_events(raw):
+        if event == "start":
+            elements += 1
+            if elements > MAX_XML_ELEMENTS:
+                raise ET.ParseError(f"XML exceeds the {MAX_XML_ELEMENTS} element limit")
+            depth += 1
+            if depth > MAX_XML_DEPTH:
+                raise ET.ParseError(f"XML nesting exceeds the {MAX_XML_DEPTH} level limit")
+            if root is None:
+                root = element
+        else:
+            depth -= 1
+    if root is None:
+        raise ET.ParseError("no document element")
+    return root
 
 
 def _duration(raw: str | None) -> float | None:
@@ -81,8 +127,14 @@ def _duration(raw: str | None) -> float | None:
     match = _DURATION.match(raw.strip())
     if not match:
         return None
-    days, hours, minutes, seconds = match.groups()
-    return int(days or 0) * 86400 + int(hours) * 3600 + int(minutes) * 60 + float(seconds)
+    days, hours, minutes, seconds, fraction = match.groups()
+    if int(hours) >= 24 or int(minutes) >= 60 or int(seconds) >= 60:
+        return None
+    whole = int(days or 0) * 86400 + int(hours) * 3600 + int(minutes) * 60 + int(seconds)
+    ticks = whole * _TICKS_PER_SECOND + int((fraction or "0").ljust(7, "0"))
+    # TRX's standard TimeSpan representation cannot exceed a signed Int64
+    # number of 100ns ticks. Validate before converting anything to float.
+    return ticks / _TICKS_PER_SECOND if ticks <= _MAX_TIMESPAN_TICKS else None
 
 
 def _started_at(root: ET.Element) -> datetime | None:
@@ -99,19 +151,17 @@ def _started_at(root: ET.Element) -> datetime | None:
     return started if started.tzinfo is not None else None
 
 
-def _definitions(root: ET.Element) -> dict[str, tuple[str, str]]:
+def _definitions(root: ET.Element) -> dict[str, tuple[str, str] | None]:
     """testId -> (class name, method name) from ``<TestDefinitions>``."""
-    out: dict[str, tuple[str, str]] = {}
-    definitions = _child(root, "TestDefinitions")
-    if definitions is None:
-        return out
-    for unit_test in definitions:
+    out: dict[str, tuple[str, str] | None] = {}
+    for unit_test in (unit for group in _children(root, "TestDefinitions") for unit in group):
         method = _child(unit_test, "TestMethod")
         test_id = unit_test.get("id")
         if method is None or not test_id:
             continue
         class_name = (method.get("className") or "").split(",", 1)[0].strip()
-        out[test_id] = (class_name, method.get("name") or unit_test.get("name") or "")
+        identity = (class_name, method.get("name") or unit_test.get("name") or "")
+        out[test_id] = None if test_id in out and out[test_id] != identity else identity
     return out
 
 
@@ -124,7 +174,13 @@ def _message(result: ET.Element) -> str | None:
     message = _child(info, "Message") if info is not None else None
     if message is None or not message.text:
         return None
-    lines = [line.strip() for line in message.text.strip().splitlines() if line.strip()]
+    lines = []
+    for match in re.finditer(r"[^\r\n]+", message.text):
+        line = _first_line(match.group())
+        if line:
+            lines.append(line)
+            if len(lines) == 2:
+                break
     if len(lines) > 1 and lines[0].endswith(":"):
         return _first_line(f"{lines[0]} {lines[1]}")
     return _first_line(lines[0] if lines else None)
@@ -133,16 +189,26 @@ def _message(result: ET.Element) -> str | None:
 def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], datetime | None]:
     """Parse TRX text. Returns ``(testcases, warnings, run start time)``."""
     warnings: list[str] = []
+    if len(raw) > MAX_REPORT_BYTES:
+        return (
+            [],
+            [f"decoded report exceeds the {MAX_REPORT_BYTES} character limit; report omitted"],
+            None,
+        )
+    if contains_dtd(raw):
+        return [], ["DTD and entity declarations are not supported"], None
     # The text is already decoded; a declaration naming another encoding (utf-16) would
     # make the parser reject it.
-    raw = re.sub(r"^\s*<\?xml[^>]*\?>", "", raw)
+    raw = without_declaration(raw)
     try:
-        root = ET.fromstring(raw)
-    except ET.ParseError:
+        root = _parse_root(raw)
+    except ET.ParseError as first_error:
         # As for JUnit: control characters from test output are the usual reason.
-        raw, _, replaced = repair_xml_text(raw)
+        repaired, _, replaced = repair_xml_text(raw)
+        if repaired == raw:
+            return [], [f"not well-formed TRX XML ({first_error})"], None
         try:
-            root = ET.fromstring(raw)
+            root = _parse_root(repaired)
         except ET.ParseError as exc:
             return [], [f"not well-formed TRX XML ({exc})"], None
         if replaced:
@@ -151,13 +217,17 @@ def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], da
         return [], ["not a TRX <TestRun> document"], None
 
     definitions = _definitions(root)
-    results = _child(root, "Results")
+    groups = _children(root, "Results")
+    if len(groups) > 1:
+        warnings.append("multiple TRX Results containers; all records retained for inspection")
     cases: list[TestCaseResult] = []
-    for result in results if results is not None else []:
+    for result in (result for group in groups for result in group):
         if _local(result.tag) not in ("UnitTestResult", "TestResult"):
+            warnings.append(f"unsupported TRX result element {_local(result.tag)!r}; omitted")
             continue
         test_name = result.get("testName") or "(unnamed)"
-        class_name, _method = definitions.get(result.get("testId") or "", ("", ""))
+        definition = definitions.get(result.get("testId") or "", ("", ""))
+        class_name, _method = definition or ("", "")
         # MSTest and NUnit write the short name (data rows as `Method ("JPY",0)`), xUnit the
         # fully qualified one; either way testName carries the parameters, so it is kept.
         if class_name and test_name.startswith(class_name + "."):
@@ -173,18 +243,32 @@ def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], da
         status = _OUTCOMES.get(outcome.lower(), Status.UNKNOWN)
         issue = None
         if status is Status.UNKNOWN:
-            issue = f"unrecognized TRX outcome {outcome!r}" if outcome else "no TRX outcome"
+            issue = (
+                f"TRX outcome {outcome!r} does not establish pass, failure or skip"
+                if outcome
+                else "no TRX outcome"
+            )
+        if not (result.get("testName") or "").strip():
+            status = Status.UNKNOWN
+            issue = "missing TRX test name; cannot identify this observation"
+        if definition is None:
+            status = Status.UNKNOWN
+            issue = "conflicting TRX test definitions for this testId; identity is ambiguous"
+        if outcome.lower() == "passedbutrunaborted":
+            warnings.append(
+                f"{test_name}: test passed but its run was aborted; history may be incomplete"
+            )
         duration_raw = result.get("duration")
         duration = _duration(duration_raw)
-        if duration_raw and duration is None:
-            warnings.append(f"{test_name}: invalid duration {duration_raw!r}; retained as unknown")
+        if duration_raw is not None and duration is None:
+            warnings.append(f"{test_name}: invalid TRX duration; retained as unknown")
         cases.append(
             TestCaseResult(
                 name=name,
                 classname=class_name,
                 status=status,
                 duration=duration,
-                message=_message(result) if status.is_failure or status is Status.SKIP else None,
+                message=_message(result) if status is not Status.PASS else None,
                 issue=issue,
             )
         )
@@ -195,25 +279,34 @@ def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], da
             warnings.append(f"{case.full_name}: {case.issue}; excluded from rates")
     if not cases:
         warnings.append("TRX file contained no test results")
-    return cases, warnings, _started_at(root)
+    started = _started_at(root)
+    times = _children(root, "Times")
+    if len(times) > 1 or (times and times[0].get("start") is not None and started is None):
+        warnings.append("invalid or ambiguous TRX start time; report ordering is unavailable")
+        started = None
+    for summary in _children(root, "ResultSummary"):
+        outcome = (summary.get("outcome") or "").lower()
+        if outcome in (
+            "aborted",
+            "disconnected",
+            "error",
+            "inprogress",
+            "pending",
+            "passedbutrunaborted",
+        ):
+            warnings.append(
+                f"TRX run summary is {outcome}; collected test results may be incomplete"
+            )
+    return exclude_lossy_identifiers(cases, warnings), warnings, started
 
 
 def parse_trx_file(
     path: Path, *, source: str | None = None
 ) -> tuple[list[TestCaseResult], list[str], datetime | None]:
     """Parse one TRX file. Never raises on a malformed or empty file."""
-    try:
-        raw_bytes = path.read_bytes()
-    except OSError as exc:
-        return [], [f"could not read file: {exc}"], None
-    warnings: list[str] = []
-    encoding = "utf-16" if raw_bytes[:2] in (b"\xff\xfe", b"\xfe\xff") else "utf-8-sig"
-    try:
-        raw = raw_bytes.decode(encoding)
-    except UnicodeDecodeError:
-        raw = raw_bytes.decode(encoding, errors="replace")
-        warnings.append("invalid text bytes were replaced; verify test identifiers")
-    if re.search(r"<!\s*(?:DOCTYPE|ENTITY)\b", raw, re.IGNORECASE):
-        return [], ["DTD and entity declarations are not supported"], None
+    raw, warnings = read_xml_file(path)
+    if raw is None:
+        return [], warnings, None
     cases, more, started = read_trx(raw, source or path.name)
-    return cases, warnings + more, started
+    warnings.extend(more)
+    return exclude_lossy_identifiers(cases, warnings), warnings, started

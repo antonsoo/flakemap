@@ -91,6 +91,8 @@ def _test_to_dict(t: TestStats) -> dict[str, Any]:
             else None
         ),
         "duration": {
+            "observations": t.duration_n,
+            "trend_axis": "supplied_history_run_index",
             "trend_seconds_per_run": (
                 round(t.duration_trend, 6) if t.duration_trend is not None else None
             ),
@@ -134,6 +136,7 @@ def to_json_dict(result: AnalysisResult) -> dict[str, Any]:
     return {
         "schema_version": 2,
         "summary": {
+            "input_complete": not result.warnings,
             "total_runs": result.total_runs,
             "run_id_range": list(result.run_id_range) if result.run_id_range else None,
             "timestamp_range": (

@@ -31,6 +31,11 @@ report paths, 1-based result ordinals and failure messages. Member links move
 keyboard focus to each test's disclosure. The evidence table scrolls horizontally
 on narrow screens. The report needs no script, server or network connection.
 
+![Captured shared outages with original source evidence](assets/shared-outcomes-desktop-2026-10-07.png)
+
+[Local verification and limitations](verification-shared-outcomes-2026-10-07.md)
+include a fresh HTTP recapture, independent grouping checks and both browser engines.
+
 ## Exact matching rules
 
 A cohort needs at least two tests and at least one final failure or recovered

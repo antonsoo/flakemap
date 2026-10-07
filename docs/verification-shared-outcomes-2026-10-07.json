@@ -1,0 +1,228 @@
+{
+  "verified_at": "2026-10-07T20:52:28.025702+00:00",
+  "implementation_commit": "6499e5887b22edbe865a2fabcb2f5a9c1a8b62d4",
+  "publication": "local only; no push, package publication or Pages deployment",
+  "native": [
+    {
+      "python": "3.10.21",
+      "dependencies": "lowest direct; Rich 13.7.0",
+      "passed": 261
+    },
+    {
+      "python": "3.12.12",
+      "dependencies": "locked; Rich 15.0.0",
+      "passed": 261
+    },
+    {
+      "python": "3.14.7",
+      "dependencies": "locked; Rich 15.0.0",
+      "passed": 261
+    }
+  ],
+  "ruff_lint": "passed",
+  "ruff_format_files": 59,
+  "mypy_source_files": 25,
+  "capture": {
+    "controlled": true,
+    "production_data": false,
+    "runs": 12,
+    "reported_testcases": 71,
+    "http_requests": 46,
+    "http_503_responses": 10,
+    "shared_tests": 3,
+    "shared_failed_runs": [
+      "run-04",
+      "run-05",
+      "run-10"
+    ],
+    "affected_test_runs": 9,
+    "recapture_matches_committed_outcomes_and_requests": true,
+    "test_source_sha256": "d6b2553008ef2045bcbfe299c247d9edc3992dda9958a02e052354748a03ee75"
+  },
+  "wheel": {
+    "python": "3.10.21",
+    "rich": "13.7.0",
+    "flakemap_import": "/tmp/flakemap-cofailure-wheel-run-20261007/lib/python3.10/site-packages/flakemap/__init__.py",
+    "outside_source_checkout": true,
+    "scenarios": [
+      {
+        "fixture": "captured",
+        "exit_code": 0,
+        "runs": 12,
+        "groups": 1,
+        "input_complete": true,
+        "source_files_unchanged": 25
+      },
+      {
+        "fixture": "recaptured",
+        "exit_code": 0,
+        "runs": 12,
+        "groups": 1,
+        "input_complete": true,
+        "source_files_unchanged": 25
+      },
+      {
+        "fixture": "retry",
+        "exit_code": 1,
+        "runs": 1,
+        "groups": 2,
+        "input_complete": true,
+        "source_files_unchanged": 2
+      },
+      {
+        "fixture": "incomplete",
+        "exit_code": 2,
+        "runs": 3,
+        "groups": 0,
+        "input_complete": false,
+        "source_files_unchanged": 7
+      }
+    ]
+  },
+  "browser": {
+    "scenarios": 80,
+    "node": "v24.21.0",
+    "playwright": "1.63.0",
+    "axe": "4.13.0",
+    "results": "browser-shared-outcomes-2026-10-07.json"
+  },
+  "clean_install_generated_files": [
+    {
+      "file": "retry.html",
+      "bytes": 34690,
+      "sha256": "d82c31f4d378d341fa4ceaed0535d44a431ec6e9c9ee03d5fda48b573d859318"
+    },
+    {
+      "file": "retry.json",
+      "bytes": 18626,
+      "sha256": "caca2038c00ea4bef4c0fb091953691b12bac0886dd69add5c1147963cc325a3"
+    },
+    {
+      "file": "history.html",
+      "bytes": 570688,
+      "sha256": "ab4cdfaa248256de0cf7031079dba0faa60451b20914fcf34029f540a2303d4e"
+    },
+    {
+      "file": "history.json",
+      "bytes": 84675,
+      "sha256": "6a7b7ccf9989ba4dea00daac6c36b449da0b815f05c052d14524f1868e2f87a6"
+    },
+    {
+      "file": "trx.html",
+      "bytes": 37369,
+      "sha256": "9a55163bd663d88523dd8eb7ccd02edab7368c9b7cb454d33b4f702d8a25d438"
+    },
+    {
+      "file": "trx.json",
+      "bytes": 11426,
+      "sha256": "7b1837e12ef0851f23991cf59984909f1ccf6bddf420d4846eeda0144d123612"
+    },
+    {
+      "file": "incomplete.html",
+      "bytes": 25938,
+      "sha256": "958b3eed632faa287dee9b20eb155a437015c36841bd4c395c58aaf475f78aa7"
+    },
+    {
+      "file": "incomplete.json",
+      "bytes": 10146,
+      "sha256": "d22dbaf702f69e6b78c1d616c6389b0466e3ee092c8028661a69b4d487596b52"
+    },
+    {
+      "file": "cofailure.html",
+      "bytes": 51217,
+      "sha256": "b4732a13b659fa547542748f33e461086171d312d75f37361bca5e139db17f87"
+    },
+    {
+      "file": "cofailure.json",
+      "bytes": 21045,
+      "sha256": "d2acb0e75bd5e0db0724fe29197b7642a6879fd25b47171b936c69fd90beec67"
+    },
+    {
+      "file": "cofailure-bounds.html",
+      "bytes": 4122562,
+      "sha256": "d845dd09b4ce57e41959e8d4ef8f93c6366c72ee7708365d59287c3c2040c486"
+    },
+    {
+      "file": "cofailure-bounds.json",
+      "bytes": 1556074,
+      "sha256": "f16300021bcf2686802174a7842c1072ae3aae49bd8760e020d88de18db3aa09"
+    },
+    {
+      "file": "gallery/index.html",
+      "bytes": 686716,
+      "sha256": "0a4b98a85628a4a4fb287b0825075876ccbedb2817f8e1a6c6e77fd0fd9b1cd6"
+    },
+    {
+      "file": "gallery/index.json",
+      "bytes": 84675,
+      "sha256": "6a7b7ccf9989ba4dea00daac6c36b449da0b815f05c052d14524f1868e2f87a6"
+    },
+    {
+      "file": "gallery/cofailure.html",
+      "bytes": 82530,
+      "sha256": "e111584e39478e14195d223914f82b15cd6ff3146b311e957465fe49bfc7482f"
+    },
+    {
+      "file": "gallery/cofailure.json",
+      "bytes": 21045,
+      "sha256": "d2acb0e75bd5e0db0724fe29197b7642a6879fd25b47171b936c69fd90beec67"
+    },
+    {
+      "file": "gallery/retry.html",
+      "bytes": 62737,
+      "sha256": "5d31423d0fe491437348880fddaed91ad08e435d93bee3fa87124f8545169d18"
+    },
+    {
+      "file": "gallery/retry.json",
+      "bytes": 18626,
+      "sha256": "caca2038c00ea4bef4c0fb091953691b12bac0886dd69add5c1147963cc325a3"
+    },
+    {
+      "file": "gallery/incomplete.html",
+      "bytes": 42677,
+      "sha256": "94fbc71a76633be93a06e3932984ba0b55e913acbecd7c36a2040af9759fe376"
+    },
+    {
+      "file": "gallery/incomplete.json",
+      "bytes": 10146,
+      "sha256": "d22dbaf702f69e6b78c1d616c6389b0466e3ee092c8028661a69b4d487596b52"
+    }
+  ],
+  "synthetic_scale": {
+    "fixture": "synthetic identical histories; no HTML rendering",
+    "tests": 20000,
+    "runs": 4,
+    "observations": 80000,
+    "cohorts": 1,
+    "affected_test_runs": 20000,
+    "analysis_seconds": 0.3963124690053519,
+    "process_peak_rss_kib": 60348
+  },
+  "screenshots": [
+    {
+      "file": "assets/shared-outcomes-desktop-2026-10-07.png",
+      "sha256": "a3202da1773c6ac1928955135827b075b1a4600ed9dde45594e9f7a5dc1b5d58"
+    },
+    {
+      "file": "assets/shared-outcomes-mobile-2026-10-07.png",
+      "sha256": "f89f72605f6aef830a92296e188eb8550034bc86cc71deef5584644f37334c0e"
+    }
+  ],
+  "packages": [
+    {
+      "file": ".gitignore",
+      "sha256": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1",
+      "bytes": 1
+    },
+    {
+      "file": "flakemap-0.3.7-py3-none-any.whl",
+      "sha256": "b4ef31f306b3760dcac692db2401c61f1b635ea76b58830d49375552108a4a56",
+      "bytes": 64421
+    },
+    {
+      "file": "flakemap-0.3.7.tar.gz",
+      "sha256": "f0973f94fd632dc592eca6b02665b1627b08c9dcaf7cd61460babb264026513d",
+      "bytes": 73739
+    }
+  ]
+}

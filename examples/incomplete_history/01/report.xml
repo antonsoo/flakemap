@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite name="C">
+  <testcase name="closedFailure" time="0.2">
+    <failure message="Expected &lt;img src=x onerror=alert(1)&gt; to stay literal"/>
+  </testcase>
+  <testcase name="recovered" time="0.3"><flakyFailure message="first attempt failed"/></testcase>
+  <!-- <testcase name="imaginary"><failure message="this is an example"/></testcase> -->
+  <system-out><![CDATA[<testcase name="imaginary"><failure/></testcase>]]></system-out>
+  <testcase name="unfinished"><failure message="runner was killed

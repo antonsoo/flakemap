@@ -20,18 +20,20 @@ $ uv run mypy                 # typecheck (strict)
 All four must pass before a PR is merged. There is no separate style guide:
 `ruff format` is authoritative.
 
-For report changes, generate both fixtures and check keyboard operation, narrow
-layouts, light/dark themes and offline loading with Chromium:
+For report changes, install the locked browser tools (Node 22+) and generate the
+fixtures. Checks exercise keyboard operation, 320/1200px layouts, light/dark
+themes, accessibility, CSP, escaping and offline file loading in Chromium and Firefox:
 
 ```bash
-uv run flakemap examples/retry_history --html /tmp/flakemap-retry.html
-uv run flakemap examples/demo_project/runs --html /tmp/flakemap-history.html
-node scripts/check_report.mjs /tmp/flakemap-retry.html /tmp/flakemap-history.html
+npm ci
+npx playwright install chromium firefox   # once, if not already installed
+uv run python scripts/browser_fixtures.py
+npm run test:browser
 ```
 
-The optional browser script needs an existing Playwright installation and its
-Chromium browser. It can resolve a shared installation through `NODE_PATH`.
-It makes no external requests. Inspect a screenshot as well as the assertions.
+The reports make no external requests. JSON evidence and screenshots go to
+`scratch/browser/`; inspect screenshots as well as the assertions. These Node
+dependencies are development-only; the Python package still needs only Rich.
 The Java fixture is regenerated separately as described in
 [`examples/retry_project/README.md`](examples/retry_project/README.md); ordinary
 tests read the committed XML and do not need Java or Maven.
@@ -48,7 +50,7 @@ against real tool output or hand-authored from documentation.
 
 ## Scope
 
-flakemap reads JUnit XML and computes statistics; it does not talk to any CI
+flakemap reads JUnit XML and TRX and computes statistics; it does not talk to any CI
 provider's API, store data server-side, or phone home. Contributions that add
 a network dependency for the core analysis path will likely be declined --
 open an issue first if you have a use case that seems to need one.

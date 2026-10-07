@@ -4,6 +4,29 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Fixed
+
+- Truncated JUnit reports retain completed testcases with their suite context;
+  XML examples inside logs and comments can no longer become invented results.
+  Recovery stops at the first syntax error. Namespaced outcomes and deferred
+  end-of-file parser events preserve their original meaning.
+- TRX `Completed`, `Warning` and `Inconclusive` outcomes remain unknown instead
+  of becoming passes or skips. Ambiguous identities and incomplete run summaries
+  stay visible. Invalid or overflowing `TimeSpan` durations remain unknown.
+- Duration trends retain missing runs on the horizontal axis. Old change points
+  continue aging when a test disappears, so they no longer trip a recent-onset gate.
+- Report decoding recognizes UTF-16/32 and declared text encodings. Corrupted
+  identities are excluded from cross-run inference. XML and metadata have
+  explicit resource limits; ambiguous sidecars cannot silently choose a run.
+- HTML output cannot overwrite input evidence; failed writes preserve prior output.
+
+### Reports and verification
+
+- JSON exposes detected input completeness, timing sample count and trend axis.
+  Opened HTML rows show the full test identity, including on narrow screens.
+- Added a documented synthetic interrupted-run walkthrough and repeatable
+  Chromium/Firefox checks over it and captured pytest, Surefire and MSTest histories.
+
 ### Maintenance
 
 - The uv configuration and lock now explicitly prefer stable dependency releases,

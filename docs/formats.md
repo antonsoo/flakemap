@@ -44,10 +44,9 @@ TRX, whatever its extension; `.trx` files are picked up by the default
   arguments (`CurrencyHasMinorUnits ("JPY",0)`), so each row is its own test.
   The rows nested under `<InnerResults>` are not read separately; their
   parent's outcome already aggregates them.
-- **Outcome.** `Passed`, `PassedButRunAborted`, `Warning`, `Completed` -> pass;
-  `Failed` -> fail; `Error`, `Timeout`, `Aborted` -> error; `NotExecuted`,
-  `NotRunnable`, `Inconclusive` -> skip; anything else -> unknown, excluded
-  from rates with a warning. MSTest reports a test that throws as `Failed`.
+- **Outcome.** The mappings below follow VSTest's definitions. MSTest reports a
+  test that throws as `Failed`. `Completed` only says execution ended; it does
+  not establish success.
 - **Duration** from `hh:mm:ss.fffffff` (optionally prefixed by `days.`), and
   the failure **message** from `<Output><ErrorInfo><Message>`. A first line
   ending in a colon (MSTest's `Test method ... threw exception:`) is joined to
@@ -56,8 +55,28 @@ TRX, whatever its extension; `.trx` files are picked up by the default
   timestamp or sequence; the run's metadata source is then `report`. A sidecar
   still wins.
 
-UTF-16 files (with a byte-order mark) are accepted. DTD and entity
-declarations are rejected, as for JUnit XML.
+| TRX outcome | Observation |
+| --- | --- |
+| `Passed` | Pass |
+| `PassedButRunAborted` | Pass, with an incomplete-run warning |
+| `Failed` | Failure |
+| `Error`, `Timeout`, `Aborted` | Error |
+| `NotExecuted`, `NotRunnable` | Skip |
+| `Completed`, `Inconclusive`, `Warning`, `Pending`, `InProgress`, `Disconnected`, missing or unrecognized values | Unknown; excluded from rates |
+
+These semantics come from [VSTest's `TestOutcome` source](https://github.com/microsoft/vstest/blob/main/src/Microsoft.TestPlatform.Extensions.TrxLogger/ObjectModel/TestOutcome.cs).
+Conflicting definitions for one `testId`, or a missing test name, also make the
+observation unknown. Original messages and source positions remain in evidence.
+An aborted/incomplete run summary warns without erasing known test results.
+Multiple `Results` containers are retained with a warning; unsupported result
+elements are omitted with a warning.
+
+TRX durations accept nonnegative `TimeSpan` text: hours below 24, minutes and
+seconds below 60, and at most seven fractional digits. Values above
+[`TimeSpan.MaxValue`](https://learn.microsoft.com/en-us/dotnet/api/system.timespan.maxvalue?view=net-10.0)
+(`10675199.02:48:05.4775807`) are unknown, as are malformed or negative durations.
+Validation uses integer 100-nanosecond ticks before converting to float seconds;
+there is no claim of preserving every tick at the largest magnitudes.
 
 ## What the parser normalizes
 
@@ -72,11 +91,11 @@ declarations are rejected, as for JUnit XML.
   statistic, since the distinction is dialect-specific and not reliable (pytest
   reports uncaught exceptions in test bodies as `<failure>`, not `<error>` --
   see `tests/fixtures/pytest_real.xml`).
-- **Nested suites**: traverse suites in document order, retaining every supported
+- **Nested suites and namespaces**: traverse suites in document order, retaining every supported
   testcase and using the nearest suite name when `classname` is absent. Source
   pointers use a 1-based testcase ordinal. In salvaged XML this is the ordinal
   among recovered records, not an assertion about the original file position.
-- **Durations**: negative, nonfinite, nonnumeric or greater-than-`1e100` durations become `null`,
+- **JUnit durations**: negative, nonfinite, nonnumeric or greater-than-`1e100` durations become `null`,
   with a warning. They never become zero. Retry-bearing durations are kept as
   reported evidence but excluded from duration statistics.
 - **DTD/entities**: declarations are rejected rather than expanded.
@@ -85,13 +104,42 @@ declarations are rejected, as for JUnit XML.
   a describe-block path with leading whitespace (see the real fixture). The
   "suite" grouping used for by-suite rollups is the classname with its last
   dot-separated segment stripped.
-- **Malformed/partial files**: a truncated file (a CI job killed mid-run,
-  leaving an unclosed root tag) fails a well-formed-XML parse; flakemap then
-  salvages every complete `<testsuite>...</testsuite>` fragment it can find
-  with a bounded regex scan and reports what it had to discard as a warning
-  rather than raising. An empty file, an unreadable file, and a file with zero
-  `<testcase>` elements all degrade to `(No testcases, warning)` instead of an
-  exception. See `tests/test_junit_parsing.py` for the exact cases.
+- **Malformed/partial JUnit files**: a streaming XML parser retains completed
+  testcase elements before the first syntax error, even inside an unclosed
+  suite. It preserves suite context and XML order. Comments and CDATA remain
+  text, including when they contain XML examples. Incomplete records and the
+  remainder after the error are omitted with a warning; no later fragments are
+  guessed. Malformed TRX is omitted because it also needs definitions and
+  other document-level context. Empty, unreadable, and zero-result files warn.
+
+## Text decoding and limits
+
+Both parsers recognize UTF-8/16/32 signatures, including UTF-16/32 without a BOM,
+and declared text encodings such as Windows-1252 and ISO-8859-1. Unsupported
+encodings are not guessed. Invalid bytes produce an explicit warning and U+FFFD
+replacement text. A name or classname containing U+FFFD in a lossy/repaired
+report becomes unknown: two different broken identities must not merge into a
+healthy history. A literal U+FFFD in an otherwise valid report is accepted.
+ANSI color escapes in invalid XML are removed; other illegal XML characters
+are replaced with a warning. DTD/entity declarations are rejected; quoted
+examples in comments or CDATA are inert.
+
+| Input | Bound and behavior |
+| --- | --- |
+| Report file | 64 MiB; larger files are omitted with a warning before decoding |
+| Decoded input to the parser API | 64 Mi characters |
+| XML structure | At most 256 nested elements and 250,000 elements; JUnit keeps the completed prefix, TRX is omitted |
+| Metadata sidecar | 1 MiB and 128 nested levels; invalid sidecars warn and fall back to path/mtime |
+| Failure message | First useful line, capped at 500 characters (TRX may join the first two lines) |
+
+These are per-file limits, not a total history or output-size budget. A large
+number of valid reports can still require substantial memory and produce a
+large HTML file. Sidecars also reject duplicate JSON keys and nonfinite values;
+UTF-8, UTF-16 and UTF-32 BOMs are supported.
+
+[`examples/incomplete_history`](../examples/incomplete_history/README.md) is a
+small, hand-authored walkthrough of recovery and unknown values. It is separate
+from the real runner captures listed above.
 
 ## Run-metadata convention
 
@@ -204,6 +252,23 @@ source information get `source: null`; provenance is never invented.
 Use `--fail-on-incomplete` to make any warning exit 2. With all records unusable,
 the CLI exits 2 even without this flag. JSON remains on stdout and diagnostics
 on stderr, including when `--html` and a failing CI gate are combined.
+
+Additive fields in version 2 expose `summary.input_complete` (false when the
+analysis has input/ordering warnings) and `tests[].duration.observations` plus
+`trend_axis: "supplied_history_run_index"`. A true `input_complete` only means
+no supported integrity problem was detected; it cannot prove that all CI
+artifacts were collected.
+
+`trend_seconds_per_run` uses positions in the entire supplied, ordered history.
+Missing timings, absent tests, retries, skips and unknown outcomes are not zero
+measurements, and do not compress the run axis. This is not elapsed wall-clock
+time or an external CI run number. `runs_since_change` includes the onset run
+and all later supplied runs, even if the test is absent or skipped later.
+
+HTML exports use an atomic replacement, so a failed write leaves the prior
+report intact. The output cannot alias a scanned report or metadata file
+(including hard links), and symbolic-link destinations are rejected. These
+checks do not provide locking against a concurrently changing input tree.
 
 Distinct `(classname, name)` pairs that collapse to the same dotted display
 identifier are also excluded across the history, with the original fields kept

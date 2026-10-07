@@ -171,14 +171,16 @@ Full formulas and citations are in the module docstrings
   sensitivity to small, recent shifts: a test going from 0% to 20% failures
   in its last 10 runs is caught about half the time. The selected split is
   not proof of the cause or onset.
-- **Duration signals**: an OLS trend (seconds per run) and the
+- **Duration signals**: an OLS trend (seconds per supplied history run) and the
   **point-biserial correlation** between duration and outcome (Tate, R.F.,
   1954, *"Correlation Between a Discrete and a Continuous Variable,"* Annals
   of Mathematical Statistics 25(3):603-607) -- the signature of a
   timeout-driven flake is a positive correlation (failures ran longer).
   Retry-bearing records are excluded: Surefire's `time` describes a single
-  attempt, not the retry cost. Missing/invalid durations stay unknown; trend is
-  per usable duration observation, which may skip runs.
+  attempt, not the retry cost. Missing/invalid durations stay unknown. The trend
+  retains the original run positions: 10 seconds at run 0 and 30 seconds at run
+  10 means +2 seconds/run, even if all intervening timings are missing. Reports
+  show the number of usable timing observations.
 - **Runner/OS correlation**: per-category Wilson intervals rather than a
   chi-square p-value. With the handful of runners and modest per-category
   sample sizes typical of a CI matrix, a hypothesis test would overstate
@@ -304,6 +306,17 @@ incomplete report with `--fail-on-incomplete`. Code 2 takes precedence. Diagnost
 go to stderr, so `--json --html report.html --fail-on-retry` still emits one valid
 JSON document on stdout. [JSON schema version 2](docs/formats.md#json-output-version-2)
 includes retry and excluded-record evidence.
+
+`--new-flake-window` counts all supplied runs after the inferred onset, including
+runs where that test is absent or skipped. It does not keep an old change
+"new" because the test disappeared. `summary.input_complete` in JSON reflects
+detected input/ordering warnings. HTML writes preserve the previous report on
+failure and refuse to overwrite source reports or metadata.
+
+Try [the incomplete-history walkthrough](examples/incomplete_history/README.md)
+for a small, explicitly synthetic example of a killed JUnit run and TRX outcomes
+that do not establish pass or failure. [Parser limits and encoding support](docs/formats.md#text-decoding-and-limits)
+describe what can be recovered and what remains unknown.
 
 ## Contributing
 

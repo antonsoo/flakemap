@@ -21,7 +21,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
       - name: Install
-        run: uv sync --all-extras
+        run: uv sync --locked --all-extras
 
       - name: Lint
         run: uv run ruff check .
@@ -57,3 +57,20 @@ jobs:
 
       - name: Test
         run: .venv-minimums/bin/pytest -q
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: "24"
+          cache: npm
+      - run: uv sync --locked
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox
+      - run: uv run python scripts/browser_fixtures.py
+      - run: npm run test:browser

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestRun xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Results>
+    <UnitTestResult testName="C.sparseTiming" outcome="Passed" duration="00:00:14"/>
+    <UnitTestResult testName="C.qualitativeUnknown" outcome="Completed">
+      <Output><ErrorInfo><Message>Execution ended; the reporter supplied no qualitative outcome.</Message></ErrorInfo></Output>
+    </UnitTestResult>
+    <UnitTestResult testName="C.invalidDuration" outcome="Passed" duration="00:99:99"/>
+  </Results>
+</TestRun>

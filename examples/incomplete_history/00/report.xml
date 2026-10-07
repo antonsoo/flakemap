@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite name="C">
+  <testcase name="ordinary" time="0.1"/>
+  <testcase name="sparseTiming" time="10"/>
+</testsuite>

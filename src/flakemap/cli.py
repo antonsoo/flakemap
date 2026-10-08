@@ -15,7 +15,7 @@ from flakemap import __version__
 from flakemap.loader import DEFAULT_PATTERN, load_runs, report_patterns
 from flakemap.report import render_html, render_markdown, render_terminal, to_json_dict
 from flakemap.stats import analyze
-from flakemap.stats.analyze import TestStats
+from flakemap.stats.analyze import NamedFailure, TestStats
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -62,9 +62,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--fail-on-new-flake",
         action="store_true",
         help=(
-            "exit 1 if a flaky or broken test's failures began within the last "
-            "--new-flake-window runs: a change point there, or every failure there "
-            "when a steady rate would have put some earlier (CI gating)"
+            "exit 1 if a flaky or broken test began failing within the last "
+            "--new-flake-window runs: a change point there; failures that start there after "
+            "a clean stretch three times the longest gap between them; or a test named in a "
+            "failure's output that first failed there and failed more than once (CI gating)"
         ),
     )
     parser.add_argument(
@@ -139,6 +140,11 @@ def _write_html(path: Path, text: str, root: Path, pattern: str) -> None:
             temporary.unlink(missing_ok=True)
 
 
+def _named_new(named: NamedFailure, window: int) -> bool:
+    """A name read from failure text: first failed inside the window, more than once."""
+    return named.activity.runs_since_first <= window and named.runs > 1
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -193,9 +199,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.fail_on_new_flake:
-        # Two kinds of new: a change point (a test that started failing most of the time)
-        # and a flaky test, or a test named inside one, whose failures all sit at the end
-        # of the history. The second is how a flake that fails one run in thirty arrives.
+        # Three kinds of new: a change point (a test that started failing most of the time);
+        # a flaky test that was clean for a long stretch and began failing within the window;
+        # and a test named inside a failure's text that first failed within the window and
+        # has failed more than once since. The history cannot say the named test did not
+        # exist earlier, so that kind does not rest on the "new" label.
         window = args.new_flake_window
         new_flakes = [
             t
@@ -203,17 +211,18 @@ def main(argv: list[str] | None = None) -> int:
             if t.classification in ("flaky", "broken")
             and (
                 (t.runs_since_change is not None and t.runs_since_change <= window)
-                or any(
-                    placed.state == "new" and placed.runs_since_first <= window
-                    for placed in (t.activity, *(named.activity for named in t.named_failures))
-                    if placed is not None
+                or (
+                    t.activity is not None
+                    and t.activity.state == "new"
+                    and t.activity.runs_since_first <= window
                 )
+                or any(_named_new(named, window) for named in t.named_failures)
             )
         ]
         if new_flakes:
 
             def label(t: TestStats) -> str:
-                inside = [n.name for n in t.named_failures if n.activity.state == "new"]
+                inside = [n.name for n in t.named_failures if _named_new(n, window)]
                 return t.full_name + (f" ({', '.join(inside[:3])})" if inside else "")
 
             names = ", ".join(label(t) for t in new_flakes[:5])

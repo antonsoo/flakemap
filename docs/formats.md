@@ -282,8 +282,8 @@ The source checkout adds these, without changing the version:
 
 | Field | Meaning |
 |---|---|
-| `summary.flaky_new` / `flaky_quiet` | Flaky tests whose failures are all recent, or have stopped (see `activity`) |
-| `tests[].activity` | `null` for a test that never failed. Otherwise `state` (`new`, `ongoing`, `quiet`), `failures`, `events` (failures with consecutive failing runs counted once), `runs_since_last_failure`, `runs_since_first_failure`, and the two chances the state rests on, `quiet_chance` and `new_chance` |
+| `summary.flaky_new` / `flaky_quiet` | Flaky tests whose failures began after a long clean stretch, or have stopped for longer than ever before (see `activity`) |
+| `tests[].activity` | `null` for a test that never failed. Otherwise `state` (`new`, `ongoing`, `quiet`), `failures`, `events` (failures with consecutive failing runs counted once), `longest_gap` (most passing runs between two successive events; `null` with fewer than two), `runs_since_last_failure`, `runs_since_first_failure`, and `silence_ratio` (runs since the last failure over `longest_gap`; `null` without a gap). `quiet` needs 3 events and a silence of at least 3 times the longest gap and 10 runs; `new` is the mirror, and is never given to a name in `named_failures[]`. The earlier unreleased `quiet_chance` and `new_chance` are gone |
 | `tests[].same_commit` | Of the test's failures: `failures_passed_elsewhere`, `failures_failed_everywhere` and `failures_without_another_run`, by what the other runs of the same commit, branch, runner and OS did |
 | `tests[].failures[]` | Every final failure, oldest first: `run_id`, `index` (position among the test's usable runs, from 0), `timestamp`, `commit`, `status`, `message`, `failed_within`, `same_commit` (`passed`, `failed`, `single`, `unknown`), `same_commit_other_runs`, `other_tests_failed` |
 | `tests[].named_failures[]` | Top-level Go tests named inside this testcase's failures, most frequent first: `name`, `runs`, `first_run_id`, `last_run_id`, `passed_same_commit`, `checked_same_commit`, `activity` |

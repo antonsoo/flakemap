@@ -294,7 +294,7 @@ def _test_stats(
             named[top].append((index, failures[-1]))
     named_failures = []
     for name, records in named.items():
-        placed = assess([index for index, _ in records], n)
+        placed = assess([index for index, _ in records], n, can_be_new=False)
         assert placed is not None
         named_failures.append(
             NamedFailure(

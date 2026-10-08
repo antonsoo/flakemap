@@ -71,11 +71,11 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 // The committed real report: what `flakemap --html` wrote for 2,153 builds.
                 assert.equal(await page.locator(".row-heatmap svg.strip").count(), fixture.rows);
                 assert.equal(await page.locator(".healthy-list li").count(), fixture.listed);
-                assert.equal(await page.locator(".stamp-new").count(), 2);
-                assert.equal(await page.locator(".stamp-quiet").count(), 4);
+                assert.equal(await page.locator(".stamp-new").count(), 3);
+                assert.equal(await page.locator(".stamp-quiet").count(), 5);
                 const factory = page.locator("details.row").filter({ hasText: "storagebackend.factory" });
                 await factory.locator("summary").click();
-                assert.match(await factory.innerText(), /Quiet: no failure in the last 850 runs/);
+                assert.match(await factory.innerText(), /Quiet: .*longest quiet spell between failures was 125 runs, and it has now been 850 runs/);
                 assert.match(await factory.innerText(), /TestTimeTravelHealthcheck\s+44\s+41 of 43/);
                 assert.match(await factory.innerText(), /healthcheck\(\) called etcd 1 times, expected only two calls/);
               }
@@ -110,7 +110,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 assert(mark.width >= 1.5 && mark.height >= 14, JSON.stringify(mark));
                 await fresh.locator("summary").focus();
                 await page.keyboard.press("Enter");
-                assert.match(await fresh.innerText(), /New: all 3 failures are in the last 70 of 1,200 runs/);
+                assert.match(await fresh.innerText(), /New: 3 failures; .*the first failure came after 1,130 clean runs of 1,200/);
                 assert.match(await fresh.innerText(), /3 of 3 passed in another run of the same commit/);
                 assert.match(await fresh.innerText(), /<img src=x onerror="alert\(1\)"> timed out/);
                 assert.equal(await page.locator("img").count(), 0);

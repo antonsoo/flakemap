@@ -27,7 +27,7 @@ from flakemap.observations import history_observations
 from flakemap.report.cofailure_html import COFAILURE_CSS, render_cofailure
 from flakemap.report.names import common_prefix, short_name, visible
 from flakemap.report.numbers import count, interval, of, percent
-from flakemap.stats.activity import Activity
+from flakemap.stats.activity import MIN_EVENTS, Activity
 from flakemap.stats.analyze import AnalysisResult, FailureEvidence, TestStats
 
 MAX_CELL_RUNS = 300
@@ -146,39 +146,30 @@ def _strip(t: TestStats, runs: list[Run], results: dict[str, TestCaseResult]) ->
     )
 
 
-def _chance(value: float) -> str:
-    if value >= 0.001:
-        return percent(value)
-    if value <= 1e-9:
-        return "less than 1 in a billion"
-    return f"1 in {count(round(1 / value))}"
-
-
 def _activity_text(activity: Activity, runs: int) -> str:
     """What the placement of the failures says, in a sentence."""
     events = (
         f"{activity.failures} failures"
         if activity.events == activity.failures
-        else f"{activity.failures} failures ({activity.events} separate stretches)"
+        else f"{activity.failures} failures in {activity.events} separate stretches"
     )
+    if activity.longest_gap is None or activity.events < MIN_EVENTS:
+        return f"{events}: too few to place."
+    gap = f"the longest quiet spell between failures was {count(activity.longest_gap)} runs"
     if activity.state == "quiet":
         return (
-            f"Quiet: no failure in the last {count(activity.runs_since_last)} runs. "
-            f"If it still failed at one steady rate, the chance that all {events} "
-            f"would fall before that is {_chance(activity.quiet_chance)}."
+            f"Quiet: {events}; {gap}, and it has now been "
+            f"{count(activity.runs_since_last)} runs ({activity.silence_ratio:.1f} times as "
+            "long). The burst is over; this does not say it cannot return, or why it stopped."
         )
     if activity.state == "new":
         return (
-            f"New: all {events} are in the last {count(activity.runs_since_first)} of "
-            f"{count(runs)} runs. At one steady rate, the chance of none before that is "
-            f"{_chance(activity.new_chance)}."
+            f"New: {events}; {gap}, and the first failure came after "
+            f"{count(activity.first_index)} clean runs of {count(runs)}."
         )
-    if activity.events < 2:
-        return "One failure, or one unbroken stretch of them: too little to place."
     return (
-        "Ongoing: the failures are spread through the history as a steady rate would "
-        f"spread them (chance of a silence this long since the last: "
-        f"{_chance(activity.quiet_chance)}; of a start this late: {_chance(activity.new_chance)})."
+        f"Ongoing: {events}; {gap}, and the last failure was "
+        f"{count(activity.runs_since_last)} runs ago."
     )
 
 
@@ -224,8 +215,9 @@ def _named_rows(t: TestStats) -> str:
         activity = named.activity
         state = {
             "quiet": f"quiet for {count(activity.runs_since_last)} runs",
-            "new": f"new: all in the last {count(activity.runs_since_first)} runs",
-            "ongoing": f"last {count(activity.runs_since_last)} runs ago",
+            "new": f"first failed {count(activity.runs_since_first)} runs ago",
+            "ongoing": f"first failed {count(activity.runs_since_first)} runs ago, "
+            f"last {count(activity.runs_since_last)} runs ago",
         }[activity.state]
         same = of(named.passed_same_commit, named.checked) if named.checked else "none to compare"
         rows.append(

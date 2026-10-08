@@ -6,42 +6,43 @@ week, and stops when somebody fixes it. Three months later its rate still says
 "0.9%", for a problem that ended two months ago, and a flake that started
 yesterday has a rate too small to notice.
 
-The check here asks only where the failures sit. Given that a test failed in
-``k`` of its ``n`` runs, a constant failure rate makes every placement of those
-``k`` failures among the ``n`` runs equally likely. So:
+The rule here compares a silence with the silences the test has already had.
+Consecutive failing runs count as one **event**. ``longest_gap`` is the
+longest stretch of passing runs between two successive events.
 
-- the chance that all of them fall in the first ``L`` runs is
-  ``C(L, k) / C(n, k)``. When the last failure is at run ``L`` and that chance
-  is under 1%, the silence since is not what a steady flake produces: the test
-  is **quiet**.
-- the chance that all of them fall in the last ``m`` runs is
-  ``C(m, k) / C(n, k)``. When the first failure is ``m`` runs from the end and
-  that chance is under 1%, the test is **new**.
+- **quiet**: at least ``MIN_EVENTS`` events, and the runs since the last failure
+  are at least ``RATIO`` times ``longest_gap`` and at least ``MIN_RUNS``. It
+  has now been quiet three times longer than it ever was between failures.
+- **new**: the mirror image. At least ``MIN_EVENTS`` events, and the runs before
+  the first failure are at least ``RATIO`` times ``longest_gap`` and at least
+  ``MIN_RUNS``. Only for a test whose passing runs the history records; a name
+  read out of a failure's text may not have existed before it first failed, and
+  the caller says so with ``can_be_new=False``.
+- **ongoing**: neither, including every test with fewer events.
 
-Both are exact for any rate and any history length; there is no fitted rate and
-no simulated threshold. A test that is neither is **ongoing**, which for a test
-with a failure or two means only that nothing can be said yet. One failure is
-never enough for either label: wherever it sits, a single failure does not say
-what the rate was before or after it.
+A flake that arrives in bursts has its long gaps on record and needs a
+correspondingly longer silence. One burst followed by a long silence is labelled
+quiet; that claims only that the burst is over, not that it cannot come back,
+and not why it stopped (a fix, a revert, a deleted or renamed test look alike).
 
-Consecutive failing runs count as one failure. A broken build fails every run
-until it is fixed, and five failures in a row are one event, not five
-independent ones; counting them separately would make any silence after them
-look more surprising than it is. Failures that cluster without being adjacent
-still overstate the evidence, so the 1% is a bound for a steady flake, not for
-a bursty one.
+Calibration, for a steady flake only (independent runs, constant rate): the
+chance that the open silence is at least ``s`` times the longest of ``n``
+earlier gaps is ``n! / ((s+1)(s+2)...(s+n))``. At s = 3 that is 10% with 2
+gaps (3 events), 5% with 3 gaps, under 1% from 7 gaps. Failures that cluster
+are not steady, so this is a statement about steady flakes and nothing is
+claimed for others; the label is a rule to read by eye, not a p-value.
 """
 
 from __future__ import annotations
 
-import math
 from dataclasses import dataclass
 from typing import Literal
 
 ActivityState = Literal["new", "ongoing", "quiet"]
 
-SIGNIFICANCE = 0.01
-MIN_EVENTS = 2
+MIN_EVENTS = 3
+RATIO = 3
+MIN_RUNS = 10
 
 
 @dataclass(frozen=True, slots=True)
@@ -50,7 +51,9 @@ class Activity:
     failures: int
     """Failing runs."""
     events: int
-    """Failures with consecutive failing runs counted once; what the two chances use."""
+    """Failures with consecutive failing runs counted once."""
+    longest_gap: int | None
+    """Most passing runs between two successive events; None with fewer than two events."""
     first_index: int
     last_index: int
     """Positions of the first and last failing run among the test's usable runs, from 0."""
@@ -58,26 +61,19 @@ class Activity:
     """Usable runs after the last failure."""
     runs_since_first: int
     """Usable runs from the first failure to the end of the history, inclusive."""
-    quiet_chance: float
-    """Chance of a silence at least this long since the last failure, at a constant rate."""
-    new_chance: float
-    """Chance of a clean stretch at least this long before the first, at a constant rate."""
+
+    @property
+    def silence_ratio(self) -> float | None:
+        """Runs since the last failure over the longest gap between failures."""
+        return self.runs_since_last / self.longest_gap if self.longest_gap else None
+
+    @property
+    def lead_ratio(self) -> float | None:
+        """Clean runs before the first failure over the longest gap between failures."""
+        return self.first_index / self.longest_gap if self.longest_gap else None
 
 
-def _log_choose(n: int, k: int) -> float:
-    return math.lgamma(n + 1) - math.lgamma(k + 1) - math.lgamma(n - k + 1)
-
-
-def _all_within(span: int, events: int, runs: int) -> float:
-    """Chance that ``events`` evenly placed failures all fall within ``span`` of ``runs``."""
-    if span >= runs:
-        return 1.0
-    if span < events:
-        return 0.0
-    return math.exp(_log_choose(span, events) - _log_choose(runs, events))
-
-
-def assess(failure_indexes: list[int], runs: int) -> Activity | None:
+def assess(failure_indexes: list[int], runs: int, *, can_be_new: bool = True) -> Activity | None:
     """Place a test's failures in its history.
 
     ``failure_indexes`` are the ascending positions, from 0, of its failing runs
@@ -85,35 +81,30 @@ def assess(failure_indexes: list[int], runs: int) -> Activity | None:
     """
     if not failure_indexes:
         return None
-    # Collapse each streak of consecutive failing runs onto its first run, and close the
-    # gap, so positions and the history length describe events, not runs.
-    events: list[int] = []
-    collapsed = 0
-    previous: int | None = None
+    # Each streak of consecutive failing runs is one event: (first run, last run).
+    streaks: list[tuple[int, int]] = []
     for index in failure_indexes:
-        if previous is not None and index == previous + 1:
-            collapsed += 1
+        if streaks and index == streaks[-1][1] + 1:
+            streaks[-1] = (streaks[-1][0], index)
         else:
-            events.append(index - collapsed)
-        previous = index
-    length = runs - collapsed
+            streaks.append((index, index))
+    gaps = [later[0] - earlier[1] - 1 for earlier, later in zip(streaks, streaks[1:], strict=False)]
+    longest = max(gaps) if gaps else None
     since_last = runs - 1 - failure_indexes[-1]
     since_first = runs - failure_indexes[0]
-    quiet = _all_within(events[-1] + 1, len(events), length)
-    new = _all_within(length - events[0], len(events), length)
     state: ActivityState = "ongoing"
-    if len(events) >= MIN_EVENTS and quiet < SIGNIFICANCE:
-        state = "quiet"
-    elif len(events) >= MIN_EVENTS and new < SIGNIFICANCE:
-        state = "new"
+    if len(streaks) >= MIN_EVENTS and longest:
+        if since_last >= max(RATIO * longest, MIN_RUNS):
+            state = "quiet"
+        elif can_be_new and failure_indexes[0] >= max(RATIO * longest, MIN_RUNS):
+            state = "new"
     return Activity(
         state=state,
         failures=len(failure_indexes),
-        events=len(events),
+        events=len(streaks),
+        longest_gap=longest,
         first_index=failure_indexes[0],
         last_index=failure_indexes[-1],
         runs_since_last=since_last,
         runs_since_first=since_first,
-        quiet_chance=quiet,
-        new_chance=new,
     )

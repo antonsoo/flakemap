@@ -7,7 +7,6 @@ record per Go package, and two thousand runs to draw.
 
 from __future__ import annotations
 
-import itertools
 import json
 import math
 import random
@@ -24,7 +23,7 @@ from flakemap.report import render_html, to_json_dict
 from flakemap.report.html_out import MAX_CELL_RUNS
 from flakemap.report.numbers import percent
 from flakemap.stats import analyze
-from flakemap.stats.activity import SIGNIFICANCE, assess
+from flakemap.stats.activity import assess
 
 FIXTURES = Path(__file__).parent / "fixtures"
 START = datetime(2026, 7, 9, tzinfo=timezone.utc)
@@ -64,30 +63,20 @@ def _history(
 # --- where the failures fall -------------------------------------------------------------
 
 
-def _placements(runs: int, events: int) -> list[tuple[int, ...]]:
-    return list(itertools.combinations(range(runs), events))
-
-
-@pytest.mark.parametrize(("runs", "failures"), [(12, [0, 3, 5]), (15, [2, 4]), (11, [1, 3, 6, 8])])
-def test_the_two_chances_are_exact_shares_of_placements(runs: int, failures: list[int]) -> None:
-    placed = assess(failures, runs)
-    assert placed is not None
-    ways = _placements(runs, len(failures))
-    none_later = sum(max(way) <= failures[-1] for way in ways) / len(ways)
-    none_earlier = sum(min(way) >= failures[0] for way in ways) / len(ways)
-    assert placed.quiet_chance == pytest.approx(none_later)
-    assert placed.new_chance == pytest.approx(none_earlier)
-
-
 def test_consecutive_failing_runs_count_once() -> None:
-    # Runs 3, 4 and 5 are one stretch: two events in a history two runs shorter.
+    # Runs 3, 4 and 5 are one stretch; the gap to the next event is the 3 runs between.
     placed = assess([3, 4, 5, 9], 20)
-    separate = assess([3, 7], 18)
-    assert placed is not None and separate is not None
-    assert (placed.failures, placed.events) == (4, 2)
-    assert placed.quiet_chance == pytest.approx(separate.quiet_chance)
-    assert placed.new_chance == pytest.approx(separate.new_chance)
+    assert placed is not None
+    assert (placed.failures, placed.events, placed.longest_gap) == (4, 2, 3)
     assert placed.runs_since_last == 10 and placed.runs_since_first == 17
+
+
+def test_the_longest_gap_is_between_events_not_before_or_after() -> None:
+    placed = assess([10, 12, 20, 21, 40], 100)
+    assert placed is not None
+    assert placed.events == 4 and placed.longest_gap == 18
+    assert placed.silence_ratio == pytest.approx(59 / 18)
+    assert placed.lead_ratio == pytest.approx(10 / 18)
 
 
 def test_a_flake_that_stopped_is_quiet_and_one_that_started_is_new() -> None:
@@ -100,33 +89,58 @@ def test_a_flake_that_stopped_is_quiet_and_one_that_started_is_new() -> None:
     assert steady.state == "ongoing"
 
 
-def test_one_failure_or_one_unbroken_outage_is_never_placed() -> None:
-    # A first-ever failure in the latest run is 1 chance in 5,000 of being "this late",
-    # and says nothing about a rate. Neither does one outage, however long.
+def test_a_name_read_from_failure_text_is_never_new() -> None:
+    placed = assess([1930, 1960, 1995], 2000, can_be_new=False)
+    assert placed is not None
+    assert placed.state == "ongoing" and placed.runs_since_first == 70
+
+
+def test_a_burst_followed_by_silence_is_quiet_but_a_bursty_flake_needs_longer() -> None:
+    # TestDRA's shape: 19 failures in ten days, then nothing for the rest of the history.
+    burst = [600 + 11 * i for i in range(19)]
+    over = assess(burst, 2162)
+    assert over is not None and over.state == "quiet" and over.longest_gap == 10
+    # A test with a 900-run gap on record is not quiet after 1,000 clean runs.
+    bursty = assess([100, 110, 1010, 1020], 2030)
+    assert bursty is not None and bursty.state == "ongoing"
+
+
+def test_too_few_events_or_too_short_a_silence_is_never_placed() -> None:
     single = assess([4999], 5000)
     outage = assess(list(range(3, 40)), 5000)
-    assert single is not None and outage is not None
-    assert single.state == outage.state == "ongoing"
+    two = assess([10, 20], 5000)
+    short = assess([2, 3, 5, 7, 9], 17)
+    assert single is not None and outage is not None and two is not None and short is not None
+    assert single.state == outage.state == two.state == short.state == "ongoing"
     assert outage.events == 1 and outage.failures == 37
-
-
-def test_a_steady_flake_is_rarely_called_quiet_or_new() -> None:
-    rng = random.Random(20261008)
-    labels = []
-    for _ in range(4000):
-        failures = [i for i in range(600) if rng.random() < 0.02]
-        placed = assess(failures, 600)
-        labels.append(placed.state if placed else "ongoing")
-    # Each label is an exact one-sided test at 1%; adjacent failures counted once make
-    # it slightly conservative.
-    assert labels.count("quiet") / len(labels) <= SIGNIFICANCE * 1.3
-    assert labels.count("new") / len(labels) <= SIGNIFICANCE * 1.3
 
 
 def test_still_failing_is_not_quiet() -> None:
     broken = assess(list(range(150, 220)), 220)
     assert broken is not None
-    assert broken.runs_since_last == 0 and broken.quiet_chance == 1.0
+    assert broken.runs_since_last == 0 and broken.state == "ongoing"
+
+
+@pytest.mark.parametrize("gaps", [2, 3, 7])
+def test_the_calibration_quoted_in_the_docs_holds_for_a_steady_flake(gaps: int) -> None:
+    # For independent runs at a constant rate, the chance that the open silence is at least
+    # s times the longest of n earlier gaps is n! / ((s+1)(s+2)...(s+n)). Geometric gaps at a
+    # small rate stand in for the continuous case.
+    rng = random.Random(20261008 + gaps)
+    s, rate, trials = 3, 0.01, 40000
+
+    def gap() -> int:
+        count = 0
+        while rng.random() >= rate:
+            count += 1
+        return count
+
+    hits = 0
+    for _ in range(trials):
+        earlier = [gap() for _ in range(gaps)]
+        hits += gap() >= s * max(earlier)
+    expected = math.factorial(gaps) / math.prod(s + k for k in range(1, gaps + 1))
+    assert hits / trials == pytest.approx(expected, abs=4 * math.sqrt(expected / trials) + 0.003)
 
 
 # --- the same commit, run again -----------------------------------------------------------
@@ -235,7 +249,7 @@ def test_named_failures_are_placed_separately_from_their_package(tmp_path: Path)
             failed_within=names,
         )
 
-    early, late = {30, 80, 150, 210, 260}, {1890, 1940, 1985}
+    early, late = {30, 80, 150, 210, 260}, {1890, 1940, 1985}  # TestFresh: 3 failures
     runs = [
         Run(
             RunMetadata(f"r{i:04d}", commit=f"c{i // 2}", timestamp=START + timedelta(hours=i)),
@@ -259,13 +273,15 @@ def test_named_failures_are_placed_separately_from_their_package(tmp_path: Path)
     named = {n.name: n for n in test.named_failures}
     assert set(named) == {"TestOld", "TestFresh"}
     assert named["TestOld"].activity.state == "quiet" and named["TestOld"].runs == 5
-    assert named["TestFresh"].activity.state == "new" and named["TestFresh"].runs == 3
+    # A name read from failure text may have been added the day it first failed.
+    assert named["TestFresh"].activity.state == "ongoing" and named["TestFresh"].runs == 3
+    assert named["TestFresh"].activity.runs_since_first == 110
     assert named["TestFresh"].passed_same_commit == named["TestFresh"].checked == 3
     # The package as a whole failed early and late: neither quiet nor new.
     assert test.activity is not None and test.activity.state == "ongoing"
     payload = to_json_dict(result)["tests"][0]
     assert [n["name"] for n in payload["named_failures"]] == ["TestOld", "TestFresh"]
-    assert payload["named_failures"][1]["activity"]["state"] == "new"
+    assert payload["named_failures"][1]["activity"]["runs_since_first_failure"] == 110
     assert payload["failures"][0]["same_commit"] == "passed"
 
 
@@ -377,3 +393,21 @@ def test_the_new_flake_gate_sees_a_flake_that_fails_one_run_in_thirty(
     assert main([str(tmp_path), "--fail-on-new-flake", "--new-flake-window", "100"]) == 1
     assert "new flake(s) detected: s.t" in capsys.readouterr().err
     assert main([str(tmp_path), "--fail-on-new-flake", "--new-flake-window", "10"]) == 0
+
+
+def test_the_new_flake_gate_fires_on_a_name_that_first_failed_twice_inside_the_window(
+    tmp_path: Path, capsys: pytest.CaptureFixture[str]
+) -> None:
+    for i in range(60):
+        run = tmp_path / f"run-{i:04d}"
+        run.mkdir()
+        names = ["--- FAIL: TestNew (0.1s)"] if i in {55, 57} else []
+        body = "<failure message='Failed'>" + "\n".join(names) + "</failure>" if names else ""
+        (run / "junit.xml").write_text(
+            '<testsuite name="s"><testcase classname="pkg" name="pkg">'
+            f"{body}</testcase></testsuite>"
+        )
+        (run / "meta.json").write_text(json.dumps({"sequence": i, "commit": f"c{i}"}))
+    assert main([str(tmp_path), "--fail-on-new-flake", "--new-flake-window", "10"]) == 1
+    assert "TestNew" in capsys.readouterr().err
+    assert main([str(tmp_path), "--fail-on-new-flake", "--new-flake-window", "3"]) == 0

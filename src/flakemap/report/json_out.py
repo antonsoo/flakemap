@@ -86,8 +86,10 @@ def _activity(activity: Activity | None) -> dict[str, Any] | None:
         "events": activity.events,
         "runs_since_last_failure": activity.runs_since_last,
         "runs_since_first_failure": activity.runs_since_first,
-        "quiet_chance": float(f"{activity.quiet_chance:.4g}"),
-        "new_chance": float(f"{activity.new_chance:.4g}"),
+        "longest_gap": activity.longest_gap,
+        "silence_ratio": None
+        if activity.silence_ratio is None
+        else round(activity.silence_ratio, 2),
     }
 
 

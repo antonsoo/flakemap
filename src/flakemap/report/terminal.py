@@ -65,8 +65,8 @@ def named_failures(t: TestStats, limit: int = 3) -> list[str]:
         line = f"{visible(named.name)} ×{named.runs}"
         if named.activity.state == "quiet":
             line += f", quiet for {count(named.activity.runs_since_last)} runs"
-        elif named.activity.state == "new":
-            line += ", new"
+        else:
+            line += f", first failed {count(named.activity.runs_since_first)} runs ago"
         shown.append(line)
     if len(t.named_failures) > limit:
         shown.append(f"+ {len(t.named_failures) - limit} more")
@@ -140,7 +140,7 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
     if any(states):
         console.print(
             f"Of the flaky tests, {states.count('new')} new and {states.count('quiet')} quiet "
-            "(no failure for longer than a steady flake allows)."
+            "(no failure for three times the longest spell between failures, or a first failure after as long)."
         )
     for warning in result.warnings[:5]:
         console.print(Text(f"warning: {visible(warning)}", style="yellow"))

@@ -6,6 +6,7 @@ from typing import Any
 
 from flakemap.models import TestCaseResult
 from flakemap.observations import Observation
+from flakemap.stats.activity import Activity
 from flakemap.stats.analyze import AnalysisResult, TestStats
 from flakemap.stats.cofailure import CoFailureAnalysis, FailureCohort
 
@@ -76,6 +77,20 @@ def cofailure_to_dict(analysis: CoFailureAnalysis) -> dict[str, Any]:
     }
 
 
+def _activity(activity: Activity | None) -> dict[str, Any] | None:
+    if activity is None:
+        return None
+    return {
+        "state": activity.state,
+        "failures": activity.failures,
+        "events": activity.events,
+        "runs_since_last_failure": activity.runs_since_last,
+        "runs_since_first_failure": activity.runs_since_first,
+        "quiet_chance": float(f"{activity.quiet_chance:.4g}"),
+        "new_chance": float(f"{activity.new_chance:.4g}"),
+    }
+
+
 def _test_to_dict(t: TestStats) -> dict[str, Any]:
     return {
         "test": t.full_name,
@@ -112,6 +127,39 @@ def _test_to_dict(t: TestStats) -> dict[str, Any]:
             "evidence": [_evidence(o) for o in t.retry_observations],
         },
         "excluded": [_evidence(o) for o in t.excluded_observations],
+        "activity": _activity(t.activity),
+        "same_commit": {
+            "failures_passed_elsewhere": t.failures_passed_same_commit,
+            "failures_failed_everywhere": t.failures_repeated_same_commit,
+            "failures_without_another_run": len(t.failures) - t.failures_checked,
+        },
+        "failures": [
+            {
+                "run_id": f.run_id,
+                "index": f.index,
+                "timestamp": f.timestamp.isoformat() if f.timestamp else None,
+                "commit": f.commit,
+                "status": f.status.value,
+                "message": f.message,
+                "failed_within": list(f.failed_within),
+                "same_commit": f.same_commit,
+                "same_commit_other_runs": f.same_commit_runs,
+                "other_tests_failed": f.failed_with,
+            }
+            for f in t.failures
+        ],
+        "named_failures": [
+            {
+                "name": named.name,
+                "runs": named.runs,
+                "first_run_id": named.first_run_id,
+                "last_run_id": named.last_run_id,
+                "passed_same_commit": named.passed_same_commit,
+                "checked_same_commit": named.checked,
+                "activity": _activity(named.activity),
+            }
+            for named in t.named_failures
+        ],
         "change_point": (
             {
                 "run_id": t.change_point_run_id,
@@ -183,6 +231,16 @@ def to_json_dict(result: AnalysisResult) -> dict[str, Any]:
             "exhausted_test_runs": sum(t.exhausted_runs for t in result.tests),
             "excluded_test_runs": sum(t.n_unknown for t in result.tests),
             "flaky": sum(1 for t in result.tests if t.classification == "flaky"),
+            "flaky_new": sum(
+                1
+                for t in result.tests
+                if t.classification == "flaky" and t.activity and t.activity.state == "new"
+            ),
+            "flaky_quiet": sum(
+                1
+                for t in result.tests
+                if t.classification == "flaky" and t.activity and t.activity.state == "quiet"
+            ),
             "broken": sum(1 for t in result.tests if t.classification == "broken"),
             "healthy": sum(1 for t in result.tests if t.classification == "healthy"),
             "insufficient_data": sum(

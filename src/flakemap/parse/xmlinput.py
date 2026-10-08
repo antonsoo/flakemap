@@ -17,6 +17,7 @@ MAX_XML_DEPTH = 256
 MAX_XML_ELEMENTS = 250_000
 _DECLARATION = re.compile(rb"^\s*<\?xml\s[^>]*?encoding\s*=\s*['\"]([^'\"]+)['\"]", re.I)
 _DTD = re.compile(r"<!\s*(?:DOCTYPE|ENTITY)\b", re.I)
+_SPECIAL_MARKUP = re.compile(r"<[!?]")
 
 
 def xml_events(raw: str) -> Iterator[tuple[str, ET.Element]]:
@@ -37,7 +38,10 @@ def xml_events(raw: str) -> Iterator[tuple[str, ET.Element]]:
 def contains_dtd(raw: str) -> bool:
     """Inspect markup, not a quoted DTD example in a comment or CDATA."""
     pos = 0
-    while (pos := raw.find("<", pos)) != -1:
+    # Comments, CDATA, processing instructions and declarations all open with "<!" or
+    # "<?"; an ordinary tag is none of them, and a report is nearly all ordinary tags.
+    while (special := _SPECIAL_MARKUP.search(raw, pos)) is not None:
+        pos = special.start()
         terminator = None
         if raw.startswith("<!--", pos):
             terminator = "-->"

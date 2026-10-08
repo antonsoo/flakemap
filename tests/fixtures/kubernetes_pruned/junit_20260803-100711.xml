@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+	<testsuite tests="246" failures="0" time="449.162000" name="[sig-api-machinery] k8s.io/apiextensions-apiserver/test" timestamp="2026-08-03T10:08:19Z">
+		<properties>
+			<property name="go.version" value="go1.26.5 linux/amd64"></property>
+		</properties>
+		<testcase classname="[sig-api-machinery] k8s.io/apiextensions-apiserver/test" name="integration" time="449.162000"></testcase>
+	</testsuite>
+	<testsuite tests="368" failures="4" time="92.543000" name="[sig-api-machinery] k8s.io/apiextensions-apiserver/test/integration" timestamp="2026-08-03T10:08:19Z">
+		<properties>
+			<property name="go.version" value="go1.26.5 linux/amd64"></property>
+		</properties>
+		<testcase classname="[sig-api-machinery] k8s.io/apiextensions-apiserver/test/integration" name="conversion" time="92.543000">
+			<failure message="Failed" type="">=== RUN   TestWebhookConverterWithWatchCache/empty-response-v1beta1/check-0/get&#xA;    conversion_test.go:839: expected error with message returned 0 objects, expected 1, but got no error&#xA;--- FAIL: TestWebhookConverterWithWatchCache/empty-response-v1beta1/check-0/get (0.06s)&#xA;&#xA;=== RUN   TestWebhookConverterWithWatchCache/empty-response-v1beta1/check-0&#xA;    conversion_test.go:1183: Effective storage version: v1beta1&#xA;--- FAIL: TestWebhookConverterWithWatchCache/empty-response-v1beta1/check-0 (10.21s)&#xA;&#xA;=== RUN   TestWebhookConverterWithWatchCache/empty-response-v1beta1&#xA;--- FAIL: TestWebhookConverterWithWatchCache/empty-response-v1beta1 (10.23s)&#xA;&#xA;=== RUN   TestWebhookConverterWithWatchCache&#xA;    testserver.go:302: Resolved testserver package path to: &#34;/home/prow/go/src/k8s.io/kubernetes/staging/src/k8s.io/apiextensions-apiserver/pkg/cmd/server/testing&#34;&#xA;    testserver.go:186: runtime-config=map[api/all:true]&#xA;    testserver.go:187: Starting apiextensions-apiserver on port 38241...&#xA;    testserver.go:213: Waiting for /healthz to be ok...&#xA;--- FAIL: TestWebhookConverterWithWatchCache (74.79s)&#xA;</failure>
+		</testcase>
+	</testsuite>
+	<testsuite tests="2275" failures="0" time="192.332000" name="[sig-api-machinery] k8s.io/kubernetes/test/integration/apiserver" timestamp="2026-08-03T10:09:07Z">
+		<properties>
+			<property name="go.version" value="go1.26.5 linux/amd64"></property>
+		</properties>
+		<testcase classname="[sig-api-machinery] k8s.io/kubernetes/test/integration/apiserver" name="admissionwebhook" time="192.332000"></testcase>
+	</testsuite>
+</testsuites>

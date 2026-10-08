@@ -73,6 +73,9 @@ class TestCaseResult:
     source: SourceLocation | None = None
     issue: str | None = None
     """Why the outcome is unknown, if the report is contradictory or ambiguous."""
+    failed_within: tuple[str, ...] = ()
+    """Tests the runner's own output names as failed inside this testcase, when a report
+    rolls a whole Go package up into one record. See `flakemap.parse.junit`."""
 
     @property
     def full_name(self) -> str:
@@ -86,9 +89,11 @@ class TestCaseResult:
 
         This is the classname with the final segment (the method/test name pattern)
         stripped, e.g. ``tests.test_login.TestLogin`` -> ``tests.test_login``. Falls
-        back to the full classname when it has no dots.
+        back to the full classname when it has no dots, or when it is a path: a Go
+        report's classname is an import path (``k8s.io/client-go/tools/cache``), a
+        Jest one often a file, and a dot in either is not a module separator.
         """
-        if "." in self.classname:
+        if "." in self.classname and "/" not in self.classname:
             return self.classname.rsplit(".", 1)[0]
         return self.classname or "(default)"
 

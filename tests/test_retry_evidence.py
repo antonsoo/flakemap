@@ -382,7 +382,7 @@ def test_terminal_table_fits_an_80_column_console() -> None:
     )
     lines = output.getvalue().splitlines()
     assert all(len(line) <= 80 for line in lines)
-    assert any("Runs" in line for line in lines)
+    assert any("Failed runs" in line for line in lines)
     assert any(line.endswith("┓") for line in lines)  # the table's right edge is visible
 
 

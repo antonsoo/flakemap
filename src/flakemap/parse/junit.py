@@ -28,7 +28,9 @@ from __future__ import annotations
 
 import math
 import re
-from dataclasses import replace
+import sys
+from datetime import datetime
+from functools import lru_cache
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
@@ -46,6 +48,67 @@ from flakemap.parse.xmlinput import (
 from flakemap.parse.xmltext import repair_xml_text, replaced_warning
 
 _MAX_MESSAGE_LEN = 500
+# `go test` ends every failed test and subtest with this line. A report that keeps one
+# record per package (Kubernetes prunes its reports this way; so does a package that
+# fails as a whole) names its failed tests nowhere else.
+_GO_FAILED_TEST = re.compile(r"^[ \t]*--- FAIL: (\S+)", re.MULTILINE)
+_MAX_FAILED_WITHIN = 200
+
+
+# gotestsum gives every failure the message "Failed" and puts the test's output in the
+# body. What the test said is a log line there: `    file_test.go:123: text`.
+_GO_GENERIC_MESSAGE = "Failed"
+_GO_LOG_LINE = re.compile(r"^[ \t]+(\S+\.go:\d+:[^\n]*)$", re.MULTILINE)
+_GO_PANIC = re.compile(r"^panic: [^\n]+", re.MULTILINE)
+
+
+def _go_message(text: str | None) -> str | None:
+    """What a failed Go test last logged before it was marked failed, or its panic.
+
+    The innermost failing test's output comes first, and an assertion is usually the
+    last thing a test logs, so this is the last log line above the first `--- FAIL:`,
+    from a `_test.go` file when there is one: helpers log their teardown after the
+    assertion that failed. It is not always the cause. It is more than "Failed", and
+    identical failures still share it.
+    """
+    if not text:
+        return None
+    marker = text.find("--- FAIL: ")
+    if marker == -1:
+        panic = _GO_PANIC.search(text)
+        return panic.group()[:_MAX_MESSAGE_LEN] if panic else None
+    lines = list(_GO_LOG_LINE.finditer(text, 0, marker))
+    if not lines:
+        return None
+    from_test = [line for line in lines if "_test.go:" in line.group(1).split(" ", 1)[0]]
+    last = (from_test or lines)[-1]
+    line = last.group(1).strip()
+    if line.endswith(":"):
+        # The message starts on the next line. testify's has a labelled block there:
+        # "Error Trace:", then "Error:" with what went wrong.
+        rest = [part.strip() for part in text[last.end() : marker].splitlines() if part.strip()]
+        at = next((i for i, part in enumerate(rest[:12]) if part.startswith("Error:")), None)
+        if at is not None:
+            line += " " + rest[at].removeprefix("Error:").strip()
+            if line.endswith(":") and at + 1 < len(rest):  # "Received unexpected error:"
+                line += " " + rest[at + 1]
+        elif rest:
+            line += " " + rest[0]
+    return line[:_MAX_MESSAGE_LEN]
+
+
+def _failed_within(text: str | None, own_name: str) -> tuple[str, ...]:
+    """Go tests named as failed in a failure's output, bar the testcase itself."""
+    if not text or "--- FAIL: " not in text:
+        return ()
+    names: dict[str, None] = {}
+    for match in _GO_FAILED_TEST.finditer(text):
+        name = match.group(1)
+        if name != own_name and not name.startswith(own_name + "/"):
+            names[name] = None
+            if len(names) == _MAX_FAILED_WITHIN:
+                break
+    return tuple(names)
 
 
 def _first_line(text: str | None, limit: int = _MAX_MESSAGE_LEN) -> str | None:
@@ -71,25 +134,36 @@ def _parse_duration(raw: str | None) -> float | None:
 
 
 def _testcase_from_element(
-    el: ET.Element, default_classname: str, warnings: list[str]
+    el: ET.Element,
+    default_classname: str,
+    warnings: list[str],
+    source: SourceLocation | None = None,
 ) -> TestCaseResult:
-    name = el.get("name") or "(unnamed)"
-    classname = el.get("classname") or el.get("class") or default_classname
+    # A history repeats each name once per run; one shared string instead of thousands.
+    name = sys.intern(el.get("name") or "(unnamed)")
+    classname = sys.intern(el.get("classname") or el.get("class") or default_classname)
 
     skipped = el.find("skipped")
     failure = el.find("failure")
     error = el.find("error")
 
     message: str | None = None
+    failed_within: tuple[str, ...] = ()
     if skipped is not None:
         status = Status.SKIP
         message = _first_line(skipped.get("message") or skipped.text)
     elif failure is not None:
         status = Status.FAIL
         message = _first_line(failure.get("message") or failure.text)
+        failed_within = _failed_within(failure.text, name)
+        if message == _GO_GENERIC_MESSAGE:
+            message = _go_message(failure.text) or message
     elif error is not None:
         status = Status.ERROR
         message = _first_line(error.get("message") or error.text)
+        failed_within = _failed_within(error.text, name)
+        if message == _GO_GENERIC_MESSAGE:
+            message = _go_message(error.text) or message
     else:
         status = Status.PASS
 
@@ -143,16 +217,42 @@ def _testcase_from_element(
         duration=duration,
         message=message,
         retry=retry,
+        source=source,
         issue=issue,
+        failed_within=failed_within if status.is_failure else (),
     )
 
 
-def _structural_cases(raw: str) -> tuple[list[TestCaseResult], list[str], str | None]:
+@lru_cache(maxsize=256)
+def _suite_started(raw: str | None) -> datetime | None:
+    """A suite's `timestamp` as an instant, or None when it does not say which.
+
+    gotestsum and pytest write an offset (`2026-10-08T04:35:50Z`); jest-junit and Ant
+    write a bare local time, which orders runs from one machine and misorders runs from
+    two. Only the first kind is used, as for a TRX file's start time.
+    """
+    if not raw:
+        return None
+    text = raw.strip()
+    if text.endswith(("Z", "z")):
+        text = text[:-1] + "+00:00"
+    try:
+        started = datetime.fromisoformat(text)
+    except ValueError:
+        return None
+    return started if started.tzinfo is not None else None
+
+
+def _structural_cases(
+    raw: str, started: list[datetime] | None = None, source: str | None = None
+) -> tuple[list[TestCaseResult], list[str], str | None]:
     """Collect only completed records in recognized structural positions.
 
     Feed small chunks and detach consumed subtrees, so a long run does not keep
     a second copy of every testcase in an XML DOM. Child outcome markers stay
     attached until their testcase ends. Completed cases survive a truncated tail.
+    Suites' own start times are appended to ``started`` when it is given, and each case
+    is given its 1-based position in ``source``.
     """
     stack: list[tuple[ET.Element, str, bool]] = []
     cases: list[TestCaseResult] = []
@@ -186,13 +286,17 @@ def _structural_cases(raw: str) -> tuple[list[TestCaseResult], list[str], str | 
                 )
                 if eligible and element.tag in containers:
                     suite_name = element.get("name") or suite_name
+                    moment = _suite_started(element.get("timestamp"))
+                    if moment is not None and started is not None:
+                        started.append(moment)
                 stack.append((element, suite_name, eligible))
                 if eligible and element.tag == "testcase":
                     case_depth = len(stack)
             else:
                 _, suite_name, eligible = stack.pop()
                 if eligible and element.tag == "testcase":
-                    cases.append(_testcase_from_element(element, suite_name, warnings))
+                    position = SourceLocation(source, len(cases) + 1) if source else None
+                    cases.append(_testcase_from_element(element, suite_name, warnings, position))
                     case_depth = None
                 if case_depth is None:
                     element.clear()
@@ -205,20 +309,32 @@ def _structural_cases(raw: str) -> tuple[list[TestCaseResult], list[str], str | 
 
 def read_junit(raw: str, source: str) -> tuple[list[TestCaseResult], list[str]]:
     """Read decoded XML, retaining completed records before the first error."""
+    cases, warnings, _ = read_junit_with_start(raw, source)
+    return cases, warnings
+
+
+def read_junit_with_start(
+    raw: str, source: str
+) -> tuple[list[TestCaseResult], list[str], datetime | None]:
+    """`read_junit`, and when the report says its earliest suite started."""
     if len(raw) > MAX_REPORT_BYTES:
-        return [], [
-            f"decoded report exceeds the {MAX_REPORT_BYTES} character limit; report omitted"
-        ]
+        return (
+            [],
+            [f"decoded report exceeds the {MAX_REPORT_BYTES} character limit; report omitted"],
+            None,
+        )
     if not raw.strip():
-        return [], ["file is empty"]
+        return [], ["file is empty"], None
     if contains_dtd(raw):
-        return [], ["DTD and entity declarations are not supported"]
+        return [], ["DTD and entity declarations are not supported"], None
     raw = without_declaration(raw)
-    cases, warnings, error = _structural_cases(raw)
+    moments: list[datetime] = []
+    cases, warnings, error = _structural_cases(raw, moments, source)
     if error:
         repaired, _, replaced = repair_xml_text(raw)
         if repaired != raw:
-            cases, warnings, error = _structural_cases(repaired)
+            moments = []
+            cases, warnings, error = _structural_cases(repaired, moments, source)
         if replaced:
             warnings.append(replaced_warning(replaced))
     if error:
@@ -226,13 +342,12 @@ def read_junit(raw: str, source: str) -> tuple[list[TestCaseResult], list[str]]:
             f"file was not well-formed XML ({error}); salvaged {len(cases)} completed "
             "<testcase> element(s) before the error; incomplete records and the remainder omitted"
         )
-    cases = [replace(case, source=SourceLocation(source, i)) for i, case in enumerate(cases, 1)]
     for case in cases:
         if case.issue:
             warnings.append(f"{case.full_name}: {case.issue}; excluded from rates")
     if not cases and not warnings:
         warnings.append("parsed successfully but contained zero <testcase> elements")
-    return exclude_lossy_identifiers(cases, warnings), warnings
+    return exclude_lossy_identifiers(cases, warnings), warnings, min(moments, default=None)
 
 
 def parse_junit_file(

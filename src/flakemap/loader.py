@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from flakemap.models import Run, TestCaseResult, run_sort_key
-from flakemap.parse.junit import read_junit
+from flakemap.parse.junit import read_junit_with_start
 from flakemap.parse.metadata import resolve_metadata
 from flakemap.parse.trx import is_trx, read_trx
 from flakemap.parse.xmlinput import exclude_lossy_identifiers, read_xml_file
@@ -25,8 +25,9 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
 
     `pattern` is one glob or several separated by commas. Multiple report files
     that resolve to the same `run_id` (a multi-suite pytest run that wrote one XML
-    per suite, say) are merged into a single `Run`. A TRX report's own start time
-    orders its run when no sidecar or path metadata does (source ``report``).
+    per suite, say) are merged into a single `Run`. A report's own start time (a TRX
+    file's, or a JUnit suite's `timestamp` when it carries an offset) orders its run
+    when no sidecar does (source ``report``).
     """
     root = root.resolve()
     globs = report_patterns(pattern)
@@ -44,7 +45,7 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
             cases, more, started = read_trx(raw, source)
             warnings.extend(more)
         else:
-            cases, more = read_junit(raw, source)
+            cases, more, started = read_junit_with_start(raw, source)
             warnings.extend(more)
         cases = exclude_lossy_identifiers(cases, warnings)
         metadata = resolve_metadata(path, root, warnings=warnings)
@@ -75,9 +76,10 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
                     conflicts.append(key)
                 elif before is None:
                     setattr(md, key, after)
+            # Reports of one run each start at their own moment; only a time somebody
+            # supplied can contradict another.
             if (
-                md.source != "mtime"
-                and metadata.source != "mtime"
+                md.source == metadata.source == "sidecar"
                 and md.timestamp
                 and metadata.timestamp
                 and md.timestamp != metadata.timestamp
@@ -90,11 +92,13 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
                 existing.warnings.append(
                     f"{source}: {existing.integrity_issue}; run excluded from rates"
                 )
-            if md.source == "mtime" and metadata.source != "mtime":
+            trust = {"sidecar": 3, "report": 2}
+            ours, theirs = trust.get(md.source, 1), trust.get(metadata.source, 1)
+            if theirs > ours and metadata.timestamp is not None:
                 md.timestamp, md.source = metadata.timestamp, metadata.source
             elif md.timestamp is None and metadata.source != "mtime":
                 md.timestamp = metadata.timestamp
-            elif md.source == metadata.source == "mtime" and md.timestamp and metadata.timestamp:
+            elif theirs == ours < 3 and md.timestamp and metadata.timestamp:
                 md.timestamp = min(md.timestamp, metadata.timestamp)
 
     return sorted(by_run_id.values(), key=run_sort_key)

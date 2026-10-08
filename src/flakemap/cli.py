@@ -15,6 +15,7 @@ from flakemap import __version__
 from flakemap.loader import DEFAULT_PATTERN, load_runs, report_patterns
 from flakemap.report import render_html, render_markdown, render_terminal, to_json_dict
 from flakemap.stats import analyze
+from flakemap.stats.analyze import TestStats
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -61,8 +62,9 @@ def build_parser() -> argparse.ArgumentParser:
         "--fail-on-new-flake",
         action="store_true",
         help=(
-            "exit 1 if any test's most likely change-point falls within the last "
-            "--new-flake-window runs and it is classified flaky or broken (CI gating)"
+            "exit 1 if a flaky or broken test's failures began within the last "
+            "--new-flake-window runs: a change point there, or every failure there "
+            "when a steady rate would have put some earlier (CI gating)"
         ),
     )
     parser.add_argument(
@@ -191,15 +193,30 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.fail_on_new_flake:
+        # Two kinds of new: a change point (a test that started failing most of the time)
+        # and a flaky test, or a test named inside one, whose failures all sit at the end
+        # of the history. The second is how a flake that fails one run in thirty arrives.
+        window = args.new_flake_window
         new_flakes = [
             t
             for t in result.tests
             if t.classification in ("flaky", "broken")
-            and t.runs_since_change is not None
-            and t.runs_since_change <= args.new_flake_window
+            and (
+                (t.runs_since_change is not None and t.runs_since_change <= window)
+                or any(
+                    placed.state == "new" and placed.runs_since_first <= window
+                    for placed in (t.activity, *(named.activity for named in t.named_failures))
+                    if placed is not None
+                )
+            )
         ]
         if new_flakes:
-            names = ", ".join(t.full_name for t in new_flakes[:5])
+
+            def label(t: TestStats) -> str:
+                inside = [n.name for n in t.named_failures if n.activity.state == "new"]
+                return t.full_name + (f" ({', '.join(inside[:3])})" if inside else "")
+
+            names = ", ".join(label(t) for t in new_flakes[:5])
             more = f" (+{len(new_flakes) - 5} more)" if len(new_flakes) > 5 else ""
             errors.print(f"new flake(s) detected: {names}{more}", style="bold red", markup=False)
             return 1

@@ -42,13 +42,13 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
             page.on("request", requestListener);
             try {
               await page.goto(pathToFileURL(resolve(directory, `${fixture.name}.html`)).href);
-              assert.equal(await page.locator("details.row").count(), fixture.tests);
-              assert.equal(await page.locator(".row-heatmap .cell").count(), fixture.runs * fixture.tests);
+              assert.equal(await page.locator("details.row").count(), fixture.rows ?? fixture.tests);
+              assert.equal(await page.locator(".row-heatmap .cell").count(), fixture.cells ?? fixture.runs * fixture.tests);
               assert.equal(await page.locator("script, iframe, object").count(), 0);
               assert.match(await page.locator('meta[http-equiv="Content-Security-Policy"]').getAttribute("content"), /default-src 'none'/);
               if (fixture.name.startsWith("gallery/")) {
                 const nav = page.getByRole("navigation", { name: "Report examples" });
-                assert.equal(await nav.getByRole("link").count(), 4);
+                assert.equal(await nav.getByRole("link").count(), 5);
                 assert.equal(await nav.locator('[aria-current="page"]').count(), 1);
                 assert.equal(await nav.locator('[aria-current="page"]').getAttribute("href"), `${fixture.name.split("/")[1]}.html`);
                 const destination = fixture.name === "gallery/cofailure" ? "retry.html" : "cofailure.html";
@@ -59,11 +59,25 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 assert.equal(await page.locator(".cofailure").count(), 1);
                 await page.goBack();
                 await page.waitForURL(`**/${fixture.name}.html`);
-                const pending = page.waitForEvent("download");
-                await page.getByRole("link", { name: "Download this analysis as JSON" }).click();
-                const download = await pending;
-                assert.deepEqual(JSON.parse(await readFile(await download.path(), "utf8")),
-                  JSON.parse(await readFile(resolve(directory, `${fixture.name}.json`), "utf8")));
+                if (!fixture.prebuilt) {
+                  const pending = page.waitForEvent("download");
+                  await page.getByRole("link", { name: "Download this analysis as JSON" }).click();
+                  const download = await pending;
+                  assert.deepEqual(JSON.parse(await readFile(await download.path(), "utf8")),
+                    JSON.parse(await readFile(resolve(directory, `${fixture.name}.json`), "utf8")));
+                }
+              }
+              if (fixture.prebuilt) {
+                // The committed real report: what `flakemap --html` wrote for 2,153 builds.
+                assert.equal(await page.locator(".row-heatmap svg.strip").count(), fixture.rows);
+                assert.equal(await page.locator(".healthy-list li").count(), fixture.listed);
+                assert.equal(await page.locator(".stamp-new").count(), 2);
+                assert.equal(await page.locator(".stamp-quiet").count(), 4);
+                const factory = page.locator("details.row").filter({ hasText: "storagebackend.factory" });
+                await factory.locator("summary").click();
+                assert.match(await factory.innerText(), /Quiet: no failure in the last 850 runs/);
+                assert.match(await factory.innerText(), /TestTimeTravelHealthcheck\s+44\s+41 of 43/);
+                assert.match(await factory.innerText(), /healthcheck\(\) called etcd 1 times, expected only two calls/);
               }
               if (fixture.name === "retry") {
                 assert.equal(await page.locator(".row-heatmap .s-recovered").count(), 2);
@@ -79,6 +93,43 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 assert.notEqual(await row.locator("summary").evaluate(el => getComputedStyle(el).outlineStyle), "none");
                 await page.keyboard.press("Space");
                 assert.equal(await row.getAttribute("open"), null);
+              }
+              if (fixture.name === "long") {
+                // A long history: one strip per drawn row, a mark per stretch that did not
+                // pass, and the tests that never failed listed by name.
+                assert.equal(await page.locator(".row-heatmap svg.strip").count(), fixture.rows);
+                assert.equal(await page.locator(".healthy-list li").count(), fixture.listed);
+                const stopped = page.locator("details.row").filter({ hasText: "TestStopped" });
+                assert.equal(await stopped.locator(".strip g").count(), 5);
+                assert.match(await stopped.locator(".strip g title").nth(1).textContent(), /2 consecutive runs, fail/);
+                assert.equal(await stopped.locator(".stamp").innerText(), "QUIET");
+                const fresh = page.locator("details.row").filter({ hasText: "TestStarted" });
+                assert.equal(await fresh.locator(".stamp").innerText(), "NEW FLAKE");
+                // A mark one run wide is a fraction of a pixel; its stroke keeps it visible.
+                const mark = await fresh.locator(".strip .m-fail").first().boundingBox();
+                assert(mark.width >= 1.5 && mark.height >= 14, JSON.stringify(mark));
+                await fresh.locator("summary").focus();
+                await page.keyboard.press("Enter");
+                assert.match(await fresh.innerText(), /New: all 3 failures are in the last 70 of 1,200 runs/);
+                assert.match(await fresh.innerText(), /3 of 3 passed in another run of the same commit/);
+                assert.match(await fresh.innerText(), /<img src=x onerror="alert\(1\)"> timed out/);
+                assert.equal(await page.locator("img").count(), 0);
+                assert.equal(await fresh.locator("table.failures tbody tr").count(), 3);
+                const rolled = page.locator("details.row").filter({ hasText: "scheduler" }).first();
+                await rolled.locator("summary").click();
+                assert.match(await rolled.innerText(), /Tests named in this testcase's failures/);
+                assert.match(await rolled.locator("table.failures").first().innerText(), /TestPermit\s+7/);
+                const healthy = page.locator("details.healthy");
+                await healthy.locator("summary").focus();
+                // The click above left the browser in pointer modality; tab away and back.
+                await page.keyboard.press("Tab");
+                await page.keyboard.press("Shift+Tab");
+                assert(await healthy.locator("summary").evaluate(el => el === document.activeElement));
+                await page.keyboard.press("Enter");
+                assert.equal(await healthy.getAttribute("open"), "");
+                assert.notEqual(await healthy.locator("summary").evaluate(el => getComputedStyle(el).outlineStyle), "none");
+                assert.match(await page.locator(".tally").innerText(), /1\s*new flakes/);
+                assert.match(await page.locator(".tally").innerText(), /1\s*flaky, now quiet/);
               }
               if (fixture.name === "incomplete") {
                 const warning = page.locator("details.warning");
@@ -103,7 +154,8 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 assert.match(await failure.innerText(), /<img src=x onerror=alert\(1\)>/);
                 assert.equal(await page.locator("img").count(), 0);
               }
-              const companion = JSON.parse(await readFile(resolve(directory, `${fixture.name}.json`), "utf8"));
+              const companion = fixture.prebuilt ? { cofailure: { groups: [] } }
+                : JSON.parse(await readFile(resolve(directory, `${fixture.name}.json`), "utf8"));
               if (companion.cofailure.groups.length) {
                 const groups = page.locator("details.cohort");
                 assert.equal(await groups.count(), Math.min(20, companion.cofailure.groups.length));
@@ -177,7 +229,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.deepEqual(errors, []);
               assert.deepEqual(network, []);
               assert.deepEqual(await page.evaluate(() => window.reportCspViolations), []);
-              if (["retry", "incomplete", "cofailure"].includes(fixture.name)) {
+              if (["retry", "incomplete", "cofailure", "long"].includes(fixture.name)) {
                 await page.evaluate(() => {
                   document.querySelectorAll(".cohort-scroll").forEach(el => { el.scrollLeft = 0; });
                   window.scrollTo(0, 0);

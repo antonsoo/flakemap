@@ -13,6 +13,7 @@ the differences that matter for flakiness statistics: root element shape,
 | pytest | `pytest --junitxml=report.xml` | `tests/fixtures/pytest_real.xml` | Generated locally: `pytest test_sample.py --junitxml=out.xml` (pytest 9.1.1, this repo's `uv.lock`). |
 | Jest | [jest-junit](https://github.com/jest-community/jest-junit) reporter | `tests/fixtures/jest_junit_real.xml` | Generated locally: `npx jest --reporters=default --reporters=jest-junit` (jest-junit installed via `npm install jest jest-junit`, current npm registry versions as of 2026-09-24). |
 | Go | [go-junit-report](https://github.com/jstemmer/go-junit-report) / `gotestsum --junitfile` | `tests/fixtures/go_junit_report.xml` | Hand-authored to match the shape documented in the go-junit-report README (`<testsuites><testsuite><properties>` + `<testcase><failure message type>`), since a Go toolchain was not available in the build environment. Not run locally -- flagged here rather than left unstated. |
+| Go, one record per package | Kubernetes' pruned reports (gotestsum output passed through its `prune-junit-xml`) | `tests/fixtures/kubernetes_pruned/junit_20260803-100711.xml` | An excerpt of a real report: build 2084219256018309120 of `ci-kubernetes-integration-master`, from the public `kubernetes-ci-logs` bucket. Three of its 131 suites are kept, one of them failing; the failing record's `<system-out>`, a second copy of the same output, is removed. Nothing else is changed. `studies/kubernetes-ci` reads 4,315 such reports whole. |
 | Maven/Gradle Surefire | [Maven Surefire Plugin](https://maven.apache.org/surefire/maven-surefire-plugin/) XML report; Gradle's `Test` task reuses the same shape | `tests/fixtures/surefire_report.xml` | Hand-authored to match the documented Surefire XML report schema (a bare `<testsuite>` root, one file per test class, `<properties>`, `<error>`/`<failure>` with `message`/`type` attributes). Not run locally -- no JDK/Maven/Gradle in the build environment. |
 | .NET (TRX) | `dotnet test --logger trx` (MSTest, xUnit, NUnit) | `examples/trx_history/run-01.trx` … `run-12.trx` | Generated locally: twelve runs of `examples/trx_project` (MSTest 3.6.1, .NET SDK 8.0.425), machine details removed by its `capture.py`. TRX is not a JUnit dialect; `src/flakemap/parse/trx.py` reads it (see below). |
 
@@ -103,7 +104,28 @@ there is no claim of preserving every tick at the largest magnitudes.
   dotted Java class. Go reports put a package path there; Jest sometimes puts
   a describe-block path with leading whitespace (see the real fixture). The
   "suite" grouping used for by-suite rollups is the classname with its last
-  dot-separated segment stripped.
+  dot-separated segment stripped, unless the classname is a path: the suite of
+  `k8s.io/client-go/tools/cache` is that package, not `k8s`.
+- **Go tests named in a failure** (source checkout): `go test` ends every
+  failed test and subtest with a `--- FAIL: Name (0.00s)` line. When a failure's
+  text holds such lines for tests other than the testcase itself, they are kept
+  as `failed_within`, in output order. That is the only place a report with one
+  record per package names what failed. Reports count and place the top-level
+  names (`TestDRA`, not `TestDRA/all/…`). At most 200 names are kept per record.
+- **Go failure messages** (source checkout): gotestsum writes
+  `message="Failed"` on every failure and puts the test's output in the body.
+  For exactly that message, the message becomes the last log line
+  (`file.go:123: text`) above the first `--- FAIL:`, from a `_test.go` file when
+  there is one; a line that ends in a colon takes its continuation, and
+  testify's `Error:` line when the block has one. With no `--- FAIL:` at all, a
+  `panic:` line is used (`panic: test timed out after 10m0s`). Otherwise the
+  message stays "Failed". On the Kubernetes histories this gives 344 of 354
+  failures a message of their own.
+- **Suite timestamps** (source checkout): the earliest `<testsuite timestamp>`
+  that carries a UTC offset (`2026-10-08T04:35:50Z`, as gotestsum and pytest
+  write) is the report's own start time. A bare local time, as jest-junit and
+  Ant write, is not used: it orders runs from one machine and misorders runs
+  from two.
 - **Malformed/partial JUnit files**: a streaming XML parser retains completed
   testcase elements before the first syntax error, even inside an unclosed
   suite. It preserves suite context and XML order. Comments and CDATA remain
@@ -166,12 +188,21 @@ resolves that from the report file's location, tried in this order (see
    This is the natural shape of "download each CI run's artifact into its own
    folder", e.g. from `actions/download-artifact` with a matrix build.
 
+   Without a sidecar timestamp or sequence, the run's time is the report's own
+   when it has one: a TRX file's `<Times start>` or, in the source checkout, a
+   JUnit suite's offset-bearing `timestamp` (metadata source `report`). Several
+   reports of one run take the earliest. Only two *sidecar* timestamps that
+   disagree exclude a run.
+
 3. **File mtime fallback.** If nothing supplies a timestamp or sequence, the
    report file's filesystem modification time is used, and `flakemap`'s CLI
    warns when more than half the runs in a batch fall back to mtime -- a
    fresh `git clone` or artifact re-download can collapse many files to the
    same mtime, which would silently corrupt run ordering (and therefore flip
-   rate, change-point, and duration trend) without the warning.
+   rate, change-point, and duration trend) without the warning. The source
+   checkout also warns when any run placed by mtime sits among runs placed by
+   a recorded time, and names it: in the Kubernetes study one build of 2,162
+   had no start record, and its download time made the oldest build the newest.
 
 `examples/demo_project/generate_demo_data.py` uses layout 1 (a sidecar
 `meta.json` per run directory) and is the reference implementation for a CI
@@ -246,6 +277,17 @@ retry evidence. Consumers of version 1 must account for these changes:
 | `cofailure.runs` | Ordered metadata for every supplied run, including runner/OS, commit, branch and metadata source |
 | `cofailure.ambiguous_tests_excluded` | Tests excluded from grouping because any outcome was ambiguous |
 | `cofailure.groups[]` | Report-local ID, members, all six `run_states`, final-failure/recovered counts, affected test-run count and original affected evidence |
+
+The source checkout adds these, without changing the version:
+
+| Field | Meaning |
+|---|---|
+| `summary.flaky_new` / `flaky_quiet` | Flaky tests whose failures are all recent, or have stopped (see `activity`) |
+| `tests[].activity` | `null` for a test that never failed. Otherwise `state` (`new`, `ongoing`, `quiet`), `failures`, `events` (failures with consecutive failing runs counted once), `runs_since_last_failure`, `runs_since_first_failure`, and the two chances the state rests on, `quiet_chance` and `new_chance` |
+| `tests[].same_commit` | Of the test's failures: `failures_passed_elsewhere`, `failures_failed_everywhere` and `failures_without_another_run`, by what the other runs of the same commit, branch, runner and OS did |
+| `tests[].failures[]` | Every final failure, oldest first: `run_id`, `index` (position among the test's usable runs, from 0), `timestamp`, `commit`, `status`, `message`, `failed_within`, `same_commit` (`passed`, `failed`, `single`, `unknown`), `same_commit_other_runs`, `other_tests_failed` |
+| `tests[].named_failures[]` | Top-level Go tests named inside this testcase's failures, most frequent first: `name`, `runs`, `first_run_id`, `last_run_id`, `passed_same_commit`, `checked_same_commit`, `activity` |
+| `tests[].rerun_signal.value` | Now the share of same-commit pairs of runs that disagree, weighted by runs; equal to `groups_with_flip / groups_with_reruns` when every rerun group has two runs |
 
 Each evidence entry contains `run_id`, `commit`, `reason`, and `records`.
 A record carries the original `name` and `classname`, `source: {report, testcase}` (relative report path and 1-based

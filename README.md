@@ -24,6 +24,45 @@ run against known-good baselines) once you know *which* test to look at.
 
 <p align="center"><img src="docs/assets/hero-heatmap.png" width="820" alt="flakemap HTML report: an inspection-report-styled page with a test x run heatmap. 222 runs, 12 tests, 1 broken (red DEFECT stamp) and 3 flaky (amber INTERMITTENT stamps) rows shown above 8 healthy rows, each row a strip of small green/red cells for pass/fail across chronological runs, with a failure rate percentage on the right"></p>
 
+## On a real history: 91 days of Kubernetes CI
+
+Kubernetes publishes every build of its CI jobs. [A study in this repository](studies/kubernetes-ci/README.md)
+reads three months of two of them, 4,334 hourly builds of `master`, and runs
+flakemap over the JUnit reports.
+
+- **One build in thirteen failed, and every failure that could be checked was a
+  flake.** Of 314 failures on a commit that was built more than once, 310 passed
+  in another build of the same commit. None was a test that broke and stayed
+  broken.
+- **Flakes are episodes, not rates.** Sixteen tests failed five times or more;
+  nine of them had stopped failing by the end. `TestDRA` failed 19 times in ten
+  days and not once in the 64 that followed.
+- **Kubernetes' own tracker agrees about when.** For four of those nine, a fix
+  that names the test merged within three days of the last failure flakemap saw.
+  The newest flake it flagged first failed on 4 October; its issue was opened on
+  the 5th.
+- **The released flakemap could show none of this**: its report of one of the
+  two histories was a 687 MB HTML file, every rate in it "0%" or "1%", every
+  failure message the word "Failed". What that changed is below and in the study.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="studies/kubernetes-ci/figures/timeline-dark.svg">
+  <img src="studies/kubernetes-ci/figures/timeline-light.svg" width="860" alt="One row per frequently failing Kubernetes test over 91 days, a tick per failed build. Nine tests' ticks stop well before the end and are labelled quiet; for four of them a marker shows a fix merging just after the last tick. Two tests' ticks are all at the right-hand end and are labelled new.">
+</picture>
+
+```console
+$ uv run python studies/kubernetes-ci/collect.py      # fetch the builds (1.4 GB)
+$ uv run flakemap studies/kubernetes-ci/cache/ci-kubernetes-integration-master --top 4
+```
+
+<p align="center"><img src="docs/assets/terminal-kubernetes.png" width="860" alt="flakemap terminal output for 2,162 runs of Kubernetes' integration job: 39 flaky packages, 5 of them quiet. A table of the top four with the Go tests each failure names (TestWebhookConverterWithWatchCache 20 times; TestPodGroupPreemption 14 times, quiet for 2,007 runs), failed runs such as 20 of 2,162, failure rates such as 0.93% with a 95% interval, how many failures passed on the same commit (19 of 19), and how many runs ago each last failed"></p>
+
+The other job's history as a page: 1,524 Go packages over 2,153 builds. A rail
+per package that ever failed, a mark per failure, each failure's evidence one
+click away, and 0.4 MB where the released version wrote 687.
+
+<p align="center"><img src="docs/assets/report-kubernetes.png" width="860" alt="flakemap HTML report for 2,153 builds of Kubernetes' unit-test job: 28 rows of thin rails dated from July to October, with a red mark wherever a build failed. Two rows are stamped NEW FLAKE and have all their marks at the right; four are stamped QUIET and have all theirs at the left, the first of them with 44; 1,496 packages that never failed are listed below, not drawn"></p>
+
 ## What a green result can hide
 
 ```bash
@@ -85,7 +124,7 @@ $ uv run flakemap examples/demo_project/runs
 ```
 
 That last command analyzes the ~220 real `pytest` runs committed in this repo
-(see [Honest real demo data](#honest-real-demo-data)) and prints the terminal
+(see [The planted demo](#the-planted-demo-a-history-with-known-answers)) and prints the terminal
 report below -- no setup, no fixtures to write yourself. To use it on your own
 reports, install it from PyPI: `pip install flakemap`, or run it without
 installing: `uvx flakemap path/to/reports`.
@@ -116,14 +155,30 @@ installing: `uvx flakemap path/to/reports`.
   signal), a documented flakiness score, single change-point detection,
   duration trend, duration-vs-failure correlation, and per-runner/per-OS
   failure rate breakdowns.
+- **Evidence per failure** (source checkout): what the other runs of the same
+  commit did (passed, failed, or there were none) and how many other tests
+  failed in that run.
+- **New, ongoing or quiet** (source checkout): whether a flaky test's failures
+  are still arriving, from where they fall in the history. An exact test, with
+  the chance it rests on printed beside the label.
+- **Go reports that keep one record per package** (source checkout): the tests
+  a failure's own output names (`--- FAIL:` lines) are counted and placed
+  separately, and gotestsum's constant "Failed" is replaced by the failing
+  test's last log line.
+- **Long histories** (source checkout): past 300 runs the HTML report draws a
+  rail and a mark per failure instead of a cell per run, and lists tests that
+  never failed instead of drawing them. 2,000 runs of 1,500 tests is a 0.4 MB
+  page.
 - **Classification**: `broken` (consistently failing since a commit) vs.
   `flaky` (intermittent) vs. `healthy` vs. `insufficient_data`, plus grouping
   by suite/module.
 - **Outputs**: a rich terminal report, `--json`, `--markdown` for PR comments,
   and a self-contained `--html` report with a test x run heatmap, per-test
   detail, and failure-message clustering.
-- **`--fail-on-new-flake`** for CI gating: exit 1 if a test's change-point
-  falls inside a trailing window and it's classified flaky or broken.
+- **`--fail-on-new-flake`** for CI gating: exit 1 if a flaky or broken test's
+  failures began inside a trailing window: a change point there or, in a source
+  checkout, every one of its failures there when a steady rate would have put
+  some earlier.
 - **`--fail-on-retry`** exits 1 for any explicitly recovered test in the supplied
   history, including a single run. Pass only the current run when gating a build.
 
@@ -133,7 +188,7 @@ installing: `uvx flakemap path/to/reports`.
 $ flakemap examples/demo_project/runs --top 10
 ```
 
-<p align="center"><img src="docs/assets/hero-terminal.png" width="760" alt="flakemap terminal output: a summary line (222 runs, 12 tests, 1 broken, 3 flaky, 8 healthy, no retries or exclusions) followed by a table of the 4 non-healthy tests with score, final failure rate with 95% CI, flip rate, recovered runs, run count, and, for the broken test only, the run where its failures began (run-0152)"></p>
+<p align="center"><img src="docs/assets/hero-terminal.png" width="760" alt="flakemap terminal output: a summary line (222 runs, 12 tests, 1 broken, 3 flaky, 8 healthy, no retries or exclusions) followed by a table of the 4 non-healthy tests with failed runs (106 of 222), final failure rate with 95% CI, how many failures passed on the same commit (19 of 27 for the flakiest, 0 of 20 for the broken test), when each last failed, and, for the broken test only, the run where its failures began (run-0152)"></p>
 
 ```console
 $ flakemap examples/demo_project/runs --json | jq '.tests[0]'
@@ -145,7 +200,8 @@ $ flakemap examples/demo_project/runs --fail-on-new-flake; echo "exit: $?"
 Click any row in the HTML report to expand its full statistics (see
 [`docs/assets/heatmap-detail.png`](docs/assets/heatmap-detail.png) for a
 worked example); hover a cell for that run's id, commit, duration, and failure
-message. It respects `prefers-color-scheme` for dark mode and has zero
+message. A history longer than 300 runs is drawn as a rail per test with a mark
+per failure, and the opened row lists its failures. It respects `prefers-color-scheme` for dark mode and has zero
 external requests -- open it from a CI artifact zip with no network.
 
 ## How it works
@@ -164,13 +220,41 @@ Full formulas and citations are in the module docstrings
 - **Flip rate**: the fraction of consecutive observed, non-skipped outcome pairs
   that changed (pass -> fail or fail -> pass). Unknown outcomes break pairs;
   absent tests and skips are not observations. `flip_pairs` gives the denominator.
-- **Same-context rerun disagreement**: group by commit, branch, runner and OS;
-  among groups with 2+ runs, report the fraction with both a pass and a failure.
-  This avoids treating a Linux pass and a Windows failure as a rerun on the same
-  environment. Unrecorded configuration can still differ (cf. Lam et al.,
+- **Same-context rerun disagreement**: group by commit, branch, runner and OS.
+  Released versions report the fraction of groups with 2+ runs that hold both a
+  pass and a failure. The source checkout reports the chance that two runs of
+  the same commit disagree: within a commit run `m` times with `f` failures,
+  `f(m - f)` of its `m(m - 1)/2` pairs of runs disagree, and commits are
+  weighted by their runs. With two runs per commit the two definitions give the
+  same number; with commits built from twice to a hundred times, the first made
+  a test's score depend on which commits its failures happened to land on.
+  Grouping by runner and OS avoids treating a Linux pass and a Windows failure
+  as a rerun on the same environment. Unrecorded configuration can still differ
+  (cf. Lam et al.,
   *"iDFlakies: A Framework for Detecting and Partially Classifying Flaky
   Tests,"* ICST 2019, which uses repeated execution on a fixed revision as the
   ground-truth signal for flakiness).
+- **Evidence per failure** (source checkout): each failure is compared with the
+  other runs of its commit in the same context. **Passed** in at least one of
+  them: the same code gave both results, which is what flaky means. **Failed**
+  in all of them: consistent with a real break, or a flake that struck twice.
+  **No other run**: nothing to compare. Reports show the counts ("19 of 19
+  passed on the same commit") and, in HTML and JSON, the verdict for every
+  failure.
+- **New, ongoing, quiet** (source checkout): one failure rate for a whole
+  history assumes the test failed at that rate throughout. If it did, every
+  placement of its `k` failures among its `n` runs is equally likely, so the
+  chance that all of them fall in the first `L` runs is `C(L, k) / C(n, k)`.
+  A test whose last failure is at run `L` with that chance under 1% is
+  **quiet**: a steady flake would not have stayed silent this long. The mirror
+  image, every failure in the last `m` runs, is **new**. Otherwise it is
+  **ongoing**, which for a test with a failure or two means only that nothing
+  can be said. The test is exact at any rate and any length. Consecutive
+  failing runs count as one failure (an outage is one event), and a single
+  failure never earns a label. Failures that cluster without being adjacent
+  still overstate the evidence. The same placement is done for each Go test
+  named inside a package-level record.
+  (`src/flakemap/stats/activity.py`)
 - **Flakiness score** (0-1, a heuristic, not a literature standard):
   `confidence * (0.4 * flip_rate + 0.4 * max(rerun_signal, recovered_runs/n) + 0.2 * intermittency)`,
   where `intermittency = 2 * min(p, 1-p)` (0 when always-pass or always-fail,
@@ -194,7 +278,12 @@ Full formulas and citations are in the module docstrings
   the time (the window `--fail-on-new-flake` gates on). The price is
   sensitivity to small, recent shifts: a test going from 0% to 20% failures
   in its last 10 runs is caught about half the time. The selected split is
-  not proof of the cause or onset.
+  not proof of the cause or onset. A flake that fails one run in fifty never
+  shifts the rate by 20 points, so it never has a change point; in the source
+  checkout `--fail-on-new-flake` also fires for a test labelled **new** whose
+  first failure is inside the window. Two failures in the last 100 of 2,000
+  runs are enough; widen `--new-flake-window` to match how often your flakes
+  fail.
 - **Duration signals**: an OLS trend (seconds per supplied history run) and the
   **point-biserial correlation** between duration and outcome (Tate, R.F.,
   1954, *"Correlation Between a Discrete and a Continuous Variable,"* Annals
@@ -218,14 +307,18 @@ Full formulas and citations are in the module docstrings
   because in a short history the one pass-to-fail switch of a regression is
   itself a flip rate over 8%. Flip rate > 8% or any rerun disagreement ->
   `flaky`. An overall failure rate >= 60% -> `broken`. Any remaining failures
-  -> `flaky`. These thresholds are
-  documented, not tuned against a labeled corpus beyond the synthetic one
-  below -- treat them as a reasonable default, not a calibrated model.
+  -> `flaky`. In the source checkout only a rerun disagreement *since* the
+  change point rules out `broken`: over months most tests flake once, and that
+  kept a test that then failed every run from ever being called broken. These
+  thresholds are documented, not tuned against a labeled corpus -- treat them
+  as a reasonable default, not a calibrated model. On the Kubernetes histories
+  every package that ever failed is `flaky`, which the same-commit evidence
+  bears out for 310 of the 314 failures it can check.
   Excluded outcomes prevent a `healthy` label and suppress change-point inference
   for that test. The confidence interval measures final-failure frequency, not
   confidence in the classification or a claim about the cause.
 
-## Honest real demo data
+## The planted demo: a history with known answers
 
 `examples/demo_project/` is a small synthetic `pytest` suite
 (`tests/test_suite.py`) with **planted, documented** failure patterns: a
@@ -282,16 +375,32 @@ Reproduce this table: `uv run flakemap examples/demo_project/runs --json`.
   `git clone` or artifact re-download can collapse many files to nearly the
   same mtime; flakemap warns when more than half a batch falls back to mtime,
   but a sidecar or directory-per-run layout is strongly preferred (see
-  [`docs/formats.md`](docs/formats.md)).
+  [`docs/formats.md`](docs/formats.md)). The source checkout first tries the
+  report's own suite `timestamp` (gotestsum and pytest write one with a UTC
+  offset), and warns when even one run placed by mtime sits among runs placed
+  by a recorded time.
+- **New and quiet are about placement, not cause.** "Quiet" says the failures
+  stopped; a fix, a revert, a deleted test and a renamed one look alike. The
+  1% is exact for failures that arrive independently and optimistic for bursty
+  ones. A test needs about five failures before its silence can mean anything:
+  in the Kubernetes study a test whose issue was closed the day after its fifth
+  and last failure is still "ongoing" seventeen days later.
+- **Names from failure output are Go's convention.** `--- FAIL:` lines are what
+  `go test` prints. A report that rolls tests up in another ecosystem gets its
+  package-level statistics and nothing finer.
 - **Message clustering is a digit-normalization heuristic**
   (`\d+` -> `#`), not semantic diffing -- it merges "timed out after 4123ms"
   variants but won't merge two differently-worded messages for the same root
-  cause. That's closer to what [`logdelta`](https://github.com/antonsoo/logdelta)
+  cause. For a Go failure whose message is gotestsum's "Failed", the source
+  checkout clusters on the last line the failing test logged from its own
+  `_test.go` file, which is usually the assertion and sometimes is not. That's closer to what [`logdelta`](https://github.com/antonsoo/logdelta)
   does on the actual log content once you know which run to inspect.
 - **The flakiness score and classification thresholds are a documented
-  heuristic**, not fit against a labeled real-world corpus beyond the
-  synthetic demo above. They're a reasonable default starting point for
-  ranking, not a calibrated flakiness probability.
+  heuristic**, not fit against a labeled corpus. They're a reasonable default
+  starting point for ranking, not a calibrated flakiness probability. At real
+  flake rates the score is a small number (0.02 for a test failing one run in
+  a hundred), so tables show failed runs and rates and keep the score for
+  ordering.
 - **This is an offline batch tool.** It doesn't talk to any CI provider's
   API; you still need a step that collects JUnit XML as artifacts (see the CI
   recipe below).

@@ -8,6 +8,7 @@ for fixture provenance and independently specified expected counts.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 from build_demo_site import build
@@ -61,6 +62,88 @@ def cofailure_bounds() -> list[Run]:
     return runs
 
 
+def long_history() -> list[Run]:
+    """Synthetic 1,200-run history in the shape of an hourly job, not captured execution.
+
+    Forty tests that never fail (listed, not drawn) and six that do: a flake that
+    stopped, one that just started, a steady one whose package-level record names the Go
+    tests inside it, one skipped for a stretch, one that arrived late and errors, and one
+    with an ambiguous outcome.
+    """
+    start = datetime(2026, 7, 9, tzinfo=timezone.utc)
+    stopped, started = {40, 90, 91, 150, 230, 300}, {1130, 1160, 1190}
+    steady = {i for i in range(60, 1200, 170)}
+    runs = []
+    for index in range(1200):
+        cases = [
+            TestCaseResult(f"TestSteady{n:02}", "example.com/pkg/ok", Status.PASS)
+            for n in range(40)
+        ]
+        cases.append(
+            TestCaseResult(
+                "TestStopped",
+                "example.com/pkg/a",
+                Status.FAIL if index in stopped else Status.PASS,
+                message="a_test.go:41: want 3 pods, got 2" if index in stopped else None,
+            )
+        )
+        cases.append(
+            TestCaseResult(
+                "TestStarted",
+                "example.com/pkg/a",
+                Status.FAIL if index in started else Status.PASS,
+                message='<img src=x onerror="alert(1)"> timed out' if index in started else None,
+            )
+        )
+        cases.append(
+            TestCaseResult(
+                "scheduler",
+                "[sig-x] example.com/pkg/integration",
+                Status.FAIL if index in steady else Status.PASS,
+                message="plugins_test.go:88: context deadline exceeded"
+                if index in steady
+                else None,
+                failed_within=("TestPermit/sub", "TestPermit") if index in steady else (),
+            )
+        )
+        cases.append(
+            TestCaseResult(
+                "TestSkippedForAWhile",
+                "example.com/pkg/b",
+                Status.SKIP if 400 <= index < 700 else Status.FAIL if index == 900 else Status.PASS,
+            )
+        )
+        if index >= 800:
+            cases.append(
+                TestCaseResult(
+                    "TestArrivedLate",
+                    "example.com/pkg/b",
+                    Status.ERROR if index in (950, 1100) else Status.PASS,
+                )
+            )
+        cases.append(
+            TestCaseResult(
+                "TestAmbiguous",
+                "example.com/pkg/b",
+                Status.UNKNOWN if index == 600 else Status.PASS,
+                issue="synthetic contradictory outcome" if index == 600 else None,
+            )
+        )
+        runs.append(
+            Run(
+                RunMetadata(
+                    f"build-{index:04}",
+                    commit=f"c{index // 3:04}",
+                    timestamp=start + timedelta(hours=index),
+                    source="sidecar",
+                ),
+                cases,
+                Path("synthetic"),
+            )
+        )
+    return runs
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     fixtures = [
@@ -70,10 +153,12 @@ def main() -> None:
         ("incomplete", "examples/incomplete_history", 3, 6),
         ("cofailure", "examples/cofailure_history", 12, 6),
         ("cofailure-bounds", "synthetic boundary case in scripts/browser_fixtures.py", 26, 69),
+        ("long", "synthetic long-history case in scripts/browser_fixtures.py", 1200, 46),
     ]
+    synthetic = {"cofailure-bounds": cofailure_bounds, "long": long_history}
     manifest = []
     for name, source, run_count, test_count in fixtures:
-        runs = cofailure_bounds() if name == "cofailure-bounds" else load_runs(ROOT / source)
+        runs = synthetic[name]() if name in synthetic else load_runs(ROOT / source)
         result = analyze(runs)
         payload = to_json_dict(result)
         assert len(runs) == run_count, (name, len(runs))
@@ -82,7 +167,11 @@ def main() -> None:
         (OUT / f"{name}.json").write_text(
             json.dumps(payload, indent=2, allow_nan=False) + "\n", encoding="utf-8"
         )
-        manifest.append({"name": name, "source": source, "runs": run_count, "tests": test_count})
+        entry = {"name": name, "source": source, "runs": run_count, "tests": test_count}
+        if name == "long":
+            # Drawn as strips: six rows with marks, no cells, and forty names in a list.
+            entry |= {"rows": 6, "cells": 0, "listed": 40}
+        manifest.append(entry)
     for item in build(OUT / "gallery"):
         manifest.append({**item, "name": f"gallery/{item['name']}"})
     (OUT / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")

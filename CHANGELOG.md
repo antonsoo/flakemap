@@ -4,7 +4,74 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### On real data
+
+- `studies/kubernetes-ci` reads 91 days of two Kubernetes CI jobs, 4,334 hourly
+  builds, from the public Prow bucket. 329 builds failed; of the 314 package
+  failures on a commit built more than once, 310 passed in another build of the
+  same commit. Nine of the sixteen tests that failed five times or more had
+  stopped failing by the end, and Kubernetes' tracker shows a fix merging within
+  three days of the last failure for four of them. The entries marked
+  "Kubernetes" below are what those histories exposed.
+
 ### Added
+
+- New, ongoing or quiet: where a flaky test's failures fall in its history. If a
+  test failed at one steady rate, every placement of its failures among its runs
+  is equally likely; a silence since the last failure, or a clean stretch before
+  the first, with a chance under 1% makes the test quiet or new. Exact at any
+  rate and length; consecutive failing runs count once; one failure is never
+  enough. Shown in every output, with the chance. (Kubernetes: one rate per test
+  described nine flakes that had already been fixed.)
+- Evidence for each failure: whether the test passed, or failed, in the other
+  runs of the same commit, and how many other tests failed in that run. Tables
+  show "19 of 19 passed on the same commit".
+- Go tests named in a failure's output (`--- FAIL:` lines) are kept, counted and
+  placed separately, for reports that hold one record per package. gotestsum's
+  constant message "Failed" is replaced by the failing test's last log line.
+  (Kubernetes: 354 failures, each with the message "Failed" and no test name.)
+- `--fail-on-new-flake` also fires for a test, or a test named inside one, that
+  is new and first failed inside the window. The change point it relied on
+  needs a 20-point shift in failure rate, which a flake that fails one run in
+  fifty never produces.
+- A JUnit suite's own `timestamp`, when it carries a UTC offset, orders a run
+  that has no sidecar timestamp, ahead of the file's modification time.
+
+### Changed
+
+- The HTML report draws a history longer than 300 runs as a rail per test with
+  a mark per failure, lists tests that never failed once there are more than 30
+  of them, and gives each opened row a table of its failures. (Kubernetes: 687 MB
+  for 1,524 tests over 2,153 runs, now 0.4 MB; 62 MB for 136 tests, now 1 MB.)
+- Rates print with two significant digits near 0% and 100%, beside a count:
+  "0.93% (0.60%–1.4%)" and "20 of 2,162", where the table said "1% (1%–1%)".
+  The terminal and Markdown tables show failed runs, same-commit evidence and
+  the last failure instead of the score, and list quiet tests last.
+- The rerun signal is the share of same-commit pairs of runs that disagree,
+  weighted by runs, instead of the share of commits with both outcomes. The two
+  are equal when every rerun is one extra run; with commits built from twice to
+  116 times the old one ranked a test failing 0.56% of runs above one failing
+  0.88%.
+- A test that once flaked can be called broken again: only a same-commit
+  disagreement since the change point rules it out.
+- A long test name keeps its last component in the report's name column; the
+  package is what gets cut.
+
+### Fixed
+
+- A run with no recorded time, placed by its file's modification time among
+  runs placed by theirs, is now reported by name. One such build out of 2,162
+  was silently ordered last.
+- Reports of one run that each carry their own start time no longer count as
+  conflicting metadata.
+- The suite of a Go test is its package: `k8s.io/client-go/tools/cache` was
+  grouped under `k8s`.
+- Loading is lighter: names are shared between runs and source positions are
+  set as records are read. Reading three million outcomes and writing their
+  report took 3 min 51 s and 3.3 GB; it takes 2 min 12 s and 1.2 GB on the same
+  machine.
+
+### Added earlier in this cycle
 
 - Exact shared-outcome cohorts across tests in terminal, Markdown, JSON and HTML.
   Matching includes run coverage and retry states; ambiguous histories are excluded.

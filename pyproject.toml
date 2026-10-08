@@ -61,6 +61,10 @@ pattern = 'src="(?!https?://)([^"]+)"'
 replacement = 'src="https://raw.githubusercontent.com/antonsoo/flakemap/main/\1"'
 
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
+pattern = 'srcset="(?!https?://)([^"]+)"'
+replacement = 'srcset="https://raw.githubusercontent.com/antonsoo/flakemap/main/\1"'
+
+[[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 pattern = '\]\((?!https?://|#|mailto:)([^)\s]+)\)'
 replacement = '](https://github.com/antonsoo/flakemap/blob/main/\1)'
 

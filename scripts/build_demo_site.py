@@ -1,9 +1,14 @@
 #!/usr/bin/env python3
-"""Build four navigable, offline examples using the CLI's own HTML renderer.
+"""Build five navigable, offline examples using the CLI's own HTML renderer.
 
 All inputs are committed. Captured controlled runs and hand-authored boundary
 cases are explicitly distinguished. No data is fetched and nothing is deployed.
 Run `uv run python scripts/build_demo_site.py` to write the `site/` directory.
+
+Four are rendered here from committed reports. The fifth is a real history too
+large to commit as reports (1.2 GB of them): 2,153 builds of Kubernetes' unit-test
+job, rendered once by `flakemap --html` for `studies/kubernetes-ci` and committed
+as that page.
 """
 
 from __future__ import annotations
@@ -52,6 +57,16 @@ DEMOS = (
         "and missing timings do not become zero. Open the warnings and affected test rows.",
     ),
 )
+REAL = (
+    "kubernetes",
+    "Real history",
+    "studies/kubernetes-ci",
+    "2,153 hourly builds of Kubernetes' unit-test job, 9 July to 8 October 2026, read from "
+    "its public CI bucket: 1,524 Go packages, 28 of which ever failed. Rows stamped QUIET "
+    "stopped failing weeks ago; two are new. Open a row for each failure's commit and "
+    "whether another build of that commit passed.",
+)
+REAL_PAGE = ROOT / "studies" / "kubernetes-ci" / "report-unit.html"
 OG_IMAGE = "https://raw.githubusercontent.com/antonsoo/flakemap/main/docs/assets/og.png"
 # Link-preview metadata for the published page only; the report itself stays
 # self-contained and makes no network requests.
@@ -80,38 +95,56 @@ GALLERY_CSS = """
 """
 
 
+def _context(slug: str, label: str, description: str, links: str, actions: str) -> str:
+    return (
+        '<aside class="demo-context" aria-label="Example context">'
+        f'<nav aria-label="Report examples"><ul>{links}</ul></nav>'
+        f"<h2>{escape(label)}</h2><p>{escape(description)}</p>{actions}</aside>"
+    )
+
+
+def _metadata(slug: str, title: str, description: str) -> str:
+    return (
+        HEAD_EXTRA
+        + GALLERY_CSS
+        + f'<meta name="description" content="{escape(description, quote=True)}">'
+        + f'<meta property="og:title" content="{escape(title, quote=True)}">'
+        + f'<meta property="og:description" content="{escape(description, quote=True)}">'
+        + f'<meta property="og:url" content="https://antonsoo.github.io/flakemap/{slug}.html">'
+    )
+
+
 def build(output: Path) -> list[dict[str, object]]:
     output.mkdir(parents=True, exist_ok=True)
-    manifest = []
+    manifest: list[dict[str, object]] = []
+    pages = [*DEMOS, REAL]
+
+    def links_for(current: str) -> str:
+        return "".join(
+            f'<li><a href="{other}.html"'
+            + (' aria-current="page"' if other == current else "")
+            + f">{escape(other_label)}</a></li>"
+            for other, other_label, _, _ in pages
+        )
+
     for slug, label, source, description in DEMOS:
         runs = load_runs(ROOT / source)
         result = analyze(runs)
         payload = json.dumps(to_json_dict(result), indent=2, allow_nan=False) + "\n"
         encoded = base64.b64encode(payload.encode()).decode("ascii")
         title = f"flakemap · {label}"
-        links = "".join(
-            f'<li><a href="{other}.html"'
-            + (' aria-current="page"' if other == slug else "")
-            + f">{escape(other_label)}</a></li>"
-            for other, other_label, _, _ in DEMOS
-        )
-        context = (
-            '<aside class="demo-context" aria-label="Example context">'
-            f'<nav aria-label="Report examples"><ul>{links}</ul></nav>'
-            f"<h2>{escape(label)}</h2><p>{escape(description)}</p>"
+        context = _context(
+            slug,
+            label,
+            description,
+            links_for(slug),
             f'<a href="data:application/json;base64,{encoded}" download="{slug}.json">'
             "Download this analysis as JSON</a> · "
-            f'<a href="https://github.com/antonsoo/flakemap/tree/main/{source}">Source fixture</a></aside>'
+            f'<a href="https://github.com/antonsoo/flakemap/tree/main/{source}">Source fixture</a>',
         )
-        metadata = (
-            HEAD_EXTRA
-            + GALLERY_CSS
-            + f'<meta name="description" content="{escape(description, quote=True)}">'
-            + f'<meta property="og:title" content="{escape(title, quote=True)}">'
-            + f'<meta property="og:description" content="{escape(description, quote=True)}">'
-            + f'<meta property="og:url" content="https://antonsoo.github.io/flakemap/{slug}.html">'
+        page = render_html(result, runs, title=title).replace(
+            "</head>", _metadata(slug, title, description) + "</head>", 1
         )
-        page = render_html(result, runs, title=title).replace("</head>", metadata + "</head>", 1)
         page = page.replace("<main>", "<main>" + context, 1)
         (output / f"{slug}.html").write_text(page, encoding="utf-8")
         (output / f"{slug}.json").write_text(payload, encoding="utf-8")
@@ -119,6 +152,36 @@ def build(output: Path) -> list[dict[str, object]]:
             {"name": slug, "source": source, "runs": len(runs), "tests": len(result.tests)}
         )
         print(f"wrote {output / (slug + '.html')} from {len(runs)} runs")
+
+    slug, label, source, description = REAL
+    title = f"flakemap · {label}"
+    context = _context(
+        slug,
+        label,
+        description,
+        links_for(slug),
+        f'<a href="https://github.com/antonsoo/flakemap/tree/main/{source}">'
+        "The study: data, method and what it found</a>",
+    )
+    page = REAL_PAGE.read_text(encoding="utf-8")
+    page = page.replace("<title>flakemap report</title>", f"<title>{escape(title)}</title>", 1)
+    page = page.replace("</head>", _metadata(slug, title, description) + "</head>", 1)
+    page = page.replace("<main>", "<main>" + context, 1)
+    (output / f"{slug}.html").write_text(page, encoding="utf-8")
+    # Counted from the page: 28 packages drawn as strips, the other 1,496 listed by name.
+    manifest.append(
+        {
+            "name": slug,
+            "source": f"{source}/report-unit.html",
+            "runs": 2153,
+            "tests": 1524,
+            "rows": 28,
+            "cells": 0,
+            "listed": 1496,
+            "prebuilt": True,
+        }
+    )
+    print(f"wrote {output / (slug + '.html')} from the committed real report")
     return manifest
 
 

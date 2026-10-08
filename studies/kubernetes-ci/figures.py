@@ -2,11 +2,15 @@
 
     uv run python studies/kubernetes-ci/figures.py
 
-One row per test that failed five times or more (and the two flagged as new),
-a tick per failed build at its start time, and, where Kubernetes' tracker
-records one, the moment a fix for that test merged. Reads results.json; the
-fix dates are the entries of `FIXES`, picked by hand from tracker.json and
-checked against each pull request's own page.
+One row per test that failed five times or more (and those that first failed in the
+last 30 days and failed three times or more), a tick per failed build at its start
+time, and, where Kubernetes' tracker records a merged pull request that names the test
+and could explain the stop, the moment it merged. Reads results.json; the pull
+requests are the entries of `FIXES`, picked by hand from tracker.json and checked
+against each pull request's own page. A merge counts only if it came after the last
+failure and no later than the test's own longest quiet spell after it: a merge before the
+last failure did not stop it, and one long after it cannot be told from luck. Every
+candidate and the verdict are written to fixes.json.
 """
 
 from __future__ import annotations
@@ -29,7 +33,7 @@ THEMES: dict[str, dict[str, str]] = {
         "grid": "#e1e0d9",
         "rail": "#e9e8e2",
         "ongoing": "#eb6834",
-        "new": "#2a78d6",
+        "recent": "#2a78d6",
         "quiet": "#898781",
     },
     "dark": {
@@ -40,7 +44,7 @@ THEMES: dict[str, dict[str, str]] = {
         "grid": "#2c2c2a",
         "rail": "#2a2a28",
         "ongoing": "#d95926",
-        "new": "#3987e5",
+        "recent": "#3987e5",
         "quiet": "#898781",
     },
 }
@@ -69,22 +73,46 @@ def _since(row: dict[str, Any], end: datetime) -> str:
     days = (end - last).days
     if row["state"] == "quiet":
         return f"quiet for {days} days"
-    if row["state"] == "new":
+    if row["state"] == "recent":
         first = datetime.fromisoformat(row["first_failure"])
-        return f"new, first {(end - first).days} days ago"
+        return f"first failed {(end - first).days} days ago"
     return f"ongoing, {days} days ago" if days else "ongoing, today"
+
+
+def fix_verdicts(results: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """For each merged pull request in FIXES: how long after the last failure it merged."""
+    rows = {row["test"]: row for summary in results["jobs"].values() for row in summary["tests"]}
+    verdicts = {}
+    for test, (number, merged) in FIXES.items():
+        row = rows[test]
+        lag = datetime.fromisoformat(merged) - datetime.fromisoformat(row["last_failure"])
+        lag_days = round(lag.total_seconds() / 86400, 1)
+        longest = row["longest_gap_days"]
+        verdicts[test] = {
+            "pull_request": number,
+            "merged": merged,
+            "last_failure": row["last_failure"],
+            "days_from_last_failure_to_merge": lag_days,
+            "longest_gap_days": longest,
+            "could_explain_the_stop": bool(longest is not None and 0 < lag_days <= longest),
+        }
+    return verdicts
 
 
 def timeline(results: dict[str, Any], theme: str) -> str:
     c = THEMES[theme]
+    verdicts = fix_verdicts(results)
     jobs = []
     for job, summary in results["jobs"].items():
         rows = [
             row
             for row in summary["tests"]
-            if row["failed_runs"] >= ENOUGH_FAILURES or row["state"] == "new"
+            if row["failed_runs"] >= ENOUGH_FAILURES or row["first_failed_recently"]
         ]
-        order = {"new": 0, "ongoing": 1, "quiet": 2}
+        for row in rows:  # draw and label a recent first failure as such unless it is quiet
+            if row["state"] == "ongoing" and row["first_failed_recently"]:
+                row["state"] = "recent"
+        order = {"recent": 0, "ongoing": 1, "quiet": 2}
         rows.sort(key=lambda row: (order[row["state"]], -row["failed_runs"]))
         jobs.append((job, summary, rows))
     start = min(datetime.fromisoformat(s["window"][0]) for _, s, _ in jobs)
@@ -104,11 +132,15 @@ def timeline(results: dict[str, Any], theme: str) -> str:
         f'<text x="24" y="30" font-size="16" font-weight="600" fill="{c["ink"]}">'
         "Flakes come and go: 91 days of two Kubernetes CI jobs</text>",
         f'<text x="24" y="50" font-size="12.5" fill="{c["secondary"]}">One tick per failed '
-        "build. Every test that failed five times or more, and the two flagged as new.</text>",
+        "build. Every test that failed five times or more, and the newcomers that failed three times.</text>",
     ]
     # Legend: state is also written at the end of every row, so colour is never alone.
     lx = 24.0
-    for key, label in (("new", "new"), ("ongoing", "ongoing"), ("quiet", "quiet")):
+    for key, label in (
+        ("recent", "first failed in the last 30 days"),
+        ("ongoing", "ongoing"),
+        ("quiet", "quiet"),
+    ):
         out.append(f'<rect x="{lx}" y="64" width="3" height="13" fill="{c[key]}"/>')
         out.append(
             f'<text x="{lx + 9}" y="75" font-size="12" fill="{c["secondary"]}">{label}</text>'
@@ -117,7 +149,7 @@ def timeline(results: dict[str, Any], theme: str) -> str:
     out.append(
         f'<path d="M{lx} 65 l5 9 l5 -9 z" fill="none" stroke="{c["ink"]}" stroke-width="1.4"/>'
         f'<text x="{lx + 16}" y="75" font-size="12" fill="{c["secondary"]}">'
-        "a fix for the test merged (Kubernetes' tracker)</text>"
+        "a pull request naming the test merged soon after (Kubernetes' tracker)</text>"
     )
 
     y = 96.0
@@ -165,7 +197,7 @@ def timeline(results: dict[str, Any], theme: str) -> str:
                     f"{moment[:16].replace('T', ' ')} UTC</title></rect>"
                 )
             fix = FIXES.get(row["test"])
-            if fix:
+            if fix and verdicts.get(row["test"], {}).get("could_explain_the_stop"):
                 fx = x(datetime.fromisoformat(fix[1]))
                 out.append(
                     f'<path d="M{fx - 5:.1f} {cy - 11} l5 9 l5 -9 z" fill="{c["surface"]}" '
@@ -191,6 +223,13 @@ def main() -> None:
     results = json.loads((HERE / "results.json").read_text())
     figures = HERE / "figures"
     figures.mkdir(exist_ok=True)
+    verdicts = fix_verdicts(results)
+    (HERE / "fixes.json").write_text(json.dumps(verdicts, indent=1) + "\n")
+    for test, v in verdicts.items():
+        print(
+            f"{test}: merged {v['days_from_last_failure_to_merge']} days after the last failure "
+            f"(longest gap {v['longest_gap_days']}) -> {v['could_explain_the_stop']}"
+        )
     for theme in THEMES:
         (figures / f"timeline-{theme}.svg").write_text(timeline(results, theme))
         print(f"wrote {figures / f'timeline-{theme}.svg'}")

@@ -2,14 +2,14 @@
 <title>When each frequently failing test failed, 9 July to 8 October 2026</title>
 <rect width="880" height="640" fill="#fcfcfb"/>
 <text x="24" y="30" font-size="16" font-weight="600" fill="#0b0b0b">Flakes come and go: 91 days of two Kubernetes CI jobs</text>
-<text x="24" y="50" font-size="12.5" fill="#52514e">One tick per failed build. Every test that failed five times or more, and the two flagged as new.</text>
+<text x="24" y="50" font-size="12.5" fill="#52514e">One tick per failed build. Every test that failed five times or more, and the newcomers that failed three times.</text>
 <rect x="24.0" y="64" width="3" height="13" fill="#2a78d6"/>
-<text x="33.0" y="75" font-size="12" fill="#52514e">new</text>
-<rect x="72.6" y="64" width="3" height="13" fill="#eb6834"/>
-<text x="81.6" y="75" font-size="12" fill="#52514e">ongoing</text>
-<rect x="150.0" y="64" width="3" height="13" fill="#898781"/>
-<text x="159.0" y="75" font-size="12" fill="#52514e">quiet</text>
-<path d="M213.0 65 l5 9 l5 -9 z" fill="none" stroke="#0b0b0b" stroke-width="1.4"/><text x="229.0" y="75" font-size="12" fill="#52514e">a fix for the test merged (Kubernetes' tracker)</text>
+<text x="33.0" y="75" font-size="12" fill="#52514e">first failed in the last 30 days</text>
+<rect x="281.4" y="64" width="3" height="13" fill="#eb6834"/>
+<text x="290.4" y="75" font-size="12" fill="#52514e">ongoing</text>
+<rect x="358.79999999999995" y="64" width="3" height="13" fill="#898781"/>
+<text x="367.79999999999995" y="75" font-size="12" fill="#52514e">quiet</text>
+<path d="M421.79999999999995 65 l5 9 l5 -9 z" fill="none" stroke="#0b0b0b" stroke-width="1.4"/><text x="437.79999999999995" y="75" font-size="12" fill="#52514e">a pull request naming the test merged soon after (Kubernetes' tracker)</text>
 <text x="24" y="110.0" font-size="12.5" font-weight="600" fill="#0b0b0b">ci-kubernetes-integration-master</text><text x="722" y="110.0" font-size="11.5" fill="#52514e">162 of 2,169 builds failed</text>
 <line x1="367.3" y1="120.0" x2="367.3" y2="336.0" stroke="#e1e0d9" stroke-width="1"/>
 <text x="371.3" y="110.0" font-size="11" fill="#898781">Aug</text>
@@ -17,128 +17,128 @@
 <text x="527.1" y="110.0" font-size="11" fill="#898781">Sep</text>
 <line x1="673.9" y1="120.0" x2="673.9" y2="336.0" stroke="#e1e0d9" stroke-width="1"/>
 <text x="677.9" y="110.0" font-size="11" fill="#898781">Oct</text>
-<text x="24" y="136.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/podgroup: TestCPGScheduling</title>TestCPGScheduling</text>
+<text x="24" y="136.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/apiextensions-apiserver/test/integration/conversion: TestWebhookConverterWithWatchCache</title>TestWebhookConverterWithWatchCache</text>
 <rect x="252" y="131.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="692.2" y="125.0" width="2" height="14" fill="#2a78d6"><title>TestCPGScheduling failed, 2026-10-04 20:17 UTC</title></rect>
-<rect x="693.0" y="125.0" width="2" height="14" fill="#2a78d6"><title>TestCPGScheduling failed, 2026-10-05 00:17 UTC</title></rect>
-<rect x="694.9" y="125.0" width="2" height="14" fill="#2a78d6"><title>TestCPGScheduling failed, 2026-10-05 09:21 UTC</title></rect>
-<text x="722" y="136.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">3</tspan><tspan fill="#52514e">  new, first 3 days ago</tspan></text>
-<text x="24" y="160.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/apiextensions-apiserver/test/integration/conversion: TestWebhookConverterWithWatchCache</title>TestWebhookConverterWithWatchCache</text>
+<rect x="316.9" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-07-22 04:02 UTC</title></rect>
+<rect x="325.2" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-07-23 19:36 UTC</title></rect>
+<rect x="341.9" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-07-27 03:27 UTC</title></rect>
+<rect x="378.5" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-03 10:06 UTC</title></rect>
+<rect x="385.5" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-04 19:33 UTC</title></rect>
+<rect x="388.9" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-05 11:43 UTC</title></rect>
+<rect x="417.7" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-11 05:18 UTC</title></rect>
+<rect x="435.7" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-14 19:21 UTC</title></rect>
+<rect x="436.6" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-14 23:25 UTC</title></rect>
+<rect x="445.2" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-16 16:50 UTC</title></rect>
+<rect x="471.9" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-22 00:21 UTC</title></rect>
+<rect x="481.0" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-23 19:46 UTC</title></rect>
+<rect x="482.5" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-24 02:51 UTC</title></rect>
+<rect x="487.2" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-25 01:03 UTC</title></rect>
+<rect x="488.8" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-25 09:04 UTC</title></rect>
+<rect x="489.9" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-25 14:07 UTC</title></rect>
+<rect x="503.8" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-28 08:44 UTC</title></rect>
+<rect x="624.4" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-09-21 08:33 UTC</title></rect>
+<rect x="629.0" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-09-22 06:37 UTC</title></rect>
+<rect x="690.5" y="125.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-10-04 12:17 UTC</title></rect>
+<text x="722" y="136.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">20</tspan><tspan fill="#52514e">  ongoing, 3 days ago</tspan></text>
+<text x="24" y="160.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/preemption: TestAsyncPreemption</title>TestAsyncPreemption</text>
 <rect x="252" y="155.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="316.9" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-07-22 04:02 UTC</title></rect>
-<rect x="325.2" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-07-23 19:36 UTC</title></rect>
-<rect x="341.9" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-07-27 03:27 UTC</title></rect>
-<rect x="378.5" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-03 10:06 UTC</title></rect>
-<rect x="385.5" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-04 19:33 UTC</title></rect>
-<rect x="388.9" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-05 11:43 UTC</title></rect>
-<rect x="417.7" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-11 05:18 UTC</title></rect>
-<rect x="435.7" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-14 19:21 UTC</title></rect>
-<rect x="436.6" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-14 23:25 UTC</title></rect>
-<rect x="445.2" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-16 16:50 UTC</title></rect>
-<rect x="471.9" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-22 00:21 UTC</title></rect>
-<rect x="481.0" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-23 19:46 UTC</title></rect>
-<rect x="482.5" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-24 02:51 UTC</title></rect>
-<rect x="487.2" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-25 01:03 UTC</title></rect>
-<rect x="488.8" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-25 09:04 UTC</title></rect>
-<rect x="489.9" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-25 14:07 UTC</title></rect>
-<rect x="503.8" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-08-28 08:44 UTC</title></rect>
-<rect x="624.4" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-09-21 08:33 UTC</title></rect>
-<rect x="629.0" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-09-22 06:37 UTC</title></rect>
-<rect x="690.5" y="149.0" width="2" height="14" fill="#eb6834"><title>TestWebhookConverterWithWatchCache failed, 2026-10-04 12:17 UTC</title></rect>
-<text x="722" y="160.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">20</tspan><tspan fill="#52514e">  ongoing, 3 days ago</tspan></text>
-<text x="24" y="184.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/apiextensions-apiserver/test/integration: TestRatchetingFunctionality</title>TestRatchetingFunctionality</text>
+<rect x="453.3" y="149.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-08-18 07:16 UTC</title></rect>
+<rect x="472.6" y="149.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-08-22 03:23 UTC</title></rect>
+<rect x="473.6" y="149.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-08-22 08:27 UTC</title></rect>
+<rect x="586.1" y="149.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-09-13 17:40 UTC</title></rect>
+<rect x="653.9" y="149.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-09-27 05:25 UTC</title></rect>
+<text x="722" y="160.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">5</tspan><tspan fill="#52514e">  ongoing, 10 days ago</tspan></text>
+<text x="24" y="184.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/dra/all: TestDRA</title>TestDRA</text>
 <rect x="252" y="179.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="419.2" y="173.0" width="2" height="14" fill="#eb6834"><title>TestRatchetingFunctionality failed, 2026-08-11 12:24 UTC</title></rect>
-<rect x="422.1" y="173.0" width="2" height="14" fill="#eb6834"><title>TestRatchetingFunctionality failed, 2026-08-12 02:34 UTC</title></rect>
-<rect x="426.8" y="173.0" width="2" height="14" fill="#eb6834"><title>TestRatchetingFunctionality failed, 2026-08-13 00:55 UTC</title></rect>
-<rect x="470.5" y="173.0" width="2" height="14" fill="#eb6834"><title>TestRatchetingFunctionality failed, 2026-08-21 17:19 UTC</title></rect>
-<rect x="500.3" y="173.0" width="2" height="14" fill="#eb6834"><title>TestRatchetingFunctionality failed, 2026-08-27 15:37 UTC</title></rect>
-<text x="722" y="184.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">5</tspan><tspan fill="#52514e">  ongoing, 41 days ago</tspan></text>
-<text x="24" y="208.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/preemption: TestAsyncPreemption</title>TestAsyncPreemption</text>
+<rect x="333.7" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-25 12:06 UTC</title></rect>
+<rect x="337.3" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-26 05:16 UTC</title></rect>
+<rect x="339.6" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-26 16:25 UTC</title></rect>
+<rect x="341.5" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-27 01:27 UTC</title></rect>
+<rect x="343.2" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-27 09:29 UTC</title></rect>
+<rect x="343.4" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-27 10:30 UTC</title></rect>
+<rect x="350.2" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-28 18:54 UTC</title></rect>
+<rect x="352.9" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-29 08:00 UTC</title></rect>
+<rect x="353.1" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-29 09:01 UTC</title></rect>
+<rect x="356.1" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-29 23:12 UTC</title></rect>
+<rect x="357.6" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-30 06:13 UTC</title></rect>
+<rect x="364.8" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-31 16:38 UTC</title></rect>
+<rect x="366.3" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-31 23:38 UTC</title></rect>
+<rect x="370.5" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-01 19:48 UTC</title></rect>
+<rect x="372.6" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-02 05:55 UTC</title></rect>
+<rect x="376.8" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-03 02:02 UTC</title></rect>
+<rect x="379.8" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-03 16:11 UTC</title></rect>
+<rect x="381.7" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-04 01:18 UTC</title></rect>
+<rect x="383.6" y="173.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-04 10:25 UTC</title></rect>
+<path d="M380.9 169.0 l5 9 l5 -9 z" fill="#fcfcfb" stroke="#0b0b0b" stroke-width="1.4"><title>#141060 merged 2026-08-04 16:54 UTC</title></path>
+<text x="722" y="184.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">19</tspan><tspan fill="#52514e">  quiet for 64 days</tspan></text>
+<text x="24" y="208.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/preemption: TestPodGroupPreemption</title>TestPodGroupPreemption</text>
 <rect x="252" y="203.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="453.3" y="197.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-08-18 07:16 UTC</title></rect>
-<rect x="472.6" y="197.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-08-22 03:23 UTC</title></rect>
-<rect x="473.6" y="197.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-08-22 08:27 UTC</title></rect>
-<rect x="586.1" y="197.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-09-13 17:40 UTC</title></rect>
-<rect x="653.9" y="197.0" width="2" height="14" fill="#eb6834"><title>TestAsyncPreemption failed, 2026-09-27 05:25 UTC</title></rect>
-<text x="722" y="208.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">5</tspan><tspan fill="#52514e">  ongoing, 10 days ago</tspan></text>
-<text x="24" y="232.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/dra/all: TestDRA</title>TestDRA</text>
+<rect x="262.3" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-11 06:57 UTC</title></rect>
+<rect x="267.2" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-12 06:19 UTC</title></rect>
+<rect x="274.6" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-13 17:45 UTC</title></rect>
+<rect x="275.2" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-13 20:47 UTC</title></rect>
+<rect x="275.6" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-13 22:49 UTC</title></rect>
+<rect x="276.3" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 01:52 UTC</title></rect>
+<rect x="276.5" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 02:54 UTC</title></rect>
+<rect x="277.1" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 05:56 UTC</title></rect>
+<rect x="278.4" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 12:02 UTC</title></rect>
+<rect x="279.0" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 15:05 UTC</title></rect>
+<rect x="279.7" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 18:08 UTC</title></rect>
+<rect x="281.8" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-15 04:16 UTC</title></rect>
+<rect x="283.7" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-15 13:25 UTC</title></rect>
+<rect x="283.9" y="197.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-15 14:26 UTC</title></rect>
+<text x="722" y="208.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">14</tspan><tspan fill="#52514e">  quiet for 84 days</tspan></text>
+<text x="24" y="232.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/plugins: TestCoSchedulingWithPermitPlugin</title>TestCoSchedulingWithPermitPlugin</text>
 <rect x="252" y="227.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="333.7" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-25 12:06 UTC</title></rect>
-<rect x="337.3" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-26 05:16 UTC</title></rect>
-<rect x="339.6" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-26 16:25 UTC</title></rect>
-<rect x="341.5" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-27 01:27 UTC</title></rect>
-<rect x="343.2" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-27 09:29 UTC</title></rect>
-<rect x="343.4" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-27 10:30 UTC</title></rect>
-<rect x="350.2" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-28 18:54 UTC</title></rect>
-<rect x="352.9" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-29 08:00 UTC</title></rect>
-<rect x="353.1" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-29 09:01 UTC</title></rect>
-<rect x="356.1" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-29 23:12 UTC</title></rect>
-<rect x="357.6" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-30 06:13 UTC</title></rect>
-<rect x="364.8" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-31 16:38 UTC</title></rect>
-<rect x="366.3" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-07-31 23:38 UTC</title></rect>
-<rect x="370.5" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-01 19:48 UTC</title></rect>
-<rect x="372.6" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-02 05:55 UTC</title></rect>
-<rect x="376.8" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-03 02:02 UTC</title></rect>
-<rect x="379.8" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-03 16:11 UTC</title></rect>
-<rect x="381.7" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-04 01:18 UTC</title></rect>
-<rect x="383.6" y="221.0" width="2" height="14" fill="#898781"><title>TestDRA failed, 2026-08-04 10:25 UTC</title></rect>
-<path d="M380.9 217.0 l5 9 l5 -9 z" fill="#fcfcfb" stroke="#0b0b0b" stroke-width="1.4"><title>#141060 merged 2026-08-04 16:54 UTC</title></path>
-<text x="722" y="232.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">19</tspan><tspan fill="#52514e">  quiet for 64 days</tspan></text>
-<text x="24" y="256.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/preemption: TestPodGroupPreemption</title>TestPodGroupPreemption</text>
+<rect x="255.7" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-09 23:28 UTC</title></rect>
+<rect x="261.2" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-11 01:53 UTC</title></rect>
+<rect x="275.6" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-13 22:49 UTC</title></rect>
+<rect x="278.6" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-14 13:03 UTC</title></rect>
+<rect x="280.3" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-14 21:09 UTC</title></rect>
+<rect x="281.4" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-15 02:14 UTC</title></rect>
+<rect x="283.7" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-15 13:25 UTC</title></rect>
+<rect x="291.0" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-16 23:59 UTC</title></rect>
+<rect x="296.7" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-18 03:26 UTC</title></rect>
+<rect x="306.9" y="221.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-20 04:13 UTC</title></rect>
+<text x="722" y="232.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">10</tspan><tspan fill="#52514e">  quiet for 80 days</tspan></text>
+<text x="24" y="256.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/batch: TestBatchScenarios</title>TestBatchScenarios</text>
 <rect x="252" y="251.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="262.3" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-11 06:57 UTC</title></rect>
-<rect x="267.2" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-12 06:19 UTC</title></rect>
-<rect x="274.6" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-13 17:45 UTC</title></rect>
-<rect x="275.2" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-13 20:47 UTC</title></rect>
-<rect x="275.6" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-13 22:49 UTC</title></rect>
-<rect x="276.3" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 01:52 UTC</title></rect>
-<rect x="276.5" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 02:54 UTC</title></rect>
-<rect x="277.1" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 05:56 UTC</title></rect>
-<rect x="278.4" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 12:02 UTC</title></rect>
-<rect x="279.0" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 15:05 UTC</title></rect>
-<rect x="279.7" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-14 18:08 UTC</title></rect>
-<rect x="281.8" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-15 04:16 UTC</title></rect>
-<rect x="283.7" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-15 13:25 UTC</title></rect>
-<rect x="283.9" y="245.0" width="2" height="14" fill="#898781"><title>TestPodGroupPreemption failed, 2026-07-15 14:26 UTC</title></rect>
-<text x="722" y="256.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">14</tspan><tspan fill="#52514e">  quiet for 84 days</tspan></text>
-<text x="24" y="280.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/plugins: TestCoSchedulingWithPermitPlugin</title>TestCoSchedulingWithPermitPlugin</text>
+<rect x="284.1" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-07-15 15:27 UTC</title></rect>
+<rect x="327.3" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-07-24 05:45 UTC</title></rect>
+<rect x="331.4" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-07-25 00:56 UTC</title></rect>
+<rect x="372.0" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-02 02:53 UTC</title></rect>
+<rect x="391.6" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-06 00:54 UTC</title></rect>
+<rect x="423.2" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-12 07:39 UTC</title></rect>
+<rect x="449.3" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-17 12:07 UTC</title></rect>
+<rect x="490.9" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-25 19:09 UTC</title></rect>
+<rect x="509.7" y="245.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-29 12:49 UTC</title></rect>
+<text x="722" y="256.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">9</tspan><tspan fill="#52514e">  quiet for 39 days</tspan></text>
+<text x="24" y="280.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/plugins: TestUnReservePreBindPlugins</title>TestUnReservePreBindPlugins</text>
 <rect x="252" y="275.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="255.7" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-09 23:28 UTC</title></rect>
-<rect x="261.2" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-11 01:53 UTC</title></rect>
-<rect x="275.6" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-13 22:49 UTC</title></rect>
-<rect x="278.6" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-14 13:03 UTC</title></rect>
-<rect x="280.3" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-14 21:09 UTC</title></rect>
-<rect x="281.4" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-15 02:14 UTC</title></rect>
-<rect x="283.7" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-15 13:25 UTC</title></rect>
-<rect x="291.0" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-16 23:59 UTC</title></rect>
-<rect x="296.7" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-18 03:26 UTC</title></rect>
-<rect x="306.9" y="269.0" width="2" height="14" fill="#898781"><title>TestCoSchedulingWithPermitPlugin failed, 2026-07-20 04:13 UTC</title></rect>
-<text x="722" y="280.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">10</tspan><tspan fill="#52514e">  quiet for 80 days</tspan></text>
-<text x="24" y="304.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/batch: TestBatchScenarios</title>TestBatchScenarios</text>
+<rect x="252.5" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-09 08:15 UTC</title></rect>
+<rect x="254.4" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-09 17:22 UTC</title></rect>
+<rect x="267.2" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-12 06:19 UTC</title></rect>
+<rect x="277.3" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-14 06:57 UTC</title></rect>
+<rect x="286.7" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-16 03:39 UTC</title></rect>
+<rect x="288.6" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-16 12:48 UTC</title></rect>
+<rect x="298.4" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-18 11:34 UTC</title></rect>
+<rect x="299.0" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-18 14:37 UTC</title></rect>
+<rect x="312.0" y="269.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-21 04:34 UTC</title></rect>
+<text x="722" y="280.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">9</tspan><tspan fill="#52514e">  quiet for 79 days</tspan></text>
+<text x="24" y="304.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/apiextensions-apiserver/test/integration: TestRatchetingFunctionality</title>TestRatchetingFunctionality</text>
 <rect x="252" y="299.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="284.1" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-07-15 15:27 UTC</title></rect>
-<rect x="327.3" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-07-24 05:45 UTC</title></rect>
-<rect x="331.4" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-07-25 00:56 UTC</title></rect>
-<rect x="372.0" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-02 02:53 UTC</title></rect>
-<rect x="391.6" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-06 00:54 UTC</title></rect>
-<rect x="423.2" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-12 07:39 UTC</title></rect>
-<rect x="449.3" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-17 12:07 UTC</title></rect>
-<rect x="490.9" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-25 19:09 UTC</title></rect>
-<rect x="509.7" y="293.0" width="2" height="14" fill="#898781"><title>TestBatchScenarios failed, 2026-08-29 12:49 UTC</title></rect>
-<text x="722" y="304.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">9</tspan><tspan fill="#52514e">  quiet for 39 days</tspan></text>
-<text x="24" y="328.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/plugins: TestUnReservePreBindPlugins</title>TestUnReservePreBindPlugins</text>
+<rect x="419.2" y="293.0" width="2" height="14" fill="#898781"><title>TestRatchetingFunctionality failed, 2026-08-11 12:24 UTC</title></rect>
+<rect x="422.1" y="293.0" width="2" height="14" fill="#898781"><title>TestRatchetingFunctionality failed, 2026-08-12 02:34 UTC</title></rect>
+<rect x="426.8" y="293.0" width="2" height="14" fill="#898781"><title>TestRatchetingFunctionality failed, 2026-08-13 00:55 UTC</title></rect>
+<rect x="470.5" y="293.0" width="2" height="14" fill="#898781"><title>TestRatchetingFunctionality failed, 2026-08-21 17:19 UTC</title></rect>
+<rect x="500.3" y="293.0" width="2" height="14" fill="#898781"><title>TestRatchetingFunctionality failed, 2026-08-27 15:37 UTC</title></rect>
+<text x="722" y="304.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">5</tspan><tspan fill="#52514e">  quiet for 41 days</tspan></text>
+<text x="24" y="328.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/test/integration/scheduler/podgroup: TestCPGScheduling</title>TestCPGScheduling</text>
 <rect x="252" y="323.0" width="458" height="2" fill="#e9e8e2"/>
-<rect x="252.5" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-09 08:15 UTC</title></rect>
-<rect x="254.4" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-09 17:22 UTC</title></rect>
-<rect x="267.2" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-12 06:19 UTC</title></rect>
-<rect x="277.3" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-14 06:57 UTC</title></rect>
-<rect x="286.7" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-16 03:39 UTC</title></rect>
-<rect x="288.6" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-16 12:48 UTC</title></rect>
-<rect x="298.4" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-18 11:34 UTC</title></rect>
-<rect x="299.0" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-18 14:37 UTC</title></rect>
-<rect x="312.0" y="317.0" width="2" height="14" fill="#898781"><title>TestUnReservePreBindPlugins failed, 2026-07-21 04:34 UTC</title></rect>
-<text x="722" y="328.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">9</tspan><tspan fill="#52514e">  quiet for 79 days</tspan></text>
+<rect x="692.2" y="317.0" width="2" height="14" fill="#898781"><title>TestCPGScheduling failed, 2026-10-04 20:17 UTC</title></rect>
+<rect x="693.0" y="317.0" width="2" height="14" fill="#898781"><title>TestCPGScheduling failed, 2026-10-05 00:17 UTC</title></rect>
+<rect x="694.9" y="317.0" width="2" height="14" fill="#898781"><title>TestCPGScheduling failed, 2026-10-05 09:21 UTC</title></rect>
+<text x="722" y="328.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">3</tspan><tspan fill="#52514e">  quiet for 2 days</tspan></text>
 <text x="24" y="360.0" font-size="12.5" font-weight="600" fill="#0b0b0b">ci-kubernetes-unit</text><text x="722" y="360.0" font-size="11.5" fill="#52514e">167 of 2,165 builds failed</text>
 <line x1="367.3" y1="370.0" x2="367.3" y2="586.0" stroke="#e1e0d9" stroke-width="1"/>
 <text x="371.3" y="360.0" font-size="11" fill="#898781">Aug</text>
@@ -152,7 +152,7 @@
 <rect x="639.4" y="375.0" width="2" height="14" fill="#2a78d6"><title>TestCause failed, 2026-09-24 08:18 UTC</title></rect>
 <rect x="682.7" y="375.0" width="2" height="14" fill="#2a78d6"><title>TestCause failed, 2026-10-02 22:44 UTC</title></rect>
 <rect x="695.7" y="375.0" width="2" height="14" fill="#2a78d6"><title>TestCause failed, 2026-10-05 13:01 UTC</title></rect>
-<text x="722" y="386.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">4</tspan><tspan fill="#52514e">  new, first 25 days ago</tspan></text>
+<text x="722" y="386.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">4</tspan><tspan fill="#52514e">  first failed 25 days ago</tspan></text>
 <text x="24" y="410.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/pkg/kubelet/volumemanager: TestWaitForAllPodsUnmount</title>TestWaitForAllPodsUnmount</text>
 <rect x="252" y="405.0" width="458" height="2" fill="#e9e8e2"/>
 <rect x="288.4" y="399.0" width="2" height="14" fill="#eb6834"><title>TestWaitForAllPodsUnmount failed, 2026-07-16 11:48 UTC</title></rect>
@@ -263,7 +263,6 @@
 <rect x="301.4" y="519.0" width="2" height="14" fill="#898781"><title>TestFullFlow failed, 2026-07-19 01:49 UTC</title></rect>
 <rect x="309.0" y="519.0" width="2" height="14" fill="#898781"><title>TestFullFlow failed, 2026-07-20 14:22 UTC</title></rect>
 <rect x="312.2" y="519.0" width="2" height="14" fill="#898781"><title>TestFullFlow failed, 2026-07-21 05:37 UTC</title></rect>
-<path d="M318.6 515.0 l5 9 l5 -9 z" fill="#fcfcfb" stroke="#0b0b0b" stroke-width="1.4"><title>#140826 merged 2026-07-23 07:07 UTC</title></path>
 <text x="722" y="530.0" font-size="11.5" fill="#0b0b0b"><tspan font-weight="600">10</tspan><tspan fill="#52514e">  quiet for 78 days</tspan></text>
 <text x="24" y="554.0" font-size="11" font-family="ui-monospace, 'Cascadia Mono', 'SFMono-Regular', Menlo, Consolas, monospace" fill="#0b0b0b"><title>k8s.io/kubernetes/pkg/kubelet/volumemanager/reconciler: TestReconstructedVolumeShouldUnmountSucceedAfterSetupFailed</title>TestReconstructedVolumeShouldUnmo…</text>
 <rect x="252" y="549.0" width="458" height="2" fill="#e9e8e2"/>

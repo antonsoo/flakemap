@@ -1,6 +1,6 @@
 {
  "repository": "kubernetes/kubernetes",
- "searched": "2026-10-08T05:50:58+00:00",
+ "searched": "2026-10-08T11:13:10+00:00",
  "query": "repo:kubernetes/kubernetes \"<test name>\"",
  "tests": {
   "ci-kubernetes-integration-master:k8s.io/apiextensions-apiserver/test/integration/conversion:TestWebhookConverterWithWatchCache": [
@@ -496,6 +496,43 @@
      "sig/api-machinery"
     ],
     "url": "https://github.com/kubernetes/kubernetes/issues/141909"
+   },
+   {
+    "number": 142826,
+    "names_test_in": "title",
+    "kind": "issue",
+    "title": "[Flaking tests] [sig-api-machinery] k8s.io/apiextensions-apiserver/test/integration: conversion - TestWebhookConverterWithWatchCache",
+    "state": "open",
+    "opened": "2026-10-08T07:17:45Z",
+    "closed": null,
+    "merged": null,
+    "labels": [
+     "kind/flake",
+     "needs-triage",
+     "sig/api-machinery"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/issues/142826"
+   },
+   {
+    "number": 142831,
+    "names_test_in": "body",
+    "kind": "pull request",
+    "title": "test: prevent flaking in TestWebhookConverter due to missing default delegate",
+    "state": "open",
+    "opened": "2026-10-08T09:52:52Z",
+    "closed": null,
+    "merged": null,
+    "labels": [
+     "cncf-cla: yes",
+     "kind/flake",
+     "needs-ok-to-test",
+     "needs-priority",
+     "needs-triage",
+     "release-note-none",
+     "sig/api-machinery",
+     "size/M"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/pull/142831"
    }
   ],
   "ci-kubernetes-integration-master:k8s.io/kubernetes/test/integration/dra/all:TestDRA": [
@@ -2551,6 +2588,91 @@
     "url": "https://github.com/kubernetes/kubernetes/issues/142590"
    }
   ],
+  "ci-kubernetes-integration-master:k8s.io/kubernetes/test/integration/scheduler/podgroup:TestCPGScheduling": [
+   {
+    "number": 140670,
+    "names_test_in": "comment",
+    "kind": "pull request",
+    "title": "KEP-6012: Implement statuses for Composite Pod Groups",
+    "state": "closed",
+    "opened": "2026-07-17T09:12:08Z",
+    "closed": "2026-09-28T17:04:34Z",
+    "merged": "2026-09-28T17:04:34Z",
+    "labels": [
+     "api-review",
+     "approved",
+     "area/code-generation",
+     "area/test",
+     "cncf-cla: yes",
+     "kind/api-change",
+     "kind/feature",
+     "lgtm",
+     "needs-priority",
+     "needs-triage",
+     "ok-to-test",
+     "release-note",
+     "sig/api-machinery",
+     "sig/scheduling",
+     "sig/testing",
+     "size/XXL",
+     "wg/workload-aware-scheduling"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/pull/140670"
+   },
+   {
+    "number": 142677,
+    "names_test_in": "title",
+    "kind": "issue",
+    "title": "[Flaking Test] [sig-scheduling] TestCPGScheduling: PodGroup/CompositePodGroup \"Scheduled\" condition sometimes never set (test/integration/scheduler podgroup)",
+    "state": "open",
+    "opened": "2026-10-05T11:59:35Z",
+    "closed": null,
+    "merged": null,
+    "labels": [
+     "kind/flake",
+     "needs-triage",
+     "sig/scheduling"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/issues/142677"
+   },
+   {
+    "number": 142735,
+    "names_test_in": "comment",
+    "kind": "issue",
+    "title": "[Flaking Test] [sig-scheduling] TestCPGTopologyAwareSchedulingWorkloadAwarePreemption/parent_CPG_and_child_PGs_both_have_topology_constraints",
+    "state": "open",
+    "opened": "2026-10-06T12:12:18Z",
+    "closed": null,
+    "merged": null,
+    "labels": [
+     "kind/flake",
+     "needs-triage",
+     "sig/scheduling"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/issues/142735"
+   },
+   {
+    "number": 142777,
+    "names_test_in": "body",
+    "kind": "pull request",
+    "title": "scheduler: don't regress PodGroup Scheduled condition from stale cache",
+    "state": "open",
+    "opened": "2026-10-07T06:52:13Z",
+    "closed": null,
+    "merged": null,
+    "labels": [
+     "cncf-cla: yes",
+     "kind/flake",
+     "needs-ok-to-test",
+     "needs-priority",
+     "needs-triage",
+     "release-note-none",
+     "sig/scheduling",
+     "size/XL"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/pull/142777"
+   }
+  ],
   "ci-kubernetes-unit:k8s.io/apiserver/pkg/storage/storagebackend/factory:TestTimeTravelHealthcheck": [
    {
     "number": 119704,
@@ -4349,6 +4471,72 @@
      "triage/accepted"
     ],
     "url": "https://github.com/kubernetes/kubernetes/issues/142274"
+   }
+  ],
+  "ci-kubernetes-unit:k8s.io/kubernetes/test/utils/ktesting:TestCause": [
+   {
+    "number": 123416,
+    "names_test_in": "title",
+    "kind": "pull request",
+    "title": "fix flaky ut in TestCause contexthelper_test",
+    "state": "closed",
+    "opened": "2024-02-21T11:02:40Z",
+    "closed": "2024-02-22T15:13:34Z",
+    "merged": "2024-02-22T15:13:34Z",
+    "labels": [
+     "approved",
+     "area/test",
+     "cncf-cla: yes",
+     "kind/flake",
+     "lgtm",
+     "needs-priority",
+     "needs-triage",
+     "release-note-none",
+     "sig/testing",
+     "size/XS"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/pull/123416"
+   },
+   {
+    "number": 123467,
+    "names_test_in": "title",
+    "kind": "issue",
+    "title": "Flaky UT in TestCause contexthelper_test ",
+    "state": "closed",
+    "opened": "2024-02-23T09:17:40Z",
+    "closed": "2024-02-26T17:10:03Z",
+    "merged": null,
+    "labels": [
+     "kind/flake",
+     "needs-triage",
+     "sig/testing"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/issues/123467"
+   },
+   {
+    "number": 123486,
+    "names_test_in": "comment",
+    "kind": "pull request",
+    "title": "ktesting: unit test flake because of timing check",
+    "state": "closed",
+    "opened": "2024-02-24T18:33:04Z",
+    "closed": "2024-02-24T23:55:01Z",
+    "merged": "2024-02-24T23:55:01Z",
+    "labels": [
+     "approved",
+     "area/test",
+     "cncf-cla: yes",
+     "kind/bug",
+     "kind/failing-test",
+     "kind/flake",
+     "lgtm",
+     "needs-priority",
+     "needs-triage",
+     "release-note-none",
+     "sig/testing",
+     "size/S"
+    ],
+    "url": "https://github.com/kubernetes/kubernetes/pull/123486"
    }
   ]
  }

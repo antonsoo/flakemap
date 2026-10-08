@@ -2,7 +2,8 @@
 
     uv run python studies/kubernetes-ci/tracker.py
 
-For each test in results.json that failed five times or more, searches
+For each test in results.json that failed five times or more, or first failed in the last
+30 days and failed three times or more, searches
 kubernetes/kubernetes for issues and pull requests that name the test, and
 writes what comes back to tracker.json: number, title, state, when it was
 opened, closed or merged, and whether the name is in the title, the body or
@@ -87,7 +88,7 @@ def main() -> None:
     tests: dict[str, Any] = {}
     for job, summary in results["jobs"].items():
         for row in summary["tests"]:
-            if row["failed_runs"] < ENOUGH_FAILURES:
+            if row["failed_runs"] < ENOUGH_FAILURES and not row["first_failed_recently"]:
                 continue
             items = search(f'repo:{REPOSITORY} "{row["test"]}"', token)
             found = [record(item, row["test"]) for item in items]

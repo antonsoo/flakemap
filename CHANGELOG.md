@@ -9,20 +9,25 @@ All notable changes to this project are documented in this file.
 - `studies/kubernetes-ci` reads 91 days of two Kubernetes CI jobs, 4,334 hourly
   builds, from the public Prow bucket. 329 builds failed; of the 314 package
   failures on a commit built more than once, 310 passed in another build of the
-  same commit. Nine of the sixteen tests that failed five times or more had
-  stopped failing by the end, and Kubernetes' tracker shows a fix merging within
-  three days of the last failure for four of them. The entries marked
-  "Kubernetes" below are what those histories exposed.
+  same commit. Ten of the sixteen tests that failed five times or more had
+  stopped failing weeks before the end, and Kubernetes' tracker shows a pull
+  request naming the test merging within three days of the last failure for
+  three of them. The entries marked "Kubernetes" below are what those histories
+  exposed.
 
 ### Added
 
-- New, ongoing or quiet: where a flaky test's failures fall in its history. If a
-  test failed at one steady rate, every placement of its failures among its runs
-  is equally likely; a silence since the last failure, or a clean stretch before
-  the first, with a chance under 1% makes the test quiet or new. Exact at any
-  rate and length; consecutive failing runs count once; one failure is never
-  enough. Shown in every output, with the chance. (Kubernetes: one rate per test
-  described nine flakes that had already been fixed.)
+- New, ongoing or quiet: where a flaky test's failures fall in its history.
+  Consecutive failing runs are one event. A test with three events or more is
+  quiet when the runs since its last failure are at least three times the
+  longest gap between two of them (and at least ten), and new when the clean
+  stretch before its first failure is. Shown in every output with the gap and
+  the silence, and no probability. A test named only in failure output (Go's
+  `--- FAIL:` lines) is never called new, because the history cannot show it
+  existed before it failed. (Kubernetes: one rate per test described ten flakes
+  that had stopped failing. An earlier, unreleased form of this label printed
+  odds from an exact test that assumed independent failures; an audit of the
+  study showed they did not hold for failures that come in bursts.)
 - Evidence for each failure: whether the test passed, or failed, in the other
   runs of the same commit, and how many other tests failed in that run. Tables
   show "19 of 19 passed on the same commit".

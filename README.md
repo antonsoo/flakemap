@@ -30,24 +30,28 @@ Kubernetes publishes every build of its CI jobs. [A study in this repository](st
 reads three months of two of them, 4,334 hourly builds of `master`, and runs
 flakemap over the JUnit reports.
 
-- **One build in thirteen failed, and every failure that could be checked was a
-  flake.** Of 314 failures on a commit that was built more than once, 310 passed
-  in another build of the same commit. None was a test that broke and stayed
-  broken.
-- **Flakes are episodes, not rates.** Sixteen tests failed five times or more;
-  nine of them had stopped failing by the end. `TestDRA` failed 19 times in ten
-  days and not once in the 64 that followed.
-- **Kubernetes' own tracker agrees about when.** For four of those nine, a fix
-  that names the test merged within three days of the last failure flakemap saw.
-  The newest flake it flagged first failed on 4 October; its issue was opened on
-  the 5th.
+- **One build in thirteen failed, and nearly every failure that could be checked
+  passed on the same commit.** Of 314 package failures on a commit that was built
+  more than once, 310 passed in another build of it. None was a test that broke
+  and stayed broken. That rules out the commit, not the machine.
+- **A rate hides when.** Sixteen tests failed five times or more; for ten of
+  them the failures sit in a stretch that ended weeks before the window did.
+  `TestDRA` failed 19 times between 25 July and 4 August and not once in the
+  1,538 builds after.
+- **Kubernetes' own tracker has a fix at the right moment for three of the
+  ten**: a pull request naming the test merged within three days of the last
+  failure flakemap saw. For the others it has a revert that landed after the
+  failures had stopped, a closed issue, nothing, or an issue still open.
+- **The first answer to "when" was a probability, and it did not survive
+  review.** It assumed independent failures while showing that they come in
+  bursts. Quiet and new are now a rule to check on the timeline, with no odds.
 - **The released flakemap could show none of this**: its report of one of the
-  two histories was a 687 MB HTML file, every rate in it "0%" or "1%", every
-  failure message the word "Failed". What that changed is below and in the study.
+  two histories was a 687 MB HTML file, every failure message the word
+  "Failed". What that changed is below and in the study.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="studies/kubernetes-ci/figures/timeline-dark.svg">
-  <img src="studies/kubernetes-ci/figures/timeline-light.svg" width="860" alt="One row per frequently failing Kubernetes test over 91 days, a tick per failed build. Nine tests' ticks stop well before the end and are labelled quiet; for four of them a marker shows a fix merging just after the last tick. Two tests' ticks are all at the right-hand end and are labelled new.">
+  <img src="studies/kubernetes-ci/figures/timeline-light.svg" width="860" alt="One row per frequently failing Kubernetes test over 91 days, a tick per failed build. Ten tests' ticks stop well before the end and are labelled quiet; for three of them a marker shows a pull request naming the test merging just after the last tick. Six tests' ticks run to the end and are labelled ongoing.">
 </picture>
 
 ```console
@@ -55,13 +59,13 @@ $ uv run python studies/kubernetes-ci/collect.py      # fetch the builds (1.4 GB
 $ uv run flakemap studies/kubernetes-ci/cache/ci-kubernetes-integration-master --top 4
 ```
 
-<p align="center"><img src="docs/assets/terminal-kubernetes.png" width="860" alt="flakemap terminal output for 2,162 runs of Kubernetes' integration job: 39 flaky packages, 5 of them quiet. A table of the top four with the Go tests each failure names (TestWebhookConverterWithWatchCache 20 times; TestPodGroupPreemption 14 times, quiet for 2,007 runs), failed runs such as 20 of 2,162, failure rates such as 0.93% with a 95% interval, how many failures passed on the same commit (19 of 19), and how many runs ago each last failed"></p>
+<p align="center"><img src="docs/assets/terminal-kubernetes.png" width="860" alt="flakemap terminal output for 2,162 runs of Kubernetes' integration job: 39 flaky packages, 4 of them quiet. A list of packages that failed together in one build, then a table of the top four with the Go tests each failure names (TestWebhookConverterWithWatchCache 20 times; TestPodGroupPreemption 14 times, quiet for 2,007 runs), failed runs such as 20 of 2,162, failure rates such as 0.93% with a 95% interval, how many failures passed on the same commit (19 of 19), and how many runs ago each last failed"></p>
 
 The other job's history as a page: 1,524 Go packages over 2,153 builds. A rail
 per package that ever failed, a mark per failure, each failure's evidence one
 click away, and 0.4 MB where the released version wrote 687.
 
-<p align="center"><img src="docs/assets/report-kubernetes.png" width="860" alt="flakemap HTML report for 2,153 builds of Kubernetes' unit-test job: 28 rows of thin rails dated from July to October, with a red mark wherever a build failed. Two rows are stamped NEW FLAKE and have all their marks at the right; four are stamped QUIET and have all theirs at the left, the first of them with 44; 1,496 packages that never failed are listed below, not drawn"></p>
+<p align="center"><img src="docs/assets/report-kubernetes.png" width="860" alt="flakemap HTML report for 2,153 builds of Kubernetes' unit-test job: 28 rows of thin rails dated from July to October, with a red mark wherever a build failed. Three rows are stamped NEW FLAKE and have all their marks in the right-hand half; five are stamped QUIET and have all theirs to the left, the first of them with 44; 1,496 packages that never failed are listed below, not drawn"></p>
 
 ## What a green result can hide
 
@@ -159,8 +163,9 @@ installing: `uvx flakemap path/to/reports`.
   commit did (passed, failed, or there were none) and how many other tests
   failed in that run.
 - **New, ongoing or quiet** (source checkout): whether a flaky test's failures
-  are still arriving, from where they fall in the history. An exact test, with
-  the chance it rests on printed beside the label.
+  are still arriving, from where they fall in the history. A rule you can
+  check by eye: the longest quiet spell between failures, and how many times
+  longer the current silence is.
 - **Go reports that keep one record per package** (source checkout): the tests
   a failure's own output names (`--- FAIL:` lines) are counted and placed
   separately, and gotestsum's constant "Failed" is replaced by the failing
@@ -175,10 +180,11 @@ installing: `uvx flakemap path/to/reports`.
 - **Outputs**: a rich terminal report, `--json`, `--markdown` for PR comments,
   and a self-contained `--html` report with a test x run heatmap, per-test
   detail, and failure-message clustering.
-- **`--fail-on-new-flake`** for CI gating: exit 1 if a flaky or broken test's
-  failures began inside a trailing window: a change point there or, in a source
-  checkout, every one of its failures there when a steady rate would have put
-  some earlier.
+- **`--fail-on-new-flake`** for CI gating: exit 1 if a flaky or broken test began
+  failing inside a trailing window: a change point there or, in a source
+  checkout, failures that start there after a clean stretch three times the
+  longest gap between them, or a test named in a failure's output (Go
+  `--- FAIL:` lines) that first failed there and failed more than once.
 - **`--fail-on-retry`** exits 1 for any explicitly recovered test in the supplied
   history, including a single run. Pass only the current run when gating a build.
 
@@ -242,18 +248,23 @@ Full formulas and citations are in the module docstrings
   passed on the same commit") and, in HTML and JSON, the verdict for every
   failure.
 - **New, ongoing, quiet** (source checkout): one failure rate for a whole
-  history assumes the test failed at that rate throughout. If it did, every
-  placement of its `k` failures among its `n` runs is equally likely, so the
-  chance that all of them fall in the first `L` runs is `C(L, k) / C(n, k)`.
-  A test whose last failure is at run `L` with that chance under 1% is
-  **quiet**: a steady flake would not have stayed silent this long. The mirror
-  image, every failure in the last `m` runs, is **new**. Otherwise it is
-  **ongoing**, which for a test with a failure or two means only that nothing
-  can be said. The test is exact at any rate and any length. Consecutive
-  failing runs count as one failure (an outage is one event), and a single
-  failure never earns a label. Failures that cluster without being adjacent
-  still overstate the evidence. The same placement is done for each Go test
-  named inside a package-level record.
+  history assumes the test failed at that rate throughout. Consecutive failing
+  runs count as one event; `longest_gap` is the most passing runs between two
+  successive events. A test is **quiet** when it has at least 3 events and the
+  runs since its last failure are at least 3 times `longest_gap` and at least
+  10: it has now been quiet three times longer than it ever was between
+  failures. A flake that comes in bursts has its long gaps on record and needs
+  a longer silence; one burst followed by a long silence is quiet, which says
+  the burst is over, not that it cannot come back. **New** is the mirror image
+  (the clean stretch before the first failure), and only for a test whose
+  passing runs the history records; a Go test named in a failure's text may
+  have been added the day it first failed, so it gets "first failed N runs
+  ago" and no label. Everything else is **ongoing**. For a steady flake
+  (independent runs, constant rate) the chance that the open silence is at
+  least `s` times the longest of `n` earlier gaps is
+  `n! / ((s+1)(s+2)...(s+n))`: at s = 3, 10% with 2 gaps, 5% with 3, under 1%
+  from 7. That is a statement about steady flakes only; no probability is
+  claimed for bursty ones, and none is printed.
   (`src/flakemap/stats/activity.py`)
 - **Flakiness score** (0-1, a heuristic, not a literature standard):
   `confidence * (0.4 * flip_rate + 0.4 * max(rerun_signal, recovered_runs/n) + 0.2 * intermittency)`,
@@ -281,9 +292,10 @@ Full formulas and citations are in the module docstrings
   not proof of the cause or onset. A flake that fails one run in fifty never
   shifts the rate by 20 points, so it never has a change point; in the source
   checkout `--fail-on-new-flake` also fires for a test labelled **new** whose
-  first failure is inside the window. Two failures in the last 100 of 2,000
-  runs are enough; widen `--new-flake-window` to match how often your flakes
-  fail.
+  first failure is inside the window (three failures after a clean stretch of
+  at least 3 times their longest gap), and for a test named in a failure's
+  output that first failed inside the window and failed more than once. Widen
+  `--new-flake-window` to match how often your flakes fail.
 - **Duration signals**: an OLS trend (seconds per supplied history run) and the
   **point-biserial correlation** between duration and outcome (Tate, R.F.,
   1954, *"Correlation Between a Discrete and a Continuous Variable,"* Annals
@@ -380,11 +392,12 @@ Reproduce this table: `uv run flakemap examples/demo_project/runs --json`.
   offset), and warns when even one run placed by mtime sits among runs placed
   by a recorded time.
 - **New and quiet are about placement, not cause.** "Quiet" says the failures
-  stopped; a fix, a revert, a deleted test and a renamed one look alike. The
-  1% is exact for failures that arrive independently and optimistic for bursty
-  ones. A test needs about five failures before its silence can mean anything:
-  in the Kubernetes study a test whose issue was closed the day after its fifth
-  and last failure is still "ongoing" seventeen days later.
+  stopped; a fix, a revert, a deleted test and a renamed one look alike. It is a
+  rule, not a significance test: bursts make long silences less surprising, which
+  is why the silence is measured against the test's own longest gap. A test needs
+  three separate failures before it can be labelled, and "new" cannot tell a
+  newly added test from a newly flaky one when a test appears in the history
+  only once it exists.
 - **Names from failure output are Go's convention.** `--- FAIL:` lines are what
   `go test` prints. A report that rolls tests up in another ecosystem gets its
   package-level statistics and nothing finer.

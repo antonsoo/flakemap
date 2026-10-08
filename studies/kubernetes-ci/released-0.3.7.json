@@ -1,0 +1,44 @@
+{
+ "ci-kubernetes-integration-master": {
+  "version": "0.3.7",
+  "classification": {
+   "broken": 0,
+   "flaky": 39,
+   "healthy": 97,
+   "insufficient_data": 0
+  },
+  "tests_with_a_change_point": 0,
+  "most_failed_testcase": {
+   "failed_runs": 21,
+   "failure_messages": [
+    {
+     "message": "Failed",
+     "count": 21
+    }
+   ]
+  },
+  "json_bytes": 158436,
+  "html_bytes": 61875334
+ },
+ "ci-kubernetes-unit": {
+  "version": "0.3.7",
+  "classification": {
+   "broken": 0,
+   "flaky": 28,
+   "healthy": 1496,
+   "insufficient_data": 0
+  },
+  "tests_with_a_change_point": 0,
+  "most_failed_testcase": {
+   "failed_runs": 44,
+   "failure_messages": [
+    {
+     "message": "Failed",
+     "count": 44
+    }
+   ]
+  },
+  "json_bytes": 1705458,
+  "html_bytes": 687272233
+ }
+}

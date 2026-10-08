@@ -20,6 +20,7 @@ import json
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
+from statistics import median
 from typing import Any
 
 from flakemap import __version__
@@ -31,6 +32,11 @@ from flakemap.stats.analyze import AnalysisResult, TestStats
 HERE = Path(__file__).parent
 # A test needs a handful of failures before where they fall says anything.
 ENOUGH_FAILURES = 5
+# A name read from failure text cannot be called new: the test may have been added the day it
+# first failed. These are the ones that first failed in the last RECENT_DAYS and failed
+# RECENT_FAILURES times or more; the study looks them up beside the frequent ones.
+RECENT_DAYS = 30
+RECENT_FAILURES = 3
 
 
 def iso(moment: datetime | None) -> str | None:
@@ -44,18 +50,37 @@ def package(test: TestStats) -> str:
     return f"{head}/{tail}" if head else path
 
 
+def longest_gap_days(failures: list[Any]) -> float | None:
+    """Days from the end of one stretch of failing runs to the start of the next, at most."""
+    streaks: list[list[Any]] = []
+    for f in failures:
+        if streaks and f.index == streaks[-1][-1].index + 1:
+            streaks[-1].append(f)
+        else:
+            streaks.append([f])
+    gaps = [
+        (later[0].timestamp - earlier[-1].timestamp).total_seconds() / 86400
+        for earlier, later in zip(streaks, streaks[1:], strict=False)
+        if later[0].timestamp and earlier[-1].timestamp
+    ]
+    return round(max(gaps), 1) if gaps else None
+
+
 def named_tests(result: AnalysisResult) -> list[dict[str, Any]]:
     """One row per test named inside a failing package, most failures first."""
     when = {run_id: md.timestamp for md in result.cofailure.runs for run_id in [md.run_id]}
+    end = max(moment for moment in when.values() if moment)
     rows = []
     for test in result.tests:
         for named in test.named_failures:
             activity = named.activity
-            failed_on = [
-                iso(f.timestamp)
+            mine = [
+                f
                 for f in test.failures
                 if named.name in {name.split("/", 1)[0] for name in f.failed_within}
             ]
+            failed_on = [iso(f.timestamp) for f in mine]
+            gap_days = longest_gap_days(mine)
             rows.append(
                 {
                     "package": package(test),
@@ -65,11 +90,28 @@ def named_tests(result: AnalysisResult) -> list[dict[str, Any]]:
                     "checked_same_commit": named.checked,
                     "state": activity.state,
                     "first_failure": iso(when.get(named.first_run_id)),
+                    "first_failed_recently": bool(
+                        named.runs >= RECENT_FAILURES
+                        and (first := when.get(named.first_run_id))
+                        and (end - first).days < RECENT_DAYS
+                    ),
                     "last_failure": iso(when.get(named.last_run_id)),
                     "runs_since_last_failure": activity.runs_since_last,
                     "runs_since_first_failure": activity.runs_since_first,
-                    "quiet_chance": float(f"{activity.quiet_chance:.3g}"),
-                    "new_chance": float(f"{activity.new_chance:.3g}"),
+                    "events": activity.events,
+                    "span_days": round(
+                        (mine[-1].timestamp - mine[0].timestamp).total_seconds() / 86400, 1
+                    )
+                    if mine[0].timestamp and mine[-1].timestamp
+                    else None,
+                    "longest_gap_days": gap_days,
+                    "silence_days": round((end - mine[-1].timestamp).total_seconds() / 86400, 1)
+                    if mine[-1].timestamp
+                    else None,
+                    "longest_gap_runs": activity.longest_gap,
+                    "silence_ratio": None
+                    if activity.silence_ratio is None
+                    else round(activity.silence_ratio, 1),
                     "failure_times": failed_on,
                 }
             )
@@ -90,6 +132,7 @@ def job_summary(job: str, manifest_rows: list[dict[str, Any]], cache: Path) -> d
     same_commit = Counter(f.same_commit for f in failures)
     named = named_tests(result)
     enough = [row for row in named if row["failed_runs"] >= ENOUGH_FAILURES]
+    recent = [row for row in named if row["first_failed_recently"] and row not in enough]
     named_total = sum(row["failed_runs"] for row in named)
     states = Counter(
         test.activity.state
@@ -143,6 +186,16 @@ def job_summary(job: str, manifest_rows: list[dict[str, Any]], cache: Path) -> d
             "count": len(enough),
             "by_state": dict(sorted(Counter(row["state"] for row in enough).items())),
         },
+        "quiet_among_enough": {
+            "count": sum(row["state"] == "quiet" for row in enough),
+            "median_days_first_to_last_failure": median(
+                row["span_days"] for row in enough if row["state"] == "quiet"
+            ),
+            "median_days_since_last_failure": median(
+                row["silence_days"] for row in enough if row["state"] == "quiet"
+            ),
+        },
+        "named_tests_first_failed_recently": [row["test"] for row in recent],
         "tests": named,
         "report_bytes": {"html": len(html.encode()), "json": len(json.dumps(payload).encode())},
         "warnings": len(result.warnings),
@@ -181,6 +234,12 @@ def main() -> None:
     parser.add_argument("--cache", type=Path, default=HERE / "cache")
     parser.add_argument("--released", type=Path, help="directory of another version's output")
     parser.add_argument("--released-version", default="0.3.7")
+    parser.add_argument(
+        "--released-summary",
+        type=Path,
+        default=HERE / "released-0.3.7.json",
+        help="what --released recorded earlier, per job; used when --released is not given",
+    )
     parser.add_argument("--out", type=Path, default=HERE / "results.json")
     args = parser.parse_args()
 
@@ -193,10 +252,13 @@ def main() -> None:
     }
     for job, rows in manifest["jobs"].items():
         summary = job_summary(job, rows, args.cache)
-        if args.released:
-            released = released_summary(job, args.released)
-            if released:
-                summary["released"] = {"version": args.released_version, **released}
+        released = released_summary(job, args.released) if args.released else None
+        if released:
+            summary["released"] = {"version": args.released_version, **released}
+        elif not args.released and args.released_summary.is_file():
+            kept = json.loads(args.released_summary.read_text()).get(job)
+            if kept:
+                summary["released"] = kept
         results["jobs"][job] = summary
         same = summary["same_commit"]
         print(

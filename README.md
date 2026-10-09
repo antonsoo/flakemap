@@ -22,6 +22,12 @@ account or service required. It pairs with the same author's
 [`logdelta`](https://github.com/antonsoo/logdelta) (diff logs from a failing CI
 run against known-good baselines) once you know *which* test to look at.
 
+The source checkout also honors **GoogleTest's explicit non-execution markers**.
+In the [compiled reproduction](examples/googletest_project/README.md), one real
+failure followed by seven disabled runs previously became seven passes and a
+12.5% failure rate. It now remains one failed execution, seven skips and
+insufficient data. These reader changes are **unreleased**.
+
 <p align="center"><img src="docs/assets/hero-heatmap.png" width="820" alt="flakemap HTML report: an inspection-report-styled page with a test x run heatmap. 222 runs, 12 tests, 1 broken (red DEFECT stamp) and 3 flaky (amber INTERMITTENT stamps) rows shown above 8 healthy rows, each row a strip of small green/red cells for pass/fail across chronological runs, with a failure rate percentage on the right"></p>
 
 ## On a real history: 91 days of Kubernetes CI

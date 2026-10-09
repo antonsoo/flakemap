@@ -4,6 +4,18 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### GoogleTest execution evidence
+
+- Honor `status="notrun"` and `result="suppressed"` as skips. Previously, a
+  disabled test became a pass, reducing failure rates and introducing false
+  recovery and duration observations. Do not infer skips from `DISABLED_` names.
+- Recognize `result="skipped"`; preserve failure markers on completed executions.
+  Contradictory or unsupported execution attributes are unknown and cause the
+  existing `--fail-on-incomplete` gate to exit 2.
+- Keep the first useful GoogleTest diagnostic after its location/`Failed` prefix.
+- Retain eight runs of a compiled GoogleTest 1.17.0 program and a fail-fast
+  control, including XML/stdout, a pinned source archive and before/after reports.
+
 ### On real data
 
 - `studies/kubernetes-ci` reads 91 days of two Kubernetes CI jobs, 4,334 hourly

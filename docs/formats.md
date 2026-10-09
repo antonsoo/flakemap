@@ -15,6 +15,7 @@ the differences that matter for flakiness statistics: root element shape,
 | Go | [go-junit-report](https://github.com/jstemmer/go-junit-report) / `gotestsum --junitfile` | `tests/fixtures/go_junit_report.xml` | Hand-authored to match the shape documented in the go-junit-report README (`<testsuites><testsuite><properties>` + `<testcase><failure message type>`), since a Go toolchain was not available in the build environment. Not run locally -- flagged here rather than left unstated. |
 | Go, one record per package | Kubernetes' pruned reports (gotestsum output passed through its `prune-junit-xml`) | `tests/fixtures/kubernetes_pruned/junit_20260803-100711.xml` | An excerpt of a real report: build 2084219256018309120 of `ci-kubernetes-integration-master`, from the public `kubernetes-ci-logs` bucket. Three of its 131 suites are kept, one of them failing; the failing record's `<system-out>`, a second copy of the same output, is removed. Nothing else is changed. `studies/kubernetes-ci` reads 4,315 such reports whole. |
 | Maven/Gradle Surefire | [Maven Surefire Plugin](https://maven.apache.org/surefire/maven-surefire-plugin/) XML report; Gradle's `Test` task reuses the same shape | `tests/fixtures/surefire_report.xml` | Hand-authored to match the documented Surefire XML report schema (a bare `<testsuite>` root, one file per test class, `<properties>`, `<error>`/`<failure>` with `message`/`type` attributes). Not run locally -- no JDK/Maven/Gradle in the build environment. |
+| GoogleTest | `--gtest_output=xml:report.xml` | `examples/googletest_history` and `examples/googletest_project/captures/failfast.xml` | Compiled and run locally with GoogleTest 1.17.0 and GCC 13.3.0; disabled test/suite, enabled failure, runtime skip and fail-fast controls. Unedited XML/stdout; controlled sequence sidecars. |
 | .NET (TRX) | `dotnet test --logger trx` (MSTest, xUnit, NUnit) | `examples/trx_history/run-01.trx` … `run-12.trx` | Generated locally: twelve runs of `examples/trx_project` (MSTest 3.6.1, .NET SDK 8.0.425), machine details removed by its `capture.py`. TRX is not a JUnit dialect; `src/flakemap/parse/trx.py` reads it (see below). |
 
 The additional `examples/retry_history/surefire-001/report.xml` fixture was
@@ -30,6 +31,35 @@ uses the same recovered-failure convention.
 Where a dialect couldn't be run locally, the fixture is marked as hand-authored
 in `tests/test_junit_parsing.py`'s module docstring too -- this is stated
 rather than silently presented as "verified".
+
+## GoogleTest execution attributes
+
+The [compiled fixture and comparison](../examples/googletest_project/README.md)
+show why an empty testcase cannot be assumed to pass when it explicitly says
+it was not run. A disabled name is not itself evidence of a skip: GoogleTest
+can run those tests when requested.
+
+| Execution attributes | Child markers | Observation |
+| --- | --- | --- |
+| `status="notrun"` or `result="suppressed"` | No failures/retries | Skip; never a pass or a duration measurement |
+| `result="skipped"` | No failures/retries | Skip, including when no `<skipped>` child is present |
+| `status="run" result="completed"` | No outcome marker | Pass |
+| `status="run" result="completed"` | Failure/error | Failure/error; completion does not imply success |
+| Contradictory attributes, skip mixed with failure/retry, or an unsupported attribute value | Any | Unknown; excluded with an input warning |
+| No execution attributes | Ordinary JUnit markers | Existing child-marker and retry rules below |
+
+Supported status values are `run` and `notrun`; supported result values are
+`completed`, `skipped` and `suppressed`. Either attribute may be absent. A
+`run/suppressed` or `notrun/completed` pair is contradictory. A skipped child
+with a completed result is also retained as unknown. The first useful GoogleTest
+diagnostic is retained after its source-location prefix and standalone `Failed`
+line; full output remains in the original XML.
+
+Skips stay in the history but do not contribute to failure rates, flip pairs,
+timing correlations or stretches of clean executions. Known skips do not make
+input parsing incomplete. Unsupported attributes do, and are covered by
+`--fail-on-incomplete`. Test-list inventories with no execution attributes are
+not supported; use XML produced by running tests.
 
 ## TRX (Visual Studio test results)
 
@@ -232,7 +262,7 @@ These rules follow [Surefire's retry XML documentation](https://maven.apache.org
 
 | Direct children of a testcase | Final outcome | Retry evidence |
 |---|---|---|
-| No outcome/retry markers | pass | None reported; does not prove retries were disabled |
+| No outcome/retry markers, with no non-execution attributes | pass | None reported; does not prove retries were disabled |
 | `flakyFailure` / `flakyError` only | pass | Recovered; each marker is a failed attempt, plus one eventual pass |
 | `failure` / `error`, with `rerunFailure` / `rerunError` | fail / error, using the original terminal marker's kind | Exhausted; original failure plus every recorded retry failure |
 | `rerunFailure` / `rerunError` without an original failure | unknown | Incomplete evidence; excluded |

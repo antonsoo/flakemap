@@ -1,0 +1,9 @@
+{
+  "baseline_commit": "df8937f",
+  "reporter": "GoogleTest 1.17.0",
+  "artifacts": {
+    "before.json": "bb0526edfc133d33945eee3e760f72bb9d3fd91ecd70727dadf2c2dc936c3b6d",
+    "after.json": "9b178f6085d3ccf655a58987f34edb56fb62f04f6d35a4e8a2629e4c5f002db5",
+    "after.html": "2329f8b3ba5495d23a3662b8e265132bd043241ff1f6492122c22a7702a3365a"
+  }
+}

@@ -94,6 +94,21 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 await page.keyboard.press("Space");
                 assert.equal(await row.getAttribute("open"), null);
               }
+              if (fixture.name === "googletest") {
+                assert.equal(await page.locator(".row-heatmap .s-skip").count(), 22);
+                assert.equal(await page.locator(".row-heatmap .s-pass").count(), 16);
+                assert.equal(await page.locator(".row-heatmap .s-fail").count(), 2);
+                const row = page.locator("details.row").filter({ hasText: "Execution.DISABLED_FailsWhenEnabled" });
+                await row.locator("summary").focus();
+                await page.keyboard.press("Enter");
+                assert.equal(await row.locator(".row-heatmap .s-pass").count(), 0);
+                assert.equal(await row.locator(".row-heatmap .s-skip").count(), 7);
+                const skip = row.locator(".row-heatmap .s-skip").first();
+                assert.match(await skip.getAttribute("aria-label"), /Not executed.*notrun.*suppressed/);
+                assert.equal(await row.locator(".dot-insufficient_data").count(), 1);
+                assert.match(await row.innerText(), /runs: 1; skipped: 7; excluded: 0/);
+                assert.match(await row.innerText(), /Timing observations \(without retries\)\s+1/);
+              }
               if (fixture.name === "long") {
                 // A long history: one strip per drawn row, a mark per stretch that did not
                 // pass, and the tests that never failed listed by name.
@@ -229,7 +244,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.deepEqual(errors, []);
               assert.deepEqual(network, []);
               assert.deepEqual(await page.evaluate(() => window.reportCspViolations), []);
-              if (["retry", "incomplete", "cofailure", "long"].includes(fixture.name)) {
+              if (["retry", "incomplete", "cofailure", "long", "googletest"].includes(fixture.name)) {
                 await page.evaluate(() => {
                   document.querySelectorAll(".cohort-scroll").forEach(el => { el.scrollLeft = 0; });
                   window.scrollTo(0, 0);

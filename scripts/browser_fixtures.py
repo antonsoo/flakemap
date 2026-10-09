@@ -148,6 +148,7 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     fixtures = [
         ("retry", "examples/retry_history", 1, 6),
+        ("googletest", "examples/googletest_history", 8, 5),
         ("history", "examples/demo_project/runs", 222, 12),
         ("trx", "examples/trx_history", 12, 6),
         ("incomplete", "examples/incomplete_history", 3, 6),

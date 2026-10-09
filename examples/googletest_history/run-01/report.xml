@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="5" failures="2" disabled="2" errors="0" time="0." timestamp="2026-10-09T12:41:43.438" name="AllTests">
+  <testsuite name="Execution" tests="4" failures="1" disabled="1" skipped="1" errors="0" time="0." timestamp="2026-10-09T12:41:43.438">
+    <testcase name="AlwaysPasses" file="examples/googletest_project/nonexecution_test.cc" line="4" status="run" result="completed" time="0." timestamp="2026-10-09T12:41:43.438" classname="Execution" />
+    <testcase name="DISABLED_FailsWhenEnabled" file="examples/googletest_project/nonexecution_test.cc" line="6" status="run" result="completed" time="0." timestamp="2026-10-09T12:41:43.438" classname="Execution">
+      <failure message="examples/googletest_project/nonexecution_test.cc:7&#x0A;Failed&#x0A;This test never passes when it actually runs&#x0A;" type=""><![CDATA[examples/googletest_project/nonexecution_test.cc:7
+Failed
+This test never passes when it actually runs
+]]></failure>
+    </testcase>
+    <testcase name="RuntimeSkip" file="examples/googletest_project/nonexecution_test.cc" line="14" status="run" result="skipped" time="0." timestamp="2026-10-09T12:41:43.438" classname="Execution">
+      <skipped message="examples/googletest_project/nonexecution_test.cc:15&#x0A;Controlled skip: no device attached&#x0A;"><![CDATA[examples/googletest_project/nonexecution_test.cc:15
+Controlled skip: no device attached
+]]></skipped>
+    </testcase>
+    <testcase name="ZAfterTrigger" file="examples/googletest_project/nonexecution_test.cc" line="20" status="run" result="completed" time="0." timestamp="2026-10-09T12:41:43.438" classname="Execution" />
+  </testsuite>
+  <testsuite name="DISABLED_UnavailableDevice" tests="1" failures="1" disabled="1" skipped="0" errors="0" time="0." timestamp="2026-10-09T12:41:43.438">
+    <testcase name="NeedsHardware" file="examples/googletest_project/nonexecution_test.cc" line="10" status="run" result="completed" time="0." timestamp="2026-10-09T12:41:43.438" classname="DISABLED_UnavailableDevice">
+      <failure message="examples/googletest_project/nonexecution_test.cc:11&#x0A;Failed&#x0A;This disabled suite did not exercise hardware&#x0A;" type=""><![CDATA[examples/googletest_project/nonexecution_test.cc:11
+Failed
+This disabled suite did not exercise hardware
+]]></failure>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -12,7 +12,9 @@ format Ant/Surefire popularized decades ago. The differences that matter here:
   (go-junit-report / gotestsum) put the Go package path there and may have no
   classname at all for package-level failures (build errors). flakemap does not
   assume a Java-style class exists, only that it's a grouping string.
-- **status**: a testcase without terminal outcome markers is a pass. Explicit
+- **status**: a testcase without outcome markers or execution attributes is a pass. GoogleTest's
+  ``status="notrun" result="suppressed"`` is a skip, never a successful execution.
+  Unknown or contradictory execution attributes remain unknown. Explicit
   flakyFailure/flakyError markers preserve failed attempts before that pass;
   rerunFailure/rerunError preserve exhausted retries. Contradictory markers are
   unknown. FAIL and ERROR both count toward final-failure frequency.
@@ -133,6 +135,59 @@ def _parse_duration(raw: str | None) -> float | None:
     return value if math.isfinite(value) and 0 <= value <= 1e100 else None
 
 
+def _execution_attributes(
+    el: ET.Element, *, failed: bool, skipped: bool, retried: bool
+) -> tuple[Status | None, str | None, str | None]:
+    """Interpret GoogleTest's execution attributes alongside JUnit child markers.
+
+    `completed` means execution finished, not that it passed. A disabled name
+    alone says nothing: --gtest_also_run_disabled_tests can execute that test.
+    Other attribute vocabularies must not fall through to an implicit pass.
+    """
+    raw = {key: el.get(key) for key in ("status", "result") if el.get(key) is not None}
+    if not raw:
+        return None, None, None
+    status = (el.get("status") or "").strip().lower() if "status" in raw else None
+    result = (el.get("result") or "").strip().lower() if "result" in raw else None
+    label = ", ".join(f"{key}={str(value)[:60]!r}" for key, value in raw.items())
+    if status not in (None, "run", "notrun") or result not in (
+        None,
+        "completed",
+        "suppressed",
+        "skipped",
+    ):
+        return Status.UNKNOWN, f"unsupported JUnit execution attributes: {label}", None
+    not_executed = status == "notrun" or result in ("suppressed", "skipped")
+    if (
+        (status == "run" and result == "suppressed")
+        or (status == "notrun" and result == "completed")
+        or (result == "completed" and skipped)
+        or (not_executed and (failed or retried))
+    ):
+        return Status.UNKNOWN, f"contradictory JUnit execution/outcome markers: {label}", None
+    if not_executed:
+        description = "Not executed" if status == "notrun" or result == "suppressed" else "Skipped"
+        return Status.SKIP, None, f"{description}: {label}"
+    return None, None, None
+
+
+def _outcome_message(el: ET.Element, marker: ET.Element) -> str | None:
+    raw = marker.get("message") or marker.text
+    if el.get("status") == "run" and el.get("result") in ("completed", "skipped"):
+        # GoogleTest prepends a source location and sometimes the uninformative
+        # line "Failed". Retain the actual diagnostic, using only a bounded
+        # prefix even if the failure body is a multi-megabyte log.
+        lines = (raw or "")[:1500].splitlines()
+        if lines and re.fullmatch(r".+:\d+", lines[0].strip()):
+            lines = lines[1:]
+            if lines and lines[0].strip() == "Failed":
+                lines = lines[1:]
+            meaningful = _first_line("\n".join(lines))
+            if meaningful:
+                return meaningful
+    return _first_line(raw)
+
+
 def _testcase_from_element(
     el: ET.Element,
     default_classname: str,
@@ -151,16 +206,16 @@ def _testcase_from_element(
     failed_within: tuple[str, ...] = ()
     if skipped is not None:
         status = Status.SKIP
-        message = _first_line(skipped.get("message") or skipped.text)
+        message = _outcome_message(el, skipped)
     elif failure is not None:
         status = Status.FAIL
-        message = _first_line(failure.get("message") or failure.text)
+        message = _outcome_message(el, failure)
         failed_within = _failed_within(failure.text, name)
         if message == _GO_GENERIC_MESSAGE:
             message = _go_message(failure.text) or message
     elif error is not None:
         status = Status.ERROR
-        message = _first_line(error.get("message") or error.text)
+        message = _outcome_message(el, error)
         failed_within = _failed_within(error.text, name)
         if message == _GO_GENERIC_MESSAGE:
             message = _go_message(error.text) or message
@@ -202,6 +257,18 @@ def _testcase_from_element(
                 for child in failed
             ),
         )
+
+    execution, execution_issue, execution_message = _execution_attributes(
+        el,
+        failed=failure is not None or error is not None,
+        skipped=skipped is not None,
+        retried=bool(flaky or reruns),
+    )
+    if execution is Status.UNKNOWN:
+        status, retry, issue = execution, None, execution_issue
+    elif execution is Status.SKIP and status is not Status.UNKNOWN:
+        status, retry = execution, None
+        message = message or execution_message
 
     if not (el.get("name") or "").strip():
         status, retry = Status.UNKNOWN, None

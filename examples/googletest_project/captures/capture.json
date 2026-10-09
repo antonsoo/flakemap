@@ -1,0 +1,72 @@
+{
+  "reporter": "GoogleTest 1.17.0",
+  "archive_sha256": "65fab701d9829d38cb77c14acdc431d2108bfdbf8979e40eb8ae567edf10b27c",
+  "history": [
+    {
+      "file": "examples/googletest_history/run-01/report.xml",
+      "flags": [
+        "--gtest_filter=-Execution.AFailFastTrigger",
+        "--gtest_also_run_disabled_tests"
+      ],
+      "exit_code": 1,
+      "sha256": "2e1af7dcc440159d6e6afbb73c138b13c167cfcc09eef006e30d277cc089424d"
+    },
+    {
+      "file": "examples/googletest_history/run-02/report.xml",
+      "flags": [
+        "--gtest_filter=-Execution.AFailFastTrigger"
+      ],
+      "exit_code": 0,
+      "sha256": "7eeaf4f9515153d65ad65d1bd7250fd83a1004601e666dbd7a7203c32c8249a2"
+    },
+    {
+      "file": "examples/googletest_history/run-03/report.xml",
+      "flags": [
+        "--gtest_filter=-Execution.AFailFastTrigger"
+      ],
+      "exit_code": 0,
+      "sha256": "059a35dc6d9f71f6075bb5acc8461c1c4fe515dfd1f9a797f68a707674c3cbf3"
+    },
+    {
+      "file": "examples/googletest_history/run-04/report.xml",
+      "flags": [
+        "--gtest_filter=-Execution.AFailFastTrigger"
+      ],
+      "exit_code": 0,
+      "sha256": "30d012a28cee52b443724225e226f7d6a92921b05b80505ed446d4b2483f9952"
+    },
+    {
+      "file": "examples/googletest_history/run-05/report.xml",
+      "flags": [
+        "--gtest_filter=-Execution.AFailFastTrigger"
+      ],
+      "exit_code": 0,
+      "sha256": "53de19aa39ab7e7dc8099707081dbe7ce23909aaf58469dfcb052211be0d81ce"
+    },
+    {
+      "file": "examples/googletest_history/run-06/report.xml",
+      "flags": [
+        "--gtest_filter=-Execution.AFailFastTrigger"
+      ],
+      "exit_code": 0,
+      "sha256": "94af17c97409be7c9985779e4da9daf26b3e1eb7904eb65633c51785360c2b90"
+    },
+    {
+      "file": "examples/googletest_history/run-07/report.xml",
+      "flags": [
+        "--gtest_filter=-Execution.AFailFastTrigger"
+      ],
+      "exit_code": 0,
+      "sha256": "3249f4a1d4fe4c0e1e1ce0daaa1bd811806b599fbc21681c1945f13ac69ee643"
+    },
+    {
+      "file": "examples/googletest_history/run-08/report.xml",
+      "flags": [
+        "--gtest_filter=-Execution.AFailFastTrigger"
+      ],
+      "exit_code": 0,
+      "sha256": "e35865bb5b4025b66f7a80a4ebf09b9f862312fb404401e5809f1bafc4c051a1"
+    }
+  ],
+  "failfast_sha256": "e96f2dd59de664afe49d5cbf819937fa7bab88f46fbff67824ce8bff02c2766d"
+}

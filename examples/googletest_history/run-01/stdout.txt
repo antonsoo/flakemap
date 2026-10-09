@@ -1,0 +1,41 @@
+Running main() from googletest-v1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = -Execution.AFailFastTrigger
+[==========] Running 5 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from Execution
+[ RUN      ] Execution.AlwaysPasses
+[       OK ] Execution.AlwaysPasses (0 ms)
+[ RUN      ] Execution.DISABLED_FailsWhenEnabled
+examples/googletest_project/nonexecution_test.cc:7: Failure
+Failed
+This test never passes when it actually runs
+
+[  FAILED  ] Execution.DISABLED_FailsWhenEnabled (0 ms)
+[ RUN      ] Execution.RuntimeSkip
+examples/googletest_project/nonexecution_test.cc:15: Skipped
+Controlled skip: no device attached
+
+[  SKIPPED ] Execution.RuntimeSkip (0 ms)
+[ RUN      ] Execution.ZAfterTrigger
+[       OK ] Execution.ZAfterTrigger (0 ms)
+[----------] 4 tests from Execution (0 ms total)
+
+[----------] 1 test from DISABLED_UnavailableDevice
+[ RUN      ] DISABLED_UnavailableDevice.NeedsHardware
+examples/googletest_project/nonexecution_test.cc:11: Failure
+Failed
+This disabled suite did not exercise hardware
+
+[  FAILED  ] DISABLED_UnavailableDevice.NeedsHardware (0 ms)
+[----------] 1 test from DISABLED_UnavailableDevice (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 5 tests from 2 test suites ran. (0 ms total)
+[  PASSED  ] 2 tests.
+[  SKIPPED ] 1 test, listed below:
+[  SKIPPED ] Execution.RuntimeSkip
+[  FAILED  ] 2 tests, listed below:
+[  FAILED  ] Execution.DISABLED_FailsWhenEnabled
+[  FAILED  ] DISABLED_UnavailableDevice.NeedsHardware
+
+ 2 FAILED TESTS

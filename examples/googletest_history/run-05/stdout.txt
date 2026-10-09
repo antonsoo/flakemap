@@ -1,0 +1,25 @@
+Running main() from googletest-v1.17.0/googletest/src/gtest_main.cc
+Note: Google Test filter = -Execution.AFailFastTrigger
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from Execution
+[ RUN      ] Execution.AlwaysPasses
+[       OK ] Execution.AlwaysPasses (0 ms)
+[ DISABLED ] Execution.DISABLED_FailsWhenEnabled
+[ RUN      ] Execution.RuntimeSkip
+examples/googletest_project/nonexecution_test.cc:15: Skipped
+Controlled skip: no device attached
+
+[  SKIPPED ] Execution.RuntimeSkip (0 ms)
+[ RUN      ] Execution.ZAfterTrigger
+[       OK ] Execution.ZAfterTrigger (0 ms)
+[----------] 3 tests from Execution (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 2 tests.
+[  SKIPPED ] 1 test, listed below:
+[  SKIPPED ] Execution.RuntimeSkip
+
+  YOU HAVE 2 DISABLED TESTS
+

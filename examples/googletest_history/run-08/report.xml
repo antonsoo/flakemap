@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites tests="5" failures="0" disabled="2" errors="0" time="0." timestamp="2026-10-09T12:41:43.451" name="AllTests">
+  <testsuite name="Execution" tests="4" failures="0" disabled="1" skipped="1" errors="0" time="0." timestamp="2026-10-09T12:41:43.451">
+    <testcase name="AlwaysPasses" file="examples/googletest_project/nonexecution_test.cc" line="4" status="run" result="completed" time="0." timestamp="2026-10-09T12:41:43.451" classname="Execution" />
+    <testcase name="DISABLED_FailsWhenEnabled" file="examples/googletest_project/nonexecution_test.cc" line="6" status="notrun" result="suppressed" time="0." timestamp="1969-12-31T16:00:00.000" classname="Execution" />
+    <testcase name="RuntimeSkip" file="examples/googletest_project/nonexecution_test.cc" line="14" status="run" result="skipped" time="0." timestamp="2026-10-09T12:41:43.451" classname="Execution">
+      <skipped message="examples/googletest_project/nonexecution_test.cc:15&#x0A;Controlled skip: no device attached&#x0A;"><![CDATA[examples/googletest_project/nonexecution_test.cc:15
+Controlled skip: no device attached
+]]></skipped>
+    </testcase>
+    <testcase name="ZAfterTrigger" file="examples/googletest_project/nonexecution_test.cc" line="20" status="run" result="completed" time="0." timestamp="2026-10-09T12:41:43.451" classname="Execution" />
+  </testsuite>
+  <testsuite name="DISABLED_UnavailableDevice" tests="1" failures="0" disabled="1" skipped="0" errors="0" time="0." timestamp="1969-12-31T16:00:00.000">
+    <testcase name="NeedsHardware" file="examples/googletest_project/nonexecution_test.cc" line="10" status="notrun" result="suppressed" time="0." timestamp="1969-12-31T16:00:00.000" classname="DISABLED_UnavailableDevice" />
+  </testsuite>
+</testsuites>

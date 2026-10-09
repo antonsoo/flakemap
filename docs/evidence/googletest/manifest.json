@@ -4,6 +4,10 @@
   "artifacts": {
     "before.json": "bb0526edfc133d33945eee3e760f72bb9d3fd91ecd70727dadf2c2dc936c3b6d",
     "after.json": "9b178f6085d3ccf655a58987f34edb56fb62f04f6d35a4e8a2629e4c5f002db5",
-    "after.html": "2329f8b3ba5495d23a3662b8e265132bd043241ff1f6492122c22a7702a3365a"
-  }
+    "after.html": "2329f8b3ba5495d23a3662b8e265132bd043241ff1f6492122c22a7702a3365a",
+    "installed-results.json": "93803478cf46b434ee30c8d727c967cbe48470ea63c24b97d0a3057365f56d2b",
+    "browser-results.json": "09d69e691efbbb31d63dcd78220c33a0ee53da57063f18712d38ca228d8ff3d8"
+  },
+  "reader_commit": "081a93e",
+  "verified_source_commit": "109cbb5"
 }

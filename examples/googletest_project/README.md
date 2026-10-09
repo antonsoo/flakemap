@@ -103,4 +103,49 @@ omit all execution attributes, making its empty testcase indistinguishable
 from a minimal JUnit pass. This fix does not infer execution from an inventory.
 No other GoogleTest version or C++ test framework was run for this capture.
 
+## Clean-checkout verification
+
+A fresh detached checkout of `109cbb5` was verified on 2026-10-09 using
+Python 3.12.12, GCC 13.3.0 and Node 26.7.0. The reproduction commands above
+downloaded the pinned archive, compiled the C++ source and captured nine new
+invocations. The new history agreed with the retained history on outcomes,
+failure rates, classifications and activity. The fail-fast execution markers
+also matched. Timestamps and measured durations are not expected to be identical.
+
+| Check | Result |
+| --- | --- |
+| `uv sync --locked`; Ruff lint and format checks; `uv run mypy` | Passed; 27 source files typechecked |
+| `uv run pytest -q` | 307 passed |
+| `uv build` | Source archive and wheel built |
+| Wheel installed into a separate fresh environment | JSON matched the retained analysis; HTML matched byte for byte |
+| Unsupported and contradictory marker controls through the installed CLI | Exit 2; excluded outcomes, no failure-rate denominator |
+| Existing CLI examples: demo, retry, shared failures, JSON, Markdown, HTML and gates | Nine workflows passed with their expected exit codes |
+| `uv run python scripts/build_demo_site.py` | Five static report pages under `site/` |
+| Fresh npm install, report fixture generation and `node scripts/check_report.mjs` | 104 offline scenarios passed in Chromium 153 and Firefox 155, at 320/1200 px in both themes |
+
+The installed-wheel results are retained in
+[installed-results.json](../../docs/evidence/googletest/installed-results.json).
+The demo's existing `--fail-on-new-flake` example exits 0; the retry fixture's
+`--fail-on-retry` exits 1. Neither outcome is an assertion that every test passed.
+
+The browser workflow uses real standalone files, without a server:
+
+```sh
+npm ci
+uv run python scripts/browser_fixtures.py
+node scripts/check_report.mjs
+```
+
+The [browser results](../../docs/evidence/googletest/browser-results.json) retain
+the engine versions, report hashes and each scenario's outcome. All scenarios
+had zero page errors, external requests, CSP violations and automated
+accessibility violations. Eight scenarios exercised the GoogleTest report's
+actual skip cells, keyboard expansion, one-execution denominator and timing count.
+
+The [desktop screenshot](../../docs/assets/googletest-execution.png) and the
+320 px dark-mode report were visually inspected. The existing inspection-report
+layout remains intact; disabled observations are gray, and the expanded detail
+shows the actual one-execution denominator and useful failure message. Wide
+source-evidence tables scroll within their own region on narrow screens.
+
 These changes are local and unreleased. No package or hosted report was published.

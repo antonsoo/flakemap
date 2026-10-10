@@ -9,7 +9,8 @@ passed the gate even though the retained failure counter contradicted it.
 The source fix checks the four primary VSTest counters against structural
 results, including nested rows. Both damaged reports now warn and exit 2.
 Counters never supply missing identities or change retained observations.
-This is unreleased source work; no package or site was published.
+These are source changes. The [publication verification](../../docs/verification-summary-counters-2026-10-10.md)
+distinguishes them from a registry release or hosted demo update.
 
 ## Evidence and conventions
 

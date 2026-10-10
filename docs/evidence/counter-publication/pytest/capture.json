@@ -1,0 +1,40 @@
+{
+  "pytest": "9.1.1",
+  "python": "3.12.12",
+  "reports": [
+    {
+      "file": "basic.xml",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "test_outcomes.py",
+        "-k",
+        "not teardown and not subtests",
+        "--junitxml=captures/basic.xml"
+      ],
+      "exit": 1,
+      "raw_sha256": "422d21649fb4a973f65c2cd7c2fd51e7dcf98bfd220f0e29e0f0a29a80f58a65",
+      "retained_sha256": "47bec46d2bd3aac14c9de9d96dab36bb1f54b242916ccfc55d1ef909a28a0258",
+      "transformation": "removed hostname; made repository paths in diagnostic text relative; outcomes and counters unchanged"
+    },
+    {
+      "file": "complex.xml",
+      "command": [
+        "python",
+        "-m",
+        "pytest",
+        "-q",
+        "test_outcomes.py",
+        "-k",
+        "",
+        "--junitxml=captures/complex.xml"
+      ],
+      "exit": 1,
+      "raw_sha256": "abd1312434eda906eca10878575ecf8fe96fb31a48e70183ed758c7d8b63afaa",
+      "retained_sha256": "9ffed01fd15706eb05f22404afef48cb7df5a50afc3d9495d953ce543472b604",
+      "transformation": "removed hostname; made repository paths in diagnostic text relative; outcomes and counters unchanged"
+    }
+  ]
+}

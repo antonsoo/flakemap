@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites name="pytest tests"><testsuite name="pytest" errors="3" failures="5" skipped="1" tests="11" time="0.029" timestamp="2026-10-10T13:12:39.945374-07:00"><testcase classname="examples.junit_counters_project.test_outcomes" name="test_pass" time="0.000" /><testcase classname="examples.junit_counters_project.test_outcomes" name="test_failure" time="0.000"><failure message="Failed: controlled assertion failure">def test_failure() -&gt; None:
+&gt;       pytest.fail("controlled assertion failure")
+E       Failed: controlled assertion failure
+
+test_outcomes.py:13: Failed</failure></testcase><testcase classname="examples.junit_counters_project.test_outcomes" name="test_error" time="0.000"><error message="failed on setup with &quot;RuntimeError: controlled setup error&quot;">@pytest.fixture
+    def setup_error() -&gt; None:
+&gt;       raise RuntimeError("controlled setup error")
+E       RuntimeError: controlled setup error
+
+test_outcomes.py:18: RuntimeError</error></testcase><testcase classname="examples.junit_counters_project.test_outcomes" name="test_skip" time="0.000"><skipped type="pytest.skip" message="controlled skip">examples/junit_counters_project/test_outcomes.py:26: controlled skip</skipped></testcase><testcase classname="examples.junit_counters_project.test_outcomes" name="test_pass_then_teardown_error" time="0.000"><error message="failed on teardown with &quot;RuntimeError: controlled teardown error&quot;">@pytest.fixture
+    def teardown_error() -&gt; Iterator[None]:
+        yield
+&gt;       raise RuntimeError("controlled teardown error")
+E       RuntimeError: controlled teardown error
+
+test_outcomes.py:32: RuntimeError</error></testcase><testcase classname="examples.junit_counters_project.test_outcomes" name="test_failure_then_teardown_error" time="0.000"><failure message="Failed: controlled call failure before teardown">teardown_error = None
+
+    def test_failure_then_teardown_error(teardown_error: None) -&gt; None:
+&gt;       pytest.fail("controlled call failure before teardown")
+E       Failed: controlled call failure before teardown
+
+test_outcomes.py:40: Failed</failure></testcase><testcase classname="examples.junit_counters_project.test_outcomes" name="test_failure_then_teardown_error" time="0.000"><error message="failed on teardown with &quot;RuntimeError: controlled teardown error&quot;">@pytest.fixture
+    def teardown_error() -&gt; Iterator[None]:
+        yield
+&gt;       raise RuntimeError("controlled teardown error")
+E       RuntimeError: controlled teardown error
+
+test_outcomes.py:32: RuntimeError</error></testcase><testcase classname="examples.junit_counters_project.test_outcomes" name="test_subtests" time="0.004"><failure message="assert 1 == 0">subtests = &lt;_pytest.subtests.Subtests object at 0x7e76d780fad0&gt;
+
+    def test_subtests(subtests: pytest.Subtests) -&gt; None:
+        for number in range(3):
+            with subtests.test(number=number):
+&gt;               assert number == 0
+E               assert 1 == 0
+
+test_outcomes.py:46: AssertionError</failure><failure message="assert 2 == 0">subtests = &lt;_pytest.subtests.Subtests object at 0x7e76d780fad0&gt;
+
+    def test_subtests(subtests: pytest.Subtests) -&gt; None:
+        for number in range(3):
+            with subtests.test(number=number):
+&gt;               assert number == 0
+E               assert 2 == 0
+
+test_outcomes.py:46: AssertionError</failure><failure message="contains 2 failed subtests">contains 2 failed subtests</failure></testcase></testsuite></testsuites>

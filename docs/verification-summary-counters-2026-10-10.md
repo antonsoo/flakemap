@@ -3,8 +3,9 @@
 Verified source commits `f9a664a` (JUnit) and `0eaf533` (TRX), against baseline
 `8542d33`. Both repairs make unsupported coverage visible when summary totals
 cannot be reconciled with retained results. They preserve the actual result
-records and statistical denominators. Nothing was pushed, tagged or published;
-the locally built package still carries the existing `0.3.7` version.
+records and statistical denominators. The initial verification preceded source
+publication; the locally built package carries the existing `0.3.7` version.
+The additional publication checks below are separate from a registry release.
 
 ## Reproductions and retained evidence
 
@@ -111,9 +112,52 @@ recovered from their XML; those reports remain usable but their individual-test
 coverage is unverified. The Kubernetes collector was not rerun: its existing
 cache was replayed in full, with both input and normalized-record hashes retained.
 
-No gallery page, registry package or remote repository was updated. The site
-build command is `python scripts/build_demo_site.py`; its output is `site/`.
+The initial verification did not update a gallery page, registry package or
+remote repository. The site build command is `python scripts/build_demo_site.py`; its output is `site/`.
 
 Suggested repository description: "Inspect JUnit and TRX histories for flaky
 tests, hidden retries and incomplete evidence."
 Suggested topics: `testing`, `junit`, `trx`, `flaky-tests`, `ci`, `python`.
+
+## Fresh checks before source publication
+
+The existing three local commits were reviewed again after source-push
+permission. A new clean clone at `e82107b` installed the locked dependencies,
+passed Ruff/format/mypy and 348 checks, and built a new wheel. A separate
+Python 3.10.21 environment installed that wheel with Rich 13.7.0. Its imported
+Python files match the checkout byte for byte.
+
+The [fresh receipt](evidence/counter-publication/verification.json) records the
+wheel SHA-256 and runtime hashes. All 13 JUnit and 21 TRX CLI observations equal
+the prior corrected receipts. Separately rebuilding the public baseline
+`8542d33` confirms that both a damaged pytest report and a damaged MSTest report
+passed the old completeness gate but exit 2 with the corrected wheel. Their
+retained test-outcome hashes are unchanged:
+[actual baseline/current gate comparison](evidence/counter-publication/baseline-gates.json).
+
+Fresh pytest executions and a fresh .NET SDK 8.0.425 / VSTest 17.11.1 logger
+capture are retained under [counter-publication/](evidence/counter-publication/).
+Their identity/status multisets and warnings match the earlier captures.
+Timestamps and measured durations vary; the logger also reordered two distinct
+test records. The comparison therefore does not require byte-identical XML or
+within-run record order. The complex pytest capture still reports 11 tests in
+its summary but retains 8 testcase elements; it remains unverified rather than
+inventing three missing records.
+
+The newly installed wheel also scanned the complete cached Kubernetes corpus:
+10,774 XML files, 1,422,614,273 bytes, and 3,486,669 normalized records. Input
+manifest and normalized-record hashes both match the earlier before/after
+study. All 10,774 reports retain their counter-coverage warning. The
+[fresh corpus receipt](evidence/counter-publication/corpus.json) records the
+observed run; the remote corpus was not downloaded again.
+
+Finally, 24 offline views of the newly installed JUnit reports and 24 of the
+TRX reports passed in Chromium/Firefox, 375/1200 px, light/dark. Keyboard warning
+expansion, result counts, absence of scripts/network/page errors, and page width
+were checked; the fresh desktop/phone captures were visually inspected.
+[JUnit receipt](evidence/counter-publication/junit-browsers.json),
+[TRX receipt](evidence/counter-publication/trx-browsers.json).
+
+These checks support source publication of the existing fixes. They do not
+claim a registry release, a hosted-demo update, or new coverage beyond the
+retained and controlled inputs described above.

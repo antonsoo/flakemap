@@ -26,7 +26,7 @@ The source checkout also honors **GoogleTest's explicit non-execution markers**.
 In the [compiled reproduction](examples/googletest_project/README.md), one real
 failure followed by seven disabled runs previously became seven passes and a
 12.5% failure rate. It now remains one failed execution, seven skips and
-insufficient data. These reader changes are **unreleased**.
+insufficient data. These are source updates; no PyPI release is part of this verification.
 
 **Well-formed XML can still hide missing results.** The source checkout now
 checks JUnit summary totals against retained testcase records and explicit
@@ -34,7 +34,8 @@ retry attempts. Removing failing testcases or their outcome markers previously
 passed `--fail-on-incomplete`; those counter mismatches now exit 2. Original
 Surefire retry totals and GoogleTest disabled-test controls still reconcile.
 [Captured reports, before/after replay and limits](studies/junit-counters/README.md).
-This correction is **unreleased** and does not change observed test outcomes.
+This correction preserves observed test outcomes; source publication is separate
+from a PyPI release.
 The same protection now covers [TRX primary counters](studies/trx-counters/README.md),
 including nested data rows, while preserving VSTest's skipped-test convention.
 

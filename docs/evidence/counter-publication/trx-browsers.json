@@ -1,0 +1,242 @@
+[
+  {
+    "engine": "chromium",
+    "width": 375,
+    "colorScheme": "light",
+    "case": "removed-failed-result",
+    "html_sha256": "29b78c9353276bc5ba1540ea4a6f44582066850c4abdfaa66cc5d60a608787a9",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 375,
+    "colorScheme": "light",
+    "case": "logger-nested-original",
+    "html_sha256": "d12ab9a39b0bc33cfe682bcfb4f2f4354e149551018e3af397f246d3d5bf8fe0",
+    "input_complete": true,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 375,
+    "colorScheme": "light",
+    "case": "nested-mixed-count-conventions",
+    "html_sha256": "21bd11173bd262d8c8268420242d455da153d1c3453ea63fb1e9f3ba5b827aa1",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 375,
+    "colorScheme": "dark",
+    "case": "removed-failed-result",
+    "html_sha256": "29b78c9353276bc5ba1540ea4a6f44582066850c4abdfaa66cc5d60a608787a9",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 375,
+    "colorScheme": "dark",
+    "case": "logger-nested-original",
+    "html_sha256": "d12ab9a39b0bc33cfe682bcfb4f2f4354e149551018e3af397f246d3d5bf8fe0",
+    "input_complete": true,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 375,
+    "colorScheme": "dark",
+    "case": "nested-mixed-count-conventions",
+    "html_sha256": "21bd11173bd262d8c8268420242d455da153d1c3453ea63fb1e9f3ba5b827aa1",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1200,
+    "colorScheme": "light",
+    "case": "removed-failed-result",
+    "html_sha256": "29b78c9353276bc5ba1540ea4a6f44582066850c4abdfaa66cc5d60a608787a9",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1200,
+    "colorScheme": "light",
+    "case": "logger-nested-original",
+    "html_sha256": "d12ab9a39b0bc33cfe682bcfb4f2f4354e149551018e3af397f246d3d5bf8fe0",
+    "input_complete": true,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1200,
+    "colorScheme": "light",
+    "case": "nested-mixed-count-conventions",
+    "html_sha256": "21bd11173bd262d8c8268420242d455da153d1c3453ea63fb1e9f3ba5b827aa1",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1200,
+    "colorScheme": "dark",
+    "case": "removed-failed-result",
+    "html_sha256": "29b78c9353276bc5ba1540ea4a6f44582066850c4abdfaa66cc5d60a608787a9",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1200,
+    "colorScheme": "dark",
+    "case": "logger-nested-original",
+    "html_sha256": "d12ab9a39b0bc33cfe682bcfb4f2f4354e149551018e3af397f246d3d5bf8fe0",
+    "input_complete": true,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "chromium",
+    "width": 1200,
+    "colorScheme": "dark",
+    "case": "nested-mixed-count-conventions",
+    "html_sha256": "21bd11173bd262d8c8268420242d455da153d1c3453ea63fb1e9f3ba5b827aa1",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 375,
+    "colorScheme": "light",
+    "case": "removed-failed-result",
+    "html_sha256": "29b78c9353276bc5ba1540ea4a6f44582066850c4abdfaa66cc5d60a608787a9",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 375,
+    "colorScheme": "light",
+    "case": "logger-nested-original",
+    "html_sha256": "d12ab9a39b0bc33cfe682bcfb4f2f4354e149551018e3af397f246d3d5bf8fe0",
+    "input_complete": true,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 375,
+    "colorScheme": "light",
+    "case": "nested-mixed-count-conventions",
+    "html_sha256": "21bd11173bd262d8c8268420242d455da153d1c3453ea63fb1e9f3ba5b827aa1",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 375,
+    "colorScheme": "dark",
+    "case": "removed-failed-result",
+    "html_sha256": "29b78c9353276bc5ba1540ea4a6f44582066850c4abdfaa66cc5d60a608787a9",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 375,
+    "colorScheme": "dark",
+    "case": "logger-nested-original",
+    "html_sha256": "d12ab9a39b0bc33cfe682bcfb4f2f4354e149551018e3af397f246d3d5bf8fe0",
+    "input_complete": true,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 375,
+    "colorScheme": "dark",
+    "case": "nested-mixed-count-conventions",
+    "html_sha256": "21bd11173bd262d8c8268420242d455da153d1c3453ea63fb1e9f3ba5b827aa1",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1200,
+    "colorScheme": "light",
+    "case": "removed-failed-result",
+    "html_sha256": "29b78c9353276bc5ba1540ea4a6f44582066850c4abdfaa66cc5d60a608787a9",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1200,
+    "colorScheme": "light",
+    "case": "logger-nested-original",
+    "html_sha256": "d12ab9a39b0bc33cfe682bcfb4f2f4354e149551018e3af397f246d3d5bf8fe0",
+    "input_complete": true,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1200,
+    "colorScheme": "light",
+    "case": "nested-mixed-count-conventions",
+    "html_sha256": "21bd11173bd262d8c8268420242d455da153d1c3453ea63fb1e9f3ba5b827aa1",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1200,
+    "colorScheme": "dark",
+    "case": "removed-failed-result",
+    "html_sha256": "29b78c9353276bc5ba1540ea4a6f44582066850c4abdfaa66cc5d60a608787a9",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1200,
+    "colorScheme": "dark",
+    "case": "logger-nested-original",
+    "html_sha256": "d12ab9a39b0bc33cfe682bcfb4f2f4354e149551018e3af397f246d3d5bf8fe0",
+    "input_complete": true,
+    "errors": [],
+    "network": []
+  },
+  {
+    "engine": "firefox",
+    "width": 1200,
+    "colorScheme": "dark",
+    "case": "nested-mixed-count-conventions",
+    "html_sha256": "21bd11173bd262d8c8268420242d455da153d1c3453ea63fb1e9f3ba5b827aa1",
+    "input_complete": false,
+    "errors": [],
+    "network": []
+  }
+]

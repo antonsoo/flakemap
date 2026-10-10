@@ -1,0 +1,44 @@
+[
+  {
+    "case": "removed-failing-tests",
+    "observations": [
+      {
+        "label": "before",
+        "exit": 0,
+        "inputComplete": true,
+        "testOutcomesSha256": "09ba362f6089546a9adfebb5e0d3ecf047b8ea6992cc743532e87a4d68b6c8cd",
+        "warnings": []
+      },
+      {
+        "label": "after",
+        "exit": 2,
+        "inputComplete": false,
+        "testOutcomesSha256": "09ba362f6089546a9adfebb5e0d3ecf047b8ea6992cc743532e87a4d68b6c8cd",
+        "warnings": [
+          "run report: report.xml: JUnit summary counters do not reconcile in 1 container(s): <testsuite> #2 'pytest': declares tests=4, failures=1, errors=1, skipped=1; retained testcase records (tests=2, failures=0, errors=0, skipped=1). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+        ]
+      }
+    ]
+  },
+  {
+    "case": "removed-failed-result",
+    "observations": [
+      {
+        "label": "before",
+        "exit": 0,
+        "inputComplete": true,
+        "testOutcomesSha256": "c84725d1f162761fecd5bc662dbf3df9da3af3b83cffbf347f86306c21110fd1",
+        "warnings": []
+      },
+      {
+        "label": "after",
+        "exit": 2,
+        "inputComplete": false,
+        "testOutcomesSha256": "c84725d1f162761fecd5bc662dbf3df9da3af3b83cffbf347f86306c21110fd1",
+        "warnings": [
+          "run report: report.trx: TRX summary counters do not reconcile: declares total=6, executed=5, passed=4, failed=1; retained all result records (total=5, executed=4, passed=4, failed=0). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+        ]
+      }
+    ]
+  }
+]

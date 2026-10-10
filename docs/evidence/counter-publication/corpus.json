@@ -1,0 +1,35 @@
+{
+  "python": "3.10.21",
+  "files": 10774,
+  "bytes": 1422614273,
+  "records": 3486669,
+  "statuses": {
+    "pass": 3486315,
+    "fail": 354
+  },
+  "input_manifest_sha256": "b9fd980694967ad704767170f8f2a8b0e7389a75399e811658540d669ab20381",
+  "normalized_records_sha256": "d1d1ac9a7726ee6db9209b75e184021c0e04141876a5f21ab347a1c793b64854",
+  "files_with_warnings": 10774,
+  "files_with_unreconciled_counters": 10774,
+  "counter_warning_examples": [
+    {
+      "path": "ci-kubernetes-integration-master/2075024362636840960/junit_20260709-011001.xml",
+      "warnings": [
+        "JUnit summary counters do not reconcile in 114 container(s): <testsuite> #2 '[sig-api-machinery] k8s.io/apiextensions-apiserver/test': declares tests=246, failures=0; retained testcase records (tests=1, failures=0); <testsuite> #3 '[sig-api-machinery] k8s.io/apiextensions-apiserver/test/integration': declares tests=368, failures=0; retained testcase records (tests=1, failures=0); <testsuite> #4 '[sig-api-machinery] k8s.io/kubernetes/test/integration': declares tests=29, failures=0; retained testcase records (tests=1, failures=0); 111 more container(s) not shown. Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ]
+    },
+    {
+      "path": "ci-kubernetes-integration-master/2075039723528654848/junit_20260709-021038.xml",
+      "warnings": [
+        "JUnit summary counters do not reconcile in 114 container(s): <testsuite> #2 '[sig-api-machinery] k8s.io/apiextensions-apiserver/test': declares tests=246, failures=0; retained testcase records (tests=1, failures=0); <testsuite> #3 '[sig-api-machinery] k8s.io/apiextensions-apiserver/test/integration': declares tests=368, failures=0; retained testcase records (tests=1, failures=0); <testsuite> #4 '[sig-api-machinery] k8s.io/kubernetes/test/integration': declares tests=29, failures=0; retained testcase records (tests=1, failures=0); 111 more container(s) not shown. Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ]
+    },
+    {
+      "path": "ci-kubernetes-integration-master/2075055068368867328/junit_20260709-031138.xml",
+      "warnings": [
+        "JUnit summary counters do not reconcile in 114 container(s): <testsuite> #2 '[sig-api-machinery] k8s.io/apiextensions-apiserver/test': declares tests=246, failures=0; retained testcase records (tests=1, failures=0); <testsuite> #3 '[sig-api-machinery] k8s.io/apiextensions-apiserver/test/integration': declares tests=368, failures=0; retained testcase records (tests=1, failures=0); <testsuite> #4 '[sig-api-machinery] k8s.io/kubernetes/test/integration': declares tests=29, failures=0; retained testcase records (tests=1, failures=0); 111 more container(s) not shown. Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ]
+    }
+  ],
+  "seconds": 144.33899235300032
+}

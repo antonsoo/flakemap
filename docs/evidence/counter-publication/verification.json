@@ -1,0 +1,111 @@
+{
+  "sourceCommit": "e82107b",
+  "python": "3.10.21",
+  "rich": "13.7.0",
+  "importedFrom": "site-packages/flakemap",
+  "artifact": {
+    "name": "flakemap-0.3.7-py3-none-any.whl",
+    "sha256": "4479b6cbbf8aec45105382e7e54bb4246fbff8e420cb909f0237b3333e6b9bf8",
+    "bytes": 87304
+  },
+  "runtimeMatchesSource": {
+    "__init__.py": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce",
+    "__main__.py": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd",
+    "cli.py": "17592d3a8420b6e582a0045863a552bd0ce1a86677864710170c5050db97b750",
+    "loader.py": "3982d236eb7512af27fc4f813d0f78d2da9c4530aef55192303707ae40cf9274",
+    "models.py": "887d042b96ade7290cee7ed51a0d72550a5e00c06ee37f9235fa6ebb51d71e67",
+    "observations.py": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e",
+    "parse/__init__.py": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3",
+    "parse/junit.py": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9",
+    "parse/junit_counts.py": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f",
+    "parse/metadata.py": "a3532cec70d0436ddce325925028f7d5d93700b457af76691efb62cf577a0fd3",
+    "parse/trx.py": "bf52b1c070122b13c0fe1e9afb300bb672522e25699c876ca21e34f40c1b9fe6",
+    "parse/trx_counts.py": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1",
+    "parse/xmlinput.py": "0049e6cca2fdf655a37c25f210cce428d72e626ffa7bb26474681ef86e31e8f0",
+    "parse/xmltext.py": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031",
+    "report/__init__.py": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50",
+    "report/cofailure_html.py": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed",
+    "report/html_out.py": "ed1e45f6c4c061f7e4ba60ecbfae76e0dc22fac8f6461cc60dfc5314385235ce",
+    "report/json_out.py": "45846e882161d4054bf86882502e637b9147a01954f4bcdec373a284b1711066",
+    "report/markdown_out.py": "44a691476c669ec0d75ba05ed5ed2fb4a3b721ff82df15a570cf5b4f447a83f0",
+    "report/names.py": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0",
+    "report/numbers.py": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401",
+    "report/terminal.py": "3a9711b66e9b4946434d6d4ad10b3ac0ea1ade56ebe0ca3abcbef7edbb8bbef5",
+    "stats/__init__.py": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f",
+    "stats/activity.py": "1c998eef015cf5d1a0a5708d1e53452c276772bf1ff56488a77b560772460caa",
+    "stats/analyze.py": "12a37d787ac9a399e50eddc5f305337a5a47d1f18804e6d470f2873d0fb78315",
+    "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
+    "stats/cofailure.py": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006",
+    "stats/correlation.py": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb",
+    "stats/wilson.py": "f771bc8ec543b1c4295a374b682c8ed35ea0564c990592bb3d0712197f3ae8f5"
+  },
+  "cleanSourceChecks": {
+    "ruff": "passed",
+    "format": "passed",
+    "mypy": "passed",
+    "pytest": 348
+  },
+  "installedReplays": [
+    {
+      "study": "junit",
+      "cases": 13,
+      "matchesPriorCorrectedResults": true,
+      "sha256": "554e4867b81a8f8b721ec068b1c22794b8b8ab7dc8fc5169312e75d2e806978c"
+    },
+    {
+      "study": "trx",
+      "cases": 21,
+      "matchesPriorCorrectedResults": true,
+      "sha256": "56f7c88626d299c4a5cd8376e363422625431157c797554e160d45e59dae0fff"
+    }
+  ],
+  "freshCaptures": [
+    {
+      "case": "pytest-basic",
+      "file": "pytest/basic.xml",
+      "sha256": "47bec46d2bd3aac14c9de9d96dab36bb1f54b242916ccfc55d1ef909a28a0258",
+      "records": 4,
+      "statuses": {
+        "pass": 1,
+        "fail": 1,
+        "error": 1,
+        "skip": 1
+      },
+      "warnings": [],
+      "identityAndStatusMultisetMatchesRetainedCapture": true,
+      "comparisonExcludes": "timestamps, durations, and within-run record order"
+    },
+    {
+      "case": "pytest-complex",
+      "file": "pytest/complex.xml",
+      "sha256": "9ffed01fd15706eb05f22404afef48cb7df5a50afc3d9495d953ce543472b604",
+      "records": 8,
+      "statuses": {
+        "pass": 1,
+        "fail": 3,
+        "error": 3,
+        "skip": 1
+      },
+      "warnings": [
+        "JUnit summary counters do not reconcile in 1 container(s): <testsuite> #2 'pytest': declares tests=11, failures=5, errors=3, skipped=1; retained testcase records (tests=8, failures=3, errors=3, skipped=1). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ],
+      "identityAndStatusMultisetMatchesRetainedCapture": true,
+      "comparisonExcludes": "timestamps, durations, and within-run record order"
+    },
+    {
+      "case": "nested-logger",
+      "file": "vstest/nested.trx",
+      "sha256": "420298986885da314466afc10dae2f43c63d0b885fc0deb44826dc38da67ae01",
+      "records": 3,
+      "statuses": {
+        "pass": 1,
+        "skip": 1,
+        "fail": 1
+      },
+      "warnings": [],
+      "identityAndStatusMultisetMatchesRetainedCapture": true,
+      "comparisonExcludes": "timestamps, durations, and within-run record order"
+    }
+  ],
+  "scope": "Fresh publication verification of existing local counter-reconciliation commits; no registry release or production-run validation."
+}

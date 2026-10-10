@@ -94,6 +94,21 @@ not supported; use XML produced by running tests.
 
 ## TRX (Visual Studio test results)
 
+The source checkout reconciles the optional `total`, `executed`, `passed` and
+`failed` attributes of `<ResultSummary><Counters>`. It counts structural results,
+including nested rows; VSTest's executed total is passed plus failed. A second
+supported convention excludes explicitly marked `DataDrivenTest` parents that
+have retained rows. All supplied counters must fit one convention together.
+Auxiliary fields such as `notExecuted` are not checked: VSTest writes these as
+zero even when it retains skipped results. Unknown conventions remain unverified.
+
+Counter mismatches, invalid primary counters and ambiguous duplicate summaries
+warn and make `--fail-on-incomplete` exit 2. Missing counters remain optional.
+Neither counters nor nested rows change the parent observations used for rates.
+The [TRX counter study](../studies/trx-counters/README.md) retains twelve actual
+`dotnet test` reports, an actual VSTest logger capture of controlled nested
+events, and explicitly transformed copies used to reproduce missing evidence.
+
 A file whose root element is `<TestRun>` in the
 `http://microsoft.com/schemas/VisualStudio/TeamTest/2010` namespace is read as
 TRX, whatever its extension; `.trx` files are picked up by the default

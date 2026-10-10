@@ -4,6 +4,18 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### TRX summary coverage
+
+- Reconcile VSTest's `total`, `executed`, `passed` and `failed` counters against
+  retained results, including nested rows. Removed results, rewritten outcomes,
+  invalid primary counters and duplicate summaries now mark coverage unverified
+  and make `--fail-on-incomplete` exit 2. History observations remain unchanged.
+- Preserve parent-inclusive and explicitly marked data-parent-exclusive counting
+  conventions. Do not equate VSTest's always-zero auxiliary `notExecuted` field
+  with the count of skipped records. Retain an actual nested logger capture,
+  twelve existing `dotnet test` controls and seven damaged variants in the
+  [TRX counter study](studies/trx-counters/README.md).
+
 ### JUnit summary coverage
 
 - Reconcile `tests`, `failures`, `errors` and `skipped` totals in completed

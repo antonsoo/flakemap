@@ -1,0 +1,3 @@
+Results File: <capture-output>/nested.trx
+Logger: Microsoft.VisualStudio.TestPlatform.Extensions.Trx.TestLogger, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+Logger informational version: 17.11.1-release-24455-02

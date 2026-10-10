@@ -37,6 +37,7 @@ from xml.etree import ElementTree as ET
 
 from flakemap.models import SourceLocation, Status, TestCaseResult
 from flakemap.parse.junit import _first_line
+from flakemap.parse.trx_counts import summary_warning
 from flakemap.parse.xmlinput import (
     MAX_REPORT_BYTES,
     MAX_XML_DEPTH,
@@ -279,6 +280,9 @@ def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], da
             warnings.append(f"{case.full_name}: {case.issue}; excluded from rates")
     if not cases:
         warnings.append("TRX file contained no test results")
+    counters_warning = summary_warning(root)
+    if counters_warning:
+        warnings.append(counters_warning)
     started = _started_at(root)
     times = _children(root, "Times")
     if len(times) > 1 or (times and times[0].get("start") is not None and started is None):

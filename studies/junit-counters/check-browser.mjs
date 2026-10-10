@@ -7,6 +7,8 @@ import { pathToFileURL } from "node:url";
 import { chromium, firefox } from "playwright";
 
 const directory = resolve(process.argv[2] ?? "scratch/junit-counters/after");
+const scenarios = process.argv.length > 3 ? process.argv.slice(3) :
+  ["removed-failing-tests", "surefire-attempts", "kubernetes-pruned"];
 const captures = resolve(directory, "browser");
 await mkdir(captures, { recursive: true });
 const evidence = [];
@@ -17,7 +19,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
       for (const colorScheme of ["light", "dark"]) {
         const context = await browser.newContext({ viewport: { width, height: 900 }, colorScheme, offline: true });
         try {
-          for (const name of ["removed-failing-tests", "surefire-attempts", "kubernetes-pruned"]) {
+          for (const name of scenarios) {
             const page = await context.newPage();
             const errors = [], network = [];
             page.on("pageerror", error => errors.push(error.message));
@@ -33,18 +35,22 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               await warning.locator("summary").focus();
               await page.keyboard.press("Enter");
               assert.equal(await warning.getAttribute("open"), "");
-              assert.match(await warning.innerText(), /JUnit summary counters do not reconcile/);
-              assert.match(await warning.innerText(), /report\.xml/);
+              assert.match(await warning.innerText(), /(?:JUnit|TRX) summary counters do not reconcile/);
+              assert.match(await warning.innerText(), /report\.(?:xml|trx)/);
               if (name === "removed-failing-tests") {
                 assert.match(await warning.innerText(), /declares tests=4, failures=1, errors=1/);
                 assert.match(await warning.innerText(), /testcase records \(tests=2, failures=0, errors=0/);
+              }
+              if (name === "removed-failed-result") {
+                assert.match(await warning.innerText(), /declares total=6, executed=5, passed=4, failed=1/);
+                assert.match(await warning.innerText(), /all result records \(total=5, executed=4, passed=4, failed=0/);
               }
             }
             assert.equal(await page.locator("script,iframe,object").count(), 0);
             assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true);
             assert.deepEqual(errors, []);
             assert.deepEqual(network, []);
-            if (engine === "chromium" && name === "removed-failing-tests" &&
+            if (engine === "chromium" && name === scenarios[0] &&
                 ((width === 1200 && colorScheme === "light") || (width === 375 && colorScheme === "dark"))) {
               await page.screenshot({ path: resolve(captures, `${width}-${colorScheme}.png`), fullPage: true });
             }

@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TestRun xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" id="7a94ab52-46dd-463b-bd8a-542c3ce53a46" name="Controlled nested-result capture">
+  <Times creation="2026-10-10T12:02:24.1509336-07:00" queuing="2026-10-10T12:02:24.1509336-07:00" start="2026-10-10T12:02:24.1273176-07:00" finish="2026-10-10T12:02:24.1671781-07:00" />
+  <TestSettings name="default" id="6284fc02-863c-4294-98bf-df2c2e1108db">
+    <Deployment />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="794d3c2c-e17d-4f03-91df-d1390df0d875" testId="046db3a3-13d8-2f63-bf5e-14a3c4ed3493" testName="Capture.Example.Skipped" startTime="2026-10-10T12:02:24.1651036-07:00" endTime="2026-10-10T12:02:24.1651036-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="794d3c2c-e17d-4f03-91df-d1390df0d875" />
+    <UnitTestResult executionId="87bcaf49-ee54-4f4a-b761-e01b911d40a9" testId="64f0eb93-d91f-172c-e13a-1bb82d2c687d" testName="Capture.Example.Ordinary" startTime="2026-10-10T12:02:24.1650068-07:00" endTime="2026-10-10T12:02:24.1650069-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="87bcaf49-ee54-4f4a-b761-e01b911d40a9" />
+    <UnitTestResult executionId="8fb9fc18-41ab-4b6a-b861-29eb366238ed" testId="4fbdcbde-a302-a5f5-8fff-77de57d1dde0" testName="Capture.Example.Data" startTime="2026-10-10T12:02:24.1377068-07:00" endTime="2026-10-10T12:02:24.1377071-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8fb9fc18-41ab-4b6a-b861-29eb366238ed" resultType="DataDrivenTest">
+      <Output>
+        <ErrorInfo>
+          <Message>Controlled counter capture failure</Message>
+        </ErrorInfo>
+      </Output>
+      <InnerResults>
+        <UnitTestResult executionId="f1424072-92b9-40ec-a9f4-0d78042752d8" parentExecutionId="8fb9fc18-41ab-4b6a-b861-29eb366238ed" testId="4fbdcbde-a302-a5f5-8fff-77de57d1dde0" testName="Data (passing row)" startTime="2026-10-10T12:02:24.1647846-07:00" endTime="2026-10-10T12:02:24.1647846-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f1424072-92b9-40ec-a9f4-0d78042752d8" dataRowInfo="1" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="6077b74c-619b-4bc5-b9a6-641e8e513211" parentExecutionId="8fb9fc18-41ab-4b6a-b861-29eb366238ed" testId="4fbdcbde-a302-a5f5-8fff-77de57d1dde0" testName="Data (failing row)" startTime="2026-10-10T12:02:24.1649486-07:00" endTime="2026-10-10T12:02:24.1649487-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="6077b74c-619b-4bc5-b9a6-641e8e513211" dataRowInfo="2" resultType="DataDrivenDataRow">
+          <Output>
+            <ErrorInfo>
+              <Message>Controlled counter capture failure</Message>
+            </ErrorInfo>
+          </Output>
+        </UnitTestResult>
+      </InnerResults>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Capture.Example.Ordinary" storage="capture.dll" id="64f0eb93-d91f-172c-e13a-1bb82d2c687d">
+      <Execution id="87bcaf49-ee54-4f4a-b761-e01b911d40a9" />
+      <TestMethod codeBase="capture.dll" adapterTypeName="executor://capture/" className="Capture.Example" name="Ordinary" />
+    </UnitTest>
+    <UnitTest name="Capture.Example.Data" storage="capture.dll" id="4fbdcbde-a302-a5f5-8fff-77de57d1dde0">
+      <Execution id="8fb9fc18-41ab-4b6a-b861-29eb366238ed" />
+      <TestMethod codeBase="capture.dll" adapterTypeName="executor://capture/" className="Capture.Example" name="Data" />
+    </UnitTest>
+    <UnitTest name="Capture.Example.Skipped" storage="capture.dll" id="046db3a3-13d8-2f63-bf5e-14a3c4ed3493">
+      <Execution id="794d3c2c-e17d-4f03-91df-d1390df0d875" />
+      <TestMethod codeBase="capture.dll" adapterTypeName="executor://capture/" className="Capture.Example" name="Skipped" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="046db3a3-13d8-2f63-bf5e-14a3c4ed3493" executionId="794d3c2c-e17d-4f03-91df-d1390df0d875" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="64f0eb93-d91f-172c-e13a-1bb82d2c687d" executionId="87bcaf49-ee54-4f4a-b761-e01b911d40a9" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="4fbdcbde-a302-a5f5-8fff-77de57d1dde0" executionId="8fb9fc18-41ab-4b6a-b861-29eb366238ed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="4" passed="2" failed="2" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>Test 'Capture.Example.Skipped' was skipped in the test run.
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

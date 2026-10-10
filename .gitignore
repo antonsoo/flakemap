@@ -18,5 +18,7 @@ node_modules/
 /examples/trx_project/bin/
 /examples/trx_project/obj/
 /examples/trx_project/TestResults/
+/examples/trx_counters_project/bin/
+/examples/trx_counters_project/obj/
 .venv-minimums/
 /studies/*/cache/

@@ -1,0 +1,20 @@
+{
+  "sdk": "8.0.425",
+  "logger_version_output": [
+    "Logger: Microsoft.VisualStudio.TestPlatform.Extensions.Trx.TestLogger, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a",
+    "Logger informational version: 17.11.1-release-24455-02"
+  ],
+  "command": [
+    "dotnet",
+    "run",
+    "--project",
+    "examples/trx_counters_project",
+    "--",
+    "<capture-output>"
+  ],
+  "exit": 0,
+  "raw_sha256": "7d6ead9f22b43fa05e9d6937810466747900452967582a4393b241da32b70cbd",
+  "retained_sha256": "c5d503d319fbd7390871b5eb4f2bfa6bdd22e760188dad309a975badc49f4a15",
+  "transformation": "removed machine and deployment names; replaced TestRun name; counters, outcomes and result hierarchy unchanged",
+  "scope": "real VSTest logger with controlled public events; no adapter or test execution"
+}

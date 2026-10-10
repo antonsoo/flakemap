@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### JUnit summary coverage
+
+- Reconcile `tests`, `failures`, `errors` and `skipped` totals in completed
+  JUnit containers with their descendant testcase records or explicit retry
+  attempts. Well-formed but filtered reports and stripped outcome markers
+  previously passed `--fail-on-incomplete`; unexplained totals now exit 2.
+- Preserve observed outcomes and rates. Counters cannot identify missing tests
+  or prove that a retained passing record failed. Surefire attempt totals,
+  GoogleTest disabled tests and multiple assertion failures keep their distinct
+  meanings. Missing counters stay optional; unsupported conventions remain
+  unverified. Bound warning detail while checking every completed container.
+- Retain a real pytest capture, six deliberately damaged report variants,
+  unchanged runner controls and a before/after Kubernetes corpus replay in
+  [the counter study](studies/junit-counters/README.md).
+
 ### GoogleTest execution evidence
 
 - Honor `status="notrun"` and `result="suppressed"` as skips. Previously, a

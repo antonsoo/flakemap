@@ -1,0 +1,10 @@
+flakemap  1 runs, 2 tests  |  0 broken  0 flaky  0 healthy  2 insufficient data
+0 test-runs passed on retry; 0 ambiguous test-runs excluded.
+warning: run report: report.xml: JUnit summary counters do not reconcile in 1 
+container(s): <testsuite> #2 'pytest': declares tests=4, failures=1, errors=1, 
+skipped=1; retained testcase records (tests=2, failures=0, errors=0, skipped=1).
+Counts may describe filtered/aggregated records or an unsupported counting 
+convention; individual coverage is unverified. Retained outcomes are unchanged.
+
+No flaky or broken tests detected in the usable observations.
+error: incomplete report; inspect the reported warnings

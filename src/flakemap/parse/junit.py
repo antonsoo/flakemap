@@ -22,6 +22,10 @@ format Ant/Surefire popularized decades ago. The differences that matter here:
   unclosed root tag. ``parse_junit_file`` retains completed testcase elements
   before the first XML error. Comments and CDATA are never interpreted as
   test records. Incomplete records and the unparsed remainder stay unknown.
+- **summary counters**: completed suite/container totals must reconcile with
+  descendant testcase records or their explicitly recorded retry attempts.
+  Otherwise coverage is unverified, even when the XML is well-formed. Totals
+  never create missing tests or overwrite individual outcomes.
 
 Real-world samples used to validate each dialect are cited in ``docs/formats.md``.
 """
@@ -37,6 +41,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 from flakemap.models import AttemptFailure, RetryEvidence, SourceLocation, Status, TestCaseResult
+from flakemap.parse.junit_counts import SummaryCounts, SummaryWarnings
 from flakemap.parse.xmlinput import (
     MAX_REPORT_BYTES,
     MAX_XML_DEPTH,
@@ -321,12 +326,14 @@ def _structural_cases(
     Suites' own start times are appended to ``started`` when it is given, and each case
     is given its 1-based position in ``source``.
     """
-    stack: list[tuple[ET.Element, str, bool]] = []
+    stack: list[tuple[ET.Element, str, bool, SummaryCounts | None]] = []
     cases: list[TestCaseResult] = []
     warnings: list[str] = []
     case_depth: int | None = None
     elements = 0
     containers = {"testsuite", "testsuites"}
+    summaries = SummaryWarnings()
+    container_ordinal = 0
     try:
         for event, element in xml_events(raw):
             if event == "start":
@@ -356,21 +363,35 @@ def _structural_cases(
                     moment = _suite_started(element.get("timestamp"))
                     if moment is not None and started is not None:
                         started.append(moment)
-                stack.append((element, suite_name, eligible))
+                counts = None
+                if eligible and element.tag in containers:
+                    container_ordinal += 1
+                    counts = SummaryCounts(container_ordinal)
+                stack.append((element, suite_name, eligible, counts))
                 if eligible and element.tag == "testcase":
                     case_depth = len(stack)
             else:
-                _, suite_name, eligible = stack.pop()
+                _, suite_name, eligible, counts = stack.pop()
                 if eligible and element.tag == "testcase":
                     position = SourceLocation(source, len(cases) + 1) if source else None
-                    cases.append(_testcase_from_element(element, suite_name, warnings, position))
+                    result = _testcase_from_element(element, suite_name, warnings, position)
+                    cases.append(result)
+                    if stack and (parent_counts := stack[-1][3]) is not None:
+                        parent_counts.observe(element, result)
                     case_depth = None
+                if counts is not None:
+                    summaries.check(element, counts)
+                    if stack and (parent_counts := stack[-1][3]) is not None:
+                        parent_counts.include(counts)
                 if case_depth is None:
                     element.clear()
                     if stack:
                         stack[-1][0].remove(element)
     except ET.ParseError as exc:
         return cases, warnings, str(exc)
+    finally:
+        if warning := summaries.warning():
+            warnings.append(warning)
     return cases, warnings, None
 
 

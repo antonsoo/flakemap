@@ -1,0 +1,16 @@
+{
+  "python": "3.12.12",
+  "files": 10774,
+  "bytes": 1422614273,
+  "records": 3486669,
+  "statuses": {
+    "pass": 3486315,
+    "fail": 354
+  },
+  "input_manifest_sha256": "b9fd980694967ad704767170f8f2a8b0e7389a75399e811658540d669ab20381",
+  "normalized_records_sha256": "d1d1ac9a7726ee6db9209b75e184021c0e04141876a5f21ab347a1c793b64854",
+  "files_with_warnings": 0,
+  "files_with_unreconciled_counters": 0,
+  "counter_warning_examples": [],
+  "seconds": 84.58931706099997
+}

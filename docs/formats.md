@@ -32,6 +32,37 @@ Where a dialect couldn't be run locally, the fixture is marked as hand-authored
 in `tests/test_junit_parsing.py`'s module docstring too -- this is stated
 rather than silently presented as "verified".
 
+## JUnit summary counters
+
+The source checkout checks `tests`, `failures`, `errors` and `skipped` on each
+completed `<testsuite>` and `<testsuites>`. All supplied counters must agree
+under one of two conventions: descendant testcase records, or explicit retry
+attempts. Parent checks include each descendant once; child suites are also
+checked independently. Missing counters are optional, not assumed zero. Invalid
+or unexplained totals produce a coverage warning and make
+`--fail-on-incomplete` exit 2, including for otherwise well-formed XML.
+
+Surefire's retained six-test report counts thirteen attempts. GoogleTest can
+record several failed assertions inside one failed test. Its `disabled` total
+describes disabled names even when those tests were explicitly executed, so it
+is not used as a skipped-outcome count. Runtime `result="skipped"` and
+`<skipped>` records do support `skipped`; suppressed disabled tests do not.
+
+Counters never create missing tests, change a testcase's status or enlarge a
+rate denominator. Kubernetes' package rollups remain usable package records,
+but their original per-test totals no longer look like verified individual
+coverage. A pytest subtest report can also have totals that cannot be recovered
+from the testcase records; it remains explicitly unverified. The warning names
+the first three affected containers (in completion order), gives their opening
+ordinals and counts, and reports how many additional containers were checked
+but omitted from the warning. Counter text is limited to 20 characters before
+integer conversion.
+
+A matching counter is a consistency check, not proof that the original suite
+finished or that all artifacts were supplied. Removing records *and* updating
+their counters can evade this check. See the
+[runner captures, transformations and replay](../studies/junit-counters/README.md).
+
 ## GoogleTest execution attributes
 
 The [compiled fixture and comparison](../examples/googletest_project/README.md)

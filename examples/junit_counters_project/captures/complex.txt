@@ -1,0 +1,79 @@
+.FEs.EFEuuuF                                                             [100%]
+==================================== ERRORS ====================================
+_________________________ ERROR at setup of test_error _________________________
+
+    @pytest.fixture
+    def setup_error() -> None:
+>       raise RuntimeError("controlled setup error")
+E       RuntimeError: controlled setup error
+
+test_outcomes.py:18: RuntimeError
+______________ ERROR at teardown of test_pass_then_teardown_error ______________
+
+    @pytest.fixture
+    def teardown_error() -> Iterator[None]:
+        yield
+>       raise RuntimeError("controlled teardown error")
+E       RuntimeError: controlled teardown error
+
+test_outcomes.py:32: RuntimeError
+____________ ERROR at teardown of test_failure_then_teardown_error _____________
+
+    @pytest.fixture
+    def teardown_error() -> Iterator[None]:
+        yield
+>       raise RuntimeError("controlled teardown error")
+E       RuntimeError: controlled teardown error
+
+test_outcomes.py:32: RuntimeError
+=================================== FAILURES ===================================
+_________________________________ test_failure _________________________________
+
+    def test_failure() -> None:
+>       pytest.fail("controlled assertion failure")
+E       Failed: controlled assertion failure
+
+test_outcomes.py:13: Failed
+_______________________ test_failure_then_teardown_error _______________________
+
+teardown_error = None
+
+    def test_failure_then_teardown_error(teardown_error: None) -> None:
+>       pytest.fail("controlled call failure before teardown")
+E       Failed: controlled call failure before teardown
+
+test_outcomes.py:40: Failed
+___________________________ test_subtests (number=1) ___________________________
+
+subtests = <_pytest.subtests.Subtests object at 0x7d1e988abc50>
+
+    def test_subtests(subtests: pytest.Subtests) -> None:
+        for number in range(3):
+            with subtests.test(number=number):
+>               assert number == 0
+E               assert 1 == 0
+
+test_outcomes.py:46: AssertionError
+___________________________ test_subtests (number=2) ___________________________
+
+subtests = <_pytest.subtests.Subtests object at 0x7d1e988abc50>
+
+    def test_subtests(subtests: pytest.Subtests) -> None:
+        for number in range(3):
+            with subtests.test(number=number):
+>               assert number == 0
+E               assert 2 == 0
+
+test_outcomes.py:46: AssertionError
+________________________________ test_subtests _________________________________
+contains 2 failed subtests
+=========================== short test summary info ============================
+FAILED test_outcomes.py::test_failure - Failed: controlled assertion failure
+FAILED test_outcomes.py::test_failure_then_teardown_error - Failed: controlle...
+SUBFAILED(number=1) test_outcomes.py::test_subtests - assert 1 == 0
+SUBFAILED(number=2) test_outcomes.py::test_subtests - assert 2 == 0
+FAILED test_outcomes.py::test_subtests - contains 2 failed subtests
+ERROR test_outcomes.py::test_error - RuntimeError: controlled setup error
+ERROR test_outcomes.py::test_pass_then_teardown_error - RuntimeError: control...
+ERROR test_outcomes.py::test_failure_then_teardown_error - RuntimeError: cont...
+5 failed, 2 passed, 1 skipped, 3 errors, 1 subtests passed in 0.03s

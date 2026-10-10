@@ -206,7 +206,8 @@ def test_an_old_flake_does_not_keep_a_broken_test_from_being_called_broken() -> 
 def test_a_pruned_go_report_names_the_tests_that_failed() -> None:
     """An excerpt of a real Kubernetes integration report (see docs/formats.md)."""
     cases, warnings = parse_junit_file(FIXTURES / "kubernetes_pruned" / "junit_20260803-100711.xml")
-    assert not warnings
+    assert len(warnings) == 1
+    assert "summary counters do not reconcile in 3 container(s)" in warnings[0]
     failed = [c for c in cases if c.status is Status.FAIL]
     assert [c.full_name for c in failed] == [
         "[sig-api-machinery] k8s.io/apiextensions-apiserver/test/integration.conversion"

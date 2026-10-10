@@ -28,6 +28,14 @@ failure followed by seven disabled runs previously became seven passes and a
 12.5% failure rate. It now remains one failed execution, seven skips and
 insufficient data. These reader changes are **unreleased**.
 
+**Well-formed XML can still hide missing results.** The source checkout now
+checks JUnit summary totals against retained testcase records and explicit
+retry attempts. Removing failing testcases or their outcome markers previously
+passed `--fail-on-incomplete`; those counter mismatches now exit 2. Original
+Surefire retry totals and GoogleTest disabled-test controls still reconcile.
+[Captured reports, before/after replay and limits](studies/junit-counters/README.md).
+This correction is **unreleased** and does not change observed test outcomes.
+
 <p align="center"><img src="docs/assets/hero-heatmap.png" width="820" alt="flakemap HTML report: an inspection-report-styled page with a test x run heatmap. 222 runs, 12 tests, 1 broken (red DEFECT stamp) and 3 flaky (amber INTERMITTENT stamps) rows shown above 8 healthy rows, each row a strip of small green/red cells for pass/fail across chronological runs, with a failure rate percentage on the right"></p>
 
 ## On a real history: 91 days of Kubernetes CI

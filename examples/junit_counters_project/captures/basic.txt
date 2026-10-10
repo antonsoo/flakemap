@@ -1,0 +1,22 @@
+.FEs                                                                     [100%]
+==================================== ERRORS ====================================
+_________________________ ERROR at setup of test_error _________________________
+
+    @pytest.fixture
+    def setup_error() -> None:
+>       raise RuntimeError("controlled setup error")
+E       RuntimeError: controlled setup error
+
+test_outcomes.py:18: RuntimeError
+=================================== FAILURES ===================================
+_________________________________ test_failure _________________________________
+
+    def test_failure() -> None:
+>       pytest.fail("controlled assertion failure")
+E       Failed: controlled assertion failure
+
+test_outcomes.py:13: Failed
+=========================== short test summary info ============================
+FAILED test_outcomes.py::test_failure - Failed: controlled assertion failure
+ERROR test_outcomes.py::test_error - RuntimeError: controlled setup error
+1 failed, 1 passed, 1 skipped, 3 deselected, 1 error in 0.03s

@@ -1,0 +1,39 @@
+{
+  "source_commit": "0022933735841f9afbc2da5a1420f6a59cafb7af",
+  "wheel_import_verified": true,
+  "retained_json_matches": true,
+  "retained_html_matches": true,
+  "fresh_google_test_invocations": 9,
+  "fresh_raw_xml_agrees": true,
+  "fresh_failfast_matches": true,
+  "history_counts": {
+    "Execution.AlwaysPasses": {
+      "pass": 8,
+      "fail": 0,
+      "skip": 0
+    },
+    "Execution.DISABLED_FailsWhenEnabled": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 7
+    },
+    "Execution.RuntimeSkip": {
+      "pass": 0,
+      "fail": 0,
+      "skip": 8
+    },
+    "Execution.ZAfterTrigger": {
+      "pass": 8,
+      "fail": 0,
+      "skip": 0
+    },
+    "DISABLED_UnavailableDevice.NeedsHardware": {
+      "pass": 0,
+      "fail": 1,
+      "skip": 7
+    }
+  },
+  "unsupported_and_contradictory_gate": 2,
+  "documented_existing_cli_workflows": 9,
+  "artifact_hashes_verified": true
+}

@@ -148,4 +148,7 @@ layout remains intact; disabled observations are gray, and the expanded detail
 shows the actual one-execution denominator and useful failure message. Wide
 source-evidence tables scroll within their own region on narrow screens.
 
-These changes are local and unreleased. No package or hosted report was published.
+No package or hosted report was published during this initial verification.
+The [2026-10-10 source verification](../../docs/verification-2026-10-10.md)
+records a newly compiled runner history and installed-wheel checks before
+pushing the source changes.

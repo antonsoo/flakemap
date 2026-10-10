@@ -1,0 +1,500 @@
+{
+  "schema_version": 2,
+  "summary": {
+    "input_complete": true,
+    "total_runs": 8,
+    "run_id_range": [
+      "gtest-01",
+      "gtest-08"
+    ],
+    "timestamp_range": null,
+    "total_tests": 5,
+    "cofailure_groups": 1,
+    "cofailure_tests": 2,
+    "recovered_test_runs": 0,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 0,
+    "flaky": 0,
+    "flaky_new": 0,
+    "flaky_quiet": 0,
+    "broken": 0,
+    "healthy": 2,
+    "insufficient_data": 3
+  },
+  "warnings": [],
+  "cofailure": {
+    "method": "exact_outcome_history",
+    "ambiguous_tests_excluded": [],
+    "runs": [
+      {
+        "run_id": "gtest-01",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 1,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "gtest-02",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 2,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "gtest-03",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 3,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "gtest-04",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 4,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "gtest-05",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 5,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "gtest-06",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 6,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "gtest-07",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 7,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "gtest-08",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 8,
+        "metadata_source": "sidecar"
+      }
+    ],
+    "groups": [
+      {
+        "id": "cohort-1",
+        "tests": [
+          "DISABLED_UnavailableDevice.NeedsHardware",
+          "Execution.DISABLED_FailsWhenEnabled"
+        ],
+        "run_states": {
+          "pass": [],
+          "failed": [
+            "gtest-01"
+          ],
+          "recovered": [],
+          "exhausted": [],
+          "skip": [
+            "gtest-02",
+            "gtest-03",
+            "gtest-04",
+            "gtest-05",
+            "gtest-06",
+            "gtest-07",
+            "gtest-08"
+          ],
+          "absent": []
+        },
+        "failed_runs": 1,
+        "recovered_runs": 0,
+        "affected_test_runs": 2,
+        "evidence": [
+          {
+            "test": "DISABLED_UnavailableDevice.NeedsHardware",
+            "run_id": "gtest-01",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "NeedsHardware",
+                "classname": "DISABLED_UnavailableDevice",
+                "source": {
+                  "report": "run-01/report.xml",
+                  "testcase": 5
+                },
+                "status": "fail",
+                "message": "This disabled suite did not exercise hardware",
+                "reported_duration_seconds": 0.0,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "Execution.DISABLED_FailsWhenEnabled",
+            "run_id": "gtest-01",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "DISABLED_FailsWhenEnabled",
+                "classname": "Execution",
+                "source": {
+                  "report": "run-01/report.xml",
+                  "testcase": 2
+                },
+                "status": "fail",
+                "message": "This test never passes when it actually runs",
+                "reported_duration_seconds": 0.0,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tests": [
+    {
+      "test": "Execution.AlwaysPasses",
+      "suite": "Execution",
+      "classification": "healthy",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 8,
+        "pass": 8,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.3244
+      },
+      "flip_rate": 0.0,
+      "flip_pairs": 7,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 8,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 0.0,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "pass"
+    },
+    {
+      "test": "Execution.DISABLED_FailsWhenEnabled",
+      "suite": "Execution",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 7,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "gtest-01",
+          "index": 0,
+          "timestamp": null,
+          "commit": null,
+          "status": "fail",
+          "message": "This test never passes when it actually runs",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 1
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "This test never passes when it actually runs",
+          "count": 1
+        }
+      ],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "skip"
+    },
+    {
+      "test": "Execution.RuntimeSkip",
+      "suite": "Execution",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 8,
+        "unknown": 0
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "skip"
+    },
+    {
+      "test": "Execution.ZAfterTrigger",
+      "suite": "Execution",
+      "classification": "healthy",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 8,
+        "pass": 8,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.3244
+      },
+      "flip_rate": 0.0,
+      "flip_pairs": 7,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 8,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 0.0,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "pass"
+    },
+    {
+      "test": "DISABLED_UnavailableDevice.NeedsHardware",
+      "suite": "DISABLED_UnavailableDevice",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 7,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "gtest-01",
+          "index": 0,
+          "timestamp": null,
+          "commit": null,
+          "status": "fail",
+          "message": "This disabled suite did not exercise hardware",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 1
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "This disabled suite did not exercise hardware",
+          "count": 1
+        }
+      ],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "skip"
+    }
+  ]
+}

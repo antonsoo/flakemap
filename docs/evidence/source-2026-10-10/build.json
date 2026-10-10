@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "0022933735841f9afbc2da5a1420f6a59cafb7af",
+  "node": "26.7.0",
+  "npm": "12.0.1",
+  "directory": "site",
+  "files": {
+    "cofailure.html": "00d6e5af1682be5d4b52a2b74460e4f693d1a9578505669fb7f13c916b124e36",
+    "cofailure.json": "9796873583a4159b3be678004af697b225c4cf12226f34bc92a0380c4fb1cee9",
+    "incomplete.html": "7ef7b05397b1a7b20fa70206eb8296c07cb538b01e51e0b8984e5f25dd83e0fe",
+    "incomplete.json": "12f343a499b178e084c52312adf65c69c3957a13b732bc874829fcd9d9b38fe7",
+    "index.html": "8ba21450c2e1a8ff425796ce1c28eb733b7c8a457917851d9369635324b79d3f",
+    "index.json": "4666a58092bde2203aca143348459555d41f104e8865c11fdb2c645bbb0e3513",
+    "kubernetes.html": "1a70b10d4460af797c108be9480a125dfbec4fa44b5bc871580dfb1a42477d02",
+    "retry.html": "711b323b7c21fa1c0331604dce15b7ec8dc43b8eeb5dfab8e8b07f9bc669209d",
+    "retry.json": "c63192f818d9ad4aaeda261ea68b57b16addbdde6954846435974e7b085ad1b4"
+  }
+}

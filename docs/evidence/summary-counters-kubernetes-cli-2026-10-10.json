@@ -1,0 +1,59 @@
+{
+  "command": [
+    "flakemap",
+    "studies/kubernetes-ci/cache/ci-kubernetes-integration-master",
+    "--top",
+    "4",
+    "--json",
+    "--fail-on-incomplete",
+    "--html",
+    "<output>/report.html"
+  ],
+  "exit": 2,
+  "summary": {
+    "input_complete": false,
+    "total_runs": 2162,
+    "run_id_range": [
+      "2075024362636840960",
+      "2108053295275708416"
+    ],
+    "timestamp_range": [
+      "2026-07-09T01:10:54+00:00",
+      "2026-10-08T04:34:37+00:00"
+    ],
+    "total_tests": 136,
+    "cofailure_groups": 1,
+    "cofailure_tests": 4,
+    "recovered_test_runs": 0,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 0,
+    "flaky": 39,
+    "flaky_new": 0,
+    "flaky_quiet": 4,
+    "broken": 0,
+    "healthy": 97,
+    "insufficient_data": 0
+  },
+  "warnings": 2162,
+  "html_bytes": 5179598,
+  "seconds": 9.597130405000371,
+  "source_commit": "0eaf53328aec353a06c51cbb020d3f4118da0a2f",
+  "python": "3.14.7",
+  "artifacts": [
+    {
+      "file": "analysis.json",
+      "bytes": 2853999,
+      "sha256": "587a5dfe92249034e5e7c88ecdc4f40d1a0a768fde99a5ee637e99bbed9d52d0"
+    },
+    {
+      "file": "report.html",
+      "bytes": 5179598,
+      "sha256": "9e9a66b9cd7d76361b5c4d84cafb3d24306127f966e745da135c873276df3f39"
+    },
+    {
+      "file": "stderr.txt",
+      "bytes": 160,
+      "sha256": "6836d0c3029a64f975db4378fc2837d69bbf7b45d7daec14ff7f38066bdcefe0"
+    }
+  ]
+}

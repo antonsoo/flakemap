@@ -1,0 +1,285 @@
+{
+  "source_commit": "0eaf53328aec353a06c51cbb020d3f4118da0a2f",
+  "artifacts": [
+    {
+      "file": "flakemap-0.3.7-py3-none-any.whl",
+      "bytes": 87304,
+      "sha256": "4479b6cbbf8aec45105382e7e54bb4246fbff8e420cb909f0237b3333e6b9bf8"
+    },
+    {
+      "file": "flakemap-0.3.7.tar.gz",
+      "bytes": 106017,
+      "sha256": "038a92af31570c53cb15662263d8a35e7868edc878baf0905286f06f60ac3cd9"
+    }
+  ],
+  "environments": [
+    {
+      "python": "3.10.21",
+      "module": "<verification-root>/installed310-final/lib/python3.10/site-packages/flakemap/__init__.py",
+      "rich": "13.7.0",
+      "replay_scenarios": 34,
+      "replays_equal_committed_receipts": true,
+      "cli_checks": [
+        {
+          "scenario": "help",
+          "command": [
+            "flakemap",
+            "--help"
+          ],
+          "exit": 0,
+          "stdout_sha256": "1c2fddcc5dec0bf62f3edc4da4cd4ccf9092e62fcd2445888b356927e46d7413"
+        },
+        {
+          "scenario": "version",
+          "command": [
+            "flakemap",
+            "--version"
+          ],
+          "exit": 0,
+          "stdout_sha256": "0eccb58a132cc24dad2ac98a143b948dcb752416fa3fdd3a8cc8c39d916daf07"
+        },
+        {
+          "scenario": "demo",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs"
+          ],
+          "exit": 0,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "demo-top",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--top",
+            "10"
+          ],
+          "exit": 0,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "demo-json",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--json"
+          ],
+          "exit": 0,
+          "stdout_sha256": "4666a58092bde2203aca143348459555d41f104e8865c11fdb2c645bbb0e3513"
+        },
+        {
+          "scenario": "demo-markdown",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--markdown"
+          ],
+          "exit": 0,
+          "stdout_sha256": "feb80675e85b0b1ab02bd1f225bd3898d6536a00447eba08c20fd6ab1015f66e"
+        },
+        {
+          "scenario": "demo-html",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--html",
+            "<output>/310-demo.html"
+          ],
+          "exit": 0,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "demo-gate",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--fail-on-new-flake"
+          ],
+          "exit": 0,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "demo-gate-100",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--fail-on-new-flake",
+            "--new-flake-window",
+            "100"
+          ],
+          "exit": 1,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "retry-html",
+          "command": [
+            "flakemap",
+            "examples/retry_history",
+            "--html",
+            "<output>/310-retry.html"
+          ],
+          "exit": 0,
+          "stdout_sha256": "12ea6ca0be3215773cbf68e433228379eb26119cb5bb107d7de7ad3a41d68681"
+        },
+        {
+          "scenario": "retry-gate",
+          "command": [
+            "flakemap",
+            "examples/retry_history",
+            "--json",
+            "--fail-on-retry"
+          ],
+          "exit": 1,
+          "stdout_sha256": "c63192f818d9ad4aaeda261ea68b57b16addbdde6954846435974e7b085ad1b4"
+        },
+        {
+          "scenario": "shared",
+          "command": [
+            "flakemap",
+            "examples/cofailure_history",
+            "--html",
+            "<output>/310-shared.html",
+            "--json"
+          ],
+          "exit": 0,
+          "stdout_sha256": "9796873583a4159b3be678004af697b225c4cf12226f34bc92a0380c4fb1cee9"
+        }
+      ]
+    },
+    {
+      "python": "3.14.7",
+      "module": "<verification-root>/installed314-final/lib/python3.14/site-packages/flakemap/__init__.py",
+      "rich": "15.0.0",
+      "replay_scenarios": 34,
+      "replays_equal_committed_receipts": true,
+      "cli_checks": [
+        {
+          "scenario": "help",
+          "command": [
+            "flakemap",
+            "--help"
+          ],
+          "exit": 0,
+          "stdout_sha256": "1c2fddcc5dec0bf62f3edc4da4cd4ccf9092e62fcd2445888b356927e46d7413"
+        },
+        {
+          "scenario": "version",
+          "command": [
+            "flakemap",
+            "--version"
+          ],
+          "exit": 0,
+          "stdout_sha256": "0eccb58a132cc24dad2ac98a143b948dcb752416fa3fdd3a8cc8c39d916daf07"
+        },
+        {
+          "scenario": "demo",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs"
+          ],
+          "exit": 0,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "demo-top",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--top",
+            "10"
+          ],
+          "exit": 0,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "demo-json",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--json"
+          ],
+          "exit": 0,
+          "stdout_sha256": "4666a58092bde2203aca143348459555d41f104e8865c11fdb2c645bbb0e3513"
+        },
+        {
+          "scenario": "demo-markdown",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--markdown"
+          ],
+          "exit": 0,
+          "stdout_sha256": "feb80675e85b0b1ab02bd1f225bd3898d6536a00447eba08c20fd6ab1015f66e"
+        },
+        {
+          "scenario": "demo-html",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--html",
+            "<output>/314-demo.html"
+          ],
+          "exit": 0,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "demo-gate",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--fail-on-new-flake"
+          ],
+          "exit": 0,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "demo-gate-100",
+          "command": [
+            "flakemap",
+            "examples/demo_project/runs",
+            "--fail-on-new-flake",
+            "--new-flake-window",
+            "100"
+          ],
+          "exit": 1,
+          "stdout_sha256": "d8be9c6625be968c75510a1c6c91eaf985fe965a1a45b3bf31028c196bcc6c58"
+        },
+        {
+          "scenario": "retry-html",
+          "command": [
+            "flakemap",
+            "examples/retry_history",
+            "--html",
+            "<output>/314-retry.html"
+          ],
+          "exit": 0,
+          "stdout_sha256": "12ea6ca0be3215773cbf68e433228379eb26119cb5bb107d7de7ad3a41d68681"
+        },
+        {
+          "scenario": "retry-gate",
+          "command": [
+            "flakemap",
+            "examples/retry_history",
+            "--json",
+            "--fail-on-retry"
+          ],
+          "exit": 1,
+          "stdout_sha256": "c63192f818d9ad4aaeda261ea68b57b16addbdde6954846435974e7b085ad1b4"
+        },
+        {
+          "scenario": "shared",
+          "command": [
+            "flakemap",
+            "examples/cofailure_history",
+            "--html",
+            "<output>/314-shared.html",
+            "--json"
+          ],
+          "exit": 0,
+          "stdout_sha256": "9796873583a4159b3be678004af697b225c4cf12226f34bc92a0380c4fb1cee9"
+        }
+      ]
+    }
+  ]
+}

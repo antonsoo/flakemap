@@ -66,13 +66,16 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
           let screenshot = null;
           if (name === "continuing_retries" || (name === "new_retries" && width === 1200)) {
             screenshot = `${engine}-${width}-${name}.png`;
+            if (width === 375) {
+              await row.locator(".test-identity").evaluate(element => element.scrollIntoView({ block: "start" }));
+            }
             await page.screenshot({ path: resolve(destination, screenshot), fullPage: width !== 375 });
           }
           const bytes = await readFile(resolve(directory, `${name}.html`));
           results.push({ engine, browserVersion: browser.version(), width, colorScheme, scenario: name,
             offline: true, pageErrors: errors, networkRequests: network, accessibilityViolations: violations,
             htmlSha256: createHash("sha256").update(bytes).digest("hex"), screenshot,
-            screenshotArea: screenshot ? (width === 375 ? "viewport" : "full page") : null });
+            screenshotArea: screenshot ? (width === 375 ? "viewport at test detail" : "full page") : null });
           page.off("pageerror", onError);
           page.off("request", onRequest);
         }

@@ -1,0 +1,274 @@
+{
+  "source_revision": "2abc9d0101c86fa71b48d1aa7a56b95a15de3b83",
+  "clean_git_archive": true,
+  "archive_checks": {
+    "python": "3.12.12",
+    "install": "uv sync --locked",
+    "ruff_check": "passed",
+    "ruff_format": "104 files already formatted",
+    "mypy": "30 source files clean",
+    "pytest": "366 passed in 15.46 seconds",
+    "build": "uv build: sdist and wheel succeeded"
+  },
+  "installed_wheel": {
+    "python": "3.12.12",
+    "import_from_site_packages": true,
+    "filename": "flakemap-0.3.7-py3-none-any.whl",
+    "sha256": "62184c00455989c0be7de5e6d76886510a69c661ba8cd78cbf0ef71cb0e2756f",
+    "bytes": 90824,
+    "dependencies": [
+      "Pygments==2.21.0",
+      "markdown-it-py==4.2.0",
+      "mdurl==0.1.2",
+      "rich==15.0.0"
+    ],
+    "capture_matches_source": true,
+    "exports_identical_to_source": [
+      {
+        "filename": "actually_quiet.html",
+        "sha256": "beb94724c31d3e61ddda23e9cefcfe16f9f759276a70a552930ed1887aa9afd2",
+        "bytes": 21957
+      },
+      {
+        "filename": "actually_quiet.json",
+        "sha256": "7cbd7bcd090158d477a25cfb1831db4c66643d249c5ba97c756997eafbdb74f6",
+        "bytes": 9838
+      },
+      {
+        "filename": "actually_quiet.md",
+        "sha256": "644834092d1308011f28f16c12ef955e6cbb510b733375c2fadf8de1c364c016",
+        "bytes": 967
+      },
+      {
+        "filename": "actually_quiet.txt",
+        "sha256": "7e836378e5fe2de39506cd30d3bbae00c16854a092533b6efbc246e95f256c68",
+        "bytes": 1986
+      },
+      {
+        "filename": "ambiguous_tail.html",
+        "sha256": "5d221f897bc4b5ab3772bac94b22b33cfca7879ce725f10a8e31eb648daa5574",
+        "bytes": 24150
+      },
+      {
+        "filename": "ambiguous_tail.json",
+        "sha256": "f35e10cf3732a9f8343e8e0eb45f85d2b9ea07776b0bbb3e315d8fdeec7824b3",
+        "bytes": 13235
+      },
+      {
+        "filename": "ambiguous_tail.md",
+        "sha256": "a6a1b467a075183c89b577c6c359b486fd30b9fb3882684697e13fe919853706",
+        "bytes": 1086
+      },
+      {
+        "filename": "ambiguous_tail.txt",
+        "sha256": "feb05d2ea9f7d496d7b5d509e3be8926050d2ee6dac8c82e10188fce0388b113",
+        "bytes": 1702
+      },
+      {
+        "filename": "continuing_retries.html",
+        "sha256": "62de64d1e0a0e4329dd4efc4aeb90cd0821058e237b0f544ffb772547db07d24",
+        "bytes": 29291
+      },
+      {
+        "filename": "continuing_retries.json",
+        "sha256": "9fd6098e724855266055b96c2ec4bed4385261bd52f9a71a6e44788272a51c7e",
+        "bytes": 26118
+      },
+      {
+        "filename": "continuing_retries.md",
+        "sha256": "ebb6b4efb86f0135c06baaa16b198468cac47d81281e2e6d39abdf02d6f4831e",
+        "bytes": 911
+      },
+      {
+        "filename": "continuing_retries.txt",
+        "sha256": "49a7552d4f2856898396ce2a5674e9dfa2fc90ce255adcbca20a0045cd305470",
+        "bytes": 1778
+      },
+      {
+        "filename": "new_retries.html",
+        "sha256": "9502e8fa439890123cefc79e965f83e51354d0c8f719238f687b65e95089048f",
+        "bytes": 21887
+      },
+      {
+        "filename": "new_retries.json",
+        "sha256": "1773a1e86cde30ce24019232b7605688738ff46f3d9c397531e273e1536b58e9",
+        "bytes": 9833
+      },
+      {
+        "filename": "new_retries.md",
+        "sha256": "58ceae089a62b6d39563b32ec03b1bc80e01384c282718086e81d62c1984c9be",
+        "bytes": 964
+      },
+      {
+        "filename": "new_retries.txt",
+        "sha256": "f1d4d18b93ab5a4af9a6122cc133c92c969848c327188c1af5fc5c786a800b45",
+        "bytes": 1962
+      }
+    ],
+    "readme_workflows": [
+      {
+        "example": "demo_project/runs",
+        "flags": [],
+        "exit_code": 0
+      },
+      {
+        "example": "demo_project/runs",
+        "flags": [
+          "--top",
+          "10"
+        ],
+        "exit_code": 0
+      },
+      {
+        "example": "demo_project/runs",
+        "flags": [
+          "--json"
+        ],
+        "exit_code": 0
+      },
+      {
+        "example": "demo_project/runs",
+        "flags": [
+          "--markdown"
+        ],
+        "exit_code": 0
+      },
+      {
+        "example": "demo_project/runs",
+        "flags": [
+          "--html",
+          "<work>/demo.html"
+        ],
+        "exit_code": 0
+      },
+      {
+        "example": "retry_history",
+        "flags": [
+          "--json",
+          "--fail-on-retry"
+        ],
+        "exit_code": 1
+      },
+      {
+        "example": "cofailure_history",
+        "flags": [
+          "--html",
+          "<work>/shared.html",
+          "--json"
+        ],
+        "exit_code": 0
+      },
+      {
+        "example": "trx_history",
+        "flags": [
+          "--json"
+        ],
+        "exit_code": 0
+      },
+      {
+        "example": "incomplete_history",
+        "flags": [
+          "--json",
+          "--fail-on-incomplete"
+        ],
+        "exit_code": 2
+      }
+    ]
+  },
+  "minimum_python": {
+    "python": "3.10.21",
+    "same_wheel": true,
+    "four_scenario_capture_matches_source": true,
+    "all_sixteen_exports_match_source": true
+  },
+  "wheel_package_files_identical_to_source": 30,
+  "browser_checks": {
+    "install": "npm ci --ignore-scripts --no-audit --no-fund",
+    "input": "reports from the installed wheel",
+    "scenarios": 16,
+    "engines": [
+      "Chromium",
+      "Firefox"
+    ],
+    "viewports": [
+      {
+        "width": 375,
+        "height": 950,
+        "theme": "light"
+      },
+      {
+        "width": 1200,
+        "height": 950,
+        "theme": "dark"
+      }
+    ],
+    "offline": true,
+    "keyboard_expansion": "passed",
+    "source_records": "passed",
+    "horizontal_overflow": false,
+    "accessibility_violations": 0,
+    "page_errors": 0,
+    "network_requests": 0,
+    "receipt": "browser.json",
+    "checker_sha256": "6d6a8e41bed60db74ef3d43d7b1af572372669fe0423207858e287694714a0a3"
+  },
+  "local_gallery": {
+    "command": "uv run --locked python scripts/build_demo_site.py",
+    "directory": "site/",
+    "matches_clean_archive_bytes": true,
+    "files": [
+      {
+        "file": "cofailure.html",
+        "sha256": "e07c280530945beef133fc9418b26a9e6522abcffdff9bf2b46d43b1063c353e",
+        "bytes": 101623
+      },
+      {
+        "file": "cofailure.json",
+        "sha256": "40cd8ae267465f4711ce9958033616045445d0904a98f824773d76278e1753de",
+        "bytes": 29038
+      },
+      {
+        "file": "incomplete.html",
+        "sha256": "13925256ce37ae145f97d05a3baf34dcd55d32391085b40175d7be6816a3b01a",
+        "bytes": 51613
+      },
+      {
+        "file": "incomplete.json",
+        "sha256": "6aadb7145dcd2c6a84a9c722ec724f2ef08e6f0bdaa633cab5d8bddfec8f79cc",
+        "bytes": 13178
+      },
+      {
+        "file": "index.html",
+        "sha256": "c821830e111df03bde384153f413551890f2c8cfdc0a89103d0fc35bbb0a147d",
+        "bytes": 877305
+      },
+      {
+        "file": "index.json",
+        "sha256": "e232268fb2867b999e1c1c6bdc2b352e8089b40acd4f026a8302292b744676f5",
+        "bytes": 198627
+      },
+      {
+        "file": "kubernetes.html",
+        "sha256": "1a70b10d4460af797c108be9480a125dfbec4fa44b5bc871580dfb1a42477d02",
+        "bytes": 417225
+      },
+      {
+        "file": "retry.html",
+        "sha256": "db2e09de117da620d2abc66af6baa277411f1d3942353338f5e1edd7045ce9de",
+        "bytes": 73615
+      },
+      {
+        "file": "retry.json",
+        "sha256": "a7db96a9a25f20ab811d00a96a97dfb0a64b4f7965dc627c2ce3ea271a2005e6",
+        "bytes": 22618
+      }
+    ],
+    "note": "Kubernetes example copies the previously committed static report; it is not a fresh replay of that corpus."
+  },
+  "publication": {
+    "pushed": false,
+    "registry_release": false,
+    "hosted_deployment": false
+  },
+  "before_after_final_counts_rates_and_retry_counts_unchanged": true
+}

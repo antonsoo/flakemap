@@ -94,6 +94,42 @@ and cached Chromium/Firefox. It checks actual reports offline at 375 and 1200
 pixels, including keyboard expansion, retry source records, final counts,
 activity labels, horizontal overflow, accessibility and network requests.
 
+## Installation and browser verification
+
+A clean `git archive` of `2abc9d0` passed `uv sync --locked`, `ruff check .`,
+`ruff format --check .`, strict `mypy` (30 source files), all 366 tests and
+`uv build` on Python 3.12.12. The resulting wheel was installed into fresh
+environments on Python 3.12.12 and the minimum supported Python 3.10.21,
+with only its required Rich dependencies. Imports came from `site-packages`.
+All 30 package files matched the source, and the four scenarios' full JSON,
+Markdown, HTML and terminal exports matched the source bytes on both runtimes.
+
+The installed CLI also completed the README demo, top-ten, JSON, Markdown and
+HTML commands, the shared-outage example and the TRX history. The existing
+retry gate returned 1 and the incomplete-input gate returned 2 as expected.
+[Wheel hash, output hashes and verification receipt](results/verification.json).
+
+The wheel's actual HTML reports passed 16 offline scenarios in Chromium and
+Firefox: four histories at 375 pixels in light mode and 1200 pixels in dark
+mode. Keyboard expansion exposed the correct activity and original source
+records; no page errors, HTTP requests, page-width overflow or axe violations
+were observed. This is a focused report check, not exhaustive accessibility
+certification. [Browser receipt](results/browser.json).
+
+| Report capture | Chromium | Firefox |
+|---|---|---|
+| Continuing retries, desktop | [Full report](../../docs/assets/retry-activity-chromium-1200-continuing_retries.png) | [Full report](../../docs/assets/retry-activity-firefox-1200-continuing_retries.png) |
+| Continuing retries, mobile | [Viewport at test detail](../../docs/assets/retry-activity-chromium-375-continuing_retries.png) | [Viewport at test detail](../../docs/assets/retry-activity-firefox-375-continuing_retries.png) |
+| Newly recurring retries, desktop | [Full report](../../docs/assets/retry-activity-chromium-1200-new_retries.png) | [Full report](../../docs/assets/retry-activity-firefox-1200-new_retries.png) |
+
+The captures were inspected: the activity explanation wraps within the narrow
+viewport, and desktop reports retain every retry's source record. The long
+evidence list requires scrolling. `uv run --locked python scripts/build_demo_site.py`
+also rebuilt the existing five-page gallery into `site/`; its nine output files
+matched the clean archive's build. The Kubernetes example is copied from its
+previously committed static report, not regenerated from a new corpus replay.
+Nothing was pushed, released or deployed.
+
 ## Limits
 
 This repairs interpretation of recorded failures; it does not establish a cause,

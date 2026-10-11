@@ -1,0 +1,26 @@
+{
+  "source_commit": "4da7c39d075fcdb87cc7916deacfa35baac6bd3e",
+  "scope": "Local fresh git archive and installed wheel; no release or hosted CI claimed.",
+  "clean_python": "Python 3.12.12",
+  "installed_python": "Python 3.10.21",
+  "unit_tests": 360,
+  "wheel_sha256": "e05857aa0115cc5aa66971107fdcdafdaa1abc8c7a267b7454a2133cbd89468a",
+  "replay_sha256": "4dffdee3dbff18a467715f74bd83636471977f43f818e434ea7ae8a0cef1d6aa",
+  "installed_replay_identical": true,
+  "browser": {
+    "clean_reports": {
+      "scenarios": 112,
+      "results_sha256": "3d26b14d977c8a6622ebdb422ffd0198483ea5d6f86422317a1c08828d488d4b",
+      "node": "v26.7.0",
+      "playwright": "1.63.0",
+      "axe": "4.13.0"
+    },
+    "installed_study": {
+      "scenarios": 40,
+      "results_sha256": "ebf529869c28da996a6df6dd4f6e88ae70dc0a9abfb364fc816b8e856360c823",
+      "node": "v26.7.0",
+      "playwright": "1.63.0",
+      "axe": "4.13.0"
+    }
+  }
+}

@@ -206,6 +206,11 @@ def main(argv: list[str] | None = None) -> int:
                 "error: chronology unavailable; new-flake gate could not be evaluated", style="red"
             )
             return 2
+        if any(t.n_unknown for t in result.tests):
+            errors.print(
+                "error: ambiguous outcomes; new-flake gate could not be evaluated", style="red"
+            )
+            return 2
         # Three kinds of new: a change point (a test that started failing most of the time);
         # a flaky test that was clean for a long stretch and began failing within the window;
         # and a test named inside a failure's text that first failed within the window and

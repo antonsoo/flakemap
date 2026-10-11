@@ -1,0 +1,53 @@
+[
+  {
+    "scenario": "pass",
+    "command": [
+      "mvn",
+      "-B",
+      "-q",
+      "test",
+      "-Dscenario=pass"
+    ],
+    "exit_code": 0,
+    "markers": {
+      "failure": 0,
+      "rerunFailure": 0,
+      "flakyFailure": 0
+    },
+    "sha256": "30f7ce7b4f51bfe66af0ee778fcbee0a1774381f7a9859b78babadf1673c3eb4"
+  },
+  {
+    "scenario": "failed",
+    "command": [
+      "mvn",
+      "-B",
+      "-q",
+      "test",
+      "-Dscenario=failed"
+    ],
+    "exit_code": 1,
+    "markers": {
+      "failure": 1,
+      "rerunFailure": 2,
+      "flakyFailure": 0
+    },
+    "sha256": "48afeb71aefb431e6a18f59f6117a775d5a28f991c32fdde966ea3f58ac92a41"
+  },
+  {
+    "scenario": "recovered",
+    "command": [
+      "mvn",
+      "-B",
+      "-q",
+      "test",
+      "-Dscenario=recovered"
+    ],
+    "exit_code": 0,
+    "markers": {
+      "failure": 0,
+      "rerunFailure": 0,
+      "flakyFailure": 1
+    },
+    "sha256": "1fa11586bbc27b1f967fb87c8a2c3e685bd135118ac7ccc81d5622dca8a45a40"
+  }
+]

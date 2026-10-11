@@ -1,0 +1,268 @@
+{
+  "implementation_sha256": {
+    "stats/activity.py": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857",
+    "stats/analyze.py": "1fe56aadea1ebf701d7dec0a974032b829309461e815ed5918b4d0e5105efd0b",
+    "cli.py": "1d0ce151d0a3b6556dd54638e6d69fb0c6e484dc7566befdff6f2c7a11f392f0"
+  },
+  "cases": {
+    "continuing_retries": {
+      "command": [
+        "flakemap",
+        "<histories>/continuing_retries",
+        "--json",
+        "--fail-on-new-flake"
+      ],
+      "gate_exit_code": 0,
+      "gate_stderr": "",
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 20,
+        "run_id_range": [
+          "run-00",
+          "run-19"
+        ],
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 15,
+        "exhausted_test_runs": 3,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "test": {
+        "classification": "flaky",
+        "runs": {
+          "total": 20,
+          "pass": 17,
+          "fail": 3,
+          "skip": 0,
+          "unknown": 0
+        },
+        "failure_rate": {
+          "point": 0.15,
+          "wilson_low": 0.0524,
+          "wilson_high": 0.3604
+        },
+        "activity": {
+          "state": "ongoing",
+          "failures": 18,
+          "basis": "runs_with_observed_failures",
+          "final_failure_runs": 3,
+          "recovered_runs": 15,
+          "events": 3,
+          "runs_since_last_failure": 0,
+          "runs_since_first_failure": 20,
+          "longest_gap": 1,
+          "silence_ratio": 0.0
+        },
+        "activity_unavailable_reason": null
+      },
+      "recovered_runs": 15,
+      "exhausted_runs": 3,
+      "warnings": []
+    },
+    "actually_quiet": {
+      "command": [
+        "flakemap",
+        "<histories>/actually_quiet",
+        "--json",
+        "--fail-on-new-flake"
+      ],
+      "gate_exit_code": 0,
+      "gate_stderr": "",
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 20,
+        "run_id_range": [
+          "run-00",
+          "run-19"
+        ],
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 3,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "test": {
+        "classification": "flaky",
+        "runs": {
+          "total": 20,
+          "pass": 20,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "failure_rate": {
+          "point": 0.0,
+          "wilson_low": 0.0,
+          "wilson_high": 0.1611
+        },
+        "activity": {
+          "state": "quiet",
+          "failures": 3,
+          "basis": "runs_with_observed_failures",
+          "final_failure_runs": 0,
+          "recovered_runs": 3,
+          "events": 3,
+          "runs_since_last_failure": 15,
+          "runs_since_first_failure": 20,
+          "longest_gap": 1,
+          "silence_ratio": 15.0
+        },
+        "activity_unavailable_reason": null
+      },
+      "recovered_runs": 3,
+      "exhausted_runs": 0,
+      "warnings": []
+    },
+    "new_retries": {
+      "command": [
+        "flakemap",
+        "<histories>/new_retries",
+        "--json",
+        "--fail-on-new-flake"
+      ],
+      "gate_exit_code": 1,
+      "gate_stderr": "new flake(s) detected: example.ActivityTest.checkout\n",
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 20,
+        "run_id_range": [
+          "run-00",
+          "run-19"
+        ],
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 3,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 1,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "test": {
+        "classification": "flaky",
+        "runs": {
+          "total": 20,
+          "pass": 20,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "failure_rate": {
+          "point": 0.0,
+          "wilson_low": 0.0,
+          "wilson_high": 0.1611
+        },
+        "activity": {
+          "state": "new",
+          "failures": 3,
+          "basis": "runs_with_observed_failures",
+          "final_failure_runs": 0,
+          "recovered_runs": 3,
+          "events": 3,
+          "runs_since_last_failure": 0,
+          "runs_since_first_failure": 5,
+          "longest_gap": 1,
+          "silence_ratio": 0.0
+        },
+        "activity_unavailable_reason": null
+      },
+      "recovered_runs": 3,
+      "exhausted_runs": 0,
+      "warnings": []
+    },
+    "ambiguous_tail": {
+      "command": [
+        "flakemap",
+        "<histories>/ambiguous_tail",
+        "--json",
+        "--fail-on-new-flake"
+      ],
+      "gate_exit_code": 2,
+      "gate_stderr": "error: ambiguous outcomes; new-flake gate could not be evaluated\n",
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 20,
+        "run_id_range": [
+          "run-00",
+          "run-19"
+        ],
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 3,
+        "excluded_test_runs": 1,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "test": {
+        "classification": "flaky",
+        "runs": {
+          "total": 19,
+          "pass": 16,
+          "fail": 3,
+          "skip": 0,
+          "unknown": 1
+        },
+        "failure_rate": {
+          "point": 0.1579,
+          "wilson_low": 0.0552,
+          "wilson_high": 0.3757
+        },
+        "activity": null,
+        "activity_unavailable_reason": "ambiguous_outcomes"
+      },
+      "recovered_runs": 0,
+      "exhausted_runs": 3,
+      "warnings": [
+        "run run-19, example.ActivityTest.checkout: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates"
+      ]
+    }
+  }
+}

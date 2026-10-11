@@ -84,6 +84,9 @@ def _activity(activity: Activity | None) -> dict[str, Any] | None:
     return {
         "state": activity.state,
         "failures": activity.failures,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": activity.failures - activity.recovered_runs,
+        "recovered_runs": activity.recovered_runs,
         "events": activity.events,
         "runs_since_last_failure": activity.runs_since_last,
         "runs_since_first_failure": activity.runs_since_first,
@@ -131,6 +134,7 @@ def _test_to_dict(t: TestStats) -> dict[str, Any]:
         },
         "excluded": [_evidence(o) for o in t.excluded_observations],
         "activity": _activity(t.activity),
+        "activity_unavailable_reason": t.activity_unavailable_reason,
         "same_commit": {
             "failures_passed_elsewhere": t.failures_passed_same_commit,
             "failures_failed_everywhere": t.failures_repeated_same_commit,
@@ -160,6 +164,7 @@ def _test_to_dict(t: TestStats) -> dict[str, Any]:
                 "passed_same_commit": named.passed_same_commit,
                 "checked_same_commit": named.checked,
                 "activity": _activity(named.activity),
+                "activity_unavailable_reason": t.activity_unavailable_reason,
             }
             for named in t.named_failures
         ],

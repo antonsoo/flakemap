@@ -4,6 +4,19 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Retry activity
+
+- Include explicit failed attempts before retry recovery in new/ongoing/quiet
+  activity and the last-observed-failure position. Persistent retries no longer
+  become a quiet flake merely because their final outcomes pass. Final failure
+  rates, retry counts and source evidence keep their existing meaning.
+- Activity JSON identifies its basis and separates final-failure and recovered
+  runs. Ambiguous outcomes withhold activity, including named inner tests, and
+  make the new-flake gate return 2. Newly recurring recovered failures can now
+  trigger the existing new-flake rule.
+- Retain three fresh controlled Surefire executions and four explicitly
+  composed histories in the [retry-activity study](studies/retry-activity/README.md).
+
 ### Run chronology
 
 - Preserve a timestamp's source while merging report shards. A sequence-only
@@ -20,8 +33,8 @@ All notable changes to this project are documented in this file.
   same-commit comparisons and co-failure groups. Reports label display order.
 - Resolve complete sequences consistently in the loader, library and HTML,
   including sequences that disambiguate tied timestamps. `--fail-on-new-flake`
-  returns 2 without chronology, and no longer flags a known recovery as a new
-  failure. JSON advances to version 3 to identify newly nullable temporal fields.
+  returns 2 without chronology, and no longer flags a fall in the final failure
+  rate as a new failure. JSON advances to version 3 to identify newly nullable temporal fields.
 - Retain 40 actual controlled pytest reports, folder-permutation replays,
   ordered regression/recovery controls and browser checks in the
   [ordering study](studies/ordering-evidence/README.md).

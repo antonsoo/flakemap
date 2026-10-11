@@ -131,6 +131,14 @@ class TestStats:
     temporal_available: bool = True
 
     @property
+    def activity_unavailable_reason(self) -> str | None:
+        if not self.temporal_available:
+            return "chronology_unavailable"
+        if self.n_unknown:
+            return "ambiguous_outcomes"
+        return None
+
+    @property
     def failures_passed_same_commit(self) -> int:
         return sum(f.same_commit == "passed" for f in self.failures)
 
@@ -306,7 +314,9 @@ def _test_stats(
     named_failures = []
     for name, records in named.items():
         placed = (
-            assess([index for index, _ in records], n, can_be_new=False) if chronological else None
+            assess([index for index, _ in records], n, can_be_new=False)
+            if chronological and not excluded
+            else None
         )
         named_failures.append(
             NamedFailure(
@@ -430,8 +440,16 @@ def _test_stats(
         retry_observations=retries,
         excluded_observations=excluded,
         failures=failures,
-        activity=assess([i for i, outcome in enumerate(outcomes) if outcome], n)
-        if chronological
+        activity=assess(
+            [i for i, outcome in enumerate(outcomes) if outcome],
+            n,
+            recovered_indexes=[
+                i
+                for i, obs in enumerate(non_skip)
+                if obs.result.retry is not None and obs.result.retry.outcome == "recovered"
+            ],
+        )
+        if chronological and not excluded
         else None,
         named_failures=named_failures,
         temporal_available=chronological,

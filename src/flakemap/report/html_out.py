@@ -140,8 +140,8 @@ def _strip(t: TestStats, runs: list[Run], results: dict[str, TestCaseResult]) ->
             )
         start = end
     label = f"{of(t.n_fail, t.n)} runs failed" if t.n else "no usable outcomes"
-    if t.activity and t.n_fail:
-        label += f"; last failure {count(t.activity.runs_since_last)} runs before the end"
+    if t.activity:
+        label += f"; last observed failure {count(t.activity.runs_since_last)} runs before the end"
     return (
         f'<svg class="strip" viewBox="0 0 {len(runs)} 16" preserveAspectRatio="none" '
         f'role="img" aria-label="{escape(label)}">{"".join(parts)}</svg>'
@@ -155,6 +155,13 @@ def _activity_text(activity: Activity, runs: int) -> str:
         if activity.events == activity.failures
         else f"{activity.failures} failures in {activity.events} separate stretches"
     )
+    if activity.recovered_runs:
+        unit = "run" if activity.failures == 1 else "runs"
+        stretches = "stretch" if activity.events == 1 else "stretches"
+        events = (
+            f"{activity.failures} {unit} with observed failures "
+            f"({activity.recovered_runs} passed on retry) in {activity.events} separate {stretches}"
+        )
     if activity.longest_gap is None or activity.events < MIN_EVENTS:
         return f"{events}: too few to place."
     gap = f"the longest quiet spell between failures was {count(activity.longest_gap)} runs"
@@ -218,7 +225,7 @@ def _named_rows(t: TestStats) -> str:
     for named in t.named_failures[:MAX_NAMED_FAILURES]:
         activity = named.activity
         state = (
-            "chronology unavailable"
+            "activity unavailable"
             if activity is None
             else {
                 "quiet": f"quiet for {count(activity.runs_since_last)} runs",
@@ -331,6 +338,10 @@ def _test_detail(t: TestStats) -> str:
         )
     if t.activity and t.classification != "broken":  # a broken test's story is its change point
         parts.append(_stat_row("Activity", _activity_text(t.activity, t.n)))
+    elif t.activity_unavailable_reason == "ambiguous_outcomes":
+        parts.append(
+            _stat_row("Activity", "Unavailable: ambiguous outcomes interrupt the failure history.")
+        )
     if t.change_point:
         parts.append(
             _stat_row(

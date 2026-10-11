@@ -268,8 +268,10 @@ Full formulas and citations are in the module docstrings
   passed on the same commit") and, in HTML and JSON, the verdict for every
   failure.
 - **New, ongoing, quiet** (source checkout): one failure rate for a whole
-  history assumes the test failed at that rate throughout. Consecutive failing
-  runs count as one event; `longest_gap` is the most passing runs between two
+  history assumes the test failed at that rate throughout. Activity counts
+  runs with observed failures, including explicit failed attempts before a retry
+  passes. Final pass/fail rates remain separate. Consecutive affected
+  runs count as one event; `longest_gap` is the most runs without an observed failure between two
   successive events. A test is **quiet** when it has at least 3 events and the
   runs since its last failure are at least 3 times `longest_gap` and at least
   10: it has now been quiet three times longer than it ever was between
@@ -286,6 +288,10 @@ Full formulas and citations are in the module docstrings
   from 7. That is a statement about steady flakes only; no probability is
   claimed for bursty ones, and none is printed.
   (`src/flakemap/stats/activity.py`)
+  A [Surefire-based replay](studies/retry-activity/README.md) previously called
+  15 consecutive passed-on-retry runs "quiet". It now reports continuing activity;
+  newly recurring retries can trip `--fail-on-new-flake`. An ambiguous outcome
+  leaves activity unavailable and makes that gate return 2.
 - **Flakiness score** (0-1, a heuristic, not a literature standard):
   `confidence * (0.4 * flip_rate + 0.4 * max(rerun_signal, recovered_runs/n) + 0.2 * intermittency)`,
   where `intermittency = 2 * min(p, 1-p)` (0 when always-pass or always-fail,
@@ -410,7 +416,7 @@ Reproduce this table: `uv run flakemap examples/demo_project/runs --json`.
   ordering leaves activity, onset, flip rate, latest outcome and duration trend
   unavailable. Counts, retries and same-commit comparisons remain usable; the
   heuristic score omits its flip component. `--fail-on-new-flake` returns 2 when
-  chronology is unavailable. A known recovery is not a new flake. See the
+  chronology is unavailable. A decrease in the final failure rate is not a new flake. See the
   [retained pytest counterexample](studies/ordering-evidence/README.md) and
   [ordering contract](docs/formats.md#run-ordering-in-the-source-checkout).
   This is unreleased source behavior; JSON output is version 3.

@@ -7,8 +7,9 @@ week, and stops when somebody fixes it. Three months later its rate still says
 yesterday has a rate too small to notice.
 
 The rule here compares a silence with the silences the test has already had.
-Consecutive failing runs count as one **event**. ``longest_gap`` is the
-longest stretch of passing runs between two successive events.
+Runs with a final failure or an explicit failed attempt before retry recovery
+count as affected runs. Consecutive affected runs count as one **event**.
+``longest_gap`` is the longest stretch without an observed failure between events.
 
 - **quiet**: at least ``MIN_EVENTS`` events, and the runs since the last failure
   are at least ``RATIO`` times ``longest_gap`` and at least ``MIN_RUNS``. It
@@ -49,11 +50,11 @@ MIN_RUNS = 10
 class Activity:
     state: ActivityState
     failures: int
-    """Failing runs."""
+    """Runs with an observed failure, including passed-on-retry runs; not attempt count."""
     events: int
     """Failures with consecutive failing runs counted once."""
     longest_gap: int | None
-    """Most passing runs between two successive events; None with fewer than two events."""
+    """Most runs without observed failures between events; None with fewer than two events."""
     first_index: int
     last_index: int
     """Positions of the first and last failing run among the test's usable runs, from 0."""
@@ -61,6 +62,8 @@ class Activity:
     """Usable runs after the last failure."""
     runs_since_first: int
     """Usable runs from the first failure to the end of the history, inclusive."""
+    recovered_runs: int = 0
+    """Affected runs whose final outcome passed after explicit failed attempts."""
 
     @property
     def silence_ratio(self) -> float | None:
@@ -73,12 +76,23 @@ class Activity:
         return self.first_index / self.longest_gap if self.longest_gap else None
 
 
-def assess(failure_indexes: list[int], runs: int, *, can_be_new: bool = True) -> Activity | None:
+def assess(
+    failure_indexes: list[int],
+    runs: int,
+    *,
+    can_be_new: bool = True,
+    recovered_indexes: list[int] | None = None,
+) -> Activity | None:
     """Place a test's failures in its history.
 
     ``failure_indexes`` are the ascending positions, from 0, of its failing runs
-    among its ``runs`` usable ones. Returns None for a test that never failed.
+    among its ``runs`` usable ones. ``recovered_indexes`` adds runs with explicit
+    failed attempts before a final pass. Each run counts once, regardless of how
+    many failed attempts it contains. Returns None with no observed failures.
     """
+    recovered = set(recovered_indexes or ()) - set(failure_indexes)
+    if recovered:
+        failure_indexes = sorted(set(failure_indexes) | recovered)
     if not failure_indexes:
         return None
     # Each streak of consecutive failing runs is one event: (first run, last run).
@@ -107,4 +121,5 @@ def assess(failure_indexes: list[int], runs: int, *, can_be_new: bool = True) ->
         last_index=failure_indexes[-1],
         runs_since_last=since_last,
         runs_since_first=since_first,
+        recovered_runs=len(recovered),
     )

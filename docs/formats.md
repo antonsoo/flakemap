@@ -270,6 +270,13 @@ resolves that from the report file's location, tried in this order (see
    reports of one run take the earliest. Only two *sidecar* timestamps that
    disagree exclude a run.
 
+   A sequence supplied by one shard does not change the source of a timestamp
+   supplied by another. An explicit sidecar time takes precedence over report
+   start times; report times retain their provenance while the sequence remains
+   available. A sequence also supersedes an earlier shard's filesystem-time
+   fallback. [Filename-permutation evidence](../studies/shard-timestamps/README.md)
+   covers both merge directions and genuine sidecar conflicts.
+
 3. **File mtime fallback.** If nothing supplies a timestamp or sequence, the
    report file's filesystem modification time is used, and `flakemap`'s CLI
    warns when more than half the runs in a batch fall back to mtime -- a

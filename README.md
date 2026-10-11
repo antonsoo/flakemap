@@ -171,6 +171,9 @@ installing: `uvx flakemap path/to/reports`.
   downloads. Missing, skipped and ambiguous observations retain their meaning.
 - **Run metadata** (commit, branch, timestamp, runner, OS) from a sidecar
   JSON, a directory-per-run layout, or file mtime as a last resort.
+  Shard merges preserve timestamp provenance independently of sequence values;
+  [renaming the files cannot invent a timestamp conflict](studies/shard-timestamps/README.md)
+  in the source checkout.
 - **Per-test statistics**: Wilson-interval failure rate, flip rate,
   same-commit rerun disagreement (the "failed then passed on identical code"
   signal), a documented flakiness score, single change-point detection,

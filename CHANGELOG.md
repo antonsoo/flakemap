@@ -6,6 +6,13 @@ All notable changes to this project are documented in this file.
 
 ### Run chronology
 
+- Preserve a timestamp's source while merging report shards. A sequence-only
+  sidecar no longer turns a later report start into a sidecar timestamp, causing
+  false conflicts or preventing selection of the earliest report time. A
+  sequence found in another shard also supersedes filesystem-time fallback.
+  [Twenty CLI filename permutations](studies/shard-timestamps/README.md) retain
+  valid observations while continuing to exclude genuine sidecar conflicts.
+
 - Require a common, unambiguous sequence or recorded timestamp order before
   temporal analysis. Tied times, filesystem copy times, mixed incomplete keys
   and conflicting metadata no longer invent regression commits, activity,

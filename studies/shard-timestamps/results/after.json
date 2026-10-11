@@ -1,0 +1,1229 @@
+{
+  "scope": "Synthetic JUnit shards, controlled file times, real CLI and report generation.",
+  "cases": 20,
+  "disagreements": 0,
+  "results": [
+    {
+      "profile": "sidecar-over-report",
+      "order": [
+        "sequence",
+        "report_late",
+        "timestamp_early"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "sidecar-over-report",
+      "order": [
+        "sequence",
+        "timestamp_early",
+        "report_late"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "sidecar-over-report",
+      "order": [
+        "report_late",
+        "sequence",
+        "timestamp_early"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "sidecar-over-report",
+      "order": [
+        "report_late",
+        "timestamp_early",
+        "sequence"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "sidecar-over-report",
+      "order": [
+        "timestamp_early",
+        "sequence",
+        "report_late"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "sidecar-over-report",
+      "order": [
+        "timestamp_early",
+        "report_late",
+        "sequence"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "earliest-report",
+      "order": [
+        "sequence",
+        "report_late",
+        "report_early"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "report"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "earliest-report",
+      "order": [
+        "sequence",
+        "report_early",
+        "report_late"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "report"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "earliest-report",
+      "order": [
+        "report_late",
+        "sequence",
+        "report_early"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "report"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "earliest-report",
+      "order": [
+        "report_late",
+        "report_early",
+        "sequence"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "report"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "earliest-report",
+      "order": [
+        "report_early",
+        "sequence",
+        "report_late"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "report"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "earliest-report",
+      "order": [
+        "report_early",
+        "report_late",
+        "sequence"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "report"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "real-conflict",
+      "order": [
+        "sequence",
+        "timestamp_late",
+        "timestamp_early"
+      ],
+      "exit": 2,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T01:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T01:00:00+00:00",
+          "2026-01-01T01:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 3,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [
+        "run ci-42: 2.xml: reports sharing this run id disagree on timestamp; run excluded from rates",
+        "run ci-42, pkg.sequence: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.timestamp_late: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.timestamp_early: reports sharing this run id disagree on timestamp; excluded from rates"
+      ],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "real-conflict",
+      "order": [
+        "sequence",
+        "timestamp_early",
+        "timestamp_late"
+      ],
+      "exit": 2,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 3,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [
+        "run ci-42: 2.xml: reports sharing this run id disagree on timestamp; run excluded from rates",
+        "run ci-42, pkg.sequence: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.timestamp_early: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.timestamp_late: reports sharing this run id disagree on timestamp; excluded from rates"
+      ],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "real-conflict",
+      "order": [
+        "timestamp_late",
+        "sequence",
+        "timestamp_early"
+      ],
+      "exit": 2,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T01:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T01:00:00+00:00",
+          "2026-01-01T01:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 3,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [
+        "run ci-42: 2.xml: reports sharing this run id disagree on timestamp; run excluded from rates",
+        "run ci-42, pkg.timestamp_late: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.sequence: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.timestamp_early: reports sharing this run id disagree on timestamp; excluded from rates"
+      ],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "real-conflict",
+      "order": [
+        "timestamp_late",
+        "timestamp_early",
+        "sequence"
+      ],
+      "exit": 2,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T01:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T01:00:00+00:00",
+          "2026-01-01T01:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 3,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [
+        "run ci-42: 1.xml: reports sharing this run id disagree on timestamp; run excluded from rates",
+        "run ci-42, pkg.timestamp_late: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.timestamp_early: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.sequence: reports sharing this run id disagree on timestamp; excluded from rates"
+      ],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "real-conflict",
+      "order": [
+        "timestamp_early",
+        "sequence",
+        "timestamp_late"
+      ],
+      "exit": 2,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 3,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [
+        "run ci-42: 2.xml: reports sharing this run id disagree on timestamp; run excluded from rates",
+        "run ci-42, pkg.timestamp_early: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.sequence: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.timestamp_late: reports sharing this run id disagree on timestamp; excluded from rates"
+      ],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "real-conflict",
+      "order": [
+        "timestamp_early",
+        "timestamp_late",
+        "sequence"
+      ],
+      "exit": 2,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-01-01T00:00:00+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 3,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [
+        "run ci-42: 1.xml: reports sharing this run id disagree on timestamp; run excluded from rates",
+        "run ci-42, pkg.timestamp_early: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.timestamp_late: reports sharing this run id disagree on timestamp; excluded from rates",
+        "run ci-42, pkg.sequence: reports sharing this run id disagree on timestamp; excluded from rates"
+      ],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "sequence-and-mtime",
+      "order": [
+        "sequence",
+        "mtime"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": null,
+        "total_tests": 2,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 2
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "sequence-and-mtime",
+      "order": [
+        "mtime",
+        "sequence"
+      ],
+      "exit": 0,
+      "metadata": {
+        "run_id": "ci-42",
+        "commit": null,
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 42,
+        "metadata_source": "sidecar"
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "ci-42",
+          "ci-42"
+        ],
+        "timestamp_range": null,
+        "total_tests": 2,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 2
+      },
+      "warnings": [],
+      "checks": {
+        "gate": true,
+        "complete": true,
+        "retained_observations": true,
+        "excluded_observations": true,
+        "sequence": true,
+        "time": true,
+        "source": true,
+        "html_written": true
+      },
+      "agrees": true
+    }
+  ]
+}

@@ -1,0 +1,479 @@
+{
+  "schema_version": 3,
+  "summary": {
+    "input_complete": false,
+    "ordering": {
+      "available": true,
+      "basis": "sequence",
+      "reason": null
+    },
+    "total_runs": 3,
+    "run_id_range": [
+      "00",
+      "02"
+    ],
+    "timestamp_range": null,
+    "total_tests": 6,
+    "cofailure_groups": 0,
+    "cofailure_tests": 0,
+    "recovered_test_runs": 1,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 1,
+    "flaky": 1,
+    "flaky_new": 0,
+    "flaky_quiet": 0,
+    "broken": 0,
+    "healthy": 0,
+    "insufficient_data": 5
+  },
+  "warnings": [
+    "run 01: 01/report.xml: file was not well-formed XML (unclosed token: line 9, column 30); salvaged 2 completed <testcase> element(s) before the error; incomplete records and the remainder omitted",
+    "run 02: 02/report.trx: C.invalidDuration: invalid TRX duration; retained as unknown",
+    "run 02: 02/report.trx: C.qualitativeUnknown: TRX outcome 'Completed' does not establish pass, failure or skip; excluded from rates",
+    "run 02, C.qualitativeUnknown: TRX outcome 'Completed' does not establish pass, failure or skip; excluded from rates"
+  ],
+  "cofailure": {
+    "method": "exact_outcome_history",
+    "ambiguous_tests_excluded": [
+      "C.qualitativeUnknown"
+    ],
+    "runs": [
+      {
+        "run_id": "00",
+        "commit": "synthetic-before",
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 0,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "01",
+        "commit": "synthetic-interrupted",
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 1,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "02",
+        "commit": "synthetic-after",
+        "branch": null,
+        "timestamp": null,
+        "runner": null,
+        "os": null,
+        "sequence": 2,
+        "metadata_source": "sidecar"
+      }
+    ],
+    "groups": []
+  },
+  "tests": [
+    {
+      "test": "C.recovered",
+      "suite": "C",
+      "classification": "flaky",
+      "flakiness_score": 0.02,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 1,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 1,
+        "evidence": [
+          {
+            "run_id": "01",
+            "commit": "synthetic-interrupted",
+            "reason": null,
+            "records": [
+              {
+                "name": "recovered",
+                "classname": "C",
+                "source": {
+                  "report": "01/report.xml",
+                  "testcase": 2
+                },
+                "status": "pass",
+                "message": null,
+                "reported_duration_seconds": 0.3,
+                "issue": null,
+                "retry": {
+                  "outcome": "recovered",
+                  "attempts": 2,
+                  "failures": [
+                    {
+                      "tag": "flakyFailure",
+                      "status": "fail",
+                      "message": "first attempt failed"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "excluded": [],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "first attempt failed",
+          "count": 1
+        }
+      ],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "C.ordinary",
+      "suite": "C",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "C.sparseTiming",
+      "suite": "C",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 2,
+        "pass": 2,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.6576
+      },
+      "flip_rate": 0.0,
+      "flip_pairs": 1,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 2,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 2.0,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "C.closedFailure",
+      "suite": "C",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "01",
+          "index": 0,
+          "timestamp": null,
+          "commit": "synthetic-interrupted",
+          "status": "fail",
+          "message": "Expected <img src=x onerror=alert(1)> to stay literal",
+          "failed_within": [],
+          "same_commit": "single",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "Expected <img src=x onerror=alert(1)> to stay literal",
+          "count": 1
+        }
+      ],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "fail",
+      "temporal_available": true
+    },
+    {
+      "test": "C.qualitativeUnknown",
+      "suite": "C",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 1
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [
+        {
+          "run_id": "02",
+          "commit": "synthetic-after",
+          "reason": "TRX outcome 'Completed' does not establish pass, failure or skip",
+          "records": [
+            {
+              "name": "qualitativeUnknown",
+              "classname": "C",
+              "source": {
+                "report": "02/report.trx",
+                "testcase": 2
+              },
+              "status": "unknown",
+              "message": "Execution ended; the reporter supplied no qualitative outcome.",
+              "reported_duration_seconds": null,
+              "issue": "TRX outcome 'Completed' does not establish pass, failure or skip",
+              "retry": null
+            }
+          ]
+        }
+      ],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "unknown",
+      "temporal_available": true
+    },
+    {
+      "test": "C.invalidDuration",
+      "suite": "C",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": null,
+      "last_seen": null,
+      "last_status": "pass",
+      "temporal_available": true
+    }
+  ]
+}

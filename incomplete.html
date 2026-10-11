@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>flakemap · Interrupted input</title>
+<style>
+:root {
+  --paper: #e7edee; --paper-raised: #f4f7f7; --ink: #16232a; --ink-soft: #46585f;
+  --grid-line: #c4d0d2; --pass: #2e6f4e; --fail: #b4392b; --error: #b8631a;
+  --skip: #8b98a0; --missing: #d7dee0; --flaky: #c08a1b; --broken: #b4392b;
+  --healthy: #2e6f4e; --accent: #1c4f63;
+  --flaky-ink: #926915;  /* --flaky as text: 4.5:1 on the raised paper, where the cell colour is 2.8:1 */
+  --font-display: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: ui-sans-serif, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", "Roboto Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10181b; --paper-raised: #172226; --ink: #dce7e9; --ink-soft: #93a6ac;
+    --grid-line: #29383d; --pass: #52b788; --fail: #e2665a; --error: #e2924c;
+    --skip: #5e6e75; --missing: #223034; --flaky: #e0a93a; --broken: #e2665a;
+    --healthy: #52b788; --accent: #6fc3db; --flaky-ink: #e0a93a;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10181b; --paper-raised: #172226; --ink: #dce7e9; --ink-soft: #93a6ac;
+  --grid-line: #29383d; --pass: #52b788; --fail: #e2665a; --error: #e2924c;
+  --skip: #5e6e75; --missing: #223034; --flaky: #e0a93a; --broken: #e2665a;
+  --healthy: #52b788; --accent: #6fc3db; --flaky-ink: #e0a93a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body);
+  padding: 0 0 4rem;
+}
+.masthead {
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px; background-position: -1px -1px;
+  border-bottom: 3px solid var(--ink); padding: 2rem 1.5rem 1.5rem;
+}
+.masthead h1 {
+  font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.06em; font-size: clamp(1.8rem, 5vw, 2.9rem); margin: 0 0 0.15rem;
+}
+.masthead .tagline { color: var(--ink-soft); margin: 0 0 1.1rem; font-size: 0.98rem; }
+.meta-strip {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; font-family: var(--font-mono);
+  font-size: 0.82rem; color: var(--ink-soft); background: var(--paper-raised);
+  border: 1px solid var(--grid-line); padding: 0.6rem 0.9rem; max-width: fit-content;
+}
+.meta-strip b { color: var(--ink); font-weight: 600; }
+.tally { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 1.25rem 1.5rem 0; }
+.tally-item {
+  font-family: var(--font-mono); font-size: 0.82rem; border: 1px solid var(--grid-line);
+  padding: 0.35rem 0.7rem; background: var(--paper-raised); border-radius: 2px;
+}
+.tally-item b { font-family: var(--font-display); font-size: 1rem; margin-right: 0.35em; }
+.tally-broken b { color: var(--broken); } .tally-flaky b { color: var(--flaky-ink); }
+.tally-healthy b { color: var(--healthy); } .tally-na b { color: var(--ink-soft); }
+.warning {
+  margin: 1rem 1.5rem 0; padding: 0.6rem 0.9rem; border: 1px solid var(--flaky);
+  border-left-width: 4px; background: var(--paper-raised); font-size: 0.85rem; color: var(--ink-soft);
+}
+section.heatmap { padding: 1.75rem 1.5rem 0; }
+section.heatmap h2 {
+  font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 1.05rem; border-bottom: 2px solid var(--ink); padding-bottom: 0.4rem; margin-bottom: 0.9rem;
+}
+.rows { border: 1px solid var(--grid-line); background: var(--paper-raised); }
+.row { border-bottom: 1px solid var(--grid-line); }
+.row:last-child { border-bottom: none; }
+.row summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 0.9rem;
+  padding: 0.4rem 0.75rem; font-family: var(--font-mono); font-size: 0.78rem;
+}
+.row summary::-webkit-details-marker { display: none; }
+.row summary::marker { content: ""; }
+.row summary:hover { background: rgba(28, 79, 99, 0.06); }
+.row summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.row-name {
+  flex: 0 0 clamp(200px, 30vw, 420px); min-width: 0; display: flex; align-items: center; gap: 0.5em;
+}
+.name-text { display: flex; min-width: 0; white-space: nowrap; }
+.name-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.name-tail { flex: 0 0 auto; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.dot-broken { background: var(--broken); } .dot-flaky { background: var(--flaky); }
+.dot-healthy { background: var(--healthy); } .dot-insufficient_data { background: var(--ink-soft); }
+.stamp {
+  font-family: var(--font-display); font-weight: 800; font-size: 0.6rem; letter-spacing: 0.06em;
+  border: 1.5px solid currentColor; border-radius: 3px; padding: 0.05em 0.35em; transform: rotate(-3deg);
+  display: inline-block; flex: none; white-space: nowrap;
+}
+.stamp-broken { color: var(--broken); } .stamp-flaky { color: var(--flaky-ink); }
+.stamp-new { color: var(--paper-raised); background: var(--flaky-ink); border-color: var(--flaky-ink); }
+.stamp-quiet { color: var(--ink-soft); transform: none; }
+/* Every run gets a column that fits the row: a scrolling strip would hide the most
+   recent runs, which is exactly where a newly broken test shows up. */
+.row-heatmap {
+  flex: 1 1 auto; min-width: 0; padding: 2px 0;
+  display: grid; grid-template-columns: repeat(var(--runs, 1), minmax(0, 1fr)); column-gap: 1px;
+}
+.cell { height: 14px; border-radius: 1px; }
+.s-pass { background: var(--pass); } .s-fail { background: var(--fail); }
+.s-error { background: var(--error); } .s-skip { background: var(--skip); }
+.s-missing { background: var(--missing); }
+.s-recovered { background: var(--flaky); box-shadow: inset 0 -3px var(--pass); }
+.s-unknown { background: repeating-linear-gradient(135deg, var(--ink-soft) 0 2px, var(--paper) 2px 4px); }
+.row-rate { flex: 0 0 3.2rem; text-align: right; color: var(--ink-soft); }
+/* A long history: a rail of passing runs, and a mark standing clear of it wherever a run
+   did not pass, so a failure is read from its shape and not only from its colour. */
+.row-strip { display: block; padding: 0; }
+.strip { display: block; width: 100%; height: 16px; overflow: visible; }
+.strip .r-pass { fill: var(--pass); opacity: 0.55; } .strip .r-skip { fill: var(--skip); }
+.strip [class^="m-"] { stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.strip .m-fail { fill: var(--fail); stroke: var(--fail); }
+.strip .m-error { fill: var(--error); stroke: var(--error); }
+.strip .m-recovered { fill: var(--flaky); stroke: var(--flaky); }
+.strip .m-unknown { fill: var(--ink-soft); stroke: var(--ink-soft); stroke-dasharray: 2 2; }
+.strip .hit { fill: transparent; stroke: transparent; stroke-width: 9px; vector-effect: non-scaling-stroke; }
+.row-count { flex-basis: 6.6rem; white-space: nowrap; }
+.row-count b { color: var(--ink); font-weight: 600; margin-right: 0.5em; }
+.axis {
+  display: flex; align-items: flex-end; gap: 0.9rem; padding: 0.3rem 0.75rem 0.2rem;
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft);
+  border-bottom: 1px solid var(--grid-line);
+}
+.axis-ticks { flex: 1 1 auto; min-width: 0; position: relative; height: 1.1rem; }
+.axis-ticks span { position: absolute; bottom: 0; transform: translateX(-50%); white-space: nowrap; }
+.axis-ticks span:first-child { transform: none; }
+.axis-ticks span:last-child { transform: translateX(-100%); }
+.healthy { border: 1px solid var(--grid-line); border-top: none; background: var(--paper-raised); font-size: 0.83rem; }
+.healthy summary { cursor: pointer; padding: 0.6rem 0.75rem; color: var(--ink-soft); }
+.healthy summary b { color: var(--healthy); font-family: var(--font-display); font-size: 1rem; margin-right: 0.2em; }
+.healthy summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.healthy-list {
+  margin: 0; padding: 0.4rem 0.75rem 0.9rem; list-style: none; columns: 26rem auto; column-gap: 2rem;
+  font-family: var(--font-mono); font-size: 0.74rem; overflow-wrap: anywhere;
+}
+.healthy-list li { padding: 0.12rem 0; break-inside: avoid; }
+.healthy-list span { color: var(--ink-soft); white-space: nowrap; }
+.healthy-list li:target { outline: 2px solid var(--accent); outline-offset: 2px; }
+.detail h3 { font-size: 0.85rem; margin: 1.1rem 0 0.4rem; }
+.scroll { overflow-x: auto; }
+.scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+table.failures { border-collapse: collapse; width: 100%; font-size: 0.78rem; }
+table.failures th, table.failures td {
+  text-align: left; vertical-align: top; padding: 0.4rem 0.9rem 0.4rem 0;
+  border-bottom: 1px solid var(--grid-line); font-weight: normal;
+}
+table.failures thead th { color: var(--ink-soft); white-space: nowrap; }
+table.failures tbody th { white-space: nowrap; }
+table.failures code { font-family: var(--font-mono); }
+.detail { padding: 0.7rem 1rem 1rem 2.4rem; background: var(--paper); font-size: 0.83rem; }
+.test-identity { font-family: var(--font-mono); font-size: 0.85rem; margin: 0 0 0.65rem; }
+.stat { display: flex; gap: 0.6rem; padding: 0.15rem 0; }
+.stat-label { flex: 0 0 15rem; color: var(--ink-soft); }
+.stat-value { font-family: var(--font-mono); min-width: 0; }
+.detail, .warning, .meta-strip { overflow-wrap: anywhere; }
+.evidence { border-left: 3px solid var(--flaky); padding: 0.1rem 1rem; margin: 0.8rem 0; background: var(--paper-raised); }
+.evidence h4 { margin: 0.65rem 0; }
+.evidence p { margin: 0.5rem 0; }
+.evidence-note, .source { color: var(--ink-soft); }
+.chronology-note { margin: 1.25rem 1.5rem 0; overflow-wrap: anywhere; }
+.warning summary { cursor: pointer; }
+.messages { margin: 0.2rem 0 0.6rem; padding-left: 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; }
+.prefix { margin: -0.4rem 0 0.8rem; font-size: 0.8rem; color: var(--ink-soft); }
+.legend { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.9rem 0.1rem 0; font-size: 0.78rem; color: var(--ink-soft); align-items: center; }
+.legend .cell { display: inline-block; width: 6px; vertical-align: middle; margin-right: 0.3em; }
+.legend .key { display: inline-block; width: 14px; vertical-align: middle; margin-right: 0.4em; }
+footer { padding: 2rem 1.5rem 0; font-size: 0.8rem; color: var(--ink-soft); }
+footer a { color: var(--accent); }
+@media (max-width: 900px) { .row-heatmap { column-gap: 0; } .cell { border-radius: 0; } }
+@media (max-width: 600px) {
+  .row summary { flex-wrap: wrap; gap: 0.5rem; }
+  .row-name { flex: 1 1 70%; font-size: 0.7rem; }
+  .row-heatmap { order: 3; flex-basis: 100%; }
+  .row-count { flex-basis: auto; }
+  .axis .row-name, .axis .row-rate { display: none; }
+  table.failures { min-width: 34rem; }
+  .stat { display: block; padding: 0.35rem 0; }
+  .stat-label, .stat-value { display: block; }
+  .detail { padding: 0.8rem; }
+}
+
+.cofailure { padding: 1.75rem 1.5rem 0; font-size: .86rem; overflow-wrap: anywhere; }
+.cofailure h2 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em;
+  font-size: 1.05rem; border-bottom: 2px solid var(--ink); padding-bottom: .4rem; }
+.cofailure a { color: var(--accent); text-underline-offset: .15em; }
+.cofailure a:focus-visible, .cohort summary:focus-visible, .cohort-scroll:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 3px; }
+.cohort { margin: .6rem 0; border: 1px solid var(--grid-line); background: var(--paper-raised); }
+.cohort summary { padding: .8rem; cursor: pointer; line-height: 1.6; }
+.cohort summary strong { font-family: var(--font-mono); margin-right: .25em; }
+.cohort-detail { padding: 0 1rem 1rem; }
+.cohort-detail h3 { font-size: .85rem; margin: 1rem 0 .5rem; }
+.cohort-states { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: .4rem 1rem; }
+.cohort-states dt { color: var(--ink-soft); }
+.cohort-states dd { margin: 0; }
+.cohort-members { padding-left: 1.2rem; line-height: 1.7; }
+.cohort-limit, .cohort-context, .cohort-scroll-hint { color: var(--ink-soft); font-size: .8rem; }
+.cohort-scroll { overflow-x: auto; }
+.cohort table { width: 100%; min-width: 800px; border-collapse: collapse; table-layout: fixed; font-size: .78rem; }
+.cohort caption { text-align: left; padding: .6rem 0; font-weight: 600; }
+.cohort th, .cohort td { text-align: left; vertical-align: top; padding: .7rem; border-bottom: 1px solid var(--grid-line); }
+.cohort th:nth-child(1) { width: 23%; }
+.cohort th:nth-child(2) { width: 23%; }
+.cohort th:nth-child(3) { width: 17%; }
+.cohort tbody th { font-weight: normal; }
+.cohort td p { margin: .45rem 0 0; }
+.row summary:target { outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (min-width: 950px) { .cohort-scroll-hint { display: none; } }
+@media (max-width: 600px) { .cohort-states { grid-template-columns: 1fr; gap: .3rem; }
+  .cohort-states dd { margin-bottom: .5rem; } .cohort-detail { padding: 0 .65rem .65rem; } }
+</style>
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><rect width=%2232%22 height=%2232%22 rx=%224%22 fill=%22%23e8ecee%22/><rect x=%224%22 y=%229%22 width=%2224%22 height=%224%22 fill=%22%232e6b4f%22/><rect x=%224%22 y=%2215%22 width=%2214%22 height=%224%22 fill=%22%232e6b4f%22/><rect x=%2218%22 y=%2215%22 width=%2210%22 height=%224%22 fill=%22%23b23a2e%22/><rect x=%224%22 y=%2221%22 width=%2224%22 height=%224%22 fill=%22%232e6b4f%22/></svg>">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://raw.githubusercontent.com/antonsoo/flakemap/main/docs/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/antonsoo/flakemap/main/docs/assets/og.png">
+
+<style>
+.demo-context { margin: 1.25rem 1.5rem; padding: 1rem; border: 1px solid var(--grid-line);
+  background: var(--paper-raised); font-size: .88rem; line-height: 1.6; overflow-wrap: anywhere; }
+.demo-context h2 { font-size: 1rem; margin: .75rem 0 .25rem; }
+.demo-context p { margin: .25rem 0 .7rem; }
+.demo-context nav ul { display: flex; flex-wrap: wrap; gap: .5rem; list-style: none; padding: 0; margin: 0; }
+.demo-context nav a { display: block; padding: .4rem .65rem; border: 1px solid var(--grid-line); }
+.demo-context a { color: var(--accent); text-underline-offset: .2em; }
+.demo-context a[aria-current] { color: var(--paper-raised); background: var(--ink); border-color: var(--ink); }
+.demo-context a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+</style>
+<meta name="description" content="Hand-authored boundary case, not captured runner output. A truncated report preserves completed cases, ambiguous TRX outcomes stay unknown, and missing timings do not become zero. Open the warnings and affected test rows."><meta property="og:title" content="flakemap · Interrupted input"><meta property="og:description" content="Hand-authored boundary case, not captured runner output. A truncated report preserves completed cases, ambiguous TRX outcomes stay unknown, and missing timings do not become zero. Open the warnings and affected test rows."><meta property="og:url" content="https://antonsoo.github.io/flakemap/incomplete.html"></head>
+<body>
+<header class="masthead">
+  <h1>flakemap &mdash; inspection report</h1>
+  <p class="tagline">Test reliability across CI history, computed from JUnit XML and TRX.</p>
+  <div class="meta-strip">
+    <span><b>runs</b> 3</span>
+    <span><b>tests</b> 6</span>
+    <span><b>run range</b> 00 → 02</span>
+    
+  </div>
+</header>
+<main><aside class="demo-context" aria-label="Example context"><nav aria-label="Report examples"><ul><li><a href="index.html">Long history</a></li><li><a href="cofailure.html">Shared outages</a></li><li><a href="retry.html">Hidden retries</a></li><li><a href="incomplete.html" aria-current="page">Interrupted input</a></li><li><a href="kubernetes.html">Real history</a></li></ul></nav><h2>Interrupted input</h2><p>Hand-authored boundary case, not captured runner output. A truncated report preserves completed cases, ambiguous TRX outcomes stay unknown, and missing timings do not become zero. Open the warnings and affected test rows.</p><a href="data:application/json;base64,ewogICJzY2hlbWFfdmVyc2lvbiI6IDMsCiAgInN1bW1hcnkiOiB7CiAgICAiaW5wdXRfY29tcGxldGUiOiBmYWxzZSwKICAgICJvcmRlcmluZyI6IHsKICAgICAgImF2YWlsYWJsZSI6IHRydWUsCiAgICAgICJiYXNpcyI6ICJzZXF1ZW5jZSIsCiAgICAgICJyZWFzb24iOiBudWxsCiAgICB9LAogICAgInRvdGFsX3J1bnMiOiAzLAogICAgInJ1bl9pZF9yYW5nZSI6IFsKICAgICAgIjAwIiwKICAgICAgIjAyIgogICAgXSwKICAgICJ0aW1lc3RhbXBfcmFuZ2UiOiBudWxsLAogICAgInRvdGFsX3Rlc3RzIjogNiwKICAgICJjb2ZhaWx1cmVfZ3JvdXBzIjogMCwKICAgICJjb2ZhaWx1cmVfdGVzdHMiOiAwLAogICAgInJlY292ZXJlZF90ZXN0X3J1bnMiOiAxLAogICAgImV4aGF1c3RlZF90ZXN0X3J1bnMiOiAwLAogICAgImV4Y2x1ZGVkX3Rlc3RfcnVucyI6IDEsCiAgICAiZmxha3kiOiAxLAogICAgImZsYWt5X25ldyI6IDAsCiAgICAiZmxha3lfcXVpZXQiOiAwLAogICAgImJyb2tlbiI6IDAsCiAgICAiaGVhbHRoeSI6IDAsCiAgICAiaW5zdWZmaWNpZW50X2RhdGEiOiA1CiAgfSwKICAid2FybmluZ3MiOiBbCiAgICAicnVuIDAxOiAwMS9yZXBvcnQueG1sOiBmaWxlIHdhcyBub3Qgd2VsbC1mb3JtZWQgWE1MICh1bmNsb3NlZCB0b2tlbjogbGluZSA5LCBjb2x1bW4gMzApOyBzYWx2YWdlZCAyIGNvbXBsZXRlZCA8dGVzdGNhc2U+IGVsZW1lbnQocykgYmVmb3JlIHRoZSBlcnJvcjsgaW5jb21wbGV0ZSByZWNvcmRzIGFuZCB0aGUgcmVtYWluZGVyIG9taXR0ZWQiLAogICAgInJ1biAwMjogMDIvcmVwb3J0LnRyeDogQy5pbnZhbGlkRHVyYXRpb246IGludmFsaWQgVFJYIGR1cmF0aW9uOyByZXRhaW5lZCBhcyB1bmtub3duIiwKICAgICJydW4gMDI6IDAyL3JlcG9ydC50cng6IEMucXVhbGl0YXRpdmVVbmtub3duOiBUUlggb3V0Y29tZSAnQ29tcGxldGVkJyBkb2VzIG5vdCBlc3RhYmxpc2ggcGFzcywgZmFpbHVyZSBvciBza2lwOyBleGNsdWRlZCBmcm9tIHJhdGVzIiwKICAgICJydW4gMDIsIEMucXVhbGl0YXRpdmVVbmtub3duOiBUUlggb3V0Y29tZSAnQ29tcGxldGVkJyBkb2VzIG5vdCBlc3RhYmxpc2ggcGFzcywgZmFpbHVyZSBvciBza2lwOyBleGNsdWRlZCBmcm9tIHJhdGVzIgogIF0sCiAgImNvZmFpbHVyZSI6IHsKICAgICJtZXRob2QiOiAiZXhhY3Rfb3V0Y29tZV9oaXN0b3J5IiwKICAgICJhbWJpZ3VvdXNfdGVzdHNfZXhjbHVkZWQiOiBbCiAgICAgICJDLnF1YWxpdGF0aXZlVW5rbm93biIKICAgIF0sCiAgICAicnVucyI6IFsKICAgICAgewogICAgICAgICJydW5faWQiOiAiMDAiLAogICAgICAgICJjb21taXQiOiAic3ludGhldGljLWJlZm9yZSIsCiAgICAgICAgImJyYW5jaCI6IG51bGwsCiAgICAgICAgInRpbWVzdGFtcCI6IG51bGwsCiAgICAgICAgInJ1bm5lciI6IG51bGwsCiAgICAgICAgIm9zIjogbnVsbCwKICAgICAgICAic2VxdWVuY2UiOiAwLAogICAgICAgICJtZXRhZGF0YV9zb3VyY2UiOiAic2lkZWNhciIKICAgICAgfSwKICAgICAgewogICAgICAgICJydW5faWQiOiAiMDEiLAogICAgICAgICJjb21taXQiOiAic3ludGhldGljLWludGVycnVwdGVkIiwKICAgICAgICAiYnJhbmNoIjogbnVsbCwKICAgICAgICAidGltZXN0YW1wIjogbnVsbCwKICAgICAgICAicnVubmVyIjogbnVsbCwKICAgICAgICAib3MiOiBudWxsLAogICAgICAgICJzZXF1ZW5jZSI6IDEsCiAgICAgICAgIm1ldGFkYXRhX3NvdXJjZSI6ICJzaWRlY2FyIgogICAgICB9LAogICAgICB7CiAgICAgICAgInJ1bl9pZCI6ICIwMiIsCiAgICAgICAgImNvbW1pdCI6ICJzeW50aGV0aWMtYWZ0ZXIiLAogICAgICAgICJicmFuY2giOiBudWxsLAogICAgICAgICJ0aW1lc3RhbXAiOiBudWxsLAogICAgICAgICJydW5uZXIiOiBudWxsLAogICAgICAgICJvcyI6IG51bGwsCiAgICAgICAgInNlcXVlbmNlIjogMiwKICAgICAgICAibWV0YWRhdGFfc291cmNlIjogInNpZGVjYXIiCiAgICAgIH0KICAgIF0sCiAgICAiZ3JvdXBzIjogW10KICB9LAogICJ0ZXN0cyI6IFsKICAgIHsKICAgICAgInRlc3QiOiAiQy5yZWNvdmVyZWQiLAogICAgICAic3VpdGUiOiAiQyIsCiAgICAgICJjbGFzc2lmaWNhdGlvbiI6ICJmbGFreSIsCiAgICAgICJmbGFraW5lc3Nfc2NvcmUiOiAwLjAyLAogICAgICAicnVucyI6IHsKICAgICAgICAidG90YWwiOiAxLAogICAgICAgICJwYXNzIjogMSwKICAgICAgICAiZmFpbCI6IDAsCiAgICAgICAgInNraXAiOiAwLAogICAgICAgICJ1bmtub3duIjogMAogICAgICB9LAogICAgICAiZmFpbHVyZV9yYXRlIjogewogICAgICAgICJwb2ludCI6IDAuMCwKICAgICAgICAid2lsc29uX2xvdyI6IDAuMCwKICAgICAgICAid2lsc29uX2hpZ2giOiAwLjc5MzUKICAgICAgfSwKICAgICAgImZsaXBfcmF0ZSI6IG51bGwsCiAgICAgICJmbGlwX3BhaXJzIjogMCwKICAgICAgInJlcnVuX3NpZ25hbCI6IHsKICAgICAgICAidmFsdWUiOiAwLjAsCiAgICAgICAgImdyb3Vwc193aXRoX3JlcnVucyI6IDAsCiAgICAgICAgImdyb3Vwc193aXRoX2ZsaXAiOiAwCiAgICAgIH0sCiAgICAgICJyZXRyaWVzIjogewogICAgICAgICJyZWNvdmVyZWRfcnVucyI6IDEsCiAgICAgICAgImV4aGF1c3RlZF9ydW5zIjogMCwKICAgICAgICAib2JzZXJ2ZWRfZmFpbGVkX2F0dGVtcHRzIjogMSwKICAgICAgICAiZXZpZGVuY2UiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJydW5faWQiOiAiMDEiLAogICAgICAgICAgICAiY29tbWl0IjogInN5bnRoZXRpYy1pbnRlcnJ1cHRlZCIsCiAgICAgICAgICAgICJyZWFzb24iOiBudWxsLAogICAgICAgICAgICAicmVjb3JkcyI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAibmFtZSI6ICJyZWNvdmVyZWQiLAogICAgICAgICAgICAgICAgImNsYXNzbmFtZSI6ICJDIiwKICAgICAgICAgICAgICAgICJzb3VyY2UiOiB7CiAgICAgICAgICAgICAgICAgICJyZXBvcnQiOiAiMDEvcmVwb3J0LnhtbCIsCiAgICAgICAgICAgICAgICAgICJ0ZXN0Y2FzZSI6IDIKICAgICAgICAgICAgICAgIH0sCiAgICAgICAgICAgICAgICAic3RhdHVzIjogInBhc3MiLAogICAgICAgICAgICAgICAgIm1lc3NhZ2UiOiBudWxsLAogICAgICAgICAgICAgICAgInJlcG9ydGVkX2R1cmF0aW9uX3NlY29uZHMiOiAwLjMsCiAgICAgICAgICAgICAgICAiaXNzdWUiOiBudWxsLAogICAgICAgICAgICAgICAgInJldHJ5IjogewogICAgICAgICAgICAgICAgICAib3V0Y29tZSI6ICJyZWNvdmVyZWQiLAogICAgICAgICAgICAgICAgICAiYXR0ZW1wdHMiOiAyLAogICAgICAgICAgICAgICAgICAiZmFpbHVyZXMiOiBbCiAgICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICAgInRhZyI6ICJmbGFreUZhaWx1cmUiLAogICAgICAgICAgICAgICAgICAgICAgInN0YXR1cyI6ICJmYWlsIiwKICAgICAgICAgICAgICAgICAgICAgICJtZXNzYWdlIjogImZpcnN0IGF0dGVtcHQgZmFpbGVkIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgXQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImV4Y2x1ZGVkIjogW10sCiAgICAgICJhY3Rpdml0eSI6IG51bGwsCiAgICAgICJzYW1lX2NvbW1pdCI6IHsKICAgICAgICAiZmFpbHVyZXNfcGFzc2VkX2Vsc2V3aGVyZSI6IDAsCiAgICAgICAgImZhaWx1cmVzX2ZhaWxlZF9ldmVyeXdoZXJlIjogMCwKICAgICAgICAiZmFpbHVyZXNfd2l0aG91dF9hbm90aGVyX3J1biI6IDAKICAgICAgfSwKICAgICAgImZhaWx1cmVzIjogW10sCiAgICAgICJuYW1lZF9mYWlsdXJlcyI6IFtdLAogICAgICAiY2hhbmdlX3BvaW50IjogbnVsbCwKICAgICAgImR1cmF0aW9uIjogewogICAgICAgICJvYnNlcnZhdGlvbnMiOiAwLAogICAgICAgICJ0cmVuZF9heGlzIjogInN1cHBsaWVkX2hpc3RvcnlfcnVuX2luZGV4IiwKICAgICAgICAidHJlbmRfc2Vjb25kc19wZXJfcnVuIjogbnVsbCwKICAgICAgICAiZmFpbHVyZV9jb3JyZWxhdGlvbiI6IG51bGwKICAgICAgfSwKICAgICAgInJ1bm5lcl9yYXRlcyI6IFtdLAogICAgICAib3NfcmF0ZXMiOiBbXSwKICAgICAgInRvcF9mYWlsdXJlX21lc3NhZ2VzIjogWwogICAgICAgIHsKICAgICAgICAgICJtZXNzYWdlIjogImZpcnN0IGF0dGVtcHQgZmFpbGVkIiwKICAgICAgICAgICJjb3VudCI6IDEKICAgICAgICB9CiAgICAgIF0sCiAgICAgICJmaXJzdF9zZWVuIjogbnVsbCwKICAgICAgImxhc3Rfc2VlbiI6IG51bGwsCiAgICAgICJsYXN0X3N0YXR1cyI6ICJwYXNzIiwKICAgICAgInRlbXBvcmFsX2F2YWlsYWJsZSI6IHRydWUKICAgIH0sCiAgICB7CiAgICAgICJ0ZXN0IjogIkMub3JkaW5hcnkiLAogICAgICAic3VpdGUiOiAiQyIsCiAgICAgICJjbGFzc2lmaWNhdGlvbiI6ICJpbnN1ZmZpY2llbnRfZGF0YSIsCiAgICAgICJmbGFraW5lc3Nfc2NvcmUiOiAwLjAsCiAgICAgICJydW5zIjogewogICAgICAgICJ0b3RhbCI6IDEsCiAgICAgICAgInBhc3MiOiAxLAogICAgICAgICJmYWlsIjogMCwKICAgICAgICAic2tpcCI6IDAsCiAgICAgICAgInVua25vd24iOiAwCiAgICAgIH0sCiAgICAgICJmYWlsdXJlX3JhdGUiOiB7CiAgICAgICAgInBvaW50IjogMC4wLAogICAgICAgICJ3aWxzb25fbG93IjogMC4wLAogICAgICAgICJ3aWxzb25faGlnaCI6IDAuNzkzNQogICAgICB9LAogICAgICAiZmxpcF9yYXRlIjogbnVsbCwKICAgICAgImZsaXBfcGFpcnMiOiAwLAogICAgICAicmVydW5fc2lnbmFsIjogewogICAgICAgICJ2YWx1ZSI6IDAuMCwKICAgICAgICAiZ3JvdXBzX3dpdGhfcmVydW5zIjogMCwKICAgICAgICAiZ3JvdXBzX3dpdGhfZmxpcCI6IDAKICAgICAgfSwKICAgICAgInJldHJpZXMiOiB7CiAgICAgICAgInJlY292ZXJlZF9ydW5zIjogMCwKICAgICAgICAiZXhoYXVzdGVkX3J1bnMiOiAwLAogICAgICAgICJvYnNlcnZlZF9mYWlsZWRfYXR0ZW1wdHMiOiAwLAogICAgICAgICJldmlkZW5jZSI6IFtdCiAgICAgIH0sCiAgICAgICJleGNsdWRlZCI6IFtdLAogICAgICAiYWN0aXZpdHkiOiBudWxsLAogICAgICAic2FtZV9jb21taXQiOiB7CiAgICAgICAgImZhaWx1cmVzX3Bhc3NlZF9lbHNld2hlcmUiOiAwLAogICAgICAgICJmYWlsdXJlc19mYWlsZWRfZXZlcnl3aGVyZSI6IDAsCiAgICAgICAgImZhaWx1cmVzX3dpdGhvdXRfYW5vdGhlcl9ydW4iOiAwCiAgICAgIH0sCiAgICAgICJmYWlsdXJlcyI6IFtdLAogICAgICAibmFtZWRfZmFpbHVyZXMiOiBbXSwKICAgICAgImNoYW5nZV9wb2ludCI6IG51bGwsCiAgICAgICJkdXJhdGlvbiI6IHsKICAgICAgICAib2JzZXJ2YXRpb25zIjogMSwKICAgICAgICAidHJlbmRfYXhpcyI6ICJzdXBwbGllZF9oaXN0b3J5X3J1bl9pbmRleCIsCiAgICAgICAgInRyZW5kX3NlY29uZHNfcGVyX3J1biI6IG51bGwsCiAgICAgICAgImZhaWx1cmVfY29ycmVsYXRpb24iOiBudWxsCiAgICAgIH0sCiAgICAgICJydW5uZXJfcmF0ZXMiOiBbXSwKICAgICAgIm9zX3JhdGVzIjogW10sCiAgICAgICJ0b3BfZmFpbHVyZV9tZXNzYWdlcyI6IFtdLAogICAgICAiZmlyc3Rfc2VlbiI6IG51bGwsCiAgICAgICJsYXN0X3NlZW4iOiBudWxsLAogICAgICAibGFzdF9zdGF0dXMiOiAicGFzcyIsCiAgICAgICJ0ZW1wb3JhbF9hdmFpbGFibGUiOiB0cnVlCiAgICB9LAogICAgewogICAgICAidGVzdCI6ICJDLnNwYXJzZVRpbWluZyIsCiAgICAgICJzdWl0ZSI6ICJDIiwKICAgICAgImNsYXNzaWZpY2F0aW9uIjogImluc3VmZmljaWVudF9kYXRhIiwKICAgICAgImZsYWtpbmVzc19zY29yZSI6IDAuMCwKICAgICAgInJ1bnMiOiB7CiAgICAgICAgInRvdGFsIjogMiwKICAgICAgICAicGFzcyI6IDIsCiAgICAgICAgImZhaWwiOiAwLAogICAgICAgICJza2lwIjogMCwKICAgICAgICAidW5rbm93biI6IDAKICAgICAgfSwKICAgICAgImZhaWx1cmVfcmF0ZSI6IHsKICAgICAgICAicG9pbnQiOiAwLjAsCiAgICAgICAgIndpbHNvbl9sb3ciOiAwLjAsCiAgICAgICAgIndpbHNvbl9oaWdoIjogMC42NTc2CiAgICAgIH0sCiAgICAgICJmbGlwX3JhdGUiOiAwLjAsCiAgICAgICJmbGlwX3BhaXJzIjogMSwKICAgICAgInJlcnVuX3NpZ25hbCI6IHsKICAgICAgICAidmFsdWUiOiAwLjAsCiAgICAgICAgImdyb3Vwc193aXRoX3JlcnVucyI6IDAsCiAgICAgICAgImdyb3Vwc193aXRoX2ZsaXAiOiAwCiAgICAgIH0sCiAgICAgICJyZXRyaWVzIjogewogICAgICAgICJyZWNvdmVyZWRfcnVucyI6IDAsCiAgICAgICAgImV4aGF1c3RlZF9ydW5zIjogMCwKICAgICAgICAib2JzZXJ2ZWRfZmFpbGVkX2F0dGVtcHRzIjogMCwKICAgICAgICAiZXZpZGVuY2UiOiBbXQogICAgICB9LAogICAgICAiZXhjbHVkZWQiOiBbXSwKICAgICAgImFjdGl2aXR5IjogbnVsbCwKICAgICAgInNhbWVfY29tbWl0IjogewogICAgICAgICJmYWlsdXJlc19wYXNzZWRfZWxzZXdoZXJlIjogMCwKICAgICAgICAiZmFpbHVyZXNfZmFpbGVkX2V2ZXJ5d2hlcmUiOiAwLAogICAgICAgICJmYWlsdXJlc193aXRob3V0X2Fub3RoZXJfcnVuIjogMAogICAgICB9LAogICAgICAiZmFpbHVyZXMiOiBbXSwKICAgICAgIm5hbWVkX2ZhaWx1cmVzIjogW10sCiAgICAgICJjaGFuZ2VfcG9pbnQiOiBudWxsLAogICAgICAiZHVyYXRpb24iOiB7CiAgICAgICAgIm9ic2VydmF0aW9ucyI6IDIsCiAgICAgICAgInRyZW5kX2F4aXMiOiAic3VwcGxpZWRfaGlzdG9yeV9ydW5faW5kZXgiLAogICAgICAgICJ0cmVuZF9zZWNvbmRzX3Blcl9ydW4iOiAyLjAsCiAgICAgICAgImZhaWx1cmVfY29ycmVsYXRpb24iOiBudWxsCiAgICAgIH0sCiAgICAgICJydW5uZXJfcmF0ZXMiOiBbXSwKICAgICAgIm9zX3JhdGVzIjogW10sCiAgICAgICJ0b3BfZmFpbHVyZV9tZXNzYWdlcyI6IFtdLAogICAgICAiZmlyc3Rfc2VlbiI6IG51bGwsCiAgICAgICJsYXN0X3NlZW4iOiBudWxsLAogICAgICAibGFzdF9zdGF0dXMiOiAicGFzcyIsCiAgICAgICJ0ZW1wb3JhbF9hdmFpbGFibGUiOiB0cnVlCiAgICB9LAogICAgewogICAgICAidGVzdCI6ICJDLmNsb3NlZEZhaWx1cmUiLAogICAgICAic3VpdGUiOiAiQyIsCiAgICAgICJjbGFzc2lmaWNhdGlvbiI6ICJpbnN1ZmZpY2llbnRfZGF0YSIsCiAgICAgICJmbGFraW5lc3Nfc2NvcmUiOiAwLjAsCiAgICAgICJydW5zIjogewogICAgICAgICJ0b3RhbCI6IDEsCiAgICAgICAgInBhc3MiOiAwLAogICAgICAgICJmYWlsIjogMSwKICAgICAgICAic2tpcCI6IDAsCiAgICAgICAgInVua25vd24iOiAwCiAgICAgIH0sCiAgICAgICJmYWlsdXJlX3JhdGUiOiB7CiAgICAgICAgInBvaW50IjogMS4wLAogICAgICAgICJ3aWxzb25fbG93IjogMC4yMDY1LAogICAgICAgICJ3aWxzb25faGlnaCI6IDEuMAogICAgICB9LAogICAgICAiZmxpcF9yYXRlIjogbnVsbCwKICAgICAgImZsaXBfcGFpcnMiOiAwLAogICAgICAicmVydW5fc2lnbmFsIjogewogICAgICAgICJ2YWx1ZSI6IDAuMCwKICAgICAgICAiZ3JvdXBzX3dpdGhfcmVydW5zIjogMCwKICAgICAgICAiZ3JvdXBzX3dpdGhfZmxpcCI6IDAKICAgICAgfSwKICAgICAgInJldHJpZXMiOiB7CiAgICAgICAgInJlY292ZXJlZF9ydW5zIjogMCwKICAgICAgICAiZXhoYXVzdGVkX3J1bnMiOiAwLAogICAgICAgICJvYnNlcnZlZF9mYWlsZWRfYXR0ZW1wdHMiOiAwLAogICAgICAgICJldmlkZW5jZSI6IFtdCiAgICAgIH0sCiAgICAgICJleGNsdWRlZCI6IFtdLAogICAgICAiYWN0aXZpdHkiOiB7CiAgICAgICAgInN0YXRlIjogIm9uZ29pbmciLAogICAgICAgICJmYWlsdXJlcyI6IDEsCiAgICAgICAgImV2ZW50cyI6IDEsCiAgICAgICAgInJ1bnNfc2luY2VfbGFzdF9mYWlsdXJlIjogMCwKICAgICAgICAicnVuc19zaW5jZV9maXJzdF9mYWlsdXJlIjogMSwKICAgICAgICAibG9uZ2VzdF9nYXAiOiBudWxsLAogICAgICAgICJzaWxlbmNlX3JhdGlvIjogbnVsbAogICAgICB9LAogICAgICAic2FtZV9jb21taXQiOiB7CiAgICAgICAgImZhaWx1cmVzX3Bhc3NlZF9lbHNld2hlcmUiOiAwLAogICAgICAgICJmYWlsdXJlc19mYWlsZWRfZXZlcnl3aGVyZSI6IDAsCiAgICAgICAgImZhaWx1cmVzX3dpdGhvdXRfYW5vdGhlcl9ydW4iOiAxCiAgICAgIH0sCiAgICAgICJmYWlsdXJlcyI6IFsKICAgICAgICB7CiAgICAgICAgICAicnVuX2lkIjogIjAxIiwKICAgICAgICAgICJpbmRleCI6IDAsCiAgICAgICAgICAidGltZXN0YW1wIjogbnVsbCwKICAgICAgICAgICJjb21taXQiOiAic3ludGhldGljLWludGVycnVwdGVkIiwKICAgICAgICAgICJzdGF0dXMiOiAiZmFpbCIsCiAgICAgICAgICAibWVzc2FnZSI6ICJFeHBlY3RlZCA8aW1nIHNyYz14IG9uZXJyb3I9YWxlcnQoMSk+IHRvIHN0YXkgbGl0ZXJhbCIsCiAgICAgICAgICAiZmFpbGVkX3dpdGhpbiI6IFtdLAogICAgICAgICAgInNhbWVfY29tbWl0IjogInNpbmdsZSIsCiAgICAgICAgICAic2FtZV9jb21taXRfb3RoZXJfcnVucyI6IDAsCiAgICAgICAgICAib3RoZXJfdGVzdHNfZmFpbGVkIjogMAogICAgICAgIH0KICAgICAgXSwKICAgICAgIm5hbWVkX2ZhaWx1cmVzIjogW10sCiAgICAgICJjaGFuZ2VfcG9pbnQiOiBudWxsLAogICAgICAiZHVyYXRpb24iOiB7CiAgICAgICAgIm9ic2VydmF0aW9ucyI6IDEsCiAgICAgICAgInRyZW5kX2F4aXMiOiAic3VwcGxpZWRfaGlzdG9yeV9ydW5faW5kZXgiLAogICAgICAgICJ0cmVuZF9zZWNvbmRzX3Blcl9ydW4iOiBudWxsLAogICAgICAgICJmYWlsdXJlX2NvcnJlbGF0aW9uIjogbnVsbAogICAgICB9LAogICAgICAicnVubmVyX3JhdGVzIjogW10sCiAgICAgICJvc19yYXRlcyI6IFtdLAogICAgICAidG9wX2ZhaWx1cmVfbWVzc2FnZXMiOiBbCiAgICAgICAgewogICAgICAgICAgIm1lc3NhZ2UiOiAiRXhwZWN0ZWQgPGltZyBzcmM9eCBvbmVycm9yPWFsZXJ0KDEpPiB0byBzdGF5IGxpdGVyYWwiLAogICAgICAgICAgImNvdW50IjogMQogICAgICAgIH0KICAgICAgXSwKICAgICAgImZpcnN0X3NlZW4iOiBudWxsLAogICAgICAibGFzdF9zZWVuIjogbnVsbCwKICAgICAgImxhc3Rfc3RhdHVzIjogImZhaWwiLAogICAgICAidGVtcG9yYWxfYXZhaWxhYmxlIjogdHJ1ZQogICAgfSwKICAgIHsKICAgICAgInRlc3QiOiAiQy5xdWFsaXRhdGl2ZVVua25vd24iLAogICAgICAic3VpdGUiOiAiQyIsCiAgICAgICJjbGFzc2lmaWNhdGlvbiI6ICJpbnN1ZmZpY2llbnRfZGF0YSIsCiAgICAgICJmbGFraW5lc3Nfc2NvcmUiOiAwLjAsCiAgICAgICJydW5zIjogewogICAgICAgICJ0b3RhbCI6IDAsCiAgICAgICAgInBhc3MiOiAwLAogICAgICAgICJmYWlsIjogMCwKICAgICAgICAic2tpcCI6IDAsCiAgICAgICAgInVua25vd24iOiAxCiAgICAgIH0sCiAgICAgICJmYWlsdXJlX3JhdGUiOiBudWxsLAogICAgICAiZmxpcF9yYXRlIjogbnVsbCwKICAgICAgImZsaXBfcGFpcnMiOiAwLAogICAgICAicmVydW5fc2lnbmFsIjogewogICAgICAgICJ2YWx1ZSI6IDAuMCwKICAgICAgICAiZ3JvdXBzX3dpdGhfcmVydW5zIjogMCwKICAgICAgICAiZ3JvdXBzX3dpdGhfZmxpcCI6IDAKICAgICAgfSwKICAgICAgInJldHJpZXMiOiB7CiAgICAgICAgInJlY292ZXJlZF9ydW5zIjogMCwKICAgICAgICAiZXhoYXVzdGVkX3J1bnMiOiAwLAogICAgICAgICJvYnNlcnZlZF9mYWlsZWRfYXR0ZW1wdHMiOiAwLAogICAgICAgICJldmlkZW5jZSI6IFtdCiAgICAgIH0sCiAgICAgICJleGNsdWRlZCI6IFsKICAgICAgICB7CiAgICAgICAgICAicnVuX2lkIjogIjAyIiwKICAgICAgICAgICJjb21taXQiOiAic3ludGhldGljLWFmdGVyIiwKICAgICAgICAgICJyZWFzb24iOiAiVFJYIG91dGNvbWUgJ0NvbXBsZXRlZCcgZG9lcyBub3QgZXN0YWJsaXNoIHBhc3MsIGZhaWx1cmUgb3Igc2tpcCIsCiAgICAgICAgICAicmVjb3JkcyI6IFsKICAgICAgICAgICAgewogICAgICAgICAgICAgICJuYW1lIjogInF1YWxpdGF0aXZlVW5rbm93biIsCiAgICAgICAgICAgICAgImNsYXNzbmFtZSI6ICJDIiwKICAgICAgICAgICAgICAic291cmNlIjogewogICAgICAgICAgICAgICAgInJlcG9ydCI6ICIwMi9yZXBvcnQudHJ4IiwKICAgICAgICAgICAgICAgICJ0ZXN0Y2FzZSI6IDIKICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICJzdGF0dXMiOiAidW5rbm93biIsCiAgICAgICAgICAgICAgIm1lc3NhZ2UiOiAiRXhlY3V0aW9uIGVuZGVkOyB0aGUgcmVwb3J0ZXIgc3VwcGxpZWQgbm8gcXVhbGl0YXRpdmUgb3V0Y29tZS4iLAogICAgICAgICAgICAgICJyZXBvcnRlZF9kdXJhdGlvbl9zZWNvbmRzIjogbnVsbCwKICAgICAgICAgICAgICAiaXNzdWUiOiAiVFJYIG91dGNvbWUgJ0NvbXBsZXRlZCcgZG9lcyBub3QgZXN0YWJsaXNoIHBhc3MsIGZhaWx1cmUgb3Igc2tpcCIsCiAgICAgICAgICAgICAgInJldHJ5IjogbnVsbAogICAgICAgICAgICB9CiAgICAgICAgICBdCiAgICAgICAgfQogICAgICBdLAogICAgICAiYWN0aXZpdHkiOiBudWxsLAogICAgICAic2FtZV9jb21taXQiOiB7CiAgICAgICAgImZhaWx1cmVzX3Bhc3NlZF9lbHNld2hlcmUiOiAwLAogICAgICAgICJmYWlsdXJlc19mYWlsZWRfZXZlcnl3aGVyZSI6IDAsCiAgICAgICAgImZhaWx1cmVzX3dpdGhvdXRfYW5vdGhlcl9ydW4iOiAwCiAgICAgIH0sCiAgICAgICJmYWlsdXJlcyI6IFtdLAogICAgICAibmFtZWRfZmFpbHVyZXMiOiBbXSwKICAgICAgImNoYW5nZV9wb2ludCI6IG51bGwsCiAgICAgICJkdXJhdGlvbiI6IHsKICAgICAgICAib2JzZXJ2YXRpb25zIjogMCwKICAgICAgICAidHJlbmRfYXhpcyI6ICJzdXBwbGllZF9oaXN0b3J5X3J1bl9pbmRleCIsCiAgICAgICAgInRyZW5kX3NlY29uZHNfcGVyX3J1biI6IG51bGwsCiAgICAgICAgImZhaWx1cmVfY29ycmVsYXRpb24iOiBudWxsCiAgICAgIH0sCiAgICAgICJydW5uZXJfcmF0ZXMiOiBbXSwKICAgICAgIm9zX3JhdGVzIjogW10sCiAgICAgICJ0b3BfZmFpbHVyZV9tZXNzYWdlcyI6IFtdLAogICAgICAiZmlyc3Rfc2VlbiI6IG51bGwsCiAgICAgICJsYXN0X3NlZW4iOiBudWxsLAogICAgICAibGFzdF9zdGF0dXMiOiAidW5rbm93biIsCiAgICAgICJ0ZW1wb3JhbF9hdmFpbGFibGUiOiB0cnVlCiAgICB9LAogICAgewogICAgICAidGVzdCI6ICJDLmludmFsaWREdXJhdGlvbiIsCiAgICAgICJzdWl0ZSI6ICJDIiwKICAgICAgImNsYXNzaWZpY2F0aW9uIjogImluc3VmZmljaWVudF9kYXRhIiwKICAgICAgImZsYWtpbmVzc19zY29yZSI6IDAuMCwKICAgICAgInJ1bnMiOiB7CiAgICAgICAgInRvdGFsIjogMSwKICAgICAgICAicGFzcyI6IDEsCiAgICAgICAgImZhaWwiOiAwLAogICAgICAgICJza2lwIjogMCwKICAgICAgICAidW5rbm93biI6IDAKICAgICAgfSwKICAgICAgImZhaWx1cmVfcmF0ZSI6IHsKICAgICAgICAicG9pbnQiOiAwLjAsCiAgICAgICAgIndpbHNvbl9sb3ciOiAwLjAsCiAgICAgICAgIndpbHNvbl9oaWdoIjogMC43OTM1CiAgICAgIH0sCiAgICAgICJmbGlwX3JhdGUiOiBudWxsLAogICAgICAiZmxpcF9wYWlycyI6IDAsCiAgICAgICJyZXJ1bl9zaWduYWwiOiB7CiAgICAgICAgInZhbHVlIjogMC4wLAogICAgICAgICJncm91cHNfd2l0aF9yZXJ1bnMiOiAwLAogICAgICAgICJncm91cHNfd2l0aF9mbGlwIjogMAogICAgICB9LAogICAgICAicmV0cmllcyI6IHsKICAgICAgICAicmVjb3ZlcmVkX3J1bnMiOiAwLAogICAgICAgICJleGhhdXN0ZWRfcnVucyI6IDAsCiAgICAgICAgIm9ic2VydmVkX2ZhaWxlZF9hdHRlbXB0cyI6IDAsCiAgICAgICAgImV2aWRlbmNlIjogW10KICAgICAgfSwKICAgICAgImV4Y2x1ZGVkIjogW10sCiAgICAgICJhY3Rpdml0eSI6IG51bGwsCiAgICAgICJzYW1lX2NvbW1pdCI6IHsKICAgICAgICAiZmFpbHVyZXNfcGFzc2VkX2Vsc2V3aGVyZSI6IDAsCiAgICAgICAgImZhaWx1cmVzX2ZhaWxlZF9ldmVyeXdoZXJlIjogMCwKICAgICAgICAiZmFpbHVyZXNfd2l0aG91dF9hbm90aGVyX3J1biI6IDAKICAgICAgfSwKICAgICAgImZhaWx1cmVzIjogW10sCiAgICAgICJuYW1lZF9mYWlsdXJlcyI6IFtdLAogICAgICAiY2hhbmdlX3BvaW50IjogbnVsbCwKICAgICAgImR1cmF0aW9uIjogewogICAgICAgICJvYnNlcnZhdGlvbnMiOiAwLAogICAgICAgICJ0cmVuZF9heGlzIjogInN1cHBsaWVkX2hpc3RvcnlfcnVuX2luZGV4IiwKICAgICAgICAidHJlbmRfc2Vjb25kc19wZXJfcnVuIjogbnVsbCwKICAgICAgICAiZmFpbHVyZV9jb3JyZWxhdGlvbiI6IG51bGwKICAgICAgfSwKICAgICAgInJ1bm5lcl9yYXRlcyI6IFtdLAogICAgICAib3NfcmF0ZXMiOiBbXSwKICAgICAgInRvcF9mYWlsdXJlX21lc3NhZ2VzIjogW10sCiAgICAgICJmaXJzdF9zZWVuIjogbnVsbCwKICAgICAgImxhc3Rfc2VlbiI6IG51bGwsCiAgICAgICJsYXN0X3N0YXR1cyI6ICJwYXNzIiwKICAgICAgInRlbXBvcmFsX2F2YWlsYWJsZSI6IHRydWUKICAgIH0KICBdCn0K" download="incomplete.json">Download this analysis as JSON</a> · <a href="https://github.com/antonsoo/flakemap/tree/main/examples/incomplete_history">Source fixture</a></aside>
+<details class="warning"><summary>4 input / ordering warnings &mdash; inspect before using this report</summary><ul><li>run 01: 01/report.xml: file was not well-formed XML (unclosed token: line 9, column 30); salvaged 2 completed &lt;testcase&gt; element(s) before the error; incomplete records and the remainder omitted</li><li>run 02: 02/report.trx: C.invalidDuration: invalid TRX duration; retained as unknown</li><li>run 02: 02/report.trx: C.qualitativeUnknown: TRX outcome &#x27;Completed&#x27; does not establish pass, failure or skip; excluded from rates</li><li>run 02, C.qualitativeUnknown: TRX outcome &#x27;Completed&#x27; does not establish pass, failure or skip; excluded from rates</li></ul></details>
+<div class="tally">
+  <div class="tally-item tally-broken"><b>0</b>broken</div>
+  <div class="tally-item tally-flaky"><b>1</b>flaky</div>
+  
+  <div class="tally-item tally-healthy"><b>0</b>healthy</div>
+  <div class="tally-item tally-na"><b>5</b>insufficient data</div>
+  <div class="tally-item tally-flaky"><b>1</b>test-runs passed on retry</div>
+  <div class="tally-item tally-na"><b>1</b>test-runs excluded</div>
+</div>
+
+<section class="heatmap">
+  <h2>Test &times; run heatmap</h2>
+  <p class="prefix">Tests under <code>C</code></p>
+  <div class="rows">
+<details class="row row-flaky">
+  <summary id="test-0">
+    <span class="row-name">
+      <span class="dot dot-flaky"></span>
+      <span class="name-text" title="C.recovered"><span class="name-tail">recovered</span></span>
+      <span class="stamp stamp-flaky">INTERMITTENT</span>
+    </span>
+    <span class="row-heatmap" style="--runs:3"><span class="cell s-missing" title="00 · unknown time · not present in this run"></span><span class="cell s-recovered" role="img" aria-label="01 · unknown time · pass; recovered after 1 recorded failure(s) · 0.30s · synthetic-in" title="01 · unknown time · pass; recovered after 1 recorded failure(s) · 0.30s · synthetic-in"></span><span class="cell s-missing" title="02 · unknown time · not present in this run"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">C.recovered</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">1 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.020</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">0</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>first attempt failed</code> ×1</li></ul><h3>Recorded evidence</h3><p class="evidence-note">Sources identify a file and its 1-based testcase position. Failure records follow XML order. Attempt timing and total retry cost are not inferred.</p><article class="evidence"><h4><code>01</code> &mdash; recovered</h4><p class="source"><code>01/report.xml :: testcase 2</code> &mdash; reported pass</p><p>2 recorded attempts; 1 failed.</p><ul class="messages"><li><code>&lt;flakyFailure&gt;</code> first attempt failed</li></ul></article></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-1">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="C.ordinary"><span class="name-tail">ordinary</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:3"><span class="cell s-pass" role="img" aria-label="00 · unknown time · pass · 0.10s · synthetic-be" title="00 · unknown time · pass · 0.10s · synthetic-be"></span><span class="cell s-missing" title="01 · unknown time · not present in this run"></span><span class="cell s-missing" title="02 · unknown time · not present in this run"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">C.ordinary</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-2">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="C.sparseTiming"><span class="name-tail">sparseTiming</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:3"><span class="cell s-pass" role="img" aria-label="00 · unknown time · pass · 10.00s · synthetic-be" title="00 · unknown time · pass · 10.00s · synthetic-be"></span><span class="cell s-missing" title="01 · unknown time · not present in this run"></span><span class="cell s-pass" role="img" aria-label="02 · unknown time · pass · 14.00s · synthetic-af" title="02 · unknown time · pass · 14.00s · synthetic-af"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">C.sparseTiming</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–66%]  ·  0 of 2 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 2; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">0% of 1 usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Duration trend (without retries)</span><span class="stat-value">+2000.0 ms/history run</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">2</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-3">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="C.closedFailure"><span class="name-tail">closedFailure</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:3"><span class="cell s-missing" title="00 · unknown time · not present in this run"></span><span class="cell s-fail" role="img" aria-label="01 · unknown time · fail · 0.20s · synthetic-in · Expected &lt;img src=x onerror=alert(1)&gt; to stay literal" title="01 · unknown time · fail · 0.20s · synthetic-in · Expected &lt;img src=x onerror=alert(1)&gt; to stay literal"></span><span class="cell s-missing" title="02 · unknown time · not present in this run"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">100%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">C.closedFailure</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">100%  [21%–100%]  ·  1 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">1 failures: too few to place.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>Expected &lt;img src=x onerror=alert(1)&gt; to stay literal</code> ×1</li></ul><h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" aria-label="Failures of C.closedFailure"><table class="failures"><thead><tr><th scope="col">Run</th><th scope="col">Same commit, other runs</th><th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th></tr></thead><tbody><tr><th scope="row"><code>01</code><br>unknown time</th><td><code>synthetic-in</code><br>no other run</td><td>none</td><td><code>Expected &lt;img src=x onerror=alert(1)&gt; to stay literal</code></td></tr></tbody></table></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-4">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="C.qualitativeUnknown"><span class="name-tail">qualitativeUnknown</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:3"><span class="cell s-missing" title="00 · unknown time · not present in this run"></span><span class="cell s-missing" title="01 · unknown time · not present in this run"></span><span class="cell s-unknown" role="img" aria-label="02 · unknown time · unknown; excluded · n/a · synthetic-af · Execution ended; the reporter supplied no qualitative outcome. · TRX outcome &#x27;Completed&#x27; does not establish pass, failure or skip" title="02 · unknown time · unknown; excluded · n/a · synthetic-af · Execution ended; the reporter supplied no qualitative outcome. · TRX outcome &#x27;Completed&#x27; does not establish pass, failure or skip"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">n/a</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">C.qualitativeUnknown</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">unknown: no usable outcomes</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 0; skipped: 0; excluded: 1</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">0</span></div><h3>Recorded evidence</h3><p class="evidence-note">Sources identify a file and its 1-based testcase position. Failure records follow XML order. Attempt timing and total retry cost are not inferred.</p><article class="evidence"><h4><code>02</code> &mdash; excluded</h4><p>TRX outcome &#x27;Completed&#x27; does not establish pass, failure or skip</p><p class="source"><code>02/report.trx :: testcase 2</code> &mdash; reported unknown</p><p>Execution ended; the reporter supplied no qualitative outcome.</p></article></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-5">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="C.invalidDuration"><span class="name-tail">invalidDuration</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:3"><span class="cell s-missing" title="00 · unknown time · not present in this run"></span><span class="cell s-missing" title="01 · unknown time · not present in this run"></span><span class="cell s-pass" role="img" aria-label="02 · unknown time · pass · n/a · synthetic-af" title="02 · unknown time · pass · n/a · synthetic-af"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">C.invalidDuration</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">0</span></div></div>
+</details></div>
+  
+  <div class="legend">
+    <span><span class="cell s-pass"></span>pass</span>
+    <span><span class="cell s-recovered"></span>passed on retry</span>
+    <span><span class="cell s-fail"></span>fail</span>
+    <span><span class="cell s-error"></span>error</span>
+    <span><span class="cell s-skip"></span>skip</span>
+    <span><span class="cell s-missing"></span>not run</span>
+    <span><span class="cell s-unknown"></span>unknown / excluded</span>
+    <span>Rates use the final outcome of each run; retry attempts do not increase the sample size.</span>
+    <span>Rows sorted broken &rarr; new &rarr; flaky &rarr; quiet &rarr; insufficient data &rarr; healthy, then by score. Columns are runs in chronological order. Click a row for detail. Hover a cell for the run.</span>
+  </div>
+</section>
+</main>
+<footer>
+  Generated by <a href="https://github.com/antonsoo/flakemap">flakemap</a>. Scoring formula and
+  methodology: see the README. Pairs with <a href="https://github.com/antonsoo/logdelta">logdelta</a>
+  for diffing the actual failing-run logs once you know which test to look at.
+</footer>
+</body>
+</html>

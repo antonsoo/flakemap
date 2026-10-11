@@ -1,0 +1,1009 @@
+{
+  "schema_version": 3,
+  "summary": {
+    "input_complete": true,
+    "ordering": {
+      "available": true,
+      "basis": "sequence",
+      "reason": null
+    },
+    "total_runs": 12,
+    "run_id_range": [
+      "run-01",
+      "run-12"
+    ],
+    "timestamp_range": [
+      "2026-10-07T20:23:29.605444+00:00",
+      "2026-10-07T20:23:31.356139+00:00"
+    ],
+    "total_tests": 6,
+    "cofailure_groups": 1,
+    "cofailure_tests": 3,
+    "recovered_test_runs": 0,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 0,
+    "flaky": 5,
+    "flaky_new": 0,
+    "flaky_quiet": 0,
+    "broken": 0,
+    "healthy": 1,
+    "insufficient_data": 0
+  },
+  "warnings": [],
+  "cofailure": {
+    "method": "exact_outcome_history",
+    "ambiguous_tests_excluded": [],
+    "runs": [
+      {
+        "run_id": "run-01",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:29.605444+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 1,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-02",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:29.761025+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 2,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-03",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:29.911633+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 3,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-04",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:30.071646+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 4,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-05",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:30.249194+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 5,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-06",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:30.421948+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 6,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-07",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:30.564016+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 7,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-08",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:30.736045+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 8,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-09",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:30.883475+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 9,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-10",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:31.049462+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 10,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-11",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:31.214689+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 11,
+        "metadata_source": "sidecar"
+      },
+      {
+        "run_id": "run-12",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-07T20:23:31.356139+00:00",
+        "runner": "controlled-loopback-capture",
+        "os": "Linux",
+        "sequence": 12,
+        "metadata_source": "sidecar"
+      }
+    ],
+    "groups": [
+      {
+        "id": "cohort-1",
+        "tests": [
+          "tests.test_service.test_inventory_endpoint",
+          "tests.test_service.test_pricing_endpoint",
+          "tests.test_service.test_shipping_endpoint"
+        ],
+        "run_states": {
+          "pass": [
+            "run-01",
+            "run-02",
+            "run-03",
+            "run-06",
+            "run-07",
+            "run-08",
+            "run-09",
+            "run-11",
+            "run-12"
+          ],
+          "failed": [
+            "run-04",
+            "run-05",
+            "run-10"
+          ],
+          "recovered": [],
+          "exhausted": [],
+          "skip": [],
+          "absent": []
+        },
+        "failed_runs": 3,
+        "recovered_runs": 0,
+        "affected_test_runs": 9,
+        "evidence": [
+          {
+            "test": "tests.test_service.test_inventory_endpoint",
+            "run_id": "run-04",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_inventory_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-04/report.xml",
+                  "testcase": 1
+                },
+                "status": "fail",
+                "message": "AssertionError: Inventory endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.004,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "tests.test_service.test_pricing_endpoint",
+            "run_id": "run-04",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_pricing_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-04/report.xml",
+                  "testcase": 3
+                },
+                "status": "fail",
+                "message": "AssertionError: Pricing endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.001,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "tests.test_service.test_shipping_endpoint",
+            "run_id": "run-04",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_shipping_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-04/report.xml",
+                  "testcase": 2
+                },
+                "status": "fail",
+                "message": "AssertionError: Shipping endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.002,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "tests.test_service.test_inventory_endpoint",
+            "run_id": "run-05",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_inventory_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-05/report.xml",
+                  "testcase": 1
+                },
+                "status": "fail",
+                "message": "AssertionError: Inventory endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.004,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "tests.test_service.test_pricing_endpoint",
+            "run_id": "run-05",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_pricing_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-05/report.xml",
+                  "testcase": 3
+                },
+                "status": "fail",
+                "message": "AssertionError: Pricing endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.001,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "tests.test_service.test_shipping_endpoint",
+            "run_id": "run-05",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_shipping_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-05/report.xml",
+                  "testcase": 2
+                },
+                "status": "fail",
+                "message": "AssertionError: Shipping endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.002,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "tests.test_service.test_inventory_endpoint",
+            "run_id": "run-10",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_inventory_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-10/report.xml",
+                  "testcase": 1
+                },
+                "status": "fail",
+                "message": "AssertionError: Inventory endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.004,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "tests.test_service.test_pricing_endpoint",
+            "run_id": "run-10",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_pricing_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-10/report.xml",
+                  "testcase": 3
+                },
+                "status": "fail",
+                "message": "AssertionError: Pricing endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.001,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "tests.test_service.test_shipping_endpoint",
+            "run_id": "run-10",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "test_shipping_endpoint",
+                "classname": "tests.test_service",
+                "source": {
+                  "report": "run-10/report.xml",
+                  "testcase": 2
+                },
+                "status": "fail",
+                "message": "AssertionError: Shipping endpoint returned HTTP 503",
+                "reported_duration_seconds": 0.002,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tests": [
+    {
+      "test": "tests.test_service.test_inventory_endpoint",
+      "suite": "tests",
+      "classification": "flaky",
+      "flakiness_score": 0.1473,
+      "runs": {
+        "total": 12,
+        "pass": 9,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.25,
+        "wilson_low": 0.0889,
+        "wilson_high": 0.5323
+      },
+      "flip_rate": 0.3636,
+      "flip_pairs": 11,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 3,
+        "events": 2,
+        "runs_since_last_failure": 2,
+        "runs_since_first_failure": 9,
+        "longest_gap": 4,
+        "silence_ratio": 0.5
+      },
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 3
+      },
+      "failures": [
+        {
+          "run_id": "run-04",
+          "index": 3,
+          "timestamp": "2026-10-07T20:23:30.071646+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Inventory endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 2
+        },
+        {
+          "run_id": "run-05",
+          "index": 4,
+          "timestamp": "2026-10-07T20:23:30.249194+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Inventory endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 3
+        },
+        {
+          "run_id": "run-10",
+          "index": 9,
+          "timestamp": "2026-10-07T20:23:31.049462+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Inventory endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 2
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 12,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": -4.2e-05,
+        "failure_correlation": 0.2582
+      },
+      "runner_rates": [
+        {
+          "runner": "controlled-loopback-capture",
+          "n": 12,
+          "failure_rate": 0.25,
+          "wilson_low": 0.0889,
+          "wilson_high": 0.5323
+        }
+      ],
+      "os_rates": [
+        {
+          "os": "Linux",
+          "n": 12,
+          "failure_rate": 0.25,
+          "wilson_low": 0.0889,
+          "wilson_high": 0.5323
+        }
+      ],
+      "top_failure_messages": [
+        {
+          "message": "AssertionError: Inventory endpoint returned HTTP 503",
+          "count": 3
+        }
+      ],
+      "first_seen": "2026-10-07T20:23:29.605444+00:00",
+      "last_seen": "2026-10-07T20:23:31.356139+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "tests.test_service.test_shipping_endpoint",
+      "suite": "tests",
+      "classification": "flaky",
+      "flakiness_score": 0.1473,
+      "runs": {
+        "total": 12,
+        "pass": 9,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.25,
+        "wilson_low": 0.0889,
+        "wilson_high": 0.5323
+      },
+      "flip_rate": 0.3636,
+      "flip_pairs": 11,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 3,
+        "events": 2,
+        "runs_since_last_failure": 2,
+        "runs_since_first_failure": 9,
+        "longest_gap": 4,
+        "silence_ratio": 0.5
+      },
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 3
+      },
+      "failures": [
+        {
+          "run_id": "run-04",
+          "index": 3,
+          "timestamp": "2026-10-07T20:23:30.071646+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Shipping endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 2
+        },
+        {
+          "run_id": "run-05",
+          "index": 4,
+          "timestamp": "2026-10-07T20:23:30.249194+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Shipping endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 3
+        },
+        {
+          "run_id": "run-10",
+          "index": 9,
+          "timestamp": "2026-10-07T20:23:31.049462+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Shipping endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 2
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 12,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": -3e-06,
+        "failure_correlation": 0.6831
+      },
+      "runner_rates": [
+        {
+          "runner": "controlled-loopback-capture",
+          "n": 12,
+          "failure_rate": 0.25,
+          "wilson_low": 0.0889,
+          "wilson_high": 0.5323
+        }
+      ],
+      "os_rates": [
+        {
+          "os": "Linux",
+          "n": 12,
+          "failure_rate": 0.25,
+          "wilson_low": 0.0889,
+          "wilson_high": 0.5323
+        }
+      ],
+      "top_failure_messages": [
+        {
+          "message": "AssertionError: Shipping endpoint returned HTTP 503",
+          "count": 3
+        }
+      ],
+      "first_seen": "2026-10-07T20:23:29.605444+00:00",
+      "last_seen": "2026-10-07T20:23:31.356139+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "tests.test_service.test_pricing_endpoint",
+      "suite": "tests",
+      "classification": "flaky",
+      "flakiness_score": 0.1473,
+      "runs": {
+        "total": 12,
+        "pass": 9,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.25,
+        "wilson_low": 0.0889,
+        "wilson_high": 0.5323
+      },
+      "flip_rate": 0.3636,
+      "flip_pairs": 11,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 3,
+        "events": 2,
+        "runs_since_last_failure": 2,
+        "runs_since_first_failure": 9,
+        "longest_gap": 4,
+        "silence_ratio": 0.5
+      },
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 3
+      },
+      "failures": [
+        {
+          "run_id": "run-04",
+          "index": 3,
+          "timestamp": "2026-10-07T20:23:30.071646+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Pricing endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 2
+        },
+        {
+          "run_id": "run-05",
+          "index": 4,
+          "timestamp": "2026-10-07T20:23:30.249194+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Pricing endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 3
+        },
+        {
+          "run_id": "run-10",
+          "index": 9,
+          "timestamp": "2026-10-07T20:23:31.049462+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Pricing endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 2
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 12,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": -3.1e-05,
+        "failure_correlation": -0.1741
+      },
+      "runner_rates": [
+        {
+          "runner": "controlled-loopback-capture",
+          "n": 12,
+          "failure_rate": 0.25,
+          "wilson_low": 0.0889,
+          "wilson_high": 0.5323
+        }
+      ],
+      "os_rates": [
+        {
+          "os": "Linux",
+          "n": 12,
+          "failure_rate": 0.25,
+          "wilson_low": 0.0889,
+          "wilson_high": 0.5323
+        }
+      ],
+      "top_failure_messages": [
+        {
+          "message": "AssertionError: Pricing endpoint returned HTTP 503",
+          "count": 3
+        }
+      ],
+      "first_seen": "2026-10-07T20:23:29.605444+00:00",
+      "last_seen": "2026-10-07T20:23:31.356139+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "tests.test_service.test_optional_endpoint",
+      "suite": "tests",
+      "classification": "flaky",
+      "flakiness_score": 0.0644,
+      "runs": {
+        "total": 10,
+        "pass": 9,
+        "fail": 1,
+        "skip": 1,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.1,
+        "wilson_low": 0.0179,
+        "wilson_high": 0.4042
+      },
+      "flip_rate": 0.2222,
+      "flip_pairs": 9,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "events": 1,
+        "runs_since_last_failure": 6,
+        "runs_since_first_failure": 7,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "run-05",
+          "index": 3,
+          "timestamp": "2026-10-07T20:23:30.249194+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "AssertionError: Optional endpoint returned HTTP 503",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 3
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 10,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 2e-06,
+        "failure_correlation": 0.6667
+      },
+      "runner_rates": [
+        {
+          "runner": "controlled-loopback-capture",
+          "n": 10,
+          "failure_rate": 0.1,
+          "wilson_low": 0.0179,
+          "wilson_high": 0.4042
+        }
+      ],
+      "os_rates": [
+        {
+          "os": "Linux",
+          "n": 10,
+          "failure_rate": 0.1,
+          "wilson_low": 0.0179,
+          "wilson_high": 0.4042
+        }
+      ],
+      "top_failure_messages": [
+        {
+          "message": "AssertionError: Optional endpoint returned HTTP 503",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-07T20:23:29.605444+00:00",
+      "last_seen": "2026-10-07T20:23:31.356139+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "tests.test_service.test_independent_math",
+      "suite": "tests",
+      "classification": "flaky",
+      "flakiness_score": 0.0636,
+      "runs": {
+        "total": 12,
+        "pass": 11,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0833,
+        "wilson_low": 0.0149,
+        "wilson_high": 0.3539
+      },
+      "flip_rate": 0.1818,
+      "flip_pairs": 11,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "events": 1,
+        "runs_since_last_failure": 5,
+        "runs_since_first_failure": 6,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "run-07",
+          "index": 6,
+          "timestamp": "2026-10-07T20:23:30.564016+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "assert 4 == 5",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 12,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 0.0,
+        "failure_correlation": null
+      },
+      "runner_rates": [
+        {
+          "runner": "controlled-loopback-capture",
+          "n": 12,
+          "failure_rate": 0.0833,
+          "wilson_low": 0.0149,
+          "wilson_high": 0.3539
+        }
+      ],
+      "os_rates": [
+        {
+          "os": "Linux",
+          "n": 12,
+          "failure_rate": 0.0833,
+          "wilson_low": 0.0149,
+          "wilson_high": 0.3539
+        }
+      ],
+      "top_failure_messages": [
+        {
+          "message": "assert 4 == 5",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-07T20:23:29.605444+00:00",
+      "last_seen": "2026-10-07T20:23:31.356139+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "tests.test_service.test_healthy_control",
+      "suite": "tests",
+      "classification": "healthy",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 12,
+        "pass": 12,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.2425
+      },
+      "flip_rate": 0.0,
+      "flip_pairs": 11,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 12,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 0.0,
+        "failure_correlation": null
+      },
+      "runner_rates": [
+        {
+          "runner": "controlled-loopback-capture",
+          "n": 12,
+          "failure_rate": 0.0,
+          "wilson_low": 0.0,
+          "wilson_high": 0.2425
+        }
+      ],
+      "os_rates": [
+        {
+          "os": "Linux",
+          "n": 12,
+          "failure_rate": 0.0,
+          "wilson_low": 0.0,
+          "wilson_high": 0.2425
+        }
+      ],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-07T20:23:29.605444+00:00",
+      "last_seen": "2026-10-07T20:23:31.356139+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    }
+  ]
+}

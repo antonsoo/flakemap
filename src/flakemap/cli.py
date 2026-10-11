@@ -142,7 +142,9 @@ def _write_html(path: Path, text: str, root: Path, pattern: str) -> None:
 
 def _named_new(named: NamedFailure, window: int) -> bool:
     """A name read from failure text: first failed inside the window, more than once."""
-    return named.activity.runs_since_first <= window and named.runs > 1
+    return (
+        named.activity is not None and named.activity.runs_since_first <= window and named.runs > 1
+    )
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -199,6 +201,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.fail_on_new_flake:
+        if not result.ordering.available:
+            errors.print(
+                "error: chronology unavailable; new-flake gate could not be evaluated", style="red"
+            )
+            return 2
         # Three kinds of new: a change point (a test that started failing most of the time);
         # a flaky test that was clean for a long stretch and began failing within the window;
         # and a test named inside a failure's text that first failed within the window and
@@ -210,7 +217,12 @@ def main(argv: list[str] | None = None) -> int:
             for t in result.tests
             if t.classification in ("flaky", "broken")
             and (
-                (t.runs_since_change is not None and t.runs_since_change <= window)
+                (
+                    t.change_point is not None
+                    and t.change_point.rate_after > t.change_point.rate_before
+                    and t.runs_since_change is not None
+                    and t.runs_since_change <= window
+                )
                 or (
                     t.activity is not None
                     and t.activity.state == "new"

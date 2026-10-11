@@ -14,8 +14,9 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Literal
 
-from flakemap.models import Run, Status, run_sort_key
+from flakemap.models import Run, Status
 from flakemap.observations import Observation, history_observations
+from flakemap.ordering import RunOrdering, order_runs, recorded_time
 from flakemap.stats.activity import Activity, assess
 from flakemap.stats.changepoint import ChangePoint, detect_change_point
 from flakemap.stats.cofailure import CoFailureAnalysis, group_failures
@@ -50,8 +51,8 @@ class FailureEvidence:
     """One final failure, and what the rest of the history says about it."""
 
     run_id: str
-    index: int
-    """Position of the run among this test's usable runs, from 0."""
+    index: int | None
+    """Position among usable runs, from 0; None without chronology."""
     timestamp: datetime | None
     commit: str | None
     status: Status
@@ -75,13 +76,13 @@ class NamedFailure:
     name: str
     runs: int
     """Runs in which the testcase's failure names this test."""
-    first_run_id: str
-    last_run_id: str
+    first_run_id: str | None
+    last_run_id: str | None
     passed_same_commit: int
     """Of those runs, the ones whose commit has another run in which the testcase passed."""
     checked: int
     """Of those runs, the ones whose commit has any other usable run."""
-    activity: Activity
+    activity: Activity | None
 
 
 @dataclass(slots=True)
@@ -111,7 +112,7 @@ class TestStats:
     message_clusters: list[MessageCluster]
     first_seen: datetime | None
     last_seen: datetime | None
-    last_status: Status
+    last_status: Status | None
     runs_since_change: int | None
     """Runs in the supplied history from the change point through its end,
     including runs where this test is skipped or absent. `None` without a change."""
@@ -122,11 +123,12 @@ class TestStats:
     retry_observations: list[Observation]
     excluded_observations: list[Observation]
     failures: list[FailureEvidence] = field(default_factory=list)
-    """Every final failure, oldest first."""
+    """Every final failure; chronological when temporal_available, display order otherwise."""
     activity: Activity | None = None
     """Where the failures fall in the history; None for a test that never failed."""
     named_failures: list[NamedFailure] = field(default_factory=list)
     """Top-level tests named inside this testcase's failures, most frequent first."""
+    temporal_available: bool = True
 
     @property
     def failures_passed_same_commit(self) -> int:
@@ -152,7 +154,8 @@ class AnalysisResult:
     warnings: list[str]
     cofailure: CoFailureAnalysis = field(default_factory=CoFailureAnalysis)
     observations: dict[str, list[Observation]] = field(default_factory=dict, repr=False)
-    """Each test's normalized observations, oldest first, as the statistics read them."""
+    """Normalized observations in the resolved chronological or display order."""
+    ordering: RunOrdering = field(default_factory=lambda: RunOrdering(False, "unavailable"))
 
 
 def _classify(
@@ -229,6 +232,8 @@ def _test_stats(
     observations: list[Observation],
     run_positions: dict[str, int],
     run_failures: dict[str, int] | None = None,
+    *,
+    chronological: bool = True,
 ) -> TestStats:
     suite = observations[0].result.suite
     non_skip = [o for o in observations if o.result.status not in (Status.SKIP, Status.UNKNOWN)]
@@ -248,9 +253,15 @@ def _test_stats(
     # Skips keep the existing "consecutive observed outcomes" convention, but
     # an excluded outcome interrupts that sequence: do not bridge ambiguity.
     sequence = [o.result.status for o in observations if o.result.status != Status.SKIP]
-    pairs = [
-        (a, b) for a, b in zip(sequence, sequence[1:], strict=False) if Status.UNKNOWN not in (a, b)
-    ]
+    pairs = (
+        [
+            (a, b)
+            for a, b in zip(sequence, sequence[1:], strict=False)
+            if Status.UNKNOWN not in (a, b)
+        ]
+        if chronological
+        else []
+    )
     flips = sum(a.is_failure != b.is_failure for a, b in pairs)
     flip_rate = flips / len(pairs) if pairs else 0.0
 
@@ -279,8 +290,8 @@ def _test_stats(
         failures.append(
             FailureEvidence(
                 run_id=md.run_id,
-                index=index,
-                timestamp=md.timestamp,
+                index=index if chronological else None,
+                timestamp=recorded_time(obs.run),
                 commit=md.commit,
                 status=obs.result.status,
                 message=obs.result.message,
@@ -294,14 +305,15 @@ def _test_stats(
             named[top].append((index, failures[-1]))
     named_failures = []
     for name, records in named.items():
-        placed = assess([index for index, _ in records], n, can_be_new=False)
-        assert placed is not None
+        placed = (
+            assess([index for index, _ in records], n, can_be_new=False) if chronological else None
+        )
         named_failures.append(
             NamedFailure(
                 name=name,
                 runs=len(records),
-                first_run_id=records[0][1].run_id,
-                last_run_id=records[-1][1].run_id,
+                first_run_id=records[0][1].run_id if chronological else None,
+                last_run_id=records[-1][1].run_id if chronological else None,
                 passed_same_commit=sum(f.same_commit == "passed" for _, f in records),
                 checked=sum(f.same_commit in ("passed", "failed") for _, f in records),
                 activity=placed,
@@ -319,7 +331,7 @@ def _test_stats(
     )
 
     # Incomplete histories cannot locate an onset without guessing across gaps.
-    change_point = detect_change_point(outcomes) if not excluded else None
+    change_point = detect_change_point(outcomes) if chronological and not excluded else None
     change_point_run_id = None
     change_point_commit = None
     runs_since_change = None
@@ -357,7 +369,11 @@ def _test_stats(
     ]
     duration_outcomes = [outcome for o, outcome in duration_observations]
     duration_positions = [run_positions[o.run.metadata.run_id] for o, _ in duration_observations]
-    duration_trend = linear_trend(durations, duration_positions) if len(durations) >= 2 else None
+    duration_trend = (
+        linear_trend(durations, duration_positions)
+        if chronological and len(durations) >= 2
+        else None
+    )
     duration_failure_correlation = (
         point_biserial(durations, duration_outcomes) if len(durations) >= 2 else None
     )
@@ -378,7 +394,7 @@ def _test_stats(
         ]
         os_rates = group_failure_rates(oses, os_outcomes)
 
-    timestamps = [o.run.metadata.timestamp for o in observations if o.run.metadata.timestamp]
+    timestamps = [time for o in observations if (time := recorded_time(o.run)) is not None]
 
     return TestStats(
         full_name=full_name,
@@ -405,7 +421,7 @@ def _test_stats(
         message_clusters=_cluster_messages(observations),
         first_seen=min(timestamps) if timestamps else None,
         last_seen=max(timestamps) if timestamps else None,
-        last_status=observations[-1].result.status,
+        last_status=observations[-1].result.status if chronological else None,
         runs_since_change=runs_since_change,
         n_unknown=len(excluded),
         flip_pairs=len(pairs),
@@ -414,17 +430,21 @@ def _test_stats(
         retry_observations=retries,
         excluded_observations=excluded,
         failures=failures,
-        activity=assess([f.index for f in failures], n),
+        activity=assess([i for i, outcome in enumerate(outcomes) if outcome], n)
+        if chronological
+        else None,
         named_failures=named_failures,
+        temporal_available=chronological,
     )
 
 
 def analyze(runs: list[Run]) -> AnalysisResult:
     """Compute flakiness statistics for every test seen across `runs`.
 
-    `runs` must already be in chronological order (see `flakemap.loader.load_runs`,
-    which guarantees this).
+    Order is resolved from metadata, as in `flakemap.loader.load_runs`. When no
+    common chronology is available, retain non-temporal evidence only.
     """
+    runs, ordering = order_runs(runs)
     by_test: dict[str, list[Observation]] = defaultdict(list)
     for observation in history_observations(runs):
         by_test[observation.result.full_name].append(observation)
@@ -435,21 +455,27 @@ def analyze(runs: list[Run]) -> AnalysisResult:
         for obs in observations:
             if obs.result.status.is_failure:
                 run_failures[obs.run.metadata.run_id] += 1
-    tests = [_test_stats(name, obs, run_positions, run_failures) for name, obs in by_test.items()]
+    tests = [
+        _test_stats(name, obs, run_positions, run_failures, chronological=ordering.available)
+        for name, obs in by_test.items()
+    ]
     tests.sort(key=lambda t: t.flakiness_score, reverse=True)
 
-    run_id_range = (runs[0].metadata.run_id, runs[-1].metadata.run_id) if runs else None
-    timestamps = [r.metadata.timestamp for r in runs if r.metadata.timestamp]
+    run_id_range = (
+        (runs[0].metadata.run_id, runs[-1].metadata.run_id) if runs and ordering.available else None
+    )
+    timestamps = [time for r in runs if (time := recorded_time(r)) is not None]
     timestamp_range = (min(timestamps), max(timestamps)) if timestamps else None
 
-    mtime_sources = sum(1 for r in runs if r.metadata.source == "mtime")
+    mtime_sources = (
+        sum(1 for r in runs if r.metadata.source == "mtime") if ordering.basis != "sequence" else 0
+    )
     mtime_warning = None
     if runs and mtime_sources / len(runs) > 0.5:
         mtime_warning = (
             f"{mtime_sources}/{len(runs)} runs have no sidecar timestamp/sequence and were "
-            "ordered by file mtime; run order (and therefore flip rate, change-point, and "
-            "duration trend) may be inaccurate if mtimes don't reflect CI run order "
-            "(e.g. after a fresh checkout)."
+            "displayed by file mtime. Copy times do not establish CI chronology; "
+            "temporal statistics require recorded timestamps or explicit sequences."
         )
 
     elif mtime_sources and any(r.metadata.source in ("sidecar", "report") for r in runs):
@@ -470,20 +496,8 @@ def analyze(runs: list[Run]) -> AnalysisResult:
     )
     if mtime_warning:
         warnings.append(mtime_warning)
-    ordering_tiers = {
-        0 if r.metadata.timestamp else 1 if r.metadata.sequence is not None else 2 for r in runs
-    }
-    if len(ordering_tiers) > 1:
-        warnings.append(
-            "Mixed ordering sources: timestamped runs sort before sequence-only runs. "
-            "Supply a timestamp for every run or a sequence for every run to compare chronology."
-        )
-    order_keys = [run_sort_key(r)[:3] for r in runs]
-    if len(set(order_keys)) != len(order_keys):
-        warnings.append(
-            "Some runs have tied ordering values; run ids break ties lexically. "
-            "Provide distinct timestamps or sequences before interpreting temporal statistics."
-        )
+    if ordering.reason:
+        warnings.append(ordering.reason)
 
     return AnalysisResult(
         tests=tests,
@@ -494,4 +508,5 @@ def analyze(runs: list[Run]) -> AnalysisResult:
         warnings=warnings,
         cofailure=group_failures(runs, by_test),
         observations=dict(by_test),
+        ordering=ordering,
     )

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from dataclasses import asdict
 from typing import Any
 
 from flakemap.models import TestCaseResult
@@ -211,16 +212,18 @@ def _test_to_dict(t: TestStats) -> dict[str, Any]:
         ],
         "first_seen": t.first_seen.isoformat() if t.first_seen else None,
         "last_seen": t.last_seen.isoformat() if t.last_seen else None,
-        "last_status": t.last_status.value,
+        "last_status": t.last_status.value if t.last_status is not None else None,
+        "temporal_available": t.temporal_available,
     }
 
 
 def to_json_dict(result: AnalysisResult) -> dict[str, Any]:
     """Build the `--json` output payload."""
     return {
-        "schema_version": 2,
+        "schema_version": 3,
         "summary": {
             "input_complete": not result.warnings,
+            "ordering": asdict(result.ordering),
             "total_runs": result.total_runs,
             "run_id_range": list(result.run_id_range) if result.run_id_range else None,
             "timestamp_range": (

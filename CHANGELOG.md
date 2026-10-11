@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Run chronology
+
+- Require a common, unambiguous sequence or recorded timestamp order before
+  temporal analysis. Tied times, filesystem copy times, mixed incomplete keys
+  and conflicting metadata no longer invent regression commits, activity,
+  flip rates, latest outcomes or duration trends. Retain counts, retry records,
+  same-commit comparisons and co-failure groups. Reports label display order.
+- Resolve complete sequences consistently in the loader, library and HTML,
+  including sequences that disambiguate tied timestamps. `--fail-on-new-flake`
+  returns 2 without chronology, and no longer flags a known recovery as a new
+  failure. JSON advances to version 3 to identify newly nullable temporal fields.
+- Retain 40 actual controlled pytest reports, folder-permutation replays,
+  ordered regression/recovery controls and browser checks in the
+  [ordering study](studies/ordering-evidence/README.md).
+
 ### TRX summary coverage
 
 - Reconcile VSTest's `total`, `executed`, `passed` and `failed` counters against

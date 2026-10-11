@@ -171,6 +171,20 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               }
               const companion = fixture.prebuilt ? { cofailure: { groups: [] } }
                 : JSON.parse(await readFile(resolve(directory, `${fixture.name}.json`), "utf8"));
+              if (fixture.chronology === false) {
+                assert.equal(companion.summary.ordering.available, false);
+                assert.equal(await page.locator('.stamp-new, .stamp-quiet').count(), 0);
+                const body = await page.locator('body').textContent();
+                assert.match(body, /Chronology unavailable\./);
+                assert.match(body, /display order only/);
+                assert.doesNotMatch(body, /newest first|first failed|chronological order|Duration trend \(without retries\)/);
+                for (const test of companion.tests) {
+                  assert.equal(test.change_point, null);
+                  assert.equal(test.activity, null);
+                  assert.equal(test.flip_rate, null);
+                  assert.equal(test.last_status, null);
+                }
+              }
               if (companion.cofailure.groups.length) {
                 const groups = page.locator("details.cohort");
                 assert.equal(await groups.count(), Math.min(20, companion.cofailure.groups.length));
@@ -244,7 +258,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.deepEqual(errors, []);
               assert.deepEqual(network, []);
               assert.deepEqual(await page.evaluate(() => window.reportCspViolations), []);
-              if (["retry", "incomplete", "cofailure", "long", "googletest"].includes(fixture.name)) {
+              if (fixture.chronology === false || ["retry", "incomplete", "cofailure", "long", "googletest"].includes(fixture.name)) {
                 await page.evaluate(() => {
                   document.querySelectorAll(".cohort-scroll").forEach(el => { el.scrollLeft = 0; });
                   window.scrollTo(0, 0);

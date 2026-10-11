@@ -4,7 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from flakemap.models import Run, TestCaseResult, run_sort_key
+from flakemap.models import Run, TestCaseResult
+from flakemap.ordering import order_runs
 from flakemap.parse.junit import read_junit_with_start
 from flakemap.parse.metadata import resolve_metadata
 from flakemap.parse.trx import is_trx, read_trx
@@ -21,7 +22,10 @@ def report_patterns(pattern: str) -> list[str]:
 
 
 def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
-    """Recursively load every JUnit or TRX report under `root`, oldest run first.
+    """Load every JUnit or TRX report, resolving one common chronological key.
+
+    Without that evidence the list has deterministic display order only;
+    `analyze` reports the limit and withholds temporal statistics.
 
     `pattern` is one glob or several separated by commas. Multiple report files
     that resolve to the same `run_id` (a multi-suite pytest run that wrote one XML
@@ -101,4 +105,4 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
             elif theirs == ours < 3 and md.timestamp and metadata.timestamp:
                 md.timestamp = min(md.timestamp, metadata.timestamp)
 
-    return sorted(by_run_id.values(), key=run_sort_key)
+    return order_runs(list(by_run_id.values()))[0]

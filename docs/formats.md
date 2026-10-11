@@ -249,7 +249,7 @@ resolves that from the report file's location, tried in this order (see
    `meta.json` from the nearest ancestor directory within the scan root (the
    specific file wins). Recognized keys, all optional: `run_id`, `commit`,
    `branch`, `timestamp` (ISO 8601), `runner`, `os`, `sequence` (a nonnegative integer
-   used to order runs when there's no timestamp). Unknown keys are kept and
+   ordering key). Unknown keys are kept and
    shown in `--json` output under `extra` but not used statistically.
 
    ```
@@ -284,11 +284,33 @@ resolves that from the report file's location, tried in this order (see
 `meta.json` per run directory) and is the reference implementation for a CI
 job that wants to produce flakemap-ready output directly.
 
-A sequence-only run has **no fabricated timestamp**. Its sequence controls its
-order even if files are copied or touched in reverse order. Mixed timestamp and
-sequence-only runs are ordered in separate tiers and produce a warning; supply
-one common ordering convention for temporal statistics. Missing metadata is not
-evidence of identical environments. Rerun comparison groups by the provided
+### Run ordering in the source checkout
+
+A sequence-only run has **no fabricated timestamp**. The loader and `analyze`
+resolve one ordering convention across the supplied history:
+
+| Metadata | Temporal analysis |
+|---|---|
+| Unique nonnegative sequences for every run | Sequence order; recorded timestamps must not move backward |
+| Otherwise, unique recorded timestamps for every run | Timestamp order; known sequence values must not move backward |
+| Tied timestamps and complete unique sequences | Sequence resolves the ties |
+| Mixed partial keys, unresolved ties, contradictory keys, or filesystem-only times | Unavailable; deterministic display order only |
+
+Single-run input requires no inter-run ordering. File mtimes never contradict a
+supplied sequence because they are copy evidence, not CI timestamps. Datetime
+ordering retains microsecond precision and compares timezone-aware instants.
+The library resolves order too; an arbitrary input list does not assert chronology.
+
+Without chronology, rates, retries, same-commit comparisons, named failure counts
+and exact shared-outcome cohorts remain available. Flip pairs are zero and their
+rate is null; the heuristic score has no flip contribution. Activity, change points,
+latest outcome, failure positions, named first/last runs and duration trends stay
+null. Report columns are explicitly display order. `--fail-on-new-flake` returns
+2, after writing the report, because it cannot evaluate recency. A chronological
+decrease in failure rate remains a change point but does not trip that gate.
+[Actual pytest reports and permutation replay](../studies/ordering-evidence/README.md).
+
+Missing metadata is not evidence of identical environments. Rerun comparison groups by the provided
 commit, branch, runner and OS; additional configuration remains unobserved.
 
 Reports with the same `run_id` merge only as a logical run. If supplied commit,
@@ -328,14 +350,24 @@ Enable `reports.junitXml.mergeReruns = true` to emit explicit recovered markers.
 Other retry dialects need their own documented format support; a name repeated
 near a passing result is not enough to infer recovery.
 
-## JSON output version 2
+## JSON output version 3
+
+Version 3 adds `summary.ordering` (`available`, `basis`, `reason`) and
+`tests[].temporal_available`. Consumers of version 2 must accept null values for
+`tests[].last_status`, `tests[].failures[].index`, and the `first_run_id` /
+`last_run_id` / `activity` fields of named failures when chronology is unavailable.
+The existing nullable activity, change-point and duration-trend fields also stay
+null in that case. `summary.run_id_range` is null without chronology. File mtimes
+are excluded from recorded timestamp ranges and failure timestamps; original run
+metadata remains in `cofailure.runs`. Historical captured JSON files keep their
+original schema version.
 
 Version 2 changes the interpretation of ambiguous records and adds inspectable
 retry evidence. Consumers of version 1 must account for these changes:
 
 | Field | Meaning |
 |---|---|
-| `schema_version` | `2` |
+| `schema_version` | `3` in this source checkout |
 | `summary.recovered_test_runs` | Number of usable test/run observations that passed on retry |
 | `summary.exhausted_test_runs` | Number with explicit retries that never passed |
 | `summary.excluded_test_runs` | Ambiguous test/run observations excluded from statistics |
@@ -354,14 +386,14 @@ retry evidence. Consumers of version 1 must account for these changes:
 | `cofailure.ambiguous_tests_excluded` | Tests excluded from grouping because any outcome was ambiguous |
 | `cofailure.groups[]` | Report-local ID, members, all six `run_states`, final-failure/recovered counts, affected test-run count and original affected evidence |
 
-The source checkout adds these, without changing the version:
+The following evidence fields introduced during version 2 remain:
 
 | Field | Meaning |
 |---|---|
 | `summary.flaky_new` / `flaky_quiet` | Flaky tests whose failures began after a long clean stretch, or have stopped for longer than ever before (see `activity`) |
-| `tests[].activity` | `null` for a test that never failed. Otherwise `state` (`new`, `ongoing`, `quiet`), `failures`, `events` (failures with consecutive failing runs counted once), `longest_gap` (most passing runs between two successive events; `null` with fewer than two), `runs_since_last_failure`, `runs_since_first_failure`, and `silence_ratio` (runs since the last failure over `longest_gap`; `null` without a gap). `quiet` needs 3 events and a silence of at least 3 times the longest gap and 10 runs; `new` is the mirror, and is never given to a name in `named_failures[]`. The earlier unreleased `quiet_chance` and `new_chance` are gone |
+| `tests[].activity` | `null` for a test that never failed or lacks chronology. Otherwise `state` (`new`, `ongoing`, `quiet`), `failures`, `events` (failures with consecutive failing runs counted once), `longest_gap` (most passing runs between two successive events; `null` with fewer than two), `runs_since_last_failure`, `runs_since_first_failure`, and `silence_ratio` (runs since the last failure over `longest_gap`; `null` without a gap). `quiet` needs 3 events and a silence of at least 3 times the longest gap and 10 runs; `new` is the mirror, and is never given to a name in `named_failures[]`. The earlier unreleased `quiet_chance` and `new_chance` are gone |
 | `tests[].same_commit` | Of the test's failures: `failures_passed_elsewhere`, `failures_failed_everywhere` and `failures_without_another_run`, by what the other runs of the same commit, branch, runner and OS did |
-| `tests[].failures[]` | Every final failure, oldest first: `run_id`, `index` (position among the test's usable runs, from 0), `timestamp`, `commit`, `status`, `message`, `failed_within`, `same_commit` (`passed`, `failed`, `single`, `unknown`), `same_commit_other_runs`, `other_tests_failed` |
+| `tests[].failures[]` | Every final failure, oldest first when chronology is available: `run_id`, `index` (position among the test's usable runs, from 0), `timestamp`, `commit`, `status`, `message`, `failed_within`, `same_commit` (`passed`, `failed`, `single`, `unknown`), `same_commit_other_runs`, `other_tests_failed` |
 | `tests[].named_failures[]` | Top-level Go tests named inside this testcase's failures, most frequent first: `name`, `runs`, `first_run_id`, `last_run_id`, `passed_same_commit`, `checked_same_commit`, `activity` |
 | `tests[].rerun_signal.value` | Now the share of same-commit pairs of runs that disagree, weighted by runs; equal to `groups_with_flip / groups_with_reruns` when every rerun group has two runs |
 

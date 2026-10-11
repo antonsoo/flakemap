@@ -155,6 +155,7 @@ def main() -> None:
         ("cofailure", "examples/cofailure_history", 12, 6),
         ("cofailure-bounds", "synthetic boundary case in scripts/browser_fixtures.py", 26, 69),
         ("long", "synthetic long-history case in scripts/browser_fixtures.py", 1200, 46),
+        ("ordering", "studies/ordering-evidence/captures", 40, 2),
     ]
     synthetic = {"cofailure-bounds": cofailure_bounds, "long": long_history}
     manifest = []
@@ -172,6 +173,8 @@ def main() -> None:
         if name == "long":
             # Drawn as strips: six rows with marks, no cells, and forty names in a list.
             entry |= {"rows": 6, "cells": 0, "listed": 40}
+        if name == "ordering":
+            entry["chronology"] = False
         manifest.append(entry)
     for item in build(OUT / "gallery"):
         manifest.append({**item, "name": f"gallery/{item['name']}"})

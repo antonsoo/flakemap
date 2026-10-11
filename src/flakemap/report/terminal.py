@@ -63,7 +63,9 @@ def named_failures(t: TestStats, limit: int = 3) -> list[str]:
     shown = []
     for named in t.named_failures[:limit]:
         line = f"{visible(named.name)} ×{named.runs}"
-        if named.activity.state == "quiet":
+        if named.activity is None:
+            line += ", chronology unavailable"
+        elif named.activity.state == "quiet":
             line += f", quiet for {count(named.activity.runs_since_last)} runs"
         else:
             line += f", first failed {count(named.activity.runs_since_first)} runs ago"
@@ -136,6 +138,11 @@ def render_terminal(result: AnalysisResult, console: Console, top_n: int = 20) -
     console.print(
         f"{recovered} test-runs passed on retry; {excluded} ambiguous test-runs excluded."
     )
+    if not result.ordering.available:
+        console.print(
+            "Chronology unavailable: temporal statistics are omitted. Counts, retries and same-commit comparisons remain usable.",
+            style="yellow",
+        )
     states = [activity_state(t) for t in result.tests]
     if any(states):
         console.print(

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.023" timestamp="2026-10-10T17:20:25.887587-07:00" hostname="omnia"><testcase classname="test_pipeline" name="test_pipeline" time="0.000"><failure message="AssertionError: controlled pipeline failure&#10;assert 24 &lt; 20">def test_pipeline() -&gt; None:
+        capture_index = int(os.environ.get("FLAKEMAP_CAPTURE_INDEX", "0"))
+&gt;       assert capture_index &lt; 20, "controlled pipeline failure"
+E       AssertionError: controlled pipeline failure
+E       assert 24 &lt; 20
+
+test_pipeline.py:8: AssertionError</failure></testcase><testcase classname="test_pipeline" name="test_dependency" time="0.000"><failure message="AssertionError: same controlled failure condition&#10;assert 24 &lt; 20">def test_dependency() -&gt; None:
+        capture_index = int(os.environ.get("FLAKEMAP_CAPTURE_INDEX", "0"))
+&gt;       assert capture_index &lt; 20, "same controlled failure condition"
+E       AssertionError: same controlled failure condition
+E       assert 24 &lt; 20
+
+test_pipeline.py:13: AssertionError</failure></testcase></testsuite></testsuites>

@@ -400,14 +400,17 @@ Reproduce this table: `uv run flakemap examples/demo_project/runs --json`.
   no supported retry markers were present. No attempt times or causal diagnosis
   are reconstructed. Failure messages are limited to their first 500-character
   line; source pointers refer to testcase ordinals, not line numbers.
-- **mtime-ordered runs are only as reliable as the filesystem.** A fresh
-  `git clone` or artifact re-download can collapse many files to nearly the
-  same mtime; flakemap warns when more than half a batch falls back to mtime,
-  but a sidecar or directory-per-run layout is strongly preferred (see
-  [`docs/formats.md`](docs/formats.md)). The source checkout first tries the
-  report's own suite `timestamp` (gotestsum and pytest write one with a UTC
-  offset), and warns when even one run placed by mtime sits among runs placed
-  by a recorded time.
+- **Temporal conclusions need a common chronology.** In this source checkout,
+  provide distinct sequences for all runs, or distinct recorded timestamps for
+  all runs. Supplied sequences and timestamps must agree. File copy times and
+  lexical run IDs only order the display: incomplete, tied or contradictory
+  ordering leaves activity, onset, flip rate, latest outcome and duration trend
+  unavailable. Counts, retries and same-commit comparisons remain usable; the
+  heuristic score omits its flip component. `--fail-on-new-flake` returns 2 when
+  chronology is unavailable. A known recovery is not a new flake. See the
+  [retained pytest counterexample](studies/ordering-evidence/README.md) and
+  [ordering contract](docs/formats.md#run-ordering-in-the-source-checkout).
+  This is unreleased source behavior; JSON output is version 3.
 - **New and quiet are about placement, not cause.** "Quiet" says the failures
   stopped; a fix, a revert, a deleted test and a renamed one look alike. It is a
   rule, not a significance test: bursts make long silences less surprising, which

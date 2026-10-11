@@ -104,6 +104,11 @@ def render_markdown(result: AnalysisResult, top_n: int = 15) -> str:
         f"{sum(t.recovered_runs for t in result.tests)} test-runs passed on retry; "
         f"{sum(t.n_unknown for t in result.tests)} ambiguous test-runs excluded."
     )
+    if not result.ordering.available:
+        lines.append(
+            "\n**Chronology unavailable.** Temporal statistics are omitted. "
+            "Counts, retries and same-commit comparisons remain usable."
+        )
     states = [activity_state(t) for t in result.tests]
     if any(states):
         lines.append(

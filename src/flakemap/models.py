@@ -114,8 +114,8 @@ class RunMetadata:
     runner: str | None = None
     os: str | None = None
     sequence: int | None = None
-    """Explicit ordering hint (e.g. from a sidecar's ``"sequence"`` key) used when
-    no timestamp is available. Lower runs first."""
+    """Explicit ordering key (e.g. from a sidecar's ``"sequence"`` key). A complete
+    unique sequence orders the history; recorded timestamps must agree. Lower runs first."""
     source: str = "unknown"
     """Where this metadata came from: 'sidecar', 'path', 'report' (a TRX file's own
     start time), 'mtime', or 'unknown'.
@@ -136,12 +136,14 @@ class Run:
 
 
 def run_sort_key(run: Run) -> tuple[int, float, int, str]:
-    """Order runs chronologically, using the best signal available.
+    """Deterministic display key, including runs without common chronology.
 
     Timestamped runs sort first (by time); pure-sequence runs sort after, by their
     sequence number; anything else falls back to a lexical sort of run_id so output
     is at least deterministic. The leading int partitions the three tiers so they
     never interleave.
+    Temporal analysis uses `ordering.order_runs` to establish a common key;
+    this display fallback alone cannot establish chronology.
     """
     md = run.metadata
     if md.timestamp is not None:

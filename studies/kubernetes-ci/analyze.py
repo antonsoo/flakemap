@@ -68,12 +68,17 @@ def longest_gap_days(failures: list[Any]) -> float | None:
 
 def named_tests(result: AnalysisResult) -> list[dict[str, Any]]:
     """One row per test named inside a failing package, most failures first."""
+    if not result.ordering.available:
+        raise ValueError(
+            f"This timeline study requires recorded chronology: {result.ordering.reason}"
+        )
     when = {run_id: md.timestamp for md in result.cofailure.runs for run_id in [md.run_id]}
     end = max(moment for moment in when.values() if moment)
     rows = []
     for test in result.tests:
         for named in test.named_failures:
             activity = named.activity
+            assert activity is not None
             mine = [
                 f
                 for f in test.failures

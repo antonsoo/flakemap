@@ -24,6 +24,7 @@ from html import escape
 
 from flakemap.models import Run, Status, TestCaseResult
 from flakemap.observations import history_observations
+from flakemap.ordering import order_runs, recorded_time
 from flakemap.report.cofailure_html import COFAILURE_CSS, render_cofailure
 from flakemap.report.names import common_prefix, short_name, visible
 from flakemap.report.numbers import count, interval, of, percent
@@ -84,7 +85,8 @@ def _build_matrix(
 
 def _run_title(run: Run, tc: TestCaseResult) -> str:
     md = run.metadata
-    when = md.timestamp.strftime("%Y-%m-%d %H:%M") if md.timestamp else "unknown time"
+    moment = recorded_time(run)
+    when = moment.strftime("%Y-%m-%d %H:%M") if moment else "unknown time"
     label = _STATUS_LABEL[tc.status]
     if tc.retry and tc.status is not Status.UNKNOWN:
         label += f"; {tc.retry.outcome} after {len(tc.retry.failures)} recorded failure(s)"
@@ -128,7 +130,7 @@ def _strip(t: TestStats, runs: list[Run], results: dict[str, TestCaseResult]) ->
             title = _run_title(runs[start], first)
             if width > 1:
                 title = (
-                    f"{width} consecutive runs, {_STATUS_LABEL[first.status]} · first: {title}"
+                    f"{width} {'consecutive runs' if t.temporal_available else 'adjacent displayed runs'}, {_STATUS_LABEL[first.status]} · first: {title}"
                     f" · last: {runs[end - 1].metadata.run_id}"
                 )
             parts.append(
@@ -179,7 +181,9 @@ def _when(failure: FailureEvidence) -> str:
 
 def _failure_rows(t: TestStats) -> str:
     """The most recent failures, newest first: when, where, and what else is known of each."""
-    shown = list(reversed(t.failures))[:MAX_LISTED_FAILURES]
+    shown = (list(reversed(t.failures)) if t.temporal_available else t.failures)[
+        :MAX_LISTED_FAILURES
+    ]
     rows = []
     for f in shown:
         what = ", ".join(f.failed_within[:4]) if f.failed_within else (f.message or "")
@@ -195,13 +199,13 @@ def _failure_rows(t: TestStats) -> str:
             f"<td><code>{escape(visible(what))}</code></td></tr>"
         )
     more = (
-        f'<p class="evidence-note">Showing the latest {len(shown)} of {count(len(t.failures))} '
+        f'<p class="evidence-note">Showing {"the latest " if t.temporal_available else ""}{len(shown)} of {count(len(t.failures))} '
         "failures; <code>--json</code> has every one.</p>"
         if len(t.failures) > len(shown)
         else ""
     )
     return (
-        '<h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" '
+        f'<h3>Failures, {"newest first" if t.temporal_available else "display order only"}</h3><div class="scroll" role="region" tabindex="0" '
         f'aria-label="Failures of {escape(visible(t.full_name))}"><table class="failures"><thead><tr>'
         '<th scope="col">Run</th><th scope="col">Same commit, other runs</th>'
         '<th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th>'
@@ -213,12 +217,16 @@ def _named_rows(t: TestStats) -> str:
     rows = []
     for named in t.named_failures[:MAX_NAMED_FAILURES]:
         activity = named.activity
-        state = {
-            "quiet": f"quiet for {count(activity.runs_since_last)} runs",
-            "new": f"first failed {count(activity.runs_since_first)} runs ago",
-            "ongoing": f"first failed {count(activity.runs_since_first)} runs ago, "
-            f"last {count(activity.runs_since_last)} runs ago",
-        }[activity.state]
+        state = (
+            "chronology unavailable"
+            if activity is None
+            else {
+                "quiet": f"quiet for {count(activity.runs_since_last)} runs",
+                "new": f"first failed {count(activity.runs_since_first)} runs ago",
+                "ongoing": f"first failed {count(activity.runs_since_first)} runs ago, "
+                f"last {count(activity.runs_since_last)} runs ago",
+            }[activity.state]
+        )
         same = of(named.passed_same_commit, named.checked) if named.checked else "none to compare"
         rows.append(
             f'<tr><th scope="row"><code>{escape(visible(named.name))}</code></th>'
@@ -244,7 +252,8 @@ def _named_rows(t: TestStats) -> str:
 
 def _cell(run: Run, tc: TestCaseResult | None) -> str:
     md = run.metadata
-    when = md.timestamp.strftime("%Y-%m-%d %H:%M") if md.timestamp else "unknown time"
+    moment = recorded_time(run)
+    when = moment.strftime("%Y-%m-%d %H:%M") if moment else "unknown time"
     if tc is None:
         title = f"{md.run_id} · {when} · not present in this run"
         return f'<span class="cell s-missing" title="{escape(title)}"></span>'
@@ -290,6 +299,8 @@ def _test_detail(t: TestStats) -> str:
             "Flip rate",
             f"{percent(t.flip_rate)} of {count(t.flip_pairs)} usable consecutive pairs"
             if t.flip_pairs
+            else "unavailable: chronology is unknown"
+            if not t.temporal_available
             else "unavailable: no usable consecutive pairs",
         ),
         _stat_row(
@@ -309,6 +320,13 @@ def _test_detail(t: TestStats) -> str:
                 f"{of(t.failures_passed_same_commit, t.failures_checked)} passed in another run "
                 f"of the same commit; {t.failures_repeated_same_commit} failed in every run of it"
                 + (f"; {alone} more had no other run" if alone else ""),
+            )
+        )
+    if not t.temporal_available:
+        parts.append(
+            _stat_row(
+                "Chronology",
+                "Unavailable: no flip rate, activity, onset, latest outcome or duration trend. The score omits its flip component.",
             )
         )
     if t.activity and t.classification != "broken":  # a broken test's story is its change point
@@ -443,14 +461,18 @@ def _test_row(
 </details>"""
 
 
-def _axis(runs: list[Run]) -> str:
+def _axis(runs: list[Run], chronological: bool = True) -> str:
     """Where in the history a position along a strip is: five runs, by date or by id."""
     last = len(runs) - 1
     labels = []
     for step in range(5):
         run = runs[round(last * step / 4)]
         md = run.metadata
-        text = f"{md.timestamp:%b} {md.timestamp.day}" if md.timestamp else visible(md.run_id)[:12]
+        text = (
+            f"{md.timestamp:%b} {md.timestamp.day}"
+            if chronological and md.timestamp and md.source != "mtime"
+            else visible(md.run_id)[:12]
+        )
         labels.append(f'<span style="left:{25 * step}%">{escape(text)}</span>')
     return (
         '<div class="axis" aria-hidden="true"><span class="row-name"></span>'
@@ -632,6 +654,7 @@ table.failures code { font-family: var(--font-mono); }
 .evidence h4 { margin: 0.65rem 0; }
 .evidence p { margin: 0.5rem 0; }
 .evidence-note, .source { color: var(--ink-soft); }
+.chronology-note { margin: 1.25rem 1.5rem 0; overflow-wrap: anywhere; }
 .warning summary { cursor: pointer; }
 .messages { margin: 0.2rem 0 0.6rem; padding-left: 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; }
 .prefix { margin: -0.4rem 0 0.8rem; font-size: 0.8rem; color: var(--ink-soft); }
@@ -663,6 +686,7 @@ _CSP = "default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri '
 
 def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap report") -> str:
     """Render the full self-contained HTML report for `result` over `runs`."""
+    runs, _ = order_runs(runs)
     order = {"broken": 0, "new": 1, "flaky": 2, "quiet": 3, "insufficient_data": 4, "healthy": 5}
     tests_ranked = sorted(result.tests, key=lambda t: (order[_state(t)], -t.flakiness_score))
     strips = len(runs) > MAX_CELL_RUNS
@@ -672,7 +696,7 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
     matrix = _build_matrix(result, runs, {t.full_name for t in drawn})
     prefix = common_prefix([t.full_name for t in result.tests])
     test_anchors = {test.full_name: f"test-{index}" for index, test in enumerate(tests_ranked)}
-    rows_html = (_axis(runs) if strips and drawn else "") + "".join(
+    rows_html = (_axis(runs, result.ordering.available) if strips and drawn else "") + "".join(
         _test_row(t, runs, matrix, prefix, test_anchors[t.full_name], strips) for t in drawn
     )
     healthy_html = _healthy_list(listed, prefix, test_anchors) if listed else ""
@@ -707,6 +731,15 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
         if prefix
         else ""
     )
+    if not result.ordering.available:
+        legend = legend.replace(
+            "Left to right is oldest to newest run.",
+            "Left to right is display order only; chronology is unavailable.",
+        )
+        legend = legend.replace(
+            "Columns are runs in chronological order.",
+            "Columns are runs in display order only; chronology is unavailable.",
+        )
 
     counts = {
         k: sum(1 for t in result.tests if t.classification == k)
@@ -731,6 +764,11 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
         if result.warnings
         else ""
     )
+    if not result.ordering.available:
+        warning_html = (
+            '<p class="evidence-note chronology-note"><b>Chronology unavailable.</b> Counts, retries and shared outcomes remain usable. Temporal conclusions require consistent run timestamps or sequences.</p>'
+            + warning_html
+        )
 
     return f"""<!doctype html>
 <html lang="en">

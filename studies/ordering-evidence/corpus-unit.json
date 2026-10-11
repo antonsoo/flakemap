@@ -1,0 +1,31 @@
+{
+  "job": "ci-kubernetes-unit",
+  "verified_xml_files": 8612,
+  "runs": 2153,
+  "tests": 1524,
+  "ordering": {
+    "available": true,
+    "basis": "timestamp",
+    "reason": null
+  },
+  "metadata_sources": {
+    "sidecar": 2153
+  },
+  "all_test_summaries_unchanged": true,
+  "test_summaries_sha256": "9220430f0cf1e68f61934c21c8d3c7dfe89fcbd152a4f4807cfc00162ae01802",
+  "compared_fields": [
+    "activity",
+    "change_point",
+    "classification",
+    "duration_trend",
+    "exhausted",
+    "fail",
+    "flip_rate",
+    "n",
+    "recovered",
+    "same_commit_checked",
+    "same_commit_passed",
+    "skipped",
+    "unknown"
+  ]
+}

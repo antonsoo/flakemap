@@ -8,7 +8,7 @@ it back, tried in this order for each report file:
    or the nearest ancestor ``meta.json`` within the scan root (checked in
    that order — the more specific file wins). Recognized keys, all optional:
    ``run_id``, ``commit``, ``branch``, ``timestamp`` (ISO 8601), ``runner``, ``os``,
-   ``sequence`` (an integer used to order runs when there is no timestamp). Unknown
+   ``sequence`` (an integer ordering key). Unknown
    keys are kept under ``extra`` and shown in reports but not used statistically.
 2. **Directory-per-run layout.** ``<root>/<run_id>/*.xml`` — the first directory
    beneath the scan root becomes ``run_id`` even with no sidecar present. This is the

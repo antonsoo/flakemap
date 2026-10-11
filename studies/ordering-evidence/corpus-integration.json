@@ -1,0 +1,32 @@
+{
+  "job": "ci-kubernetes-integration-master",
+  "verified_xml_files": 2162,
+  "runs": 2162,
+  "tests": 136,
+  "ordering": {
+    "available": true,
+    "basis": "timestamp",
+    "reason": null
+  },
+  "metadata_sources": {
+    "report": 1,
+    "sidecar": 2161
+  },
+  "all_test_summaries_unchanged": true,
+  "test_summaries_sha256": "54cdd8e983747e0bc8ee50fe8172587a577dc6ba5ad2eb034d2429ac58fad615",
+  "compared_fields": [
+    "activity",
+    "change_point",
+    "classification",
+    "duration_trend",
+    "exhausted",
+    "fail",
+    "flip_rate",
+    "n",
+    "recovered",
+    "same_commit_checked",
+    "same_commit_passed",
+    "skipped",
+    "unknown"
+  ]
+}

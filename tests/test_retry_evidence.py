@@ -245,7 +245,7 @@ def test_json_and_html_stay_valid_when_retry_gate_fails(
     out = capsys.readouterr()
     data = json.loads(out.out)
     assert code == 1
-    assert data["schema_version"] == 2
+    assert data["schema_version"] == 3
     assert data["summary"]["recovered_test_runs"] == 2
     assert data["summary"]["exhausted_test_runs"] == 2
     assert "passed-on-retry" in out.err

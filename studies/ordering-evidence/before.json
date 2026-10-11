@@ -1,0 +1,269 @@
+{
+  "capture_sha256": {
+    "00.meta.json": "9d5dc26603f92c23c7e67e94384c39aaa61fefaede42e97f8822ff36494858ce",
+    "00.xml": "6848ff7e37ef45ce338ed46a8a8f2f6189e714cd64956e6eb871c9200056f60f",
+    "01.meta.json": "fbc9c390482b6467888e5c89ea2e558833141b9b74d790fa78aca23d961ced42",
+    "01.xml": "8c2964781951c5544b94aca9be25309e1da0cc52b7d3f922a9e84f30f4cbce57",
+    "02.meta.json": "42e2a7e59f6f041ffa3b8590083653e6984cd59be2ab589aa19c4d1b868147be",
+    "02.xml": "9e968ea74ecafb0f41041ff8c8c03195c741f8e3661964fc7e2795f3c0f9dc50",
+    "03.meta.json": "9d056021d22a1f8cf1ac4e69ac47016363d4f813feca1b13b64b030c5183f9ae",
+    "03.xml": "3bd57d1050984785b0f2ad76363b29137a4c33a089e09ce44c717836f0aa8c99",
+    "04.meta.json": "9e17d3fe68d4ba30d42f7ba8fd55732bcebabe6cc4bcc112ec8308712d864e9b",
+    "04.xml": "30aba94f2117db7c720bf6705a4320d9f79db882f9d2a8b2a29bbbbbc8f076e0",
+    "05.meta.json": "ec9723ba85d32823046592703358bf3b0eb88343fb40893c29ac3216b2123bec",
+    "05.xml": "1f69a07844de0230b6976d9a36320c68e51a5052849b6cb5530f77fd926b65e4",
+    "06.meta.json": "c6ca95f6505cae759ece6858da4673efad8414d81f042295fc949514eeaf13b6",
+    "06.xml": "729af43c34bdd67112193cd885477ba57b0d2e43e0b4efcdf6a52ae537620899",
+    "07.meta.json": "858a8bd4384fdacdf23c12b73c83d8a1eb2af2999f988ea0a88debb22079a351",
+    "07.xml": "2a6112194dae426d6fad78040ed8e07d83d3984ab2063f25435b377c38a576c2",
+    "08.meta.json": "7662c4ef7e395a6a2061cdf1a960c76f743f1df3b9247773dd45bea09c677a67",
+    "08.xml": "7e0508aefe6508f5cc990f20cfc086bd2725fc40375c2852c3ae140478332a20",
+    "09.meta.json": "2251e3d3c6768ecada9dd231ab3b5b9f11df547d4ad5db8c79068893197c1f98",
+    "09.xml": "ae46c9c5d9df9207310e7218a78b29a21358f98435112860c828879837316ed3",
+    "10.meta.json": "0d862de70b246cfbd4a63966509eed707680c6c4fc978023b0b82cebaae40fdb",
+    "10.xml": "b3e25c1928058fc3d032b24a4b8e88eefbb34779d40d9fe2b08adde4c67fdbe7",
+    "11.meta.json": "910368104490504bb844a0b7662ad3ea83b32de96e29938d51f868e310bfc350",
+    "11.xml": "76984fa7af82bf42026bcceb686c3dbf1ac300bd189bc9dbf435bfc7d23f04ae",
+    "12.meta.json": "ac8ffc49659aa800f1f31190b3d87537bf335bb7e64f7da4f9c2d9fae861bebb",
+    "12.xml": "7021c9adb0e45173c6abae52f4709c7a7789f62d003e524887a2b8b2ed926442",
+    "13.meta.json": "7eca1c3dcf92d0290a4d19b5ac02cbc035ea699a95196ab2c8b4794198931526",
+    "13.xml": "33084bfe8634766be34b7672e9a1b82b172b1406202f7e668318cea7e95308fe",
+    "14.meta.json": "b01e5a354245e9c9c07b7798ce593b0ee6ec40922ae439efcc54312cc50f8da6",
+    "14.xml": "36b54285846bcca1e0d33dd40574146100b0c83d0ec82285288a041c4e278623",
+    "15.meta.json": "5da32c3438f757ba48114c8f858f646669b3bddecd4713d799e11befae80bb11",
+    "15.xml": "618b9b1d9dee3a5fdcb07cca420509a4851d41b9c7af2a584fd476076e25f848",
+    "16.meta.json": "15a898520a69be31cec0fd41bc391caf2cab3ca35276c738a67af776d42d5b27",
+    "16.xml": "7d83a03f10ab693d230584271579c74d752399954ed9d244c60bf18b61385762",
+    "17.meta.json": "94eaf214b39167fcfd912c30cdd4ad03a2ea8156e512f7e36de27ee8656ceec2",
+    "17.xml": "4cd1091891a86a0b72c734d0fbc7bb001364d6e8dec1f2f79920ca28ace6d975",
+    "18.meta.json": "6177eab28c0ed3b6d79097ec3963fcb6cb83212f13f6a1c5b2954a5eefca9f6a",
+    "18.xml": "7cac48638fc618d65b4174fecdf868e3468bc0a5457e34fca1702174e892dc4d",
+    "19.meta.json": "7f36e317e4fa4cbcf5756ab2bc6206731b518bb70d92f7b9a56ae5854d5f8746",
+    "19.xml": "18300504975585896d253730553a3d0faba1c91d50e4652637020fb1148c27aa",
+    "20.meta.json": "e0784502f3bd246b9dbdd270bf9f4862eca5f52c7764d088e5a144c130238438",
+    "20.xml": "1ce936d994506092d9797facb29a9aeea305896dc1b884b59b0d1676bfe11a16",
+    "21.meta.json": "4beb09ef8c2c2dfa0187170fec85d1ecca360a0b4cb7cb09231a60c168dae2e9",
+    "21.xml": "88ad25193ea103597e4afd0911cbe83055186f2a4bd75ea18a579558e80d7d0c",
+    "22.meta.json": "31cd61d7fdda412b3bdc2c7f135d0207eec78d4fec30f199123b73d09972a5aa",
+    "22.xml": "7282ec4446599c6598b4373012d19ee9895b84bd192aa479132550107dc63e78",
+    "23.meta.json": "bd08a96d98d0737bae3c1d160fa322fe6f17c660879b413e5b24384a8d47857a",
+    "23.xml": "2866e02c5ac9b9bbfda9040de12d3f085ed74953d7242675430b31548d6b0f17",
+    "24.meta.json": "ec271aed35061a7f6fc92ec7dcd530f82e6ec3d5e664a87838d63aae28a801bc",
+    "24.xml": "bbdc8fb626dd6168b5f12664d06ffb181264bab6b417cefdd29fbdd41fff2225",
+    "25.meta.json": "7ab5516bceb5fe6ce183c7eb995c4fa9d4e6293891550030a0e397a4a0b0180b",
+    "25.xml": "6e54b922a228563bb93595511febc4c6aefe3fc8c3e7522b79a965110122e36a",
+    "26.meta.json": "4e681ede8ffc653aa2e8cb1263f22832c0b97f444c26063ceb1fb447766004e5",
+    "26.xml": "cb39159ab0be4b28f63e516ea1f2d1e737f2ac00c898fc41997b7dbfb6f57cf2",
+    "27.meta.json": "b57fa2e15032c2a8b3539c9baa15361ec1da9eb93f98c4e82b2368c20812ed29",
+    "27.xml": "9af48ef9cc35fbcb60fb6d6a3168dbe86c32ed4daa6f1fb49b355eec7ed761ac",
+    "28.meta.json": "82e1a7303575de163e0f7f0138a9a8cd5200f03eaffe4cfbd7142d31d198861e",
+    "28.xml": "d307221b8c61f020009621a8387e9e4be1e521f8a3c4161a0ea3d2996a2f034e",
+    "29.meta.json": "9b2293a2923e117d3d2496bb122454669f88ec98ad5b611bcc22c9ec7a314f64",
+    "29.xml": "eef806bb1dd18058830df5972fc09b47c7de47e29314912fe7e9f5d3761e0071",
+    "30.meta.json": "7dbd0d7208a6d6aeefef93d779200f07bae6f49f37b2c527bbc1982afbc632d0",
+    "30.xml": "75a6e4ade14a0b01df28996f8d5afba4e70c15a245d8890e5ce42250c4fe90b6",
+    "31.meta.json": "865edb3e343d84351d798b9467430f81cc219b61dbbc0a764d8055071a9a3501",
+    "31.xml": "06cfb9aea49cd9bf1ead0bb8177852d5d55a6a8485260bf08e23e8dd4b71ef3c",
+    "32.meta.json": "0a41d62c19ce30a0b83b6cbbbe2df6541521ab7a8259c61d87d5cf2e1f84e4b2",
+    "32.xml": "f252a76ee9b16e3229ce2a9446c3ec8297fd427b59018d339cdf69f35e8938dc",
+    "33.meta.json": "4a01c58e75d51c29016f9a46c3ef25fc91bdfb14f21fb5aacb507a341b949f42",
+    "33.xml": "480f75e7627ded5ebe4a1cd6ff01e124ddb7110a2e621283b71f829c650f1142",
+    "34.meta.json": "53e5ba38f9b3c97f0ccd63840cfb1dc0dc7c1f0df83e0380d6c6cb65a25b8c3e",
+    "34.xml": "ec0df8a0924e54c080ee95e34d13aff5ffd6f6ea0050d67e0a1b082ea8dfb1c8",
+    "35.meta.json": "edc5b5a1bcbae118696cd569bd59faf7b6d405f0e81bfc5a9b09c5c10ce01341",
+    "35.xml": "f97f9452e9c8a460ed45de1e56a8e8911227b9bd8689f82cc4e02d70cd7a38f0",
+    "36.meta.json": "d57d506763aecc1315f10baacf12f9df28bbdaa1fa50f5dbcdd17e223340b51b",
+    "36.xml": "69fb313fc0768cd60e108b2a25c183c0785a2213b4f38d111aa753cb420f53b4",
+    "37.meta.json": "f52c8cee317131340e7c412ab0976991e2759b24a188f8a9016b102b47a54702",
+    "37.xml": "7cf9d3fd7451198cc7dfd61c62e6120cac680b362b874a79d9dadd877f3f85d4",
+    "38.meta.json": "16a4dd9cc9727849a1f4516953d9af9c8ea1362c593da70172d8ca4951fb4eb6",
+    "38.xml": "8da10f1309852e8a0d689fa79d890592180e213e762df3c9396c2ab1e1af7eda",
+    "39.meta.json": "f2eb2152c3086f127d30f9a259e9e48a693d50d985ac617b6313933ec68ffd70",
+    "39.xml": "f9adf140de0a22c2f715b44fdbca6f7969dd2d14157ebe1f5b60faca07d841b5"
+  },
+  "measurements": {
+    "passes-first": {
+      "ordering": null,
+      "counts": {
+        "total": 40,
+        "pass": 20,
+        "fail": 20,
+        "skip": 0,
+        "unknown": 0
+      },
+      "classification": "broken",
+      "flip_rate": 0.0256,
+      "change_point": {
+        "run_id": "run-20",
+        "commit": "controlled-20",
+        "rate_before": 0.0,
+        "rate_after": 1.0,
+        "statistic": 55.4518,
+        "runs_since_change": 20
+      },
+      "activity": {
+        "state": "ongoing",
+        "failures": 20,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 20,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "duration": {
+        "observations": 40,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": -0.0,
+        "failure_correlation": -0.1601
+      },
+      "last_status": "fail",
+      "new_flake_gate_exit": 1,
+      "cofailure_groups": 1
+    },
+    "failures-first": {
+      "ordering": null,
+      "counts": {
+        "total": 40,
+        "pass": 20,
+        "fail": 20,
+        "skip": 0,
+        "unknown": 0
+      },
+      "classification": "flaky",
+      "flip_rate": 0.0256,
+      "change_point": {
+        "run_id": "run-20",
+        "commit": "controlled-19",
+        "rate_before": 1.0,
+        "rate_after": 0.0,
+        "statistic": 55.4518,
+        "runs_since_change": 20
+      },
+      "activity": {
+        "state": "ongoing",
+        "failures": 20,
+        "events": 1,
+        "runs_since_last_failure": 20,
+        "runs_since_first_failure": 40,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "duration": {
+        "observations": 40,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 0.0,
+        "failure_correlation": -0.1601
+      },
+      "last_status": "pass",
+      "new_flake_gate_exit": 1,
+      "cofailure_groups": 1
+    },
+    "alternating": {
+      "ordering": null,
+      "counts": {
+        "total": 40,
+        "pass": 20,
+        "fail": 20,
+        "skip": 0,
+        "unknown": 0
+      },
+      "classification": "flaky",
+      "flip_rate": 1.0,
+      "change_point": null,
+      "activity": {
+        "state": "ongoing",
+        "failures": 20,
+        "events": 20,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 39,
+        "longest_gap": 1,
+        "silence_ratio": 0.0
+      },
+      "duration": {
+        "observations": 40,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 3e-06,
+        "failure_correlation": -0.1601
+      },
+      "last_status": "fail",
+      "new_flake_gate_exit": 0,
+      "cofailure_groups": 1
+    },
+    "ordered-regression": {
+      "ordering": null,
+      "counts": {
+        "total": 40,
+        "pass": 20,
+        "fail": 20,
+        "skip": 0,
+        "unknown": 0
+      },
+      "classification": "broken",
+      "flip_rate": 0.0256,
+      "change_point": {
+        "run_id": "run-20",
+        "commit": "controlled-20",
+        "rate_before": 0.0,
+        "rate_after": 1.0,
+        "statistic": 55.4518,
+        "runs_since_change": 20
+      },
+      "activity": {
+        "state": "ongoing",
+        "failures": 20,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 20,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "duration": {
+        "observations": 40,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": -0.0,
+        "failure_correlation": -0.1601
+      },
+      "last_status": "fail",
+      "new_flake_gate_exit": 1,
+      "cofailure_groups": 1
+    },
+    "ordered-recovery": {
+      "ordering": null,
+      "counts": {
+        "total": 40,
+        "pass": 20,
+        "fail": 20,
+        "skip": 0,
+        "unknown": 0
+      },
+      "classification": "flaky",
+      "flip_rate": 0.0256,
+      "change_point": {
+        "run_id": "run-20",
+        "commit": "controlled-19",
+        "rate_before": 1.0,
+        "rate_after": 0.0,
+        "statistic": 55.4518,
+        "runs_since_change": 20
+      },
+      "activity": {
+        "state": "ongoing",
+        "failures": 20,
+        "events": 1,
+        "runs_since_last_failure": 20,
+        "runs_since_first_failure": 40,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "duration": {
+        "observations": 40,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 0.0,
+        "failure_correlation": -0.1601
+      },
+      "last_status": "pass",
+      "new_flake_gate_exit": 1,
+      "cofailure_groups": 1
+    }
+  }
+}

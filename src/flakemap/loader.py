@@ -96,12 +96,19 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
                 existing.warnings.append(
                     f"{source}: {existing.integrity_issue}; run excluded from rates"
                 )
+            if md.sequence is not None and md.source == "mtime":
+                # A sequence recovered from another shard supersedes filesystem
+                # ordering, just as it does when supplied on the first shard.
+                md.timestamp, md.source = None, "sidecar"
             trust = {"sidecar": 3, "report": 2}
             ours, theirs = trust.get(md.source, 1), trust.get(metadata.source, 1)
             if theirs > ours and metadata.timestamp is not None:
                 md.timestamp, md.source = metadata.timestamp, metadata.source
             elif md.timestamp is None and metadata.source != "mtime":
-                md.timestamp = metadata.timestamp
+                # A sequence-only sidecar supplies no time. When another shard
+                # supplies one, retain its provenance too: a report start must
+                # not become a sidecar timestamp that can falsely conflict later.
+                md.timestamp, md.source = metadata.timestamp, metadata.source
             elif theirs == ours < 3 and md.timestamp and metadata.timestamp:
                 md.timestamp = min(md.timestamp, metadata.timestamp)
 

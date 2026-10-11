@@ -118,7 +118,8 @@ class RunMetadata:
     unique sequence orders the history; recorded timestamps must agree. Lower runs first."""
     source: str = "unknown"
     """Where this metadata came from: 'sidecar', 'path', 'report' (a TRX file's own
-    start time), 'mtime', or 'unknown'.
+    or JUnit suite's start time), 'mtime', or 'unknown'. When a timestamp is
+    present, this identifies its source even if another shard supplies a sequence.
     Surfaced in reports so users can judge how trustworthy the ordering is."""
     extra: dict[str, str] = field(default_factory=dict)
 

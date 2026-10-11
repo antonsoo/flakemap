@@ -51,3 +51,27 @@ wheel and `--artifacts /tmp/shard-reports` to retain one HTML report per family.
 Omit `--check` when recording a version known to fail. This is controlled merge
 evidence, not a claim about how often public CI artifacts have this layout.
 The change does not infer missing metadata or resolve genuine disagreements.
+
+## Installed wheel and visible reports
+
+[Verification receipt](results/verification.json): a clean source archive passes
+lint, formatting, type checking and 361 tests, then builds an sdist and a wheel
+from that sdist. Fresh installations pass the full suite and all 20 CLI cases
+on Python 3.14.7 / Rich 15.0.0 and Python 3.10.21 / minimum Rich 13.7.0. The receipt
+includes source commits and artifact SHA-256 values.
+
+[Eight offline browser checks](results/browser.json) inspect the original and
+installed-wheel reports in Chromium and Firefox. They verify excluded/retained
+cells, tally counts and keyboard-opened evidence. The captured
+[before](../../docs/assets/shard-timestamps-before.png) and
+[after](../../docs/assets/shard-timestamps-after.png) screenshots show the same
+three synthetic observations. One pass per test still means insufficient data;
+the fix does not turn them into established healthy tests.
+
+```sh
+npm ci
+node studies/shard-timestamps/browser.mjs /tmp/before-reports /tmp/after-reports
+```
+
+Generate those directories with the capture script's `--artifacts` option
+against each version. No hosted page was changed by this source-only update.

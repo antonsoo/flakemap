@@ -1,0 +1,64 @@
+{
+  "source_commit": "8558e6fa10e14e890557a1064db175aff7237571",
+  "implementation_commit": "67e6a1b",
+  "baseline_commit": "3d2dcd0",
+  "clean_archive": {
+    "python": "3.12.12",
+    "install": "uv sync --locked",
+    "lint": "passed",
+    "format": "passed",
+    "typecheck": "passed",
+    "tests_passed": 361,
+    "build": "uv build (sdist, then wheel from sdist)"
+  },
+  "artifacts": {
+    "flakemap-0.3.7.tar.gz": {
+      "sha256": "3e765ccc30d7ac9cae1839a015f89a9099adc09cb0a8c3106b8f86369975f58a"
+    },
+    "flakemap-0.3.7-py3-none-any.whl": {
+      "sha256": "9eb0e798564adfc267520da4df618c2488017836ef2a9b63855c3079d25e8449"
+    }
+  },
+  "installed": [
+    {
+      "python": "3.14.7",
+      "rich": "15.0.0",
+      "import_verified": "separate environment site-packages, outside checkout",
+      "tests_passed": 361,
+      "cli_cases": 20,
+      "disagreements": 0
+    },
+    {
+      "python": "3.10.21",
+      "rich": "13.7.0",
+      "import_verified": "separate environment site-packages, outside checkout",
+      "tests_passed": 361,
+      "cli_cases": 20,
+      "disagreements": 0
+    }
+  ],
+  "browser": {
+    "engines": [
+      "Chromium",
+      "Firefox"
+    ],
+    "cases": 8,
+    "offline": true,
+    "keyboard_opened_evidence": true,
+    "errors": 0
+  },
+  "limits": [
+    "Synthetic JUnit and sidecar inputs; no prevalence claim about public CI.",
+    "Source update; no PyPI release or hosted gallery deployment."
+  ],
+  "quickstart": {
+    "input": "examples/demo_project/runs",
+    "formats": [
+      "terminal",
+      "json"
+    ],
+    "runs": 222,
+    "tests": 12,
+    "exit": 0
+  }
+}

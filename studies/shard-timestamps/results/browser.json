@@ -1,0 +1,60 @@
+{
+  "checks": [
+    {
+      "engine": "chromium",
+      "phase": "before",
+      "profile": "sidecar-over-report",
+      "excluded": 3,
+      "keyboard_details": true
+    },
+    {
+      "engine": "chromium",
+      "phase": "before",
+      "profile": "real-conflict",
+      "excluded": 3,
+      "keyboard_details": true
+    },
+    {
+      "engine": "chromium",
+      "phase": "after",
+      "profile": "sidecar-over-report",
+      "excluded": 0,
+      "keyboard_details": true
+    },
+    {
+      "engine": "chromium",
+      "phase": "after",
+      "profile": "real-conflict",
+      "excluded": 3,
+      "keyboard_details": true
+    },
+    {
+      "engine": "firefox",
+      "phase": "before",
+      "profile": "sidecar-over-report",
+      "excluded": 3,
+      "keyboard_details": true
+    },
+    {
+      "engine": "firefox",
+      "phase": "before",
+      "profile": "real-conflict",
+      "excluded": 3,
+      "keyboard_details": true
+    },
+    {
+      "engine": "firefox",
+      "phase": "after",
+      "profile": "sidecar-over-report",
+      "excluded": 0,
+      "keyboard_details": true
+    },
+    {
+      "engine": "firefox",
+      "phase": "after",
+      "profile": "real-conflict",
+      "excluded": 3,
+      "keyboard_details": true
+    }
+  ]
+}

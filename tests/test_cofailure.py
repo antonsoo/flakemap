@@ -257,7 +257,10 @@ def test_html_download_keeps_full_text_with_inert_bounded_previews() -> None:
     assert len(payload["cofailure"]["groups"][0]["tests"]) == 25
     assert len(payload["cofailure"]["groups"][0]["evidence"]) == 50
     md = render_markdown(result)
-    assert "<img " not in md and "&#124;" in md and "&#96;" in md
+    # Literal HTML is safe inside native Markdown code spans; the retained
+    # cmark-gfm/browser replay verifies rendered text and absence of images.
+    assert '``suite.<img src="https://example.invalid/leak"' in md
+    assert r"\|`\x9b" in md and "\x9b" not in md
 
 
 def test_warning_survives_download_without_inventing_other_test_outcomes() -> None:

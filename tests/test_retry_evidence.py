@@ -319,7 +319,7 @@ def test_report_evidence_escapes_user_text(tmp_path: Path) -> None:
     assert "&lt;img src=x" in html
     assert "<script>" not in html
     markdown = render_markdown(result)
-    assert "pipe&#124;&#96;&lt;script&gt;" in markdown
+    assert r"``pkg.Tests.pipe\|`<script>``" in markdown
 
 
 def test_dotted_name_collision_cannot_join_distinct_tests(tmp_path: Path) -> None:

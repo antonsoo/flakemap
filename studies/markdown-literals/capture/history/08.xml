@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="12" skipped="0" tests="12" time="0.041" timestamp="2026-10-12T09:45:21.444875-07:00" hostname="omnia"><testcase classname="test_roundtrip" name="test_roundtrip[ordinary]" time="0.001"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[**bold**]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[*glob*]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[~~kept~~]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[[source](https://example.invalid/reference)]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[![literal](https://example.invalid/pixel.png)]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[www.example.invalid/path]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[engineer@example.invalid]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[literal\\*star\\*]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[pipe|`tick` &amp;copy; &lt;tag&gt;]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[[nested `ticks`](https://example.invalid/nested)]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase><testcase classname="test_roundtrip" name="test_roundtrip[\u65e5\u672c\u8a9e_\u0394_\U0001f642]" time="0.000"><failure message="AssertionError: controlled failure&#10;assert 'fail' == 'pass'&#10;  &#10;  - pass&#10;  + fail">test_roundtrip.py:26: in test_roundtrip
+    assert os.environ["CONTROLLED_OUTCOME"] == "pass", "controlled failure"
+E   AssertionError: controlled failure
+E   assert 'fail' == 'pass'
+E     
+E     - pass
+E     + fail</failure></testcase></testsuite></testsuites>

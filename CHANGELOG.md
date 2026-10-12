@@ -4,6 +4,17 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Literal Markdown evidence
+
+- Render imported names, run IDs and warnings as native Markdown code spans.
+  HTML code wrappers still interpreted images, links and emphasis; entity
+  escaping alone also allowed email autolinks. Choose delimiters longer than
+  imported backtick runs and preserve GFM table pipes and boundary spaces.
+- Retain actual pytest XML, six CLI workflows, independent cmark-gfm rendering
+  and offline Chromium/Firefox evidence in the
+  [Markdown study](studies/markdown-literals/README.md). JSON, terminal reports,
+  standalone HTML and statistical results retain their existing contents.
+
 ### Retry activity
 
 - Include explicit failed attempts before retry recovery in new/ongoing/quiet

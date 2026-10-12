@@ -1,0 +1,317 @@
+{
+  "cases": 52,
+  "results": [
+    {
+      "input": "",
+      "inTable": false,
+      "markdown": "<code></code>\n",
+      "html": "<p><code></code></p>\n"
+    },
+    {
+      "input": " ",
+      "inTable": false,
+      "markdown": "` `\n",
+      "html": "<p><code> </code></p>\n"
+    },
+    {
+      "input": "   ",
+      "inTable": false,
+      "markdown": "`   `\n",
+      "html": "<p><code>   </code></p>\n"
+    },
+    {
+      "input": " edge ",
+      "inTable": false,
+      "markdown": "`  edge  `\n",
+      "html": "<p><code> edge </code></p>\n"
+    },
+    {
+      "input": "  edge  ",
+      "inTable": false,
+      "markdown": "`   edge   `\n",
+      "html": "<p><code>  edge  </code></p>\n"
+    },
+    {
+      "input": "`",
+      "inTable": false,
+      "markdown": "`` ` ``\n",
+      "html": "<p><code>`</code></p>\n"
+    },
+    {
+      "input": "``",
+      "inTable": false,
+      "markdown": "``` `` ```\n",
+      "html": "<p><code>``</code></p>\n"
+    },
+    {
+      "input": "```",
+      "inTable": false,
+      "markdown": "```` ``` ````\n",
+      "html": "<p><code>```</code></p>\n"
+    },
+    {
+      "input": "`edge`",
+      "inTable": false,
+      "markdown": "`` `edge` ``\n",
+      "html": "<p><code>`edge`</code></p>\n"
+    },
+    {
+      "input": "`first",
+      "inTable": false,
+      "markdown": "`` `first ``\n",
+      "html": "<p><code>`first</code></p>\n"
+    },
+    {
+      "input": "last`",
+      "inTable": false,
+      "markdown": "`` last` ``\n",
+      "html": "<p><code>last`</code></p>\n"
+    },
+    {
+      "input": "a `` b ` c",
+      "inTable": false,
+      "markdown": "```a `` b ` c```\n",
+      "html": "<p><code>a `` b ` c</code></p>\n"
+    },
+    {
+      "input": "  ` | `  ",
+      "inTable": false,
+      "markdown": "``   ` | `   ``\n",
+      "html": "<p><code>  ` | `  </code></p>\n"
+    },
+    {
+      "input": "|",
+      "inTable": false,
+      "markdown": "`|`\n",
+      "html": "<p><code>|</code></p>\n"
+    },
+    {
+      "input": "\\|",
+      "inTable": false,
+      "markdown": "`\\|`\n",
+      "html": "<p><code>\\|</code></p>\n"
+    },
+    {
+      "input": "\\\\|",
+      "inTable": false,
+      "markdown": "`\\\\|`\n",
+      "html": "<p><code>\\\\|</code></p>\n"
+    },
+    {
+      "input": "\\\\\\|",
+      "inTable": false,
+      "markdown": "`\\\\\\|`\n",
+      "html": "<p><code>\\\\\\|</code></p>\n"
+    },
+    {
+      "input": "a\\|b",
+      "inTable": false,
+      "markdown": "`a\\|b`\n",
+      "html": "<p><code>a\\|b</code></p>\n"
+    },
+    {
+      "input": "![img](https://example.invalid/image)",
+      "inTable": false,
+      "markdown": "`![img](https://example.invalid/image)`\n",
+      "html": "<p><code>![img](https://example.invalid/image)</code></p>\n"
+    },
+    {
+      "input": "[link](https://example.invalid)",
+      "inTable": false,
+      "markdown": "`[link](https://example.invalid)`\n",
+      "html": "<p><code>[link](https://example.invalid)</code></p>\n"
+    },
+    {
+      "input": "a@example.invalid",
+      "inTable": false,
+      "markdown": "`a@example.invalid`\n",
+      "html": "<p><code>a@example.invalid</code></p>\n"
+    },
+    {
+      "input": "www.example.invalid",
+      "inTable": false,
+      "markdown": "`www.example.invalid`\n",
+      "html": "<p><code>www.example.invalid</code></p>\n"
+    },
+    {
+      "input": "&amp; &#124; &#96;",
+      "inTable": false,
+      "markdown": "`&amp; &#124; &#96;`\n",
+      "html": "<p><code>&amp;amp; &amp;#124; &amp;#96;</code></p>\n"
+    },
+    {
+      "input": "</code><img src=x>",
+      "inTable": false,
+      "markdown": "`</code><img src=x>`\n",
+      "html": "<p><code>&lt;/code&gt;&lt;img src=x&gt;</code></p>\n"
+    },
+    {
+      "input": "*glob* ~~literal~~",
+      "inTable": false,
+      "markdown": "`*glob* ~~literal~~`\n",
+      "html": "<p><code>*glob* ~~literal~~</code></p>\n"
+    },
+    {
+      "input": "日本語_Δ_🙂",
+      "inTable": false,
+      "markdown": "`日本語_Δ_🙂`\n",
+      "html": "<p><code>日本語_Δ_🙂</code></p>\n"
+    },
+    {
+      "input": "",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| <code></code> |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code></code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": " ",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| ` ` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code> </code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "   ",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `   ` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>   </code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": " edge ",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `  edge  ` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code> edge </code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "  edge  ",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `   edge   ` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>  edge  </code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "`",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `` ` `` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>`</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "``",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| ``` `` ``` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>``</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "```",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| ```` ``` ```` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>```</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "`edge`",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `` `edge` `` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>`edge`</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "`first",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `` `first `` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>`first</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "last`",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `` last` `` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>last`</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "a `` b ` c",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| ```a `` b ` c``` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>a `` b ` c</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "  ` | `  ",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| ``   ` \\| `   `` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>  ` | `  </code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "|",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `\\|` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>|</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "\\|",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `\\\\|` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>\\|</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "\\\\|",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `\\\\\\|` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>\\\\|</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "\\\\\\|",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `\\\\\\\\|` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>\\\\\\|</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "a\\|b",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `a\\\\|b` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>a\\|b</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "![img](https://example.invalid/image)",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `![img](https://example.invalid/image)` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>![img](https://example.invalid/image)</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "[link](https://example.invalid)",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `[link](https://example.invalid)` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>[link](https://example.invalid)</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "a@example.invalid",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `a@example.invalid` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>a@example.invalid</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "www.example.invalid",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `www.example.invalid` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>www.example.invalid</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "&amp; &#124; &#96;",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `&amp; &#124; &#96;` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>&amp;amp; &amp;#124; &amp;#96;</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "</code><img src=x>",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `</code><img src=x>` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>&lt;/code&gt;&lt;img src=x&gt;</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "*glob* ~~literal~~",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `*glob* ~~literal~~` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>*glob* ~~literal~~</code></td>\n</tr>\n</tbody>\n</table>\n"
+    },
+    {
+      "input": "日本語_Δ_🙂",
+      "inTable": true,
+      "markdown": "| Value |\n| --- |\n| `日本語_Δ_🙂` |\n",
+      "html": "<table>\n<thead>\n<tr>\n<th>Value</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>日本語_Δ_🙂</code></td>\n</tr>\n</tbody>\n</table>\n"
+    }
+  ]
+}

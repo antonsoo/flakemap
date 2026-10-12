@@ -1,0 +1,106 @@
+{
+  "scope": "Actual pytest XML from controlled failures and literal parameter IDs; synthetic history, not production CI.",
+  "python": "3.12.12",
+  "pytest": "9.1.1",
+  "runs": 16,
+  "testsPerRun": 12,
+  "producerSha256": "626e0238de3cbf0417901d4cc019cd95cbec24cb11a544e4eb2f829bf2099a5d",
+  "reports": [
+    {
+      "path": "history/00.xml",
+      "bytes": 1455,
+      "sha256": "02cf95a8e03aefd36bfb43c6c02795b64d2787fd806ed5b8d2b6176b0024f336",
+      "exitCode": 0
+    },
+    {
+      "path": "history/01.xml",
+      "bytes": 1455,
+      "sha256": "de89a84b2cb4767b2f6bb2dbab04f64b710b47dd91ac5e861aec0e4c27524d55",
+      "exitCode": 0
+    },
+    {
+      "path": "history/02.xml",
+      "bytes": 1455,
+      "sha256": "cfdd8ea3dfa8e03bb08963b56a7439b13d56f3329e972360bf45c4d80ac3f2c9",
+      "exitCode": 0
+    },
+    {
+      "path": "history/03.xml",
+      "bytes": 1455,
+      "sha256": "dbe3f17abf09a83eaf94eebdf5bfbc99ae3f13da32faae292930d9b122e4e805",
+      "exitCode": 0
+    },
+    {
+      "path": "history/04.xml",
+      "bytes": 1455,
+      "sha256": "2c35caa93660e90dc43113525e094a2beceaef01fb2c6a473996f9fbf6e7559e",
+      "exitCode": 0
+    },
+    {
+      "path": "history/05.xml",
+      "bytes": 1455,
+      "sha256": "c500258dd0ef24786766874e023512ecc4ec87d18bfc1115363899e76f8a5901",
+      "exitCode": 0
+    },
+    {
+      "path": "history/06.xml",
+      "bytes": 1455,
+      "sha256": "cd01cba2ddc5cc246cf8f35163639d30bbff085b200ad97dedc3335d97d61405",
+      "exitCode": 0
+    },
+    {
+      "path": "history/07.xml",
+      "bytes": 1455,
+      "sha256": "3fbd87c2746062fc7912679edf6323c2b0ff4e3ccf62dc226b1d16f8106c82e7",
+      "exitCode": 0
+    },
+    {
+      "path": "history/08.xml",
+      "bytes": 5644,
+      "sha256": "6fdea704234031e5784c287937d4b06c006d36abbb6f7e02d5e43ce6b0223e54",
+      "exitCode": 1
+    },
+    {
+      "path": "history/09.xml",
+      "bytes": 5644,
+      "sha256": "17cd1f05c0747754279be224cd3ac14a58e3be4cd79480162e3ac6b7344b92d7",
+      "exitCode": 1
+    },
+    {
+      "path": "history/10.xml",
+      "bytes": 5644,
+      "sha256": "6ecc9474c67421acbf24876596bb71d66a235e0f2d50eb8fcc4c9ca86f53c142",
+      "exitCode": 1
+    },
+    {
+      "path": "history/11.xml",
+      "bytes": 5644,
+      "sha256": "9c140d166a2486eab488c59cdbfaa5f60da6b1932e5a14e1c378462612ad19af",
+      "exitCode": 1
+    },
+    {
+      "path": "history/12.xml",
+      "bytes": 5644,
+      "sha256": "236fa7b64961b62137cfb04a8b04caaa168b395155fb07d92100bb0a277f60b5",
+      "exitCode": 1
+    },
+    {
+      "path": "history/13.xml",
+      "bytes": 5644,
+      "sha256": "afaaf79452f24566d132c58e6f7e2f53b79378a563bdedc2013ecc312b948137",
+      "exitCode": 1
+    },
+    {
+      "path": "history/14.xml",
+      "bytes": 5644,
+      "sha256": "7f7b84b7923ed52751b6e0e0f698f77b1931925fd3e5c101ad71a27f9cc154ab",
+      "exitCode": 1
+    },
+    {
+      "path": "history/15.xml",
+      "bytes": 5644,
+      "sha256": "bc1688aa72d49b758e363cb311d82f971612ac7b8b9c0dab0d9c0c9124367ff5",
+      "exitCode": 1
+    }
+  ]
+}

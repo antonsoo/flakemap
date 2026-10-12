@@ -223,6 +223,12 @@ $ flakemap examples/demo_project/runs --html report.html            # self-conta
 $ flakemap examples/demo_project/runs --fail-on-new-flake; echo "exit: $?"
 ```
 
+The source checkout preserves imported test names, run IDs and warnings as
+literal text in Markdown reports. Previously, parameter IDs such as
+`![literal](image.png)` became images even inside HTML `<code>` wrappers.
+[Actual pytest captures and reference-rendered before/after reports](studies/markdown-literals/README.md)
+verify the correction. This is a source update, pending a package release.
+
 Click any row in the HTML report to expand its full statistics (see
 [`docs/assets/heatmap-detail.png`](docs/assets/heatmap-detail.png) for a
 worked example); hover a cell for that run's id, commit, duration, and failure

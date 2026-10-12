@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from html import escape
+import re
 
 from flakemap.report.names import visible
 from flakemap.report.numbers import count, interval, of, percent
@@ -23,24 +23,34 @@ _BADGE = {
 }
 
 
-def _safe(text: str) -> str:
-    return (
-        escape(visible(text))
-        .replace("|", "&#124;")
-        .replace("`", "&#96;")
-        .replace("\n", " ")
-        .replace("\r", " ")
+def _literal(text: str, *, in_table: bool = True) -> str:
+    """A GFM code span; HTML wrappers still parse markup and email autolinks."""
+    text = visible(text).replace("\n", " ").replace("\r", " ")
+    if not text:
+        return "<code></code>"
+    delimiter = "`" * (max((len(run) for run in re.findall(r"`+", text)), default=0) + 1)
+    # Preserve boundary backticks and spaces under GFM's one-space trimming rule.
+    padded = (
+        text.startswith("`")
+        or text.endswith("`")
+        or (text.startswith(" ") and text.endswith(" ") and bool(text.strip(" ")))
     )
+    if in_table:
+        # The table parser consumes one escape even inside a code span. A
+        # paragraph has no such parser and must retain the original backslashes.
+        text = text.replace("|", r"\|")
+    padding = " " if padded else ""
+    return f"{delimiter}{padding}{text}{padding}{delimiter}"
 
 
 def _row(t: TestStats) -> str:
     ci = interval(t.failure_rate.low, t.failure_rate.high)
-    since = f" since <code>{_safe(t.change_point_run_id)}</code>" if t.change_point_run_id else ""
+    since = f" since {_literal(t.change_point_run_id)}" if t.change_point_run_id else ""
     state = activity_state(t)
     badge = _BADGE[t.classification] + (f", {state}" if state else "")
-    name = f"<code>{_safe(t.full_name)}</code>"
+    name = _literal(t.full_name)
     for line in named_failures(t):
-        name += f"<br>&nbsp;&nbsp;{_safe(line)}"
+        name += f"<br>&nbsp;&nbsp;{_literal(line)}"
     last = last_failed(t.activity.runs_since_last) if t.activity else "n/a"
     return (
         f"| {name} | {badge} | {of(t.n_fail, t.n)}{since} "
@@ -62,14 +72,14 @@ def _cofailure_summary(result: AnalysisResult) -> list[str]:
         "|---|---|---|",
     ]
     for group in groups[:5]:
-        names = [f"<code>{_safe(name)}</code>" for name in group.tests[:3]]
+        names = [_literal(name) for name in group.tests[:3]]
         if len(group.tests) > 3:
             names.append(f"+ {len(group.tests) - 3} more tests")
         failed = set(group.states["failed"] + group.states["exhausted"])
         failed_ids = [md.run_id for md in result.cofailure.runs if md.run_id in failed]
         cells = ["<br>".join(names)]
         for ids in (failed_ids, list(group.states["recovered"])):
-            label = ", ".join(f"<code>{_safe(run_id)}</code>" for run_id in ids[:5]) or "none"
+            label = ", ".join(_literal(run_id) for run_id in ids[:5]) or "none"
             if len(ids) > 5:
                 label += f" (+ {len(ids) - 5} more)"
             cells.append(label)
@@ -116,7 +126,7 @@ def render_markdown(result: AnalysisResult, top_n: int = 15) -> str:
             "have gone quiet."
         )
     for warning in result.warnings:
-        lines.append(f"\n> Warning: {_safe(warning)}")
+        lines.append(f"\n> Warning: {_literal(warning, in_table=False)}")
     lines.append("")
     lines.extend(_cofailure_summary(result))
 

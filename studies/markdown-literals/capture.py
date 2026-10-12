@@ -61,7 +61,10 @@ def visible(text):
     )
 
 
-target, inputs, cmark, output = map(lambda arg: Path(arg).resolve(), sys.argv[1:5])
+# Resolving a venv's Python symlink selects the base interpreter and loses the
+# installed package. Normalize the executable path without following symlinks.
+target = Path(os.path.abspath(sys.argv[1]))
+inputs, cmark, output = map(lambda arg: Path(arg).resolve(), sys.argv[2:5])
 checked = "--check" in sys.argv[5:]
 output.mkdir(parents=True, exist_ok=False)
 env = {**os.environ, "NO_COLOR": "1", "COLUMNS": "180"}

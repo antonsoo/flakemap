@@ -83,6 +83,36 @@ All four screenshots were inspected. The stylesheet only presents the actual
 reference HTML for this study; it is not a GitHub screenshot or a new hosted
 report design. [Browser receipt](results/browser.json).
 
+## Clean distribution and installed checks
+
+A clean archive of production commit
+`647d2a89e0ed410fc696f6eb614b9ecadffef15f` passes lint, formatting, type
+checking and all 366 tests under Python 3.12.12. Its existing standalone-report
+suite passes 112 offline Chromium/Firefox scenarios under Node 24.21.0.
+All 617 selected production, test, example and build inputs match the tested
+checkout; 29 of the 30 Python source modules remain byte-identical to baseline.
+
+An sdist is built from that archive, then the wheel is built from the sdist:
+
+| Local artifact | Bytes | SHA-256 |
+| --- | ---: | --- |
+| `flakemap-0.3.7.tar.gz` | 115,279 | `ef81eb8e37e783eafd06750e92d55136dd7c5cc5b8ad0c960aa89b965df42a14` |
+| `flakemap-0.3.7-py3-none-any.whl` | 91,315 | `efb380335b48c4b15679b5abcb3ba71f06467616edfda52871620bd95b5eb63f` |
+
+Separate offline installations pass all 366 tests under Python 3.10.21 with
+minimum Rich 13.7.0 and Python 3.14.7 with Rich 15.0.0. Both run all six CLI
+workflows and all 52 GFM boundary cases. Every one of the 30 output files per
+replay matches the inspected reference reports byte for byte, including the
+Markdown and rendered HTML. The final replay runner preserves virtual-environment
+Python symlinks so these checks execute the installed package.
+
+All 30 Python modules match source, sdist, wheel and both installations. The wheel
+has 35 files; all match the installations except `dist-info/RECORD`, which the
+installer extends with generated entries. The documented terminal, JSON, Markdown
+and HTML commands also run through the installed console entry point on the
+222-run demo history. Verification was on Linux/WSL2. No package release or
+hosted deployment was made. [Artifact and verification receipt](results/artifacts.json).
+
 ## Reproduce
 
 Build cmark-gfm at the pinned revision above using its documented CMake workflow.

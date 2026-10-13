@@ -7,17 +7,15 @@ it back, tried in this order for each report file:
 1. **Sidecar JSON.** A file named ``<report-stem>.meta.json`` next to the report,
    or the nearest ancestor ``meta.json`` within the scan root (checked in
    that order — the more specific file wins). Recognized keys, all optional:
-   ``run_id``, ``commit``, ``branch``, ``timestamp`` (ISO 8601), ``runner``, ``os``,
+   ``run_id``, ``commit``, ``branch``, ``timestamp`` (ISO 8601 with a UTC offset), ``runner``, ``os``,
    ``sequence`` (an integer ordering key). Unknown
    keys are kept under ``extra`` and shown in reports but not used statistically.
 2. **Directory-per-run layout.** ``<root>/<run_id>/*.xml`` — the first directory
    beneath the scan root becomes ``run_id`` even with no sidecar present. This is the
    natural shape of "download each CI run's artifact into its own folder".
 3. **File mtime fallback.** If nothing supplies a timestamp or sequence, the report
-   file's modification time is used, and the run is marked so reports can flag
-   that its ordering is only as reliable as the filesystem's mtimes (e.g. after a
-   `git clone`, mtimes may all collapse to checkout time — flakemap warns about
-   this in the CLI when many runs share one mtime).
+   file's modification time is retained with source ``mtime``. This is copy
+   evidence, not a recorded run time; it cannot establish chronology.
 
 See ``docs/formats.md`` for worked examples of both layouts.
 """
@@ -74,9 +72,9 @@ def _parse_timestamp(raw: Any) -> datetime | None:
         dt = datetime.fromisoformat(text)
     except ValueError:
         return None
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=timezone.utc)
-    return dt
+    # A local clock reading is not an instant. Inventing UTC can reverse the
+    # history when artifacts came from runners in different time zones.
+    return dt if dt.utcoffset() is not None else None
 
 
 def _sidecar_text(raw: bytes) -> str:
@@ -153,7 +151,10 @@ def resolve_metadata(path: Path, root: Path, *, warnings: list[str] | None = Non
             sequence = None
         timestamp = _parse_timestamp(sidecar.get("timestamp"))
         if sidecar.get("timestamp") is not None and timestamp is None:
-            warnings.append("metadata timestamp must be an ISO 8601 string; ignored")
+            warnings.append(
+                "metadata timestamp must be an ISO 8601 string with an explicit UTC offset "
+                "(for example Z or +00:00); ignored"
+            )
         extra = {}
         for key, value in sidecar.items():
             if key not in _KNOWN_KEYS:

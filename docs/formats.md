@@ -248,9 +248,19 @@ resolves that from the report file's location, tried in this order (see
 1. **Sidecar JSON.** `<report-stem>.meta.json` next to the report, or one
    `meta.json` from the nearest ancestor directory within the scan root (the
    specific file wins). Recognized keys, all optional: `run_id`, `commit`,
-   `branch`, `timestamp` (ISO 8601), `runner`, `os`, `sequence` (a nonnegative integer
+   `branch`, `timestamp` (ISO 8601 with an explicit UTC offset), `runner`, `os`, `sequence` (a nonnegative integer
    ordering key). Unknown keys are kept and
    shown in `--json` output under `extra` but not used statistically.
+
+   In the source checkout, timestamps must include `Z` or an offset such as
+   `+00:00`, `+05:45` or `-03:30`. A local clock (`2026-10-13T09:00:00`) or date
+   alone (`2026-10-13`) does not identify an instant. It is ignored with a warning;
+   the machine timezone, runner name and file copy time cannot supply its offset.
+   `--fail-on-incomplete` returns 2 for this warning. A valid sequence or
+   offset-bearing report timestamp can still supply chronology, so the
+   new-flake gate remains usable when that fallback establishes a common order.
+   An absent or null timestamp is optional and does not itself warn.
+   [Mixed-zone CLI reproduction and migration examples](../studies/sidecar-timezones/README.md).
 
    ```
    runs/
@@ -278,14 +288,11 @@ resolves that from the report file's location, tried in this order (see
    covers both merge directions and genuine sidecar conflicts.
 
 3. **File mtime fallback.** If nothing supplies a timestamp or sequence, the
-   report file's filesystem modification time is used, and `flakemap`'s CLI
-   warns when more than half the runs in a batch fall back to mtime -- a
-   fresh `git clone` or artifact re-download can collapse many files to the
-   same mtime, which would silently corrupt run ordering (and therefore flip
-   rate, change-point, and duration trend) without the warning. The source
-   checkout also warns when any run placed by mtime sits among runs placed by
-   a recorded time, and names it: in the Kubernetes study one build of 2,162
-   had no start record, and its download time made the oldest build the newest.
+   report file's filesystem modification time is retained with source `mtime`.
+   In the source checkout it is copy evidence, never a recorded CI time. It
+   cannot establish chronology, enter the recorded timestamp range, or
+   contradict a supplied sequence. The report warns about unavailable order
+   instead of deriving a timeline from checkout or artifact-download times.
 
 `examples/demo_project/generate_demo_data.py` uses layout 1 (a sidecar
 `meta.json` per run directory) and is the reference implementation for a CI

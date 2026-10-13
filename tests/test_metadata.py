@@ -1,4 +1,5 @@
 import json
+from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
@@ -83,3 +84,32 @@ def test_sidecar_written_by_powershell(tmp_path: Path, label: str, encode) -> No
     meta = resolve_metadata(report, tmp_path, warnings=warnings)
     assert warnings == [], label
     assert (meta.commit, meta.sequence, meta.branch) == ("deadbeef", 7, "main")
+
+
+@pytest.mark.parametrize("timestamp", ["2026-10-13T09:00:00", "2026-10-13 09:00:00", "2026-10-13"])
+def test_sidecar_local_clock_does_not_invent_an_instant(tmp_path: Path, timestamp: str) -> None:
+    report = tmp_path / "report.xml"
+    report.write_text("<testsuite/>")
+    report.with_suffix(".meta.json").write_text(
+        json.dumps({"timestamp": timestamp, "sequence": 7, "runner": "Tokyo"})
+    )
+    warnings: list[str] = []
+    metadata = resolve_metadata(report, tmp_path, warnings=warnings)
+    assert metadata.timestamp is None
+    assert (metadata.sequence, metadata.runner, metadata.source) == (7, "Tokyo", "sidecar")
+    assert len(warnings) == 1
+    assert "explicit UTC offset" in warnings[0] and "Z or +00:00" in warnings[0]
+
+
+@pytest.mark.parametrize(
+    "timestamp",
+    ["2026-10-13T00:00:00Z", "2026-10-13T05:45:00+05:45", "2026-10-12T20:30:00-03:30"],
+)
+def test_sidecar_offsets_preserve_the_instant(tmp_path: Path, timestamp: str) -> None:
+    report = tmp_path / "report.xml"
+    report.with_suffix(".meta.json").write_text(json.dumps({"timestamp": timestamp}))
+    warnings: list[str] = []
+    metadata = resolve_metadata(report, tmp_path, warnings=warnings)
+    assert metadata.timestamp == datetime(2026, 10, 13, tzinfo=timezone.utc)
+    assert metadata.source == "sidecar"
+    assert warnings == []

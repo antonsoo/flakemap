@@ -174,6 +174,9 @@ installing: `uvx flakemap path/to/reports`.
   Shard merges preserve timestamp provenance independently of sequence values;
   [renaming the files cannot invent a timestamp conflict](studies/shard-timestamps/README.md)
   in the source checkout.
+  Sidecar timestamps require an explicit UTC offset in this checkout: treating
+  local clocks as UTC can [turn an old failure burst into a new-flake alert](studies/sidecar-timezones/README.md).
+  Invalid times warn; valid sequences or report timestamps can still establish order.
 - **Per-test statistics**: Wilson-interval failure rate, flip rate,
   same-commit rerun disagreement (the "failed then passed on identical code"
   signal), a documented flakiness score, single change-point detection,

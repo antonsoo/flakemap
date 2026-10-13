@@ -1,0 +1,298 @@
+{
+  "scope": "All tracked timestamp sidecars and seven existing histories; identical inputs for both CLIs.",
+  "timestamp_sidecars": 274,
+  "offset_free_sidecars": [],
+  "sidecar_manifest_sha256": "54c581f77a06f45e76c140987a01f8f14cc359881e3a9af576785b029ddb49e2",
+  "histories": [
+    {
+      "history": "examples/demo_project/runs",
+      "commands": [
+        {
+          "exit": 0,
+          "stdout_sha256": "e232268fb2867b999e1c1c6bdc2b352e8089b40acd4f026a8302292b744676f5"
+        },
+        {
+          "exit": 0,
+          "stdout_sha256": "e232268fb2867b999e1c1c6bdc2b352e8089b40acd4f026a8302292b744676f5"
+        }
+      ],
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 222,
+        "run_id_range": [
+          "run-0000",
+          "run-0221"
+        ],
+        "timestamp_range": [
+          "2026-06-01T09:00:00+00:00",
+          "2026-06-04T09:27:00+00:00"
+        ],
+        "total_tests": 12,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 3,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 1,
+        "healthy": 8,
+        "insufficient_data": 0
+      },
+      "identical": true
+    },
+    {
+      "history": "examples/cofailure_history",
+      "commands": [
+        {
+          "exit": 0,
+          "stdout_sha256": "40cd8ae267465f4711ce9958033616045445d0904a98f824773d76278e1753de"
+        },
+        {
+          "exit": 0,
+          "stdout_sha256": "40cd8ae267465f4711ce9958033616045445d0904a98f824773d76278e1753de"
+        }
+      ],
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 12,
+        "run_id_range": [
+          "run-01",
+          "run-12"
+        ],
+        "timestamp_range": [
+          "2026-10-07T20:23:29.605444+00:00",
+          "2026-10-07T20:23:31.356139+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 1,
+        "cofailure_tests": 3,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 5,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 1,
+        "insufficient_data": 0
+      },
+      "identical": true
+    },
+    {
+      "history": "examples/googletest_history",
+      "commands": [
+        {
+          "exit": 0,
+          "stdout_sha256": "5dc54a3a18d270f8490f0c1184cd4a10ea005772184c09e683711ed153419e45"
+        },
+        {
+          "exit": 0,
+          "stdout_sha256": "5dc54a3a18d270f8490f0c1184cd4a10ea005772184c09e683711ed153419e45"
+        }
+      ],
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 8,
+        "run_id_range": [
+          "gtest-01",
+          "gtest-08"
+        ],
+        "timestamp_range": null,
+        "total_tests": 5,
+        "cofailure_groups": 1,
+        "cofailure_tests": 2,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 2,
+        "insufficient_data": 3
+      },
+      "identical": true
+    },
+    {
+      "history": "examples/incomplete_history",
+      "commands": [
+        {
+          "exit": 2,
+          "stdout_sha256": "6aadb7145dcd2c6a84a9c722ec724f2ef08e6f0bdaa633cab5d8bddfec8f79cc"
+        },
+        {
+          "exit": 2,
+          "stdout_sha256": "6aadb7145dcd2c6a84a9c722ec724f2ef08e6f0bdaa633cab5d8bddfec8f79cc"
+        }
+      ],
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 3,
+        "run_id_range": [
+          "00",
+          "02"
+        ],
+        "timestamp_range": null,
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 1,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 1,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 5
+      },
+      "identical": true
+    },
+    {
+      "history": "examples/retry_history",
+      "commands": [
+        {
+          "exit": 0,
+          "stdout_sha256": "a7db96a9a25f20ab811d00a96a97dfb0a64b4f7965dc627c2ce3ea271a2005e6"
+        },
+        {
+          "exit": 0,
+          "stdout_sha256": "a7db96a9a25f20ab811d00a96a97dfb0a64b4f7965dc627c2ce3ea271a2005e6"
+        }
+      ],
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "surefire-001",
+          "surefire-001"
+        ],
+        "timestamp_range": null,
+        "total_tests": 6,
+        "cofailure_groups": 2,
+        "cofailure_tests": 4,
+        "recovered_test_runs": 2,
+        "exhausted_test_runs": 2,
+        "excluded_test_runs": 0,
+        "flaky": 2,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 4
+      },
+      "identical": true
+    },
+    {
+      "history": "examples/trx_history",
+      "commands": [
+        {
+          "exit": 0,
+          "stdout_sha256": "009fb0c8f2f7311b18e7e737892db98ce77c5b59ab00e8c369f616fc31e09d3a"
+        },
+        {
+          "exit": 0,
+          "stdout_sha256": "009fb0c8f2f7311b18e7e737892db98ce77c5b59ab00e8c369f616fc31e09d3a"
+        }
+      ],
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "timestamp",
+          "reason": null
+        },
+        "total_runs": 12,
+        "run_id_range": [
+          "run-01",
+          "run-12"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:02.575012+00:00",
+          "2026-10-01T03:46:14.775940+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 1,
+        "healthy": 3,
+        "insufficient_data": 1
+      },
+      "identical": true
+    },
+    {
+      "history": "studies/ordering-evidence/captures",
+      "commands": [
+        {
+          "exit": 2,
+          "stdout_sha256": "15c0de589e642faded85a45c50d9caab475e4df9e7a6ad409426c86b947c234f"
+        },
+        {
+          "exit": 2,
+          "stdout_sha256": "15c0de589e642faded85a45c50d9caab475e4df9e7a6ad409426c86b947c234f"
+        }
+      ],
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": false,
+          "basis": "unavailable",
+          "reason": "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+        },
+        "total_runs": 40,
+        "run_id_range": null,
+        "timestamp_range": [
+          "2026-01-01T00:00:00+00:00",
+          "2026-01-01T00:00:00+00:00"
+        ],
+        "total_tests": 2,
+        "cofailure_groups": 1,
+        "cofailure_tests": 2,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 2,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "identical": true
+    }
+  ],
+  "disagreements": 0
+}

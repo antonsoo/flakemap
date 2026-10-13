@@ -208,3 +208,51 @@ def test_recovery_change_is_not_a_new_flake(tmp_path: Path, capsys) -> None:
     test = json.loads(capsys.readouterr().out)["tests"][0]
     assert test["change_point"]["rate_before"] == 1
     assert test["change_point"]["rate_after"] == 0
+
+
+@pytest.mark.parametrize("fallback", ["none", "sequence", "report"])
+def test_offset_free_sidecars_cannot_turn_old_failures_into_new_ones(
+    tmp_path: Path, capsys, fallback: str
+) -> None:
+    # Same underlying instants: the first five runners use Tokyo wall time;
+    # later runners use UTC. Treating all these clocks as UTC moves the old
+    # failure burst behind 25 successful runs.
+    for index in range(30):
+        report = tmp_path / f"run-{index:02}.xml"
+        instant = START + timedelta(minutes=index)
+        attribute = f' timestamp="{instant.isoformat()}"' if fallback == "report" else ""
+        failure = "<failure>upstream unavailable</failure>" if index in (0, 2, 4) else ""
+        report.write_text(
+            f'<testsuite{attribute}><testcase classname="Checkout" name="authorizes">'
+            f"{failure}</testcase></testsuite>"
+        )
+        clock = instant + timedelta(hours=9 if index < 5 else 0)
+        metadata: dict[str, str | int] = {"timestamp": clock.replace(tzinfo=None).isoformat()}
+        if fallback == "sequence":
+            metadata["sequence"] = index
+        report.with_suffix(".meta.json").write_text(json.dumps(metadata))
+
+    assert main([str(tmp_path), "--json", "--fail-on-new-flake"]) == (
+        2 if fallback == "none" else 0
+    )
+    payload = json.loads(capsys.readouterr().out)
+    assert payload["summary"]["input_complete"] is False
+    assert payload["summary"]["ordering"]["available"] is (fallback != "none")
+    row = payload["tests"][0]
+    assert row["runs"] == {"total": 30, "pass": 27, "fail": 3, "skip": 0, "unknown": 0}
+    if fallback == "none":
+        assert row["activity"] is None
+        assert row["activity_unavailable_reason"] == "chronology_unavailable"
+    else:
+        assert row["activity"]["state"] == "quiet"
+        assert row["activity"]["runs_since_last_failure"] == 25
+    runs = payload["cofailure"]["runs"]
+    assert {run["metadata_source"] for run in runs} == {
+        {"none": "mtime", "sequence": "sidecar", "report": "report"}[fallback]
+    }
+    if fallback == "sequence":
+        assert all(run["timestamp"] is None for run in runs)
+    if fallback != "report":
+        assert payload["summary"]["timestamp_range"] is None
+        assert all(failure["timestamp"] is None for failure in row["failures"])
+    assert main([str(tmp_path), "--json", "--fail-on-incomplete"]) == 2

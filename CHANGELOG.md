@@ -30,6 +30,15 @@ All notable changes to this project are documented in this file.
 
 ### Run chronology
 
+- Require an explicit UTC offset in sidecar timestamps. Local clocks and dates
+  alone previously became UTC, which could move old failures after newer passes
+  and trigger a false new-flake alert. Ignore the unsupported time with an
+  actionable warning; preserve outcomes and ordering from valid sequences or
+  report start times. `--fail-on-incomplete` returns 2 for the warning, even
+  when another source supplies chronology.
+  [Controlled mixed-zone histories](studies/sidecar-timezones/README.md) reproduce
+  the alert and cover both gates, report fallback and valid offsets.
+
 - Preserve a timestamp's source while merging report shards. A sequence-only
   sidecar no longer turns a later report start into a sidecar timestamp, causing
   false conflicts or preventing selection of the earliest report time. A

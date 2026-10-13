@@ -27,7 +27,10 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
             const file = resolve(directory, `${profile}.html`);
             const bytes = await readFile(file);
             const response = await page.goto(pathToFileURL(file).href);
-            assert.deepEqual(await response.body(), bytes);
+            assert.equal(page.url(), pathToFileURL(file).href);
+            // Firefox exposes no Response for file: navigation. The loaded file
+            // is hashed in both engines; compare the Response too when exposed.
+            if (response) assert.deepEqual(await response.body(), bytes);
             const unavailable = profile === 'real-conflict' || (phase === 'before' ? profile === 'naive-with-sequence' : profile === 'naive-mixed');
             const state = unavailable ? null : profile === 'aware-mixed' || phase === 'after' ? 'QUIET' : 'NEW FLAKE';
             const row = page.locator('details.row');
@@ -65,7 +68,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
             }
             checks.push({ engine, version: browser.version(), width, phase, profile, state, chronology_available: !unavailable,
               keyboard_evidence: true, offset_warning: diagnostic, remote_requests: 0, errors: 0, page_overflow: overflow,
-              html_sha256: createHash('sha256').update(bytes).digest('hex'), screenshot });
+              html_sha256: createHash('sha256').update(bytes).digest('hex'), response_body_checked: Boolean(response), screenshot });
           }
         }
       } finally { await context.close(); }

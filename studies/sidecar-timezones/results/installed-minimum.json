@@ -1,0 +1,2102 @@
+{
+  "scope": "Synthetic histories through the real CLI, with controlled mtimes and two host timezones.",
+  "python": "Python 3.10.21",
+  "cases": 15,
+  "cli_invocations": 45,
+  "disagreements": 0,
+  "results": [
+    {
+      "profile": "aware-mixed",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "dfc2823dc73f9cf279d635a666cbbc47f325671c649d8c3a7042051dd11eb21c",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 0,
+        "ordering_available": true,
+        "basis": "timestamp",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "e1f280bc806b8469092ecbcd1338a7195fa6269b37234eb374ab4ec71633f95c"
+        },
+        "incomplete": {
+          "exit": 0,
+          "report_sha256": "e1f280bc806b8469092ecbcd1338a7195fa6269b37234eb374ab4ec71633f95c"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "e1f280bc806b8469092ecbcd1338a7195fa6269b37234eb374ab4ec71633f95c"
+        }
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "timestamp",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": [
+          "2026-10-13T00:00:00+00:00",
+          "2026-10-13T00:29:00+00:00"
+        ],
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "sidecar"
+      ],
+      "warnings": [],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "aware-utc",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "dbf8c06001a48a5e0e5d982429ccc426437bb468418f293042172db93a767413",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 0,
+        "ordering_available": true,
+        "basis": "timestamp",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "87c123d61e7ded62b64be61fee6337f62c79a10bba036baf543e88bbe1071364"
+        },
+        "incomplete": {
+          "exit": 0,
+          "report_sha256": "87c123d61e7ded62b64be61fee6337f62c79a10bba036baf543e88bbe1071364"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "87c123d61e7ded62b64be61fee6337f62c79a10bba036baf543e88bbe1071364"
+        }
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "timestamp",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": [
+          "2026-10-13T00:00:00+00:00",
+          "2026-10-13T00:29:00+00:00"
+        ],
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "sidecar"
+      ],
+      "warnings": [],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "aware-quarter-offsets",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "2491399d4d3635826dd96750ea068b00abef3a43e4008680b5ff2a52f4aa1a14",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 0,
+        "ordering_available": true,
+        "basis": "timestamp",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "2c768f8c8d4b6f6a9975b613a017d11d8319ff707355d315652ac7c42d2007c9"
+        },
+        "incomplete": {
+          "exit": 0,
+          "report_sha256": "2c768f8c8d4b6f6a9975b613a017d11d8319ff707355d315652ac7c42d2007c9"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "2c768f8c8d4b6f6a9975b613a017d11d8319ff707355d315652ac7c42d2007c9"
+        }
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "timestamp",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": [
+          "2026-10-13T00:00:00+00:00",
+          "2026-10-13T00:29:00+00:00"
+        ],
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "sidecar"
+      ],
+      "warnings": [],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "naive-mixed",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "6a55d367164d7dac7062bb4f8129c89456f1afcf697014be215e6f8a39ec7372",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 2,
+        "incomplete_exit": 2,
+        "ordering_available": false,
+        "basis": "unavailable",
+        "activity": null
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        },
+        "different-host-zone": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": false,
+          "basis": "unavailable",
+          "reason": "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+        },
+        "total_runs": 30,
+        "run_id_range": null,
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": null,
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "mtime"
+      ],
+      "warnings": [
+        "run run-00: artifact-00/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-01: artifact-01/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-02: artifact-02/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-03: artifact-03/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-04: artifact-04/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-05: artifact-05/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-06: artifact-06/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-07: artifact-07/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-08: artifact-08/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-09: artifact-09/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-10: artifact-10/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-11: artifact-11/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-12: artifact-12/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-13: artifact-13/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-14: artifact-14/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-15: artifact-15/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-16: artifact-16/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-17: artifact-17/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-18: artifact-18/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-19: artifact-19/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-20: artifact-20/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-21: artifact-21/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-22: artifact-22/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-23: artifact-23/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-24: artifact-24/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-25: artifact-25/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-26: artifact-26/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-27: artifact-27/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-28: artifact-28/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-29: artifact-29/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "30/30 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences.",
+        "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "naive-one",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "6931513e147e553040daa18aed5053fead6571b40d53da0c0dc3e629d06bdfd8",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 2,
+        "incomplete_exit": 2,
+        "ordering_available": false,
+        "basis": "unavailable",
+        "activity": null
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 2,
+          "report_sha256": "d6028dfa86df33c583dbd8a22d8424847cfdbc793a82488abb2bc8e55767730a"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "d6028dfa86df33c583dbd8a22d8424847cfdbc793a82488abb2bc8e55767730a"
+        },
+        "different-host-zone": {
+          "exit": 2,
+          "report_sha256": "d6028dfa86df33c583dbd8a22d8424847cfdbc793a82488abb2bc8e55767730a"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": false,
+          "basis": "unavailable",
+          "reason": "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+        },
+        "total_runs": 30,
+        "run_id_range": null,
+        "timestamp_range": [
+          "2026-10-13T00:01:00+00:00",
+          "2026-10-13T00:29:00+00:00"
+        ],
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": null,
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "mtime",
+        "sidecar"
+      ],
+      "warnings": [
+        "run run-00: artifact-00/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "1 of 30 runs record no time and are placed by file mtime among runs placed by their recorded time (run-00); give them a timestamp or leave them out.",
+        "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "naive-with-sequence",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "a590c30ab79713a9f81243c5b4f3826f3e5d87c85429c56b88d44eab3dc57544",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 2,
+        "ordering_available": true,
+        "basis": "sequence",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "452e4330ffe44cf5198ef13e00eba42ca442048a50f1e57dbe7c511a74f1371e"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "452e4330ffe44cf5198ef13e00eba42ca442048a50f1e57dbe7c511a74f1371e"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "452e4330ffe44cf5198ef13e00eba42ca442048a50f1e57dbe7c511a74f1371e"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "sidecar"
+      ],
+      "warnings": [
+        "run run-00: artifact-00/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-01: artifact-01/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-02: artifact-02/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-03: artifact-03/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-04: artifact-04/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-05: artifact-05/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-06: artifact-06/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-07: artifact-07/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-08: artifact-08/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-09: artifact-09/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-10: artifact-10/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-11: artifact-11/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-12: artifact-12/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-13: artifact-13/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-14: artifact-14/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-15: artifact-15/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-16: artifact-16/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-17: artifact-17/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-18: artifact-18/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-19: artifact-19/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-20: artifact-20/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-21: artifact-21/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-22: artifact-22/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-23: artifact-23/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-24: artifact-24/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-25: artifact-25/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-26: artifact-26/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-27: artifact-27/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-28: artifact-28/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-29: artifact-29/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored"
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "naive-with-report",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "4a552f471847f366f69208e97efdeee7b64f93eceb4272c62efc5e55f0e585cc",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 2,
+        "ordering_available": true,
+        "basis": "timestamp",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "fd5ca2e032e0b5ad9f3926566167a37de37bf7ea1ad7247f6f18c52b97dcfbc5"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "fd5ca2e032e0b5ad9f3926566167a37de37bf7ea1ad7247f6f18c52b97dcfbc5"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "fd5ca2e032e0b5ad9f3926566167a37de37bf7ea1ad7247f6f18c52b97dcfbc5"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "timestamp",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": [
+          "2026-10-13T00:00:00+00:00",
+          "2026-10-13T00:29:00+00:00"
+        ],
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "report"
+      ],
+      "warnings": [
+        "run run-00: artifact-00/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-01: artifact-01/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-02: artifact-02/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-03: artifact-03/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-04: artifact-04/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-05: artifact-05/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-06: artifact-06/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-07: artifact-07/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-08: artifact-08/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-09: artifact-09/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-10: artifact-10/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-11: artifact-11/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-12: artifact-12/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-13: artifact-13/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-14: artifact-14/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-15: artifact-15/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-16: artifact-16/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-17: artifact-17/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-18: artifact-18/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-19: artifact-19/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-20: artifact-20/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-21: artifact-21/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-22: artifact-22/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-23: artifact-23/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-24: artifact-24/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-25: artifact-25/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-26: artifact-26/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-27: artifact-27/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-28: artifact-28/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-29: artifact-29/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored"
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "naive-with-trx",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "d450cc3db36c6682baf1929e99444e6bd546d1bb0b59bf822c67210b71b63c7b",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 2,
+        "ordering_available": true,
+        "basis": "timestamp",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "a0aea1390af90630592ac830b71517acb6c2cdc8bcd543ff8b9afc9748793555"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "a0aea1390af90630592ac830b71517acb6c2cdc8bcd543ff8b9afc9748793555"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "a0aea1390af90630592ac830b71517acb6c2cdc8bcd543ff8b9afc9748793555"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "timestamp",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": [
+          "2026-10-13T00:00:00+00:00",
+          "2026-10-13T00:29:00+00:00"
+        ],
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "report"
+      ],
+      "warnings": [
+        "run run-00: artifact-00/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-01: artifact-01/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-02: artifact-02/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-03: artifact-03/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-04: artifact-04/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-05: artifact-05/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-06: artifact-06/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-07: artifact-07/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-08: artifact-08/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-09: artifact-09/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-10: artifact-10/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-11: artifact-11/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-12: artifact-12/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-13: artifact-13/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-14: artifact-14/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-15: artifact-15/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-16: artifact-16/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-17: artifact-17/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-18: artifact-18/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-19: artifact-19/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-20: artifact-20/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-21: artifact-21/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-22: artifact-22/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-23: artifact-23/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-24: artifact-24/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-25: artifact-25/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-26: artifact-26/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-27: artifact-27/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-28: artifact-28/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-29: artifact-29/results.trx: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored"
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "naive-with-naive-report",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "aaa2546c0c8dc6eb4aa456e4d25339e2efc4ba476e8c4a1155b1ca8173c91f1f",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 2,
+        "incomplete_exit": 2,
+        "ordering_available": false,
+        "basis": "unavailable",
+        "activity": null
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        },
+        "different-host-zone": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": false,
+          "basis": "unavailable",
+          "reason": "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+        },
+        "total_runs": 30,
+        "run_id_range": null,
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": null,
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "mtime"
+      ],
+      "warnings": [
+        "run run-00: artifact-00/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-01: artifact-01/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-02: artifact-02/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-03: artifact-03/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-04: artifact-04/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-05: artifact-05/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-06: artifact-06/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-07: artifact-07/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-08: artifact-08/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-09: artifact-09/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-10: artifact-10/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-11: artifact-11/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-12: artifact-12/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-13: artifact-13/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-14: artifact-14/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-15: artifact-15/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-16: artifact-16/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-17: artifact-17/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-18: artifact-18/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-19: artifact-19/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-20: artifact-20/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-21: artifact-21/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-22: artifact-22/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-23: artifact-23/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-24: artifact-24/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-25: artifact-25/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-26: artifact-26/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-27: artifact-27/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-28: artifact-28/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-29: artifact-29/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "30/30 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences.",
+        "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "date-only",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "5ecae0b824b1413df764db585428ec28543b89a7c2f928b911991b9e07524b5d",
+        "truth_sha256": "d49b712e23fbcdb026e0463a7aefb83f575397725611883aadb27ca5c9115aa1"
+      },
+      "expected": {
+        "new_flake_exit": 2,
+        "incomplete_exit": 2,
+        "ordering_available": false,
+        "basis": "unavailable",
+        "activity": null
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        },
+        "different-host-zone": {
+          "exit": 2,
+          "report_sha256": "b2457da91c81115af3614fb9c1de670b34a05a119db3088b7c9f74d1c7ea6a15"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": false,
+          "basis": "unavailable",
+          "reason": "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+        },
+        "total_runs": 30,
+        "run_id_range": null,
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": null,
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "mtime"
+      ],
+      "warnings": [
+        "run run-00: artifact-00/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-01: artifact-01/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-02: artifact-02/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-03: artifact-03/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-04: artifact-04/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-05: artifact-05/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-06: artifact-06/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-07: artifact-07/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-08: artifact-08/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-09: artifact-09/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-10: artifact-10/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-11: artifact-11/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-12: artifact-12/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-13: artifact-13/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-14: artifact-14/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-15: artifact-15/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-16: artifact-16/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-17: artifact-17/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-18: artifact-18/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-19: artifact-19/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-20: artifact-20/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-21: artifact-21/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-22: artifact-22/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-23: artifact-23/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-24: artifact-24/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-25: artifact-25/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-26: artifact-26/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-27: artifact-27/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-28: artifact-28/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-29: artifact-29/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "30/30 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences.",
+        "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "missing-with-sequence",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "72190c3690bf3c4140f43ad363ad29f22d98ee18c9b3a740f1172a115b4af11b",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 0,
+        "ordering_available": true,
+        "basis": "sequence",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "f7ae74c2b490780ac94fd1922913c2f9536e17e7bb617e156d583db7860e37ee"
+        },
+        "incomplete": {
+          "exit": 0,
+          "report_sha256": "f7ae74c2b490780ac94fd1922913c2f9536e17e7bb617e156d583db7860e37ee"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "f7ae74c2b490780ac94fd1922913c2f9536e17e7bb617e156d583db7860e37ee"
+        }
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "sidecar"
+      ],
+      "warnings": [],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "report-only",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "9480ca08d487896f41aaf7622c66381e58857eac68465b77cebea6633313463b",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 0,
+        "ordering_available": true,
+        "basis": "timestamp",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "ff97c4de27ebd35c8501d464565a42dcf8ba576ff33afbdd63e2e78fd55dc16d"
+        },
+        "incomplete": {
+          "exit": 0,
+          "report_sha256": "ff97c4de27ebd35c8501d464565a42dcf8ba576ff33afbdd63e2e78fd55dc16d"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "ff97c4de27ebd35c8501d464565a42dcf8ba576ff33afbdd63e2e78fd55dc16d"
+        }
+      },
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "timestamp",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": [
+          "2026-10-13T00:00:00+00:00",
+          "2026-10-13T00:29:00+00:00"
+        ],
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "report"
+      ],
+      "warnings": [],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "real-conflict",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "d915ed673fc70afcc75d77972381c22dc11f1cd7b348bad1cdca1f854ed2b66e",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 2,
+        "incomplete_exit": 2,
+        "ordering_available": false,
+        "basis": "unavailable",
+        "activity": null
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 2,
+          "report_sha256": "85a095e3e559196135064fac758868fa114ec1181f9262797a5e25e4019901a3"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "85a095e3e559196135064fac758868fa114ec1181f9262797a5e25e4019901a3"
+        },
+        "different-host-zone": {
+          "exit": 2,
+          "report_sha256": "85a095e3e559196135064fac758868fa114ec1181f9262797a5e25e4019901a3"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": false,
+          "basis": "unavailable",
+          "reason": "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+        },
+        "total_runs": 30,
+        "run_id_range": null,
+        "timestamp_range": [
+          "2026-10-13T00:00:00+00:00",
+          "2026-10-13T00:29:00+00:00"
+        ],
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": null,
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "sidecar"
+      ],
+      "warnings": [
+        "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "invalid-with-sequence",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "739266a061f92bf63bf56b6a21877660a59e2cfeb375b7c9ac14581c9233d066",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 0,
+        "incomplete_exit": 2,
+        "ordering_available": true,
+        "basis": "sequence",
+        "activity": "quiet"
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 0,
+          "report_sha256": "452e4330ffe44cf5198ef13e00eba42ca442048a50f1e57dbe7c511a74f1371e"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "452e4330ffe44cf5198ef13e00eba42ca442048a50f1e57dbe7c511a74f1371e"
+        },
+        "different-host-zone": {
+          "exit": 0,
+          "report_sha256": "452e4330ffe44cf5198ef13e00eba42ca442048a50f1e57dbe7c511a74f1371e"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "sequence",
+          "reason": null
+        },
+        "total_runs": 30,
+        "run_id_range": [
+          "run-00",
+          "run-29"
+        ],
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 1,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-00",
+        "run-01",
+        "run-02",
+        "run-03",
+        "run-04",
+        "run-05",
+        "run-06",
+        "run-07",
+        "run-08",
+        "run-09",
+        "run-10",
+        "run-11",
+        "run-12",
+        "run-13",
+        "run-14",
+        "run-15",
+        "run-16",
+        "run-17",
+        "run-18",
+        "run-19",
+        "run-20",
+        "run-21",
+        "run-22",
+        "run-23",
+        "run-24",
+        "run-25",
+        "run-26",
+        "run-27",
+        "run-28",
+        "run-29"
+      ],
+      "sources": [
+        "sidecar"
+      ],
+      "warnings": [
+        "run run-00: artifact-00/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-01: artifact-01/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-02: artifact-02/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-03: artifact-03/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-04: artifact-04/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-05: artifact-05/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-06: artifact-06/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-07: artifact-07/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-08: artifact-08/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-09: artifact-09/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-10: artifact-10/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-11: artifact-11/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-12: artifact-12/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-13: artifact-13/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-14: artifact-14/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-15: artifact-15/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-16: artifact-16/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-17: artifact-17/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-18: artifact-18/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-19: artifact-19/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-20: artifact-20/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-21: artifact-21/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-22: artifact-22/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-23: artifact-23/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-24: artifact-24/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-25: artifact-25/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-26: artifact-26/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-27: artifact-27/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-28: artifact-28/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-29: artifact-29/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored"
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    },
+    {
+      "profile": "naive-renamed-mtimes",
+      "inputs": {
+        "files": 60,
+        "tree_sha256": "5e3f41f59bb2e320c60c1a03a6a62075960dda0f192b3aa203bdf2eeb3dd4e28",
+        "truth_sha256": "32e0198f5246f7bca8d088080aa02deb54631933ce70a2336c4cc723ca95672c"
+      },
+      "expected": {
+        "new_flake_exit": 2,
+        "incomplete_exit": 2,
+        "ordering_available": false,
+        "basis": "unavailable",
+        "activity": null
+      },
+      "commands": {
+        "new-flake": {
+          "exit": 2,
+          "report_sha256": "41fe360ef476f24110b49e37c573dbb30ca13113c2494eddfda6311a48dbd92e"
+        },
+        "incomplete": {
+          "exit": 2,
+          "report_sha256": "41fe360ef476f24110b49e37c573dbb30ca13113c2494eddfda6311a48dbd92e"
+        },
+        "different-host-zone": {
+          "exit": 2,
+          "report_sha256": "41fe360ef476f24110b49e37c573dbb30ca13113c2494eddfda6311a48dbd92e"
+        }
+      },
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": false,
+          "basis": "unavailable",
+          "reason": "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+        },
+        "total_runs": 30,
+        "run_id_range": null,
+        "timestamp_range": null,
+        "total_tests": 1,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 1,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "activity": null,
+      "counts": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "run_order": [
+        "run-29",
+        "run-28",
+        "run-27",
+        "run-26",
+        "run-25",
+        "run-24",
+        "run-23",
+        "run-22",
+        "run-21",
+        "run-20",
+        "run-19",
+        "run-18",
+        "run-17",
+        "run-16",
+        "run-15",
+        "run-14",
+        "run-13",
+        "run-12",
+        "run-11",
+        "run-10",
+        "run-09",
+        "run-08",
+        "run-07",
+        "run-06",
+        "run-05",
+        "run-04",
+        "run-03",
+        "run-02",
+        "run-01",
+        "run-00"
+      ],
+      "sources": [
+        "mtime"
+      ],
+      "warnings": [
+        "run run-29: artifact-00/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-28: artifact-01/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-27: artifact-02/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-26: artifact-03/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-25: artifact-04/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-24: artifact-05/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-23: artifact-06/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-22: artifact-07/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-21: artifact-08/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-20: artifact-09/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-19: artifact-10/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-18: artifact-11/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-17: artifact-12/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-16: artifact-13/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-15: artifact-14/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-14: artifact-15/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-13: artifact-16/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-12: artifact-17/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-11: artifact-18/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-10: artifact-19/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-09: artifact-20/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-08: artifact-21/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-07: artifact-22/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-06: artifact-23/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-05: artifact-24/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-04: artifact-25/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-03: artifact-26/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-02: artifact-27/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-01: artifact-28/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "run run-00: artifact-29/results.xml: metadata timestamp must be an ISO 8601 string with an explicit UTC offset (for example Z or +00:00); ignored",
+        "30/30 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences.",
+        "Runs have missing or tied ordering values, or filesystem-only timestamps; no common chronology is available. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "checks": {
+        "new_flake_gate": true,
+        "incomplete_gate": true,
+        "ordering": true,
+        "activity": true,
+        "silence": true,
+        "counts": true,
+        "complete": true,
+        "actionable_diagnostic": true,
+        "source": true,
+        "sequence_without_fabricated_time": true,
+        "host_timezone_independent": true,
+        "same_report_for_both_gates": true,
+        "html_written": true
+      },
+      "agrees": true
+    }
+  ]
+}

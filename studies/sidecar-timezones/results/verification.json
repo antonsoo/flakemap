@@ -1,0 +1,365 @@
+{
+  "implementationCommit": "9e871c1ccc61c49a462ee551c2028876bdd93cf6",
+  "steps": [
+    {
+      "name": "clean-install",
+      "command": [
+        "uv",
+        "sync",
+        "--locked",
+        "--group",
+        "dev",
+        "--python",
+        "3.12"
+      ],
+      "exit": 0,
+      "seconds": 1.545
+    },
+    {
+      "name": "clean-lint",
+      "command": [
+        "<scratch>/clean-9e871c1/.venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.085
+    },
+    {
+      "name": "clean-format",
+      "command": [
+        "<scratch>/clean-9e871c1/.venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit": 0,
+      "seconds": 0.077
+    },
+    {
+      "name": "clean-types",
+      "command": [
+        "<scratch>/clean-9e871c1/.venv/bin/mypy",
+        "src/flakemap"
+      ],
+      "exit": 0,
+      "seconds": 3.911
+    },
+    {
+      "name": "clean-tests",
+      "command": [
+        "<scratch>/clean-9e871c1/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit": 0,
+      "seconds": 30.185
+    },
+    {
+      "name": "clean-build",
+      "command": [
+        "uv",
+        "build",
+        "--out-dir",
+        "<scratch>/dist"
+      ],
+      "exit": 0,
+      "seconds": 1.354
+    },
+    {
+      "name": "minimum-venv",
+      "command": [
+        "uv",
+        "venv",
+        "--python",
+        "3.10",
+        "<scratch>/installed-minimum"
+      ],
+      "exit": 0,
+      "seconds": 0.036
+    },
+    {
+      "name": "minimum-install",
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "<scratch>/installed-minimum/bin/python",
+        "<scratch>/dist/flakemap-0.3.7-py3-none-any.whl",
+        "rich==13.7.0"
+      ],
+      "exit": 0,
+      "seconds": 0.51
+    },
+    {
+      "name": "minimum-replay",
+      "command": [
+        "<scratch>/installed-minimum/bin/python",
+        "<scratch>/clean-9e871c1/studies/sidecar-timezones/replay.py",
+        "--python",
+        "<scratch>/installed-minimum/bin/python",
+        "--work",
+        "<scratch>/minimum-replay",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 9.633
+    },
+    {
+      "name": "minimum-version",
+      "command": [
+        "<scratch>/installed-minimum/bin/flakemap",
+        "--version"
+      ],
+      "exit": 0,
+      "seconds": 0.159
+    },
+    {
+      "name": "current-venv",
+      "command": [
+        "uv",
+        "venv",
+        "--python",
+        "3.14",
+        "<scratch>/installed-current"
+      ],
+      "exit": 0,
+      "seconds": 0.033
+    },
+    {
+      "name": "current-install",
+      "command": [
+        "uv",
+        "pip",
+        "install",
+        "--python",
+        "<scratch>/installed-current/bin/python",
+        "<scratch>/dist/flakemap-0.3.7-py3-none-any.whl",
+        "rich"
+      ],
+      "exit": 0,
+      "seconds": 0.082
+    },
+    {
+      "name": "current-replay",
+      "command": [
+        "<scratch>/installed-current/bin/python",
+        "<scratch>/clean-9e871c1/studies/sidecar-timezones/replay.py",
+        "--python",
+        "<scratch>/installed-current/bin/python",
+        "--work",
+        "<scratch>/current-replay",
+        "--check"
+      ],
+      "exit": 0,
+      "seconds": 9.725
+    },
+    {
+      "name": "current-version",
+      "command": [
+        "<scratch>/installed-current/bin/flakemap",
+        "--version"
+      ],
+      "exit": 0,
+      "seconds": 0.193
+    },
+    {
+      "name": "browser-install",
+      "command": [
+        "npm",
+        "ci"
+      ],
+      "exit": 0,
+      "seconds": 3.117
+    },
+    {
+      "name": "offline-browser",
+      "command": [
+        "node",
+        "<scratch>/clean-9e871c1/studies/sidecar-timezones/browser.mjs",
+        "<scratch>/before-replay/html",
+        "<scratch>/current-replay/html",
+        "<scratch>/screenshots"
+      ],
+      "exit": 1,
+      "seconds": 17.751
+    },
+    {
+      "name": "offline-browser-corrected",
+      "command": [
+        "node",
+        "<scratch>/browser-rerun/browser.mjs",
+        "<scratch>/before-replay/html",
+        "<scratch>/current-replay/html",
+        "<scratch>/screenshots-final"
+      ],
+      "exit": 0
+    }
+  ],
+  "installed": [
+    {
+      "label": "minimum",
+      "python": "Python 3.10.21",
+      "sourceFilesMatch": 30,
+      "rich": "13.7.0",
+      "cases": 15,
+      "cliInvocations": 45,
+      "disagreements": 0,
+      "allResultsMatchSource": true,
+      "html": {
+        "aware-utc.html": "f48857ea17d5fa6996e161af5dddae52de7632c6fef8a887e29e328ce4b05ab5",
+        "date-only.html": "9cf22acf5fdbf69b933716f5f5e3bb44a1d12b7818a0654e518acbe6691f090e",
+        "naive-with-report.html": "14a163c905857c419654bbf761a7bc30018fa7d007b110cac3aa81ad678cf7e1",
+        "naive-with-sequence.html": "858c7cfc8889b4b0848c098fb2f8c3fea5c803490f11b98d6c1dc1ce421fc1e2",
+        "aware-mixed.html": "f48857ea17d5fa6996e161af5dddae52de7632c6fef8a887e29e328ce4b05ab5",
+        "naive-with-naive-report.html": "9cf22acf5fdbf69b933716f5f5e3bb44a1d12b7818a0654e518acbe6691f090e",
+        "report-only.html": "f48857ea17d5fa6996e161af5dddae52de7632c6fef8a887e29e328ce4b05ab5",
+        "invalid-with-sequence.html": "858c7cfc8889b4b0848c098fb2f8c3fea5c803490f11b98d6c1dc1ce421fc1e2",
+        "naive-mixed.html": "9cf22acf5fdbf69b933716f5f5e3bb44a1d12b7818a0654e518acbe6691f090e",
+        "naive-one.html": "084699f7da5ea3d37519237a4ce55aeed128ad5950ac685b982f4b486d8660cf",
+        "naive-renamed-mtimes.html": "54c538bbe0387749b3dd1cdf62d0596ce986660800f74251bb20b7737192c43f",
+        "naive-with-trx.html": "b0ac1e589b5cd3aa0b7afdef161ddf1c904fe08c989e87a0a4e3befa606b8e6a",
+        "missing-with-sequence.html": "0e7310413848e7c29ae93621d6cbaacde17d64b2d576edcedeb15b478a40397e",
+        "aware-quarter-offsets.html": "f48857ea17d5fa6996e161af5dddae52de7632c6fef8a887e29e328ce4b05ab5",
+        "real-conflict.html": "eba70a0b2323556ba5d8a14f7ed2ce2952ad8c2c8f5faf94298c115d5764238e"
+      }
+    },
+    {
+      "label": "current",
+      "python": "Python 3.14.7",
+      "sourceFilesMatch": 30,
+      "rich": "15.0.0",
+      "cases": 15,
+      "cliInvocations": 45,
+      "disagreements": 0,
+      "allResultsMatchSource": true,
+      "html": {
+        "aware-utc.html": "f48857ea17d5fa6996e161af5dddae52de7632c6fef8a887e29e328ce4b05ab5",
+        "date-only.html": "9cf22acf5fdbf69b933716f5f5e3bb44a1d12b7818a0654e518acbe6691f090e",
+        "naive-with-report.html": "14a163c905857c419654bbf761a7bc30018fa7d007b110cac3aa81ad678cf7e1",
+        "naive-with-sequence.html": "858c7cfc8889b4b0848c098fb2f8c3fea5c803490f11b98d6c1dc1ce421fc1e2",
+        "aware-mixed.html": "f48857ea17d5fa6996e161af5dddae52de7632c6fef8a887e29e328ce4b05ab5",
+        "naive-with-naive-report.html": "9cf22acf5fdbf69b933716f5f5e3bb44a1d12b7818a0654e518acbe6691f090e",
+        "report-only.html": "f48857ea17d5fa6996e161af5dddae52de7632c6fef8a887e29e328ce4b05ab5",
+        "invalid-with-sequence.html": "858c7cfc8889b4b0848c098fb2f8c3fea5c803490f11b98d6c1dc1ce421fc1e2",
+        "naive-mixed.html": "9cf22acf5fdbf69b933716f5f5e3bb44a1d12b7818a0654e518acbe6691f090e",
+        "naive-one.html": "084699f7da5ea3d37519237a4ce55aeed128ad5950ac685b982f4b486d8660cf",
+        "naive-renamed-mtimes.html": "54c538bbe0387749b3dd1cdf62d0596ce986660800f74251bb20b7737192c43f",
+        "naive-with-trx.html": "b0ac1e589b5cd3aa0b7afdef161ddf1c904fe08c989e87a0a4e3befa606b8e6a",
+        "missing-with-sequence.html": "0e7310413848e7c29ae93621d6cbaacde17d64b2d576edcedeb15b478a40397e",
+        "aware-quarter-offsets.html": "f48857ea17d5fa6996e161af5dddae52de7632c6fef8a887e29e328ce4b05ab5",
+        "real-conflict.html": "eba70a0b2323556ba5d8a14f7ed2ce2952ad8c2c8f5faf94298c115d5764238e"
+      }
+    }
+  ],
+  "buildPython": "Python 3.12.12",
+  "artifacts": {
+    "flakemap-0.3.7-py3-none-any.whl": {
+      "bytes": 91487,
+      "sha256": "5215d64ce21031e2751f817a24b48b21ef997bbb1fd1abf0a98761379efcdd88"
+    },
+    "flakemap-0.3.7.tar.gz": {
+      "bytes": 115954,
+      "sha256": "06df0b6354c80684a843c9b4787ad00f2bc1468008d2b37925eafd443aeaa453"
+    }
+  },
+  "archive": {
+    "trackedFiles": 912,
+    "allBytesUnchanged": true
+  },
+  "packageFiles": {
+    "__init__.py": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce",
+    "models.py": "fd969e021ef5f40a5b2b93d586dd3139cc11253d76d08a448332f5ac24094351",
+    "ordering.py": "5a45e29423ebdd55a971b6b6f485bf33caf2d49f1b3b2cb4609de41227ad92d5",
+    "observations.py": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e",
+    "loader.py": "7b9c99e00d01236076ac0088f040b6d4f73fb93f1ae60e59ab4bfde660f820a2",
+    "cli.py": "1d0ce151d0a3b6556dd54638e6d69fb0c6e484dc7566befdff6f2c7a11f392f0",
+    "__main__.py": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd",
+    "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
+    "stats/__init__.py": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f",
+    "stats/analyze.py": "1fe56aadea1ebf701d7dec0a974032b829309461e815ed5918b4d0e5105efd0b",
+    "stats/correlation.py": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb",
+    "stats/cofailure.py": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006",
+    "stats/wilson.py": "f771bc8ec543b1c4295a374b682c8ed35ea0564c990592bb3d0712197f3ae8f5",
+    "stats/activity.py": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857",
+    "report/numbers.py": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401",
+    "report/terminal.py": "bc067cea56c5ef98db677d5e09d8089f5b4c83e7993241e8b83c8debe9c4f0ad",
+    "report/__init__.py": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50",
+    "report/html_out.py": "0c120d1a1dd4485766b9840b2d43ecf5ab8c79439c6f3882de4f956f40b68e08",
+    "report/names.py": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0",
+    "report/cofailure_html.py": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed",
+    "report/json_out.py": "1067e28f118c5bc1f52c1df2823c11ab130d356c2245354a5da1e8f2dc0b5343",
+    "report/markdown_out.py": "e2fa5bb8bc8a3fa0ae2fe96b5cef5f7ec38a3b25a9350263cc0b8cd6f4763ba9",
+    "parse/junit_counts.py": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f",
+    "parse/xmltext.py": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031",
+    "parse/__init__.py": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3",
+    "parse/junit.py": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9",
+    "parse/metadata.py": "7bb47777bdc07c76bc155adf8ba6e86c54cfde76974de4329cf9618461b275a2",
+    "parse/trx.py": "bf52b1c070122b13c0fe1e9afb300bb672522e25699c876ca21e34f40c1b9fe6",
+    "parse/trx_counts.py": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1",
+    "parse/xmlinput.py": "0049e6cca2fdf655a37c25f210cce428d72e626ffa7bb26474681ef86e31e8f0"
+  },
+  "browser": {
+    "checks": 48,
+    "engines": {
+      "chromium": "153.0.8010.12",
+      "firefox": "155.0"
+    },
+    "widths": [
+      1200,
+      375
+    ],
+    "harness": "studies/sidecar-timezones/browser.mjs",
+    "harnessSha256": "144b5eace34fe990ceeff9b6f50d53277fd477244f7624387eee97707589ab01",
+    "initialHarnessFailure": "Firefox file: navigation returns no Response object. The initial harness unconditionally called response.body(). Runtime and reports were unchanged; corrected harness verifies the file URL/hash in both engines and response bytes where exposed.",
+    "correctedRunExit": 0,
+    "allReportHashesMatchArtifacts": true,
+    "pageErrors": 0,
+    "remoteRequests": 0
+  },
+  "screenshots": {
+    "chromium-1200-after.png": {
+      "bytes": 171907,
+      "sha256": "9051f64bc7b9be43c2d30494b936a02b6a3a9ce2db3717b4382df42fb36efe4a",
+      "visuallyReviewed": true
+    },
+    "chromium-1200-before.png": {
+      "bytes": 161053,
+      "sha256": "e6c1ea562ba62855d60c9404663d449071a16a37ffeec9d6cb7ed2cbffb21857",
+      "visuallyReviewed": true
+    },
+    "chromium-375-after.png": {
+      "bytes": 160666,
+      "sha256": "469bb4d7d9cbae80e895f5a0ecfd282ce5dfa83240b97f0f734bf66bbca37911",
+      "visuallyReviewed": true
+    },
+    "chromium-375-before.png": {
+      "bytes": 150354,
+      "sha256": "5600c4f87552560845047f4c023f099bbed5b739005a9f09bf2964476b985baf",
+      "visuallyReviewed": true
+    },
+    "firefox-1200-after.png": {
+      "bytes": 189935,
+      "sha256": "fa40d9ec9f0c64e1f93a12e83c39801acb799d7e5774a6a875dfeb334cbb04d3",
+      "visuallyReviewed": true
+    },
+    "firefox-1200-before.png": {
+      "bytes": 178475,
+      "sha256": "e627aba4690ed7e514fb372bef6a0320f450bf2a578be51194738722680d5e38",
+      "visuallyReviewed": true
+    },
+    "firefox-375-after.png": {
+      "bytes": 170138,
+      "sha256": "4a5578c6237a27491928c77455d5463cb165b6ae0b66d69e88f309b9bae5ce4f",
+      "visuallyReviewed": true
+    },
+    "firefox-375-before.png": {
+      "bytes": 159585,
+      "sha256": "f1aa6a1b7f095300512241c9ac2cbf7c731e8cc978ad87a104de909730c32eb7",
+      "visuallyReviewed": true
+    }
+  },
+  "scope": "Clean implementation archive; separately installed local wheel; corrected browser harness outside the unchanged archive. Source publication only; no registry release or hosted deployment."
+}

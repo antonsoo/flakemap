@@ -104,11 +104,28 @@ PYTHONPATH=src uv run python studies/sidecar-timezones/compatibility.py \
 
 ## Installed package and visible reports
 
-The verification and browser receipts are recorded alongside these results
-when the implementation has passed clean-archive and installed-wheel checks.
-The browser workflow opens before and installed-after standalone HTML offline,
-checks the visible activity, 30 outcome cells, warnings and keyboard-accessible
-failure details, and verifies there is no page overflow at 1200 and 375 pixels.
+[Verification receipt](results/verification.json): the clean implementation
+archive passes lint, formatting, type checking and 375 checks, then builds a
+wheel from its sdist. Fresh local wheel installations on Python 3.10.21 with
+minimum Rich 13.7.0 and Python 3.14.7 with Rich 15.0.0 reproduce all 15 profiles
+(45 CLI invocations each), including exact JSON and HTML equality with source.
+All 30 packaged source files match the verified checkout. Full installed
+receipts: [minimum](results/installed-minimum.json), [current](results/installed-current.json).
+
+[48 offline browser workflows](results/browser.json) open six before/after
+profiles in Chromium and Firefox at 1200 and 375 pixels. They check visible
+activity, all 30 outcome cells, warnings and keyboard-accessible failure
+details, with no page overflow, remote requests or page errors. File hashes
+match the installed-wheel reports. The initial checker assumed local-file
+navigation always exposed a response object; Firefox does not. The corrected
+harness checks the loaded file URL and hash in both engines, and response
+bytes when exposed. No application code or report changed for that correction.
+
+Open the actual [before](results/before.html) and [after](results/after.html)
+standalone reports, or inspect the eight reviewed
+[screenshots](results/screenshots). The failure table scrolls within its own
+region on narrow screens. The report keeps the observed counts while clearly
+withdrawing the unsupported timeline.
 
 ```sh
 npm ci

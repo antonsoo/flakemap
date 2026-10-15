@@ -53,12 +53,11 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
             warnings.extend(more)
         cases = exclude_lossy_identifiers(cases, warnings)
         metadata = resolve_metadata(path, root, warnings=warnings)
-        # Without a sidecar timestamp or sequence the run would be ordered by file mtime
-        # (sources "path", "mtime"); the report's own start time is more trustworthy.
-        if (
-            started is not None
-            and metadata.sequence is None
-            and metadata.source in ("path", "mtime", "unknown")
+        # A sequence supplies an ordering key, not a timestamp. Keep the report's
+        # recorded time as well so order_runs can detect contradictory evidence.
+        # Only an explicit sidecar timestamp takes precedence over report time.
+        if started is not None and (
+            metadata.timestamp is None or metadata.source in ("path", "mtime", "unknown")
         ):
             metadata.timestamp, metadata.source = started, "report"
         warnings = [f"{source}: {warning}" for warning in warnings]

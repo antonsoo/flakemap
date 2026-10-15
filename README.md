@@ -177,6 +177,8 @@ installing: `uvx flakemap path/to/reports`.
   Sidecar timestamps require an explicit UTC offset in this checkout: treating
   local clocks as UTC can [turn an old failure burst into a new-flake alert](studies/sidecar-timezones/README.md).
   Invalid times warn; valid sequences or report timestamps can still establish order.
+  A sequence-only sidecar also retains the report's own timestamp in this checkout;
+  [contradictory sequences cannot turn old failures into a new-flake alert](studies/report-sequences/README.md).
 - **Per-test statistics**: Wilson-interval failure rate, flip rate,
   same-commit rerun disagreement (the "failed then passed on identical code"
   signal), a documented flakiness score, single change-point detection,

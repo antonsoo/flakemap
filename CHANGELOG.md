@@ -30,6 +30,13 @@ All notable changes to this project are documented in this file.
 
 ### Run chronology
 
+- Retain offset-bearing report timestamps beside sequence-only sidecars,
+  including metadata on the same report or its run directory. Previously these
+  layouts discarded recorded time and could silently accept a contradictory
+  sequence, turning old failures into a false new-flake alert. Preserve explicit
+  sidecar timestamp precedence and retain all rate evidence when chronology is
+  unavailable. [JUnit/TRX CLI controls](studies/report-sequences/README.md).
+
 - Require an explicit UTC offset in sidecar timestamps. Local clocks and dates
   alone previously became UTC, which could move old failures after newer passes
   and trigger a false new-flake alert. Ignore the unsupported time with an

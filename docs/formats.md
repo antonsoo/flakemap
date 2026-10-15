@@ -274,7 +274,7 @@ resolves that from the report file's location, tried in this order (see
    This is the natural shape of "download each CI run's artifact into its own
    folder", e.g. from `actions/download-artifact` with a matrix build.
 
-   Without a sidecar timestamp or sequence, the run's time is the report's own
+   Without an explicit sidecar timestamp, the run's time is the report's own
    when it has one: a TRX file's `<Times start>` or, in the source checkout, a
    JUnit suite's offset-bearing `timestamp` (metadata source `report`). Several
    reports of one run take the earliest. Only two *sidecar* timestamps that
@@ -286,6 +286,11 @@ resolves that from the report file's location, tried in this order (see
    available. A sequence also supersedes an earlier shard's filesystem-time
    fallback. [Filename-permutation evidence](../studies/shard-timestamps/README.md)
    covers both merge directions and genuine sidecar conflicts.
+
+   The source checkout also retains report times when the sequence-only
+   sidecar accompanies that same report or applies to the whole run directory.
+   Moving sequence metadata between shards cannot erase recorded time or hide
+   a contradiction. [JUnit/TRX gate reproduction](../studies/report-sequences/README.md).
 
 3. **File mtime fallback.** If nothing supplies a timestamp or sequence, the
    report file's filesystem modification time is retained with source `mtime`.

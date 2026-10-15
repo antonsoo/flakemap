@@ -1,0 +1,105 @@
+{
+  "checked_at_utc": "2026-10-15T04:07:45.724168+00:00",
+  "implementation_commit": "fb10ab63b9cf862a7fe49b5ecf6e11aca2779b42",
+  "clean_archive": {
+    "python": "3.14.7",
+    "files_compared": 932,
+    "changed_files": [],
+    "lint": "passed",
+    "format": "passed",
+    "strict_typecheck": "passed",
+    "tests_passed": 376,
+    "sdist_and_wheel": "passed"
+  },
+  "installed_wheel": {
+    "python": "3.14.7",
+    "rich": "15.0.0",
+    "tests_passed": 376,
+    "cli_cases_passed": 18,
+    "runtime_files_identical": 30,
+    "html_reports_identical_to_source": 18
+  },
+  "minimum_installed_wheel": {
+    "python": "3.10.21",
+    "rich": "13.7.0",
+    "tests_passed": 376,
+    "cli_cases_passed": 18,
+    "runtime_files_identical": 30,
+    "html_reports_identical_to_source": 18
+  },
+  "browser": {
+    "offline_before_first_navigation": true,
+    "checks_passed": 32,
+    "engines": [
+      "chromium",
+      "firefox"
+    ],
+    "widths": [
+      1200,
+      375
+    ],
+    "errors": 0,
+    "remote_requests": 0,
+    "inspected_screenshots": [
+      "docs/assets/report-sequences/before.png",
+      "docs/assets/report-sequences/after.png"
+    ],
+    "loaded_after_bytes_match_installed_reports": true
+  },
+  "gate_decisions": {
+    "cases": 18,
+    "incorrect_before": 4,
+    "incorrect_after": 0,
+    "input_tree_hashes_match_all_versions": true,
+    "all_30_outcomes_retained_each_case": true
+  },
+  "artifacts": [
+    {
+      "file": "flakemap-0.3.7-py3-none-any.whl",
+      "bytes": 91562,
+      "sha256": "ee1ebb6a298ed6f133c073f6d3a8ae706acfef0607fb70b56eb211aa00561556"
+    },
+    {
+      "file": "flakemap-0.3.7.tar.gz",
+      "bytes": 116297,
+      "sha256": "ad7b7bd73be8c22e15ee6dcb7f816be5984217e33cdca5975a2bded6bd345713"
+    }
+  ],
+  "runtime_python_sha256": {
+    "__init__.py": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce",
+    "models.py": "fd969e021ef5f40a5b2b93d586dd3139cc11253d76d08a448332f5ac24094351",
+    "ordering.py": "5a45e29423ebdd55a971b6b6f485bf33caf2d49f1b3b2cb4609de41227ad92d5",
+    "observations.py": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e",
+    "loader.py": "0a3df63fd86191101f896e9b71e3453abc702293c94cf38cf7b24c2f4c38bf42",
+    "cli.py": "1d0ce151d0a3b6556dd54638e6d69fb0c6e484dc7566befdff6f2c7a11f392f0",
+    "__main__.py": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd",
+    "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
+    "stats/__init__.py": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f",
+    "stats/analyze.py": "1fe56aadea1ebf701d7dec0a974032b829309461e815ed5918b4d0e5105efd0b",
+    "stats/correlation.py": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb",
+    "stats/cofailure.py": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006",
+    "stats/wilson.py": "f771bc8ec543b1c4295a374b682c8ed35ea0564c990592bb3d0712197f3ae8f5",
+    "stats/activity.py": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857",
+    "report/numbers.py": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401",
+    "report/terminal.py": "bc067cea56c5ef98db677d5e09d8089f5b4c83e7993241e8b83c8debe9c4f0ad",
+    "report/__init__.py": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50",
+    "report/html_out.py": "0c120d1a1dd4485766b9840b2d43ecf5ab8c79439c6f3882de4f956f40b68e08",
+    "report/names.py": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0",
+    "report/cofailure_html.py": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed",
+    "report/json_out.py": "1067e28f118c5bc1f52c1df2823c11ab130d356c2245354a5da1e8f2dc0b5343",
+    "report/markdown_out.py": "e2fa5bb8bc8a3fa0ae2fe96b5cef5f7ec38a3b25a9350263cc0b8cd6f4763ba9",
+    "parse/junit_counts.py": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f",
+    "parse/xmltext.py": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031",
+    "parse/__init__.py": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3",
+    "parse/junit.py": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9",
+    "parse/metadata.py": "7bb47777bdc07c76bc155adf8ba6e86c54cfde76974de4329cf9618461b275a2",
+    "parse/trx.py": "bf52b1c070122b13c0fe1e9afb300bb672522e25699c876ca21e34f40c1b9fe6",
+    "parse/trx_counts.py": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1",
+    "parse/xmlinput.py": "0049e6cca2fdf655a37c25f210cce428d72e626ffa7bb26474681ef86e31e8f0"
+  },
+  "published": false,
+  "limits": [
+    "Controlled synthetic JUnit/TRX histories; no production CI incidence claimed.",
+    "Explicit sidecar timestamps retain precedence; conflicting ordering keys remain unresolved."
+  ]
+}

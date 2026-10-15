@@ -1,0 +1,690 @@
+{
+  "cases": 18,
+  "incorrect_gate_decisions": 0,
+  "rows": [
+    {
+      "case": "junit-same-report-contradictory",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "ordering": {
+        "available": false,
+        "basis": "unavailable",
+        "reason": "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": null,
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [
+        "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "stderr": "HTML report written to <html-artifacts>/junit-same-report-contradictory.html\nerror: chronology unavailable; new-flake gate could not be evaluated\n",
+      "html_sha256": "7ee5dec04840ebd4065f226b9a228af979ba5d8ed361cadf55ecc110034d7be3",
+      "input_tree_sha256": "b640af7f1a2a9916b052d953fc852d7e5e3309030250310c59c2ae6e23b1f793"
+    },
+    {
+      "case": "junit-same-report-consistent",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/junit-same-report-consistent.html\n",
+      "html_sha256": "f9bb1b1c70c71ec410d63a6136d529451c8e818dce1c61f5f3e006a3d1e919f7",
+      "input_tree_sha256": "b849988e02bda54d491e6ca987d633380cc18fee310aa63d0724297f0882be88"
+    },
+    {
+      "case": "junit-same-report-explicit-override",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "new",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 5,
+        "longest_gap": 1,
+        "silence_ratio": 0.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "sidecar"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/junit-same-report-explicit-override.html\nnew flake(s) detected: Checkout.authorizes\n",
+      "html_sha256": "9049da14d0c77136270dcbd4766be4d737090b6ffa89c390ade7a024c5636666",
+      "input_tree_sha256": "24d60d0afa88ab6582b2061f8dd61a4f2c0c06195ba9a32fad94ec1647d62c57"
+    },
+    {
+      "case": "junit-sibling-report-contradictory",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "ordering": {
+        "available": false,
+        "basis": "unavailable",
+        "reason": "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": null,
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [
+        "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "stderr": "HTML report written to <html-artifacts>/junit-sibling-report-contradictory.html\nerror: chronology unavailable; new-flake gate could not be evaluated\n",
+      "html_sha256": "7ee5dec04840ebd4065f226b9a228af979ba5d8ed361cadf55ecc110034d7be3",
+      "input_tree_sha256": "ceac6e9c8aadd0962432914d5a7380e7ef72d8e316c42bdf00b1c2042af6ed72"
+    },
+    {
+      "case": "junit-sibling-report-consistent",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/junit-sibling-report-consistent.html\n",
+      "html_sha256": "f9bb1b1c70c71ec410d63a6136d529451c8e818dce1c61f5f3e006a3d1e919f7",
+      "input_tree_sha256": "d9d78603e7de945cca893a2c6c0e49246699bb886519609b03c7b30c95ceec57"
+    },
+    {
+      "case": "junit-sibling-report-explicit-override",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "new",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 5,
+        "longest_gap": 1,
+        "silence_ratio": 0.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "sidecar"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/junit-sibling-report-explicit-override.html\nnew flake(s) detected: Checkout.authorizes\n",
+      "html_sha256": "9049da14d0c77136270dcbd4766be4d737090b6ffa89c390ade7a024c5636666",
+      "input_tree_sha256": "368a4265eb53d5a8f0b2fcac77f1626bf02152fc96e254796826558e575389d6"
+    },
+    {
+      "case": "junit-run-directory-contradictory",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "ordering": {
+        "available": false,
+        "basis": "unavailable",
+        "reason": "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": null,
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [
+        "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "stderr": "HTML report written to <html-artifacts>/junit-run-directory-contradictory.html\nerror: chronology unavailable; new-flake gate could not be evaluated\n",
+      "html_sha256": "7ee5dec04840ebd4065f226b9a228af979ba5d8ed361cadf55ecc110034d7be3",
+      "input_tree_sha256": "1148cda5d7b5773bb90398160404fa7423637d6d43cd935af8beb04feef16061"
+    },
+    {
+      "case": "junit-run-directory-consistent",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/junit-run-directory-consistent.html\n",
+      "html_sha256": "f9bb1b1c70c71ec410d63a6136d529451c8e818dce1c61f5f3e006a3d1e919f7",
+      "input_tree_sha256": "52efc6e72db03f4a4e924934f54a06d9ac8db2e0fd70d06690f0fca84a79ddd0"
+    },
+    {
+      "case": "junit-run-directory-explicit-override",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "new",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 5,
+        "longest_gap": 1,
+        "silence_ratio": 0.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "sidecar"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/junit-run-directory-explicit-override.html\nnew flake(s) detected: Checkout.authorizes\n",
+      "html_sha256": "9049da14d0c77136270dcbd4766be4d737090b6ffa89c390ade7a024c5636666",
+      "input_tree_sha256": "5fb3ae8d4a8f4a26e7f2b3b8c38bd75c9ce6dcaf2b0c23555a969e4a09a50231"
+    },
+    {
+      "case": "trx-same-report-contradictory",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "ordering": {
+        "available": false,
+        "basis": "unavailable",
+        "reason": "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": null,
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [
+        "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "stderr": "HTML report written to <html-artifacts>/trx-same-report-contradictory.html\nerror: chronology unavailable; new-flake gate could not be evaluated\n",
+      "html_sha256": "423d9617ccaed0d96c84d48d2f0bcdd05bbd90ecd5738c3bfdff0ec36a255e18",
+      "input_tree_sha256": "948ee4e1003c110849cee0a7c627cbc2995e2c869946badee63b0ef5f6b45723"
+    },
+    {
+      "case": "trx-same-report-consistent",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/trx-same-report-consistent.html\n",
+      "html_sha256": "0f133e170edd47549eeb1541f7952152ffa0f2bfdd9adf2c0205edfdbd3eb034",
+      "input_tree_sha256": "6703b0bfa9f6ee68a381a0b27bd1063ea8b3cec2b1f0d8535fa5b8b75cbca8c4"
+    },
+    {
+      "case": "trx-same-report-explicit-override",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "new",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 5,
+        "longest_gap": 1,
+        "silence_ratio": 0.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "sidecar"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/trx-same-report-explicit-override.html\nnew flake(s) detected: Checkout.authorizes\n",
+      "html_sha256": "b1275d737fcf8e019bf1bd4c066dfd02421a22dfdee28f79bd3c3000c3ce3a0b",
+      "input_tree_sha256": "97712f77d04fec8aeab121d55a729dfb0e0505352e725c17e7c842f7dc680626"
+    },
+    {
+      "case": "trx-sibling-report-contradictory",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "ordering": {
+        "available": false,
+        "basis": "unavailable",
+        "reason": "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": null,
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [
+        "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "stderr": "HTML report written to <html-artifacts>/trx-sibling-report-contradictory.html\nerror: chronology unavailable; new-flake gate could not be evaluated\n",
+      "html_sha256": "423d9617ccaed0d96c84d48d2f0bcdd05bbd90ecd5738c3bfdff0ec36a255e18",
+      "input_tree_sha256": "ebc7235d8069ed85f93287832fadfedf28d57632ac0c2d5d67b482ba00f7e93a"
+    },
+    {
+      "case": "trx-sibling-report-consistent",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/trx-sibling-report-consistent.html\n",
+      "html_sha256": "0f133e170edd47549eeb1541f7952152ffa0f2bfdd9adf2c0205edfdbd3eb034",
+      "input_tree_sha256": "16652b85ecf17ae6df110ea268289b586a0579d64d6ccdf725492b13f452b511"
+    },
+    {
+      "case": "trx-sibling-report-explicit-override",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "new",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 5,
+        "longest_gap": 1,
+        "silence_ratio": 0.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "sidecar"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/trx-sibling-report-explicit-override.html\nnew flake(s) detected: Checkout.authorizes\n",
+      "html_sha256": "b1275d737fcf8e019bf1bd4c066dfd02421a22dfdee28f79bd3c3000c3ce3a0b",
+      "input_tree_sha256": "d62a99dd7d5ce8c0a94dd43339fa4afc2af3a74a6b1ef087fedd728fd40a8920"
+    },
+    {
+      "case": "trx-run-directory-contradictory",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "ordering": {
+        "available": false,
+        "basis": "unavailable",
+        "reason": "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": null,
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [
+        "Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology."
+      ],
+      "stderr": "HTML report written to <html-artifacts>/trx-run-directory-contradictory.html\nerror: chronology unavailable; new-flake gate could not be evaluated\n",
+      "html_sha256": "423d9617ccaed0d96c84d48d2f0bcdd05bbd90ecd5738c3bfdff0ec36a255e18",
+      "input_tree_sha256": "7e01638c8756d7eb23df4a05a664d46cc17900d4a00cf927e4b3063c261c73e9"
+    },
+    {
+      "case": "trx-run-directory-consistent",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "quiet",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 25,
+        "runs_since_first_failure": 30,
+        "longest_gap": 1,
+        "silence_ratio": 25.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "report"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/trx-run-directory-consistent.html\n",
+      "html_sha256": "0f133e170edd47549eeb1541f7952152ffa0f2bfdd9adf2c0205edfdbd3eb034",
+      "input_tree_sha256": "83f18b04a8107c34dbe1c3e2a629b8d9a4e7f631f47ef5f67ed0c5e20e420cec"
+    },
+    {
+      "case": "trx-run-directory-explicit-override",
+      "exit_code": 1,
+      "expected_exit_code": 1,
+      "ordering": {
+        "available": true,
+        "basis": "sequence",
+        "reason": null
+      },
+      "timestamp_range": [
+        "2026-10-01T00:00:00+00:00",
+        "2026-10-01T00:29:00+00:00"
+      ],
+      "activity": {
+        "state": "new",
+        "failures": 3,
+        "basis": "runs_with_observed_failures",
+        "final_failure_runs": 3,
+        "recovered_runs": 0,
+        "events": 3,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 5,
+        "longest_gap": 1,
+        "silence_ratio": 0.0
+      },
+      "runs": {
+        "total": 30,
+        "pass": 27,
+        "fail": 3,
+        "skip": 0,
+        "unknown": 0
+      },
+      "metadata_sources": [
+        "sidecar"
+      ],
+      "recorded_timestamps": 30,
+      "warnings": [],
+      "stderr": "HTML report written to <html-artifacts>/trx-run-directory-explicit-override.html\nnew flake(s) detected: Checkout.authorizes\n",
+      "html_sha256": "b1275d737fcf8e019bf1bd4c066dfd02421a22dfdee28f79bd3c3000c3ce3a0b",
+      "input_tree_sha256": "9421cf80cbe2ad61c7a38cceebdfb73b654e2f17befef832eb1f1469780c5561"
+    }
+  ]
+}

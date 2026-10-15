@@ -24,6 +24,10 @@ recorded keys. A sidecar's explicit timestamp still takes precedence. All
 30 outcomes, including 27 passes and three failures, remain available; the
 repair does not choose which contradictory ordering key was correct.
 
+![Before: old failures are labeled new after their recorded timestamps are discarded](../../docs/assets/report-sequences/before.png)
+
+![After: the report retains failure timestamps and explains that chronology is unavailable](../../docs/assets/report-sequences/after.png)
+
 ## Actual CLI reproduction
 
 The [before receipt](results/before.json) and [after receipt](results/after.json)
@@ -66,3 +70,37 @@ unavailable while count-based analysis remains usable. Exit 2 is a request for
 consistent metadata, not a passing gate.
 
 This is a local source correction, with no package publication or hosted update.
+
+## Clean installation and visible reports
+
+The [verification receipt](results/verification.json) records a clean archive
+of implementation commit `fb10ab6`: all 932 archived files remain unchanged
+after a locked Python 3.14.7 install, lint, formatting, strict type checking,
+**376 passing tests**, and an sdist/wheel build. The wheel's 30 Python library
+files match source and both isolated installations byte for byte.
+
+| Installed wheel | Full suite | CLI cases | HTML reports matching source |
+|---|---|---|---|
+| Python 3.14.7, Rich 15.0.0 | 376 passed | 18 passed | 18 of 18 |
+| Python 3.10.21, minimum Rich 13.7.0 | 376 passed | 18 passed | 18 of 18 |
+
+[Current](results/installed.json) and [minimum](results/minimum.json) receipts
+retain the gate decisions and unchanged input hashes. The isolated Python
+processes import the wheel from their environments, with no source path.
+
+[32 offline browser checks](results/browser.json) inspect the before/after
+reports in Chromium and Firefox at 1200px and 375px. Contexts are offline before
+their first navigation. The checks open failure evidence by keyboard, retain
+all 27 pass and three fail cells, check chronology labels and detect page
+overflow, script errors and remote requests. The loaded after-report bytes
+match the installed wheel's HTML exactly. Both screenshots above were visually
+inspected; their counts, timestamps and warning are readable.
+
+```sh
+npm ci
+node studies/report-sequences/browser.mjs /tmp/before-html /tmp/after-html
+```
+
+Generate those directories with the capture script's `--artifacts` option
+against the two versions. These are standalone report checks; there is no new
+hosted build or deployment.

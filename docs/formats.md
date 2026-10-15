@@ -128,9 +128,9 @@ TRX, whatever its extension; `.trx` files are picked up by the default
   the failure **message** from `<Output><ErrorInfo><Message>`. A first line
   ending in a colon (MSTest's `Test method ... threw exception:`) is joined to
   the next, which holds the exception.
-- **Run time.** `<Times start>` orders the run when no sidecar or path gives a
-  timestamp or sequence; the run's metadata source is then `report`. A sidecar
-  still wins.
+- **Run time.** `<Times start>` supplies recorded time when no explicit sidecar
+  timestamp takes precedence; its metadata source is `report`. A sequence-only
+  sidecar retains this time so the ordering keys can be checked for agreement.
 
 | TRX outcome | Observation |
 | --- | --- |

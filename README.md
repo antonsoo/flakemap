@@ -150,6 +150,18 @@ report below -- no setup, no fixtures to write yourself. To use it on your own
 reports, install it from PyPI: `pip install flakemap`, or run it without
 installing: `uvx flakemap path/to/reports`.
 
+The source corrections described above are not in the tested PyPI 0.3.7 build.
+To use them on your own reports, install this verified public revision:
+
+```bash
+python -m pip install --force-reinstall "flakemap @ git+https://github.com/antonsoo/flakemap.git@0404c3f1671d555445a4510a6ac704389bb525ef"
+```
+
+`--force-reinstall` replaces an existing 0.3.7 installation; this source still
+declares that version. [Installation and gate replay](studies/gate-window/results/source-install.json)
+verify all 30 installed runtime files and the recent-build boundary. This is a
+source installation, separate from a new PyPI release.
+
 ## Features
 
 - **JUnit XML parsing**: pytest, Jest (jest-junit), and Maven Surefire checked

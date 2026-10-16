@@ -1,0 +1,515 @@
+{
+  "repository": "https://github.com/antonsoo/flakemap",
+  "source_revision": "0404c3f1671d555445a4510a6ac704389bb525ef",
+  "install_command": [
+    "python",
+    "-m",
+    "pip",
+    "install",
+    "--force-reinstall",
+    "flakemap @ git+https://github.com/antonsoo/flakemap.git@0404c3f1671d555445a4510a6ac704389bb525ef"
+  ],
+  "same_version_replacement": true,
+  "before": {
+    "python": "3.10.21",
+    "version": "0.3.7",
+    "site_packages": true,
+    "runtime": {
+      "__init__.py": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce",
+      "__main__.py": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd",
+      "cli.py": "75428d0a5dc38e544b15337d6d8daa2e26a632e15c5d08a378ee7bfabfa53aa1",
+      "loader.py": "1427eef1d6df5b225d45b492a60823626c724d9b9293b6ec74824cc9c579930d",
+      "models.py": "d0914b910fa2772dd02e01f2609328a862b92eb87ae63fe9ffeab98bcb4e37f0",
+      "observations.py": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e",
+      "parse/__init__.py": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3",
+      "parse/junit.py": "2cf0988510442402939824803a319aefbc6af14504d2874600f0e0d2acd60158",
+      "parse/metadata.py": "1d7715fd79b48a70b09c201b6b73fb12c223b01b83c85d0f893560805f7afe3a",
+      "parse/trx.py": "be5994c7bc5d4e3580b997d770ca38e894a51c5c1f5f96f55a1d51e5e0b5425f",
+      "parse/xmltext.py": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031",
+      "report/__init__.py": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50",
+      "report/html_out.py": "cc6f0bdc0185e66bcb73e76e433fa079852967bd9c13043e200a644e23006a48",
+      "report/json_out.py": "c80347c7e083284ebaae0db43c237eafa0de43e12a8fa5c2a4024a311a5f4e18",
+      "report/markdown_out.py": "74369d2214f77d158672f575c2d720d88a67665285eefd01b34c80b23e4e387d",
+      "report/names.py": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0",
+      "report/terminal.py": "0e559a440c4289e6edf0df884aea39c2209c71b021ac4797db7080259baa9a07",
+      "stats/__init__.py": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f",
+      "stats/analyze.py": "68073e127aa11effca5598a7e54c8321931bdd0eede30d7bbe998cee9df9d464",
+      "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
+      "stats/correlation.py": "96dc71ed342b636b2cc03f1e5249631a2634e0573f901f903f0158ee7d716a5a",
+      "stats/wilson.py": "f771bc8ec543b1c4295a374b682c8ed35ea0564c990592bb3d0712197f3ae8f5"
+    },
+    "direct_url": null
+  },
+  "after": {
+    "python": "3.10.21",
+    "version": "0.3.7",
+    "site_packages": true,
+    "runtime": {
+      "__init__.py": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce",
+      "__main__.py": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd",
+      "cli.py": "48c3050b486ab146b616db9f9a1f1463e332f6475f7eedf18292e42b14732076",
+      "loader.py": "0a3df63fd86191101f896e9b71e3453abc702293c94cf38cf7b24c2f4c38bf42",
+      "models.py": "fd969e021ef5f40a5b2b93d586dd3139cc11253d76d08a448332f5ac24094351",
+      "observations.py": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e",
+      "ordering.py": "5a45e29423ebdd55a971b6b6f485bf33caf2d49f1b3b2cb4609de41227ad92d5",
+      "parse/__init__.py": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3",
+      "parse/junit.py": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9",
+      "parse/junit_counts.py": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f",
+      "parse/metadata.py": "7bb47777bdc07c76bc155adf8ba6e86c54cfde76974de4329cf9618461b275a2",
+      "parse/trx.py": "bf52b1c070122b13c0fe1e9afb300bb672522e25699c876ca21e34f40c1b9fe6",
+      "parse/trx_counts.py": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1",
+      "parse/xmlinput.py": "0049e6cca2fdf655a37c25f210cce428d72e626ffa7bb26474681ef86e31e8f0",
+      "parse/xmltext.py": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031",
+      "report/__init__.py": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50",
+      "report/cofailure_html.py": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed",
+      "report/html_out.py": "0c120d1a1dd4485766b9840b2d43ecf5ab8c79439c6f3882de4f956f40b68e08",
+      "report/json_out.py": "1ebb55ddf831e9a4523cb7496057df755a1d6bf6ef73f9917114015a28cbb26b",
+      "report/markdown_out.py": "e2fa5bb8bc8a3fa0ae2fe96b5cef5f7ec38a3b25a9350263cc0b8cd6f4763ba9",
+      "report/names.py": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0",
+      "report/numbers.py": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401",
+      "report/terminal.py": "bc067cea56c5ef98db677d5e09d8089f5b4c83e7993241e8b83c8debe9c4f0ad",
+      "stats/__init__.py": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f",
+      "stats/activity.py": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857",
+      "stats/analyze.py": "49a3120e50877a6395ee6707fbd7fb20e80fc44b2cc8845d978806b3d6fa2fa4",
+      "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
+      "stats/cofailure.py": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006",
+      "stats/correlation.py": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb",
+      "stats/wilson.py": "f771bc8ec543b1c4295a374b682c8ed35ea0564c990592bb3d0712197f3ae8f5"
+    },
+    "direct_url": {
+      "url": "https://github.com/antonsoo/flakemap.git",
+      "vcs_info": {
+        "commit_id": "0404c3f1671d555445a4510a6ac704389bb525ef",
+        "requested_revision": "0404c3f1671d555445a4510a6ac704389bb525ef",
+        "vcs": "git"
+      }
+    }
+  },
+  "study_replay": {
+    "package_version": "0.3.7",
+    "package_location_kind": "site-packages",
+    "implementation_sha256": {
+      "cli.py": "48c3050b486ab146b616db9f9a1f1463e332f6475f7eedf18292e42b14732076",
+      "stats/analyze.py": "49a3120e50877a6395ee6707fbd7fb20e80fc44b2cc8845d978806b3d6fa2fa4",
+      "report/json_out.py": "1ebb55ddf831e9a4523cb7496057df755a1d6bf6ef73f9917114015a28cbb26b"
+    },
+    "scenarios": {
+      "retired": {
+        "window": 10,
+        "exit": 0,
+        "total_runs": 56,
+        "warnings": [],
+        "gate_message": "",
+        "tests": [
+          {
+            "test": "studies.gate-window.project.test_history.test_removed_after_build_35",
+            "classification": "flaky",
+            "runs": {
+              "total": 36,
+              "pass": 33,
+              "fail": 3,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0833,
+              "wilson_low": 0.0287,
+              "wilson_high": 0.2183
+            },
+            "activity": {
+              "state": "new",
+              "failures": 3,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 3,
+              "recovered_runs": 0,
+              "events": 3,
+              "runs_since_last_failure": 1,
+              "runs_since_first_failure": 6,
+              "longest_gap": 1,
+              "silence_ratio": 1.0
+            },
+            "first_failure_run_id": "run-30",
+            "history_runs_since_first_failure": 26
+          },
+          {
+            "test": "studies.gate-window.project.test_history.test_skipped_after_build_35",
+            "classification": "flaky",
+            "runs": {
+              "total": 36,
+              "pass": 33,
+              "fail": 3,
+              "skip": 20,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0833,
+              "wilson_low": 0.0287,
+              "wilson_high": 0.2183
+            },
+            "activity": {
+              "state": "new",
+              "failures": 3,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 3,
+              "recovered_runs": 0,
+              "events": 3,
+              "runs_since_last_failure": 1,
+              "runs_since_first_failure": 6,
+              "longest_gap": 1,
+              "silence_ratio": 1.0
+            },
+            "first_failure_run_id": "run-30",
+            "history_runs_since_first_failure": 26
+          },
+          {
+            "test": "studies.gate-window.project.test_history.test_control",
+            "classification": "healthy",
+            "runs": {
+              "total": 56,
+              "pass": 56,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.0642
+            },
+            "activity": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null
+          }
+        ],
+        "exports_sha256": {
+          "terminal": "32fc7abc8f01d3dada63c1d318fe1b3918f1fbb0f5d9d46baa985ffb4fda7214",
+          "markdown": "ccd679544968b83cf34122f536292e1ccb6247b1ec2c97c8b8eefd0c548fe72e",
+          "html": "0e7c53bbbbc2c4bb8ff5d6e7ba7c1c2686d2c3acccc604b185686f7b74eefad0"
+        }
+      },
+      "outside_boundary": {
+        "window": 25,
+        "exit": 0,
+        "total_runs": 56,
+        "warnings": [],
+        "gate_message": "",
+        "tests": [
+          {
+            "test": "studies.gate-window.project.test_history.test_removed_after_build_35",
+            "classification": "flaky",
+            "runs": {
+              "total": 36,
+              "pass": 33,
+              "fail": 3,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0833,
+              "wilson_low": 0.0287,
+              "wilson_high": 0.2183
+            },
+            "activity": {
+              "state": "new",
+              "failures": 3,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 3,
+              "recovered_runs": 0,
+              "events": 3,
+              "runs_since_last_failure": 1,
+              "runs_since_first_failure": 6,
+              "longest_gap": 1,
+              "silence_ratio": 1.0
+            },
+            "first_failure_run_id": "run-30",
+            "history_runs_since_first_failure": 26
+          },
+          {
+            "test": "studies.gate-window.project.test_history.test_skipped_after_build_35",
+            "classification": "flaky",
+            "runs": {
+              "total": 36,
+              "pass": 33,
+              "fail": 3,
+              "skip": 20,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0833,
+              "wilson_low": 0.0287,
+              "wilson_high": 0.2183
+            },
+            "activity": {
+              "state": "new",
+              "failures": 3,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 3,
+              "recovered_runs": 0,
+              "events": 3,
+              "runs_since_last_failure": 1,
+              "runs_since_first_failure": 6,
+              "longest_gap": 1,
+              "silence_ratio": 1.0
+            },
+            "first_failure_run_id": "run-30",
+            "history_runs_since_first_failure": 26
+          },
+          {
+            "test": "studies.gate-window.project.test_history.test_control",
+            "classification": "healthy",
+            "runs": {
+              "total": 56,
+              "pass": 56,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.0642
+            },
+            "activity": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null
+          }
+        ],
+        "exports_sha256": {
+          "terminal": "32fc7abc8f01d3dada63c1d318fe1b3918f1fbb0f5d9d46baa985ffb4fda7214",
+          "markdown": "ccd679544968b83cf34122f536292e1ccb6247b1ec2c97c8b8eefd0c548fe72e",
+          "html": "0e7c53bbbbc2c4bb8ff5d6e7ba7c1c2686d2c3acccc604b185686f7b74eefad0"
+        }
+      },
+      "inside_boundary": {
+        "window": 26,
+        "exit": 1,
+        "total_runs": 56,
+        "warnings": [],
+        "gate_message": "new flake(s) detected: studies.gate-window.project.test_history.test_removed_after_build_35, studies.gate-window.project.test_history.test_skipped_after_build_35",
+        "tests": [
+          {
+            "test": "studies.gate-window.project.test_history.test_removed_after_build_35",
+            "classification": "flaky",
+            "runs": {
+              "total": 36,
+              "pass": 33,
+              "fail": 3,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0833,
+              "wilson_low": 0.0287,
+              "wilson_high": 0.2183
+            },
+            "activity": {
+              "state": "new",
+              "failures": 3,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 3,
+              "recovered_runs": 0,
+              "events": 3,
+              "runs_since_last_failure": 1,
+              "runs_since_first_failure": 6,
+              "longest_gap": 1,
+              "silence_ratio": 1.0
+            },
+            "first_failure_run_id": "run-30",
+            "history_runs_since_first_failure": 26
+          },
+          {
+            "test": "studies.gate-window.project.test_history.test_skipped_after_build_35",
+            "classification": "flaky",
+            "runs": {
+              "total": 36,
+              "pass": 33,
+              "fail": 3,
+              "skip": 20,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0833,
+              "wilson_low": 0.0287,
+              "wilson_high": 0.2183
+            },
+            "activity": {
+              "state": "new",
+              "failures": 3,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 3,
+              "recovered_runs": 0,
+              "events": 3,
+              "runs_since_last_failure": 1,
+              "runs_since_first_failure": 6,
+              "longest_gap": 1,
+              "silence_ratio": 1.0
+            },
+            "first_failure_run_id": "run-30",
+            "history_runs_since_first_failure": 26
+          },
+          {
+            "test": "studies.gate-window.project.test_history.test_control",
+            "classification": "healthy",
+            "runs": {
+              "total": 56,
+              "pass": 56,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.0642
+            },
+            "activity": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null
+          }
+        ],
+        "exports_sha256": {
+          "terminal": "32fc7abc8f01d3dada63c1d318fe1b3918f1fbb0f5d9d46baa985ffb4fda7214",
+          "markdown": "ccd679544968b83cf34122f536292e1ccb6247b1ec2c97c8b8eefd0c548fe72e",
+          "html": "0e7c53bbbbc2c4bb8ff5d6e7ba7c1c2686d2c3acccc604b185686f7b74eefad0"
+        }
+      },
+      "recent": {
+        "window": 10,
+        "exit": 1,
+        "total_runs": 36,
+        "warnings": [],
+        "gate_message": "new flake(s) detected: studies.gate-window.project.test_history.test_removed_after_build_35, studies.gate-window.project.test_history.test_skipped_after_build_35",
+        "tests": [
+          {
+            "test": "studies.gate-window.project.test_history.test_removed_after_build_35",
+            "classification": "flaky",
+            "runs": {
+              "total": 36,
+              "pass": 33,
+              "fail": 3,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0833,
+              "wilson_low": 0.0287,
+              "wilson_high": 0.2183
+            },
+            "activity": {
+              "state": "new",
+              "failures": 3,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 3,
+              "recovered_runs": 0,
+              "events": 3,
+              "runs_since_last_failure": 1,
+              "runs_since_first_failure": 6,
+              "longest_gap": 1,
+              "silence_ratio": 1.0
+            },
+            "first_failure_run_id": "run-30",
+            "history_runs_since_first_failure": 6
+          },
+          {
+            "test": "studies.gate-window.project.test_history.test_skipped_after_build_35",
+            "classification": "flaky",
+            "runs": {
+              "total": 36,
+              "pass": 33,
+              "fail": 3,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0833,
+              "wilson_low": 0.0287,
+              "wilson_high": 0.2183
+            },
+            "activity": {
+              "state": "new",
+              "failures": 3,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 3,
+              "recovered_runs": 0,
+              "events": 3,
+              "runs_since_last_failure": 1,
+              "runs_since_first_failure": 6,
+              "longest_gap": 1,
+              "silence_ratio": 1.0
+            },
+            "first_failure_run_id": "run-30",
+            "history_runs_since_first_failure": 6
+          },
+          {
+            "test": "studies.gate-window.project.test_history.test_control",
+            "classification": "healthy",
+            "runs": {
+              "total": 36,
+              "pass": 36,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.0964
+            },
+            "activity": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null
+          }
+        ],
+        "exports_sha256": {
+          "terminal": "b00f1376b183b4941192feb8a7b38af25acab75caddd36353e0a9b9c9ab4cea0",
+          "markdown": "81b4674bd9fcab17d7862eef947617b3ecf34d6af07c388f61c04b72cb132658",
+          "html": "cd5f07c10e2cac3879628d4953a676ccf5c11edb688ac7c54f2ed8d8c4e11849"
+        }
+      }
+    }
+  },
+  "scope": "Actual public HTTPS Git source installation replacing the registry build. No registry publication or hosted deployment.",
+  "python_files_match": 30,
+  "runtime_scope": "before/after runtime fields include Python modules and py.typed; package_files below includes every installed package data file too.",
+  "package_files_match": 30,
+  "package_files": {
+    "__init__.py": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce",
+    "__main__.py": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd",
+    "cli.py": "48c3050b486ab146b616db9f9a1f1463e332f6475f7eedf18292e42b14732076",
+    "loader.py": "0a3df63fd86191101f896e9b71e3453abc702293c94cf38cf7b24c2f4c38bf42",
+    "models.py": "fd969e021ef5f40a5b2b93d586dd3139cc11253d76d08a448332f5ac24094351",
+    "observations.py": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e",
+    "ordering.py": "5a45e29423ebdd55a971b6b6f485bf33caf2d49f1b3b2cb4609de41227ad92d5",
+    "parse/__init__.py": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3",
+    "parse/junit.py": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9",
+    "parse/junit_counts.py": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f",
+    "parse/metadata.py": "7bb47777bdc07c76bc155adf8ba6e86c54cfde76974de4329cf9618461b275a2",
+    "parse/trx.py": "bf52b1c070122b13c0fe1e9afb300bb672522e25699c876ca21e34f40c1b9fe6",
+    "parse/trx_counts.py": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1",
+    "parse/xmlinput.py": "0049e6cca2fdf655a37c25f210cce428d72e626ffa7bb26474681ef86e31e8f0",
+    "parse/xmltext.py": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031",
+    "report/__init__.py": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50",
+    "report/cofailure_html.py": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed",
+    "report/html_out.py": "0c120d1a1dd4485766b9840b2d43ecf5ab8c79439c6f3882de4f956f40b68e08",
+    "report/json_out.py": "1ebb55ddf831e9a4523cb7496057df755a1d6bf6ef73f9917114015a28cbb26b",
+    "report/markdown_out.py": "e2fa5bb8bc8a3fa0ae2fe96b5cef5f7ec38a3b25a9350263cc0b8cd6f4763ba9",
+    "report/names.py": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0",
+    "report/numbers.py": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401",
+    "report/terminal.py": "bc067cea56c5ef98db677d5e09d8089f5b4c83e7993241e8b83c8debe9c4f0ad",
+    "stats/__init__.py": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f",
+    "stats/activity.py": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857",
+    "stats/analyze.py": "49a3120e50877a6395ee6707fbd7fb20e80fc44b2cc8845d978806b3d6fa2fa4",
+    "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
+    "stats/cofailure.py": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006",
+    "stats/correlation.py": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb",
+    "stats/wilson.py": "f771bc8ec543b1c4295a374b682c8ed35ea0564c990592bb3d0712197f3ae8f5"
+  }
+}

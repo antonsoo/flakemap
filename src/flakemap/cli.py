@@ -73,7 +73,7 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=10,
         metavar="N",
-        help="how many trailing runs count as 'new' for --fail-on-new-flake (default: 10)",
+        help="how many trailing supplied history runs count as 'new' for --fail-on-new-flake (default: 10)",
     )
     return parser
 
@@ -143,7 +143,10 @@ def _write_html(path: Path, text: str, root: Path, pattern: str) -> None:
 def _named_new(named: NamedFailure, window: int) -> bool:
     """A name read from failure text: first failed inside the window, more than once."""
     return (
-        named.activity is not None and named.activity.runs_since_first <= window and named.runs > 1
+        named.activity is not None
+        and named.history_runs_since_first_failure is not None
+        and named.history_runs_since_first_failure <= window
+        and named.runs > 1
     )
 
 
@@ -216,6 +219,8 @@ def main(argv: list[str] | None = None) -> int:
         # and a test named inside a failure's text that first failed within the window and
         # has failed more than once since. The history cannot say the named test did not
         # exist earlier, so that kind does not rest on the "new" label.
+        # All three windows count supplied builds. Activity itself uses usable
+        # executions, which omit skipped/absent tests and cannot establish recency.
         window = args.new_flake_window
         new_flakes = [
             t
@@ -231,7 +236,8 @@ def main(argv: list[str] | None = None) -> int:
                 or (
                     t.activity is not None
                     and t.activity.state == "new"
-                    and t.activity.runs_since_first <= window
+                    and t.history_runs_since_first_failure is not None
+                    and t.history_runs_since_first_failure <= window
                 )
                 or any(_named_new(named, window) for named in t.named_failures)
             )

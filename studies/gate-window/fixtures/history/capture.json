@@ -1,0 +1,400 @@
+{
+  "python": "3.12.12",
+  "pytest": "9.1.1",
+  "provenance": "56 controlled pytest executions; not production failures",
+  "reports": [
+    {
+      "run_id": "run-00",
+      "pytest_exit": 0,
+      "xml_sha256": "027453f899e379df0a2d557ff842586aec7d891fe098589aa7627997510fa81a",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "027453f899e379df0a2d557ff842586aec7d891fe098589aa7627997510fa81a"
+    },
+    {
+      "run_id": "run-01",
+      "pytest_exit": 0,
+      "xml_sha256": "080ecd82c10b7f228ed8978a1ae5395b99ccbcb27e7338a602308a6550820dfd",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "080ecd82c10b7f228ed8978a1ae5395b99ccbcb27e7338a602308a6550820dfd"
+    },
+    {
+      "run_id": "run-02",
+      "pytest_exit": 0,
+      "xml_sha256": "71f824c244e3e4d8659c71eb6c669c04dab8d50bd315be4620e5fc8b43c12ff9",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "71f824c244e3e4d8659c71eb6c669c04dab8d50bd315be4620e5fc8b43c12ff9"
+    },
+    {
+      "run_id": "run-03",
+      "pytest_exit": 0,
+      "xml_sha256": "c76b93dc66b4763761ae68b46b47d7cef0801956831af90e9bc2a6437f6ca30c",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "c76b93dc66b4763761ae68b46b47d7cef0801956831af90e9bc2a6437f6ca30c"
+    },
+    {
+      "run_id": "run-04",
+      "pytest_exit": 0,
+      "xml_sha256": "fbb1e9a1b97f0bdd991183f3be24c6909f208aa22b4488fb1675869d1c1fa7fc",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "fbb1e9a1b97f0bdd991183f3be24c6909f208aa22b4488fb1675869d1c1fa7fc"
+    },
+    {
+      "run_id": "run-05",
+      "pytest_exit": 0,
+      "xml_sha256": "3afbc8530aaa046544fe50e670e04d6c39b9a64bfb9090eb0e1d785c18bbeb45",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "3afbc8530aaa046544fe50e670e04d6c39b9a64bfb9090eb0e1d785c18bbeb45"
+    },
+    {
+      "run_id": "run-06",
+      "pytest_exit": 0,
+      "xml_sha256": "f5467d3c4b57361f6680c7e6d6e4bcaea4122c43f9dc1f347cc616f3fb34307e",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "f5467d3c4b57361f6680c7e6d6e4bcaea4122c43f9dc1f347cc616f3fb34307e"
+    },
+    {
+      "run_id": "run-07",
+      "pytest_exit": 0,
+      "xml_sha256": "b1cef8abe5affacf7fffe18353b609b10755d1abb0cf38a1f34d3f8e91715297",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "b1cef8abe5affacf7fffe18353b609b10755d1abb0cf38a1f34d3f8e91715297"
+    },
+    {
+      "run_id": "run-08",
+      "pytest_exit": 0,
+      "xml_sha256": "758607299463792d8025e9bb44271c25beec95d151f21d5f19d9c3d596951eee",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "758607299463792d8025e9bb44271c25beec95d151f21d5f19d9c3d596951eee"
+    },
+    {
+      "run_id": "run-09",
+      "pytest_exit": 0,
+      "xml_sha256": "c260218127f389524dc67330ef3fd0d26bc9879d9dde47a44ab5b873b683bdc4",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "c260218127f389524dc67330ef3fd0d26bc9879d9dde47a44ab5b873b683bdc4"
+    },
+    {
+      "run_id": "run-10",
+      "pytest_exit": 0,
+      "xml_sha256": "cb153c0f03d8ca5ae7425218b0b9ff58807f51ac9ed95ca3bd3c0686d9da4cf5",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "cb153c0f03d8ca5ae7425218b0b9ff58807f51ac9ed95ca3bd3c0686d9da4cf5"
+    },
+    {
+      "run_id": "run-11",
+      "pytest_exit": 0,
+      "xml_sha256": "5bab155b4394106210fed3de910cee84f50ead491e627746e84551e52a25be42",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "5bab155b4394106210fed3de910cee84f50ead491e627746e84551e52a25be42"
+    },
+    {
+      "run_id": "run-12",
+      "pytest_exit": 0,
+      "xml_sha256": "79f746f3d695774aaf83f62e5223fef7e62986553448f7e2b87faede4cdba388",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "79f746f3d695774aaf83f62e5223fef7e62986553448f7e2b87faede4cdba388"
+    },
+    {
+      "run_id": "run-13",
+      "pytest_exit": 0,
+      "xml_sha256": "ba332d39acd3a9aa483d5566cce48b1517e1ed988eda9d855c3696ae818c18b5",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "ba332d39acd3a9aa483d5566cce48b1517e1ed988eda9d855c3696ae818c18b5"
+    },
+    {
+      "run_id": "run-14",
+      "pytest_exit": 0,
+      "xml_sha256": "1d4f1155c13a2713cc25e7a4e51b696b49c3f2e20a3637a1d44f6ca79ce31381",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "1d4f1155c13a2713cc25e7a4e51b696b49c3f2e20a3637a1d44f6ca79ce31381"
+    },
+    {
+      "run_id": "run-15",
+      "pytest_exit": 0,
+      "xml_sha256": "1c87209fd764c1ca78d3339cc359582c942913a29e9a8b8a4cf0d32206df572b",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "1c87209fd764c1ca78d3339cc359582c942913a29e9a8b8a4cf0d32206df572b"
+    },
+    {
+      "run_id": "run-16",
+      "pytest_exit": 0,
+      "xml_sha256": "b46528c73c9b38d5394b40deff3deef771f34c4d78aa33cdefde7c6ef8e8fb45",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "b46528c73c9b38d5394b40deff3deef771f34c4d78aa33cdefde7c6ef8e8fb45"
+    },
+    {
+      "run_id": "run-17",
+      "pytest_exit": 0,
+      "xml_sha256": "b10cbdd64ce7cd7e119bf9106668e3b1bcfaf710ab3597da0a3c402ca646698b",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "b10cbdd64ce7cd7e119bf9106668e3b1bcfaf710ab3597da0a3c402ca646698b"
+    },
+    {
+      "run_id": "run-18",
+      "pytest_exit": 0,
+      "xml_sha256": "ac2a422cb40aaae1f23f686d6f82134b3d90623302620029f8c18dc7841f294b",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "ac2a422cb40aaae1f23f686d6f82134b3d90623302620029f8c18dc7841f294b"
+    },
+    {
+      "run_id": "run-19",
+      "pytest_exit": 0,
+      "xml_sha256": "f1ddde9dea2b8686cd698b39391951d6943acb22d70fa31acd6fc63b6b3867dc",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "f1ddde9dea2b8686cd698b39391951d6943acb22d70fa31acd6fc63b6b3867dc"
+    },
+    {
+      "run_id": "run-20",
+      "pytest_exit": 0,
+      "xml_sha256": "3e13cce47aa5919a4747a87c8af1ce0febde4741844691bb47ed3774f3b00a29",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "3e13cce47aa5919a4747a87c8af1ce0febde4741844691bb47ed3774f3b00a29"
+    },
+    {
+      "run_id": "run-21",
+      "pytest_exit": 0,
+      "xml_sha256": "3032c947536d20d60a47a9c61d56cb1314c77918dd43452f6dc6d7dd6eef1850",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "3032c947536d20d60a47a9c61d56cb1314c77918dd43452f6dc6d7dd6eef1850"
+    },
+    {
+      "run_id": "run-22",
+      "pytest_exit": 0,
+      "xml_sha256": "9bde7ded36f1b53a8feaf1b8f641dca7da9d5f3e5a65058c74fc9254f142908e",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "9bde7ded36f1b53a8feaf1b8f641dca7da9d5f3e5a65058c74fc9254f142908e"
+    },
+    {
+      "run_id": "run-23",
+      "pytest_exit": 0,
+      "xml_sha256": "5c37ccdf0b8146c38904d8de47ad569ad51838b63163abc8c50fefce4ac71075",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "5c37ccdf0b8146c38904d8de47ad569ad51838b63163abc8c50fefce4ac71075"
+    },
+    {
+      "run_id": "run-24",
+      "pytest_exit": 0,
+      "xml_sha256": "b6f925d7a916161c76a4d584a8dc081f2528a8df59e26c1044fc1357fb533297",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "b6f925d7a916161c76a4d584a8dc081f2528a8df59e26c1044fc1357fb533297"
+    },
+    {
+      "run_id": "run-25",
+      "pytest_exit": 0,
+      "xml_sha256": "aca7d675799cbee955bcf4e255c8eb8f84a53c6e04238a882fddfb5934813bd5",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "aca7d675799cbee955bcf4e255c8eb8f84a53c6e04238a882fddfb5934813bd5"
+    },
+    {
+      "run_id": "run-26",
+      "pytest_exit": 0,
+      "xml_sha256": "1ad9c07b8d5c220add0cdceebf641f3b5eb07899fa2363b9491d4934d8bee1d4",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "1ad9c07b8d5c220add0cdceebf641f3b5eb07899fa2363b9491d4934d8bee1d4"
+    },
+    {
+      "run_id": "run-27",
+      "pytest_exit": 0,
+      "xml_sha256": "d3618d5cc3798364e1035b8cbb29b238c7ef3fc16c65b4a059f0282630e5c581",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "d3618d5cc3798364e1035b8cbb29b238c7ef3fc16c65b4a059f0282630e5c581"
+    },
+    {
+      "run_id": "run-28",
+      "pytest_exit": 0,
+      "xml_sha256": "4565b8e5af3b8bbc32f24756ccb99fcc8a0743faad6f3ccb0fd9eddff5e03a38",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "4565b8e5af3b8bbc32f24756ccb99fcc8a0743faad6f3ccb0fd9eddff5e03a38"
+    },
+    {
+      "run_id": "run-29",
+      "pytest_exit": 0,
+      "xml_sha256": "2f84ceb5f5f9b79237a84b30ef7dc77a5ec3d3493711098ea36e523b815d0492",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "2f84ceb5f5f9b79237a84b30ef7dc77a5ec3d3493711098ea36e523b815d0492"
+    },
+    {
+      "run_id": "run-30",
+      "pytest_exit": 1,
+      "xml_sha256": "71b69856d9dfb90684067abb444790edb5dac4203c8ddc5cc11dbee82b2bdea0",
+      "xml_bytes": 1352,
+      "raw_xml_sha256": "71b69856d9dfb90684067abb444790edb5dac4203c8ddc5cc11dbee82b2bdea0"
+    },
+    {
+      "run_id": "run-31",
+      "pytest_exit": 0,
+      "xml_sha256": "11b99011f500ce6c63d9b3670d1fb729a419ced1654c7ac47099c50569682b1b",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "11b99011f500ce6c63d9b3670d1fb729a419ced1654c7ac47099c50569682b1b"
+    },
+    {
+      "run_id": "run-32",
+      "pytest_exit": 1,
+      "xml_sha256": "d6700d327e9b54958794e900c56c1a4be12ac26ca2e2e97cdcb12b0acb106c1c",
+      "xml_bytes": 1352,
+      "raw_xml_sha256": "d6700d327e9b54958794e900c56c1a4be12ac26ca2e2e97cdcb12b0acb106c1c"
+    },
+    {
+      "run_id": "run-33",
+      "pytest_exit": 0,
+      "xml_sha256": "3e5ae0ab961d14c144e13b0c15a930865a190da058124b4177166420932d65ab",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "3e5ae0ab961d14c144e13b0c15a930865a190da058124b4177166420932d65ab"
+    },
+    {
+      "run_id": "run-34",
+      "pytest_exit": 1,
+      "xml_sha256": "9321abd95e594a9356846523c48c3ccc5c3126ae0a9938dc6582c5606aee8502",
+      "xml_bytes": 1352,
+      "raw_xml_sha256": "9321abd95e594a9356846523c48c3ccc5c3126ae0a9938dc6582c5606aee8502"
+    },
+    {
+      "run_id": "run-35",
+      "pytest_exit": 0,
+      "xml_sha256": "e095e3f4a501c772cd2339ba2e8fb5f54c9a432b0c9b94505f2e45dfe2f9a69c",
+      "xml_bytes": 565,
+      "raw_xml_sha256": "e095e3f4a501c772cd2339ba2e8fb5f54c9a432b0c9b94505f2e45dfe2f9a69c"
+    },
+    {
+      "run_id": "run-36",
+      "pytest_exit": 0,
+      "xml_sha256": "02fdb901792fd0855aca213fca094aa35e46c040a46713da375512caa5428e0b",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "8b2adc82db92caf3ae5027aee9e85903c52176403c7af0ad24a1c608341835c0"
+    },
+    {
+      "run_id": "run-37",
+      "pytest_exit": 0,
+      "xml_sha256": "b330d3a2f842e860c1ad21569a2041d7bb3bd2e50b3842e700a156cc8e7924e5",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "35f7535eb8f6f9e58ad1fb84870ebb567a961c3bc3ee08f19919d1a5c0cbd3c0"
+    },
+    {
+      "run_id": "run-38",
+      "pytest_exit": 0,
+      "xml_sha256": "aae6b60ba3fbca257e3116bd3421610dc628255334913b20abf7065bc1fdbecd",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "6056f1b8ce23258496f57236c9a7d3fe2cb1589d422b87a4b35b5dc29424620d"
+    },
+    {
+      "run_id": "run-39",
+      "pytest_exit": 0,
+      "xml_sha256": "f3d944b73ab1713506938aebe1810a08f79957f62ee92f039ac3a2c41483e637",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "5b081a25208340aaa12c6f649c17d90f9daf7f74a965842de41607ff4fc11707"
+    },
+    {
+      "run_id": "run-40",
+      "pytest_exit": 0,
+      "xml_sha256": "0866c8c9a45bf13b23116c71b5d25c4547091e3ec1d00d263340da1a5ab56125",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "59cf13a37231b1f79b85ce35a6d8d895258a3c2ff210b2012e9d9291e3a5f69b"
+    },
+    {
+      "run_id": "run-41",
+      "pytest_exit": 0,
+      "xml_sha256": "c1849a9e8874d5f111b05af1c49f7d4277da12ec28e2dbcc9e709fd45ee974c3",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "cbd5efbe9dd6389aa34c316eb8d27c60298daaf7085bd00ad8cfb6126a97fc04"
+    },
+    {
+      "run_id": "run-42",
+      "pytest_exit": 0,
+      "xml_sha256": "274ba8896a4c85b096017c84f1e18b71d5547be3f670e549fea715bbafc052d3",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "e600cb708f94a14d3ea15f3a2fc4ebb20ad6c1309d7c844e3683c63db1753d0a"
+    },
+    {
+      "run_id": "run-43",
+      "pytest_exit": 0,
+      "xml_sha256": "9517f7e7fe5c0959d71140a59fa9a3999db25d13a37fc55a4809ad9cbbac35db",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "39d3729dcb8860c65b84248407c705a84a2477f935a6c5f6e89cd190db1a907d"
+    },
+    {
+      "run_id": "run-44",
+      "pytest_exit": 0,
+      "xml_sha256": "00cb36dfa267695c300435f37d10f8e002f11e995e3386e5849418ed12b0a02d",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "06579e50ea9ef591233011efcdda38cfbd7a9cd1e09893e015be24640c3a393e"
+    },
+    {
+      "run_id": "run-45",
+      "pytest_exit": 0,
+      "xml_sha256": "25839ba0080283458627b18978d14bf6273424be7055ba914ec7bb8564f50870",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "aae0d70ce43d1f7c421103625ffc714f0e89bfbe2d576511e22c302eafb327fe"
+    },
+    {
+      "run_id": "run-46",
+      "pytest_exit": 0,
+      "xml_sha256": "8f25984d1b3edd2259f9e1a4af1cf389b9f4d525bc83bf62deb158e7eef56ca3",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "815dbf354449815c168930123e9e3b89c9e9b098441cff9a184376eb8816261b"
+    },
+    {
+      "run_id": "run-47",
+      "pytest_exit": 0,
+      "xml_sha256": "a7faa764c5915d9f3499e84acf9d8e4a72e2a12e54ac9a5015665c71d96d0066",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "2c99049ea1d8c89ebf7ae33e64aa7052f5808146c45447b740d5ef95a5a099a6"
+    },
+    {
+      "run_id": "run-48",
+      "pytest_exit": 0,
+      "xml_sha256": "a63373e1858f78ad671f3514f389c60e0f13644ecca1bd90264d88e12dfd5910",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "2fc9893240e126e7547859c9ea8daa06181366b56369d93fd20b6c8b76cb9ee0"
+    },
+    {
+      "run_id": "run-49",
+      "pytest_exit": 0,
+      "xml_sha256": "53bc7ed893fbb87b9b35be2d6d682a86e5dc605fc5527214adc3400b11f6e0bd",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "fe1df5535481609faea54881eb329243f3e7d10057fe6fadfdd11121606c363e"
+    },
+    {
+      "run_id": "run-50",
+      "pytest_exit": 0,
+      "xml_sha256": "39789cf19483c311a26e2cbb0f1afa8c0c91b345e953e8a04c89497bd37589d5",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "f9adbda7ec038b99631bf3b27acdf619b9a042c785da7d6f8426f3daf052098d"
+    },
+    {
+      "run_id": "run-51",
+      "pytest_exit": 0,
+      "xml_sha256": "e3307b9c38a7e303bb4d56a8aa1deebcb1bb0416b8aa2f093b1d9649c628113d",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "03efdfdfacf1c7a113b8523c906f0a4197356efda14ab0b56fcbfcf5d38d0899"
+    },
+    {
+      "run_id": "run-52",
+      "pytest_exit": 0,
+      "xml_sha256": "574372d8a3b7d636aecba6bffe2256fc3f4b83d981a3231ed2adc4e73192c580",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "e52e916687010c0861f2a97a741bcb7e2c82a198a8b4de8ac8723e5ff1ae5221"
+    },
+    {
+      "run_id": "run-53",
+      "pytest_exit": 0,
+      "xml_sha256": "320062c2b1fccdf9602126f1ca746c85d89e3ad0226c62dd27169276379d90e3",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "4df30c2438abbbf20eabb94cc4e6c36a8d4fec93abb0f48a226d0a0666273e86"
+    },
+    {
+      "run_id": "run-54",
+      "pytest_exit": 0,
+      "xml_sha256": "0ec1444c4c6ee9727aab79f85df2f94e9dc47a51a9238656bd36ca0f9b7d647d",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "9c54d173cee7bb528d8decb5c6564f06705e599e0de7f207bb05903ac5abb0df"
+    },
+    {
+      "run_id": "run-55",
+      "pytest_exit": 0,
+      "xml_sha256": "49a443cbd2370f036b8b8b01dd4eefd225ceaf30fd58cc3e76c5d85234a224f4",
+      "xml_bytes": 660,
+      "raw_xml_sha256": "e1348420735e32ac0bfcadca635ed83f15ee5a57809a02b546fa8845902f8645"
+    }
+  ],
+  "sanitization": "Only the absolute repository path prefix is removed from XML and console text."
+}

@@ -1,0 +1,391 @@
+{
+  "package_version": "0.3.7",
+  "package_location_kind": "source",
+  "implementation_sha256": {
+    "cli.py": "bfab3a5eababd94009574d2e03b9b8f80c2ae2eb3aee2921cd2423a7af5f348e",
+    "stats/analyze.py": "49a3120e50877a6395ee6707fbd7fb20e80fc44b2cc8845d978806b3d6fa2fa4",
+    "report/json_out.py": "1ebb55ddf831e9a4523cb7496057df755a1d6bf6ef73f9917114015a28cbb26b"
+  },
+  "scenarios": {
+    "retired": {
+      "window": 10,
+      "exit": 0,
+      "total_runs": 56,
+      "warnings": [],
+      "gate_message": "",
+      "tests": [
+        {
+          "test": "studies.gate-window.project.test_history.test_removed_after_build_35",
+          "classification": "flaky",
+          "runs": {
+            "total": 36,
+            "pass": 33,
+            "fail": 3,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0833,
+            "wilson_low": 0.0287,
+            "wilson_high": 0.2183
+          },
+          "activity": {
+            "state": "new",
+            "failures": 3,
+            "basis": "runs_with_observed_failures",
+            "run_axis": "usable_test_executions",
+            "final_failure_runs": 3,
+            "recovered_runs": 0,
+            "events": 3,
+            "runs_since_last_failure": 1,
+            "runs_since_first_failure": 6,
+            "longest_gap": 1,
+            "silence_ratio": 1.0
+          },
+          "first_failure_run_id": "run-30",
+          "history_runs_since_first_failure": 26
+        },
+        {
+          "test": "studies.gate-window.project.test_history.test_skipped_after_build_35",
+          "classification": "flaky",
+          "runs": {
+            "total": 36,
+            "pass": 33,
+            "fail": 3,
+            "skip": 20,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0833,
+            "wilson_low": 0.0287,
+            "wilson_high": 0.2183
+          },
+          "activity": {
+            "state": "new",
+            "failures": 3,
+            "basis": "runs_with_observed_failures",
+            "run_axis": "usable_test_executions",
+            "final_failure_runs": 3,
+            "recovered_runs": 0,
+            "events": 3,
+            "runs_since_last_failure": 1,
+            "runs_since_first_failure": 6,
+            "longest_gap": 1,
+            "silence_ratio": 1.0
+          },
+          "first_failure_run_id": "run-30",
+          "history_runs_since_first_failure": 26
+        },
+        {
+          "test": "studies.gate-window.project.test_history.test_control",
+          "classification": "healthy",
+          "runs": {
+            "total": 56,
+            "pass": 56,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0,
+            "wilson_low": 0.0,
+            "wilson_high": 0.0642
+          },
+          "activity": null,
+          "first_failure_run_id": null,
+          "history_runs_since_first_failure": null
+        }
+      ],
+      "exports_sha256": {
+        "terminal": "32fc7abc8f01d3dada63c1d318fe1b3918f1fbb0f5d9d46baa985ffb4fda7214",
+        "markdown": "ccd679544968b83cf34122f536292e1ccb6247b1ec2c97c8b8eefd0c548fe72e",
+        "html": "0e7c53bbbbc2c4bb8ff5d6e7ba7c1c2686d2c3acccc604b185686f7b74eefad0"
+      }
+    },
+    "outside_boundary": {
+      "window": 25,
+      "exit": 0,
+      "total_runs": 56,
+      "warnings": [],
+      "gate_message": "",
+      "tests": [
+        {
+          "test": "studies.gate-window.project.test_history.test_removed_after_build_35",
+          "classification": "flaky",
+          "runs": {
+            "total": 36,
+            "pass": 33,
+            "fail": 3,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0833,
+            "wilson_low": 0.0287,
+            "wilson_high": 0.2183
+          },
+          "activity": {
+            "state": "new",
+            "failures": 3,
+            "basis": "runs_with_observed_failures",
+            "run_axis": "usable_test_executions",
+            "final_failure_runs": 3,
+            "recovered_runs": 0,
+            "events": 3,
+            "runs_since_last_failure": 1,
+            "runs_since_first_failure": 6,
+            "longest_gap": 1,
+            "silence_ratio": 1.0
+          },
+          "first_failure_run_id": "run-30",
+          "history_runs_since_first_failure": 26
+        },
+        {
+          "test": "studies.gate-window.project.test_history.test_skipped_after_build_35",
+          "classification": "flaky",
+          "runs": {
+            "total": 36,
+            "pass": 33,
+            "fail": 3,
+            "skip": 20,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0833,
+            "wilson_low": 0.0287,
+            "wilson_high": 0.2183
+          },
+          "activity": {
+            "state": "new",
+            "failures": 3,
+            "basis": "runs_with_observed_failures",
+            "run_axis": "usable_test_executions",
+            "final_failure_runs": 3,
+            "recovered_runs": 0,
+            "events": 3,
+            "runs_since_last_failure": 1,
+            "runs_since_first_failure": 6,
+            "longest_gap": 1,
+            "silence_ratio": 1.0
+          },
+          "first_failure_run_id": "run-30",
+          "history_runs_since_first_failure": 26
+        },
+        {
+          "test": "studies.gate-window.project.test_history.test_control",
+          "classification": "healthy",
+          "runs": {
+            "total": 56,
+            "pass": 56,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0,
+            "wilson_low": 0.0,
+            "wilson_high": 0.0642
+          },
+          "activity": null,
+          "first_failure_run_id": null,
+          "history_runs_since_first_failure": null
+        }
+      ],
+      "exports_sha256": {
+        "terminal": "32fc7abc8f01d3dada63c1d318fe1b3918f1fbb0f5d9d46baa985ffb4fda7214",
+        "markdown": "ccd679544968b83cf34122f536292e1ccb6247b1ec2c97c8b8eefd0c548fe72e",
+        "html": "0e7c53bbbbc2c4bb8ff5d6e7ba7c1c2686d2c3acccc604b185686f7b74eefad0"
+      }
+    },
+    "inside_boundary": {
+      "window": 26,
+      "exit": 1,
+      "total_runs": 56,
+      "warnings": [],
+      "gate_message": "new flake(s) detected: studies.gate-window.project.test_history.test_removed_after_build_35, studies.gate-window.project.test_history.test_skipped_after_build_35",
+      "tests": [
+        {
+          "test": "studies.gate-window.project.test_history.test_removed_after_build_35",
+          "classification": "flaky",
+          "runs": {
+            "total": 36,
+            "pass": 33,
+            "fail": 3,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0833,
+            "wilson_low": 0.0287,
+            "wilson_high": 0.2183
+          },
+          "activity": {
+            "state": "new",
+            "failures": 3,
+            "basis": "runs_with_observed_failures",
+            "run_axis": "usable_test_executions",
+            "final_failure_runs": 3,
+            "recovered_runs": 0,
+            "events": 3,
+            "runs_since_last_failure": 1,
+            "runs_since_first_failure": 6,
+            "longest_gap": 1,
+            "silence_ratio": 1.0
+          },
+          "first_failure_run_id": "run-30",
+          "history_runs_since_first_failure": 26
+        },
+        {
+          "test": "studies.gate-window.project.test_history.test_skipped_after_build_35",
+          "classification": "flaky",
+          "runs": {
+            "total": 36,
+            "pass": 33,
+            "fail": 3,
+            "skip": 20,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0833,
+            "wilson_low": 0.0287,
+            "wilson_high": 0.2183
+          },
+          "activity": {
+            "state": "new",
+            "failures": 3,
+            "basis": "runs_with_observed_failures",
+            "run_axis": "usable_test_executions",
+            "final_failure_runs": 3,
+            "recovered_runs": 0,
+            "events": 3,
+            "runs_since_last_failure": 1,
+            "runs_since_first_failure": 6,
+            "longest_gap": 1,
+            "silence_ratio": 1.0
+          },
+          "first_failure_run_id": "run-30",
+          "history_runs_since_first_failure": 26
+        },
+        {
+          "test": "studies.gate-window.project.test_history.test_control",
+          "classification": "healthy",
+          "runs": {
+            "total": 56,
+            "pass": 56,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0,
+            "wilson_low": 0.0,
+            "wilson_high": 0.0642
+          },
+          "activity": null,
+          "first_failure_run_id": null,
+          "history_runs_since_first_failure": null
+        }
+      ],
+      "exports_sha256": {
+        "terminal": "32fc7abc8f01d3dada63c1d318fe1b3918f1fbb0f5d9d46baa985ffb4fda7214",
+        "markdown": "ccd679544968b83cf34122f536292e1ccb6247b1ec2c97c8b8eefd0c548fe72e",
+        "html": "0e7c53bbbbc2c4bb8ff5d6e7ba7c1c2686d2c3acccc604b185686f7b74eefad0"
+      }
+    },
+    "recent": {
+      "window": 10,
+      "exit": 1,
+      "total_runs": 36,
+      "warnings": [],
+      "gate_message": "new flake(s) detected: studies.gate-window.project.test_history.test_removed_after_build_35, studies.gate-window.project.test_history.test_skipped_after_build_35",
+      "tests": [
+        {
+          "test": "studies.gate-window.project.test_history.test_removed_after_build_35",
+          "classification": "flaky",
+          "runs": {
+            "total": 36,
+            "pass": 33,
+            "fail": 3,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0833,
+            "wilson_low": 0.0287,
+            "wilson_high": 0.2183
+          },
+          "activity": {
+            "state": "new",
+            "failures": 3,
+            "basis": "runs_with_observed_failures",
+            "run_axis": "usable_test_executions",
+            "final_failure_runs": 3,
+            "recovered_runs": 0,
+            "events": 3,
+            "runs_since_last_failure": 1,
+            "runs_since_first_failure": 6,
+            "longest_gap": 1,
+            "silence_ratio": 1.0
+          },
+          "first_failure_run_id": "run-30",
+          "history_runs_since_first_failure": 6
+        },
+        {
+          "test": "studies.gate-window.project.test_history.test_skipped_after_build_35",
+          "classification": "flaky",
+          "runs": {
+            "total": 36,
+            "pass": 33,
+            "fail": 3,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0833,
+            "wilson_low": 0.0287,
+            "wilson_high": 0.2183
+          },
+          "activity": {
+            "state": "new",
+            "failures": 3,
+            "basis": "runs_with_observed_failures",
+            "run_axis": "usable_test_executions",
+            "final_failure_runs": 3,
+            "recovered_runs": 0,
+            "events": 3,
+            "runs_since_last_failure": 1,
+            "runs_since_first_failure": 6,
+            "longest_gap": 1,
+            "silence_ratio": 1.0
+          },
+          "first_failure_run_id": "run-30",
+          "history_runs_since_first_failure": 6
+        },
+        {
+          "test": "studies.gate-window.project.test_history.test_control",
+          "classification": "healthy",
+          "runs": {
+            "total": 36,
+            "pass": 36,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "failure_rate": {
+            "point": 0.0,
+            "wilson_low": 0.0,
+            "wilson_high": 0.0964
+          },
+          "activity": null,
+          "first_failure_run_id": null,
+          "history_runs_since_first_failure": null
+        }
+      ],
+      "exports_sha256": {
+        "terminal": "b00f1376b183b4941192feb8a7b38af25acab75caddd36353e0a9b9c9ab4cea0",
+        "markdown": "81b4674bd9fcab17d7862eef947617b3ecf34d6af07c388f61c04b72cb132658",
+        "html": "cd5f07c10e2cac3879628d4953a676ccf5c11edb688ac7c54f2ed8d8c4e11849"
+      }
+    }
+  }
+}

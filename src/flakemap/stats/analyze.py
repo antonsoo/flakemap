@@ -83,6 +83,12 @@ class NamedFailure:
     checked: int
     """Of those runs, the ones whose commit has any other usable run."""
     activity: Activity | None
+    history_runs_since_first_failure: int | None = None
+    """Supplied history runs from its first named failure through the end, inclusive.
+
+    Unlike activity distances, this includes skipped and absent package results.
+    None without chronology. Used by the trailing-build CI gate.
+    """
 
 
 @dataclass(slots=True)
@@ -129,6 +135,15 @@ class TestStats:
     named_failures: list[NamedFailure] = field(default_factory=list)
     """Top-level tests named inside this testcase's failures, most frequent first."""
     temporal_available: bool = True
+    first_failure_run_id: str | None = None
+    """First run with a final failure or explicit failed attempts before recovery."""
+    history_runs_since_first_failure: int | None = None
+    """Supplied history runs from that failure through the end, inclusive.
+
+    Activity uses this test's usable executions; a trailing-build gate must
+    instead include every supplied run, including skips and absences.
+    None without chronology or observed failures.
+    """
 
     @property
     def activity_unavailable_reason(self) -> str | None:
@@ -327,6 +342,11 @@ def _test_stats(
                 passed_same_commit=sum(f.same_commit == "passed" for _, f in records),
                 checked=sum(f.same_commit in ("passed", "failed") for _, f in records),
                 activity=placed,
+                history_runs_since_first_failure=(
+                    len(run_positions) - run_positions[records[0][1].run_id]
+                    if chronological
+                    else None
+                ),
             )
         )
     named_failures.sort(key=lambda item: (-item.runs, item.name))
@@ -405,6 +425,19 @@ def _test_stats(
         os_rates = group_failure_rates(oses, os_outcomes)
 
     timestamps = [time for o in observations if (time := recorded_time(o.run)) is not None]
+    first_failure_run_id = (
+        next(
+            (
+                obs.run.metadata.run_id
+                for obs in non_skip
+                if obs.result.status.is_failure
+                or (obs.result.retry is not None and obs.result.retry.outcome == "recovered")
+            ),
+            None,
+        )
+        if chronological
+        else None
+    )
 
     return TestStats(
         full_name=full_name,
@@ -453,6 +486,12 @@ def _test_stats(
         else None,
         named_failures=named_failures,
         temporal_available=chronological,
+        first_failure_run_id=first_failure_run_id,
+        history_runs_since_first_failure=(
+            len(run_positions) - run_positions[first_failure_run_id]
+            if first_failure_run_id is not None
+            else None
+        ),
     )
 
 

@@ -1,0 +1,24 @@
+.FF                                                                      [100%]
+=================================== FAILURES ===================================
+_________________________ test_removed_after_build_35 __________________________
+
+    def test_removed_after_build_35():
+>       assert SEQUENCE not in {30, 32, 34}, "controlled old failure"
+E       AssertionError: controlled old failure
+E       assert 30 not in {30, 32, 34}
+
+test_history.py:15: AssertionError
+_________________________ test_skipped_after_build_35 __________________________
+
+    def test_skipped_after_build_35():
+        if SEQUENCE >= 36:
+            pytest.skip("controlled retirement: no execution in later builds")
+>       assert SEQUENCE not in {30, 32, 34}, "controlled old failure"
+E       AssertionError: controlled old failure
+E       assert 30 not in {30, 32, 34}
+
+test_history.py:21: AssertionError
+=========================== short test summary info ============================
+FAILED test_history.py::test_removed_after_build_35 - AssertionError: control...
+FAILED test_history.py::test_skipped_after_build_35 - AssertionError: control...
+2 failed, 1 passed in 0.06s

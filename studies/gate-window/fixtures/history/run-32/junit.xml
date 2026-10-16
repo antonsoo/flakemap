@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="3" time="0.198" timestamp="2026-10-16T15:07:08.671270-07:00" hostname="omnia"><testcase classname="studies.gate-window.project.test_history" name="test_control" time="0.000" /><testcase classname="studies.gate-window.project.test_history" name="test_removed_after_build_35" time="0.001"><failure message="AssertionError: controlled old failure&#10;assert 32 not in {30, 32, 34}">def test_removed_after_build_35():
+&gt;       assert SEQUENCE not in {30, 32, 34}, "controlled old failure"
+E       AssertionError: controlled old failure
+E       assert 32 not in {30, 32, 34}
+
+test_history.py:15: AssertionError</failure></testcase><testcase classname="studies.gate-window.project.test_history" name="test_skipped_after_build_35" time="0.001"><failure message="AssertionError: controlled old failure&#10;assert 32 not in {30, 32, 34}">def test_skipped_after_build_35():
+        if SEQUENCE &gt;= 36:
+            pytest.skip("controlled retirement: no execution in later builds")
+&gt;       assert SEQUENCE not in {30, 32, 34}, "controlled old failure"
+E       AssertionError: controlled old failure
+E       assert 32 not in {30, 32, 34}
+
+test_history.py:21: AssertionError</failure></testcase></testsuite></testsuites>

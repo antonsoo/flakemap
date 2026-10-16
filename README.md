@@ -210,6 +210,8 @@ installing: `uvx flakemap path/to/reports`.
   checkout, failures that start there after a clean stretch three times the
   longest gap between them, or a test named in a failure's output (Go
   `--- FAIL:` lines) that first failed there and failed more than once.
+  This checkout counts the window over every supplied build, including skipped
+  and absent tests; [retiring a test cannot keep an old failure inside the window](studies/gate-window/README.md).
 - **`--fail-on-retry`** exits 1 for any explicitly recovered test in the supplied
   history, including a single run. Pass only the current run when gating a build.
 

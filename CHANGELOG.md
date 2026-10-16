@@ -4,6 +4,17 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### New-flake gate windows
+
+- Count every supplied history run in the trailing new-flake window, including
+  skipped and absent tests. Execution-based activity distances previously made
+  old failures look recent when a test stopped running. The correction covers
+  final failures, recovered retries and names inside package failures.
+- Expose the first observed-failure run and its distance in the complete history
+  in JSON; identify the separate activity axis as usable test executions.
+  Retain 56 actual controlled pytest reports, boundary controls and before/after
+  CLI captures in the [gate-window study](studies/gate-window/README.md).
+
 ### Literal Markdown evidence
 
 - Render imported names, run IDs and warnings as native Markdown code spans.

@@ -1,0 +1,10 @@
+{
+  "ci-kubernetes-integration-master": {
+    "xml_files_matching_manifest_md5_and_size": 2162,
+    "listed_files_absent_from_cache": 0
+  },
+  "ci-kubernetes-unit": {
+    "xml_files_matching_manifest_md5_and_size": 8612,
+    "listed_files_absent_from_cache": 0
+  }
+}

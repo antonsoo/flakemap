@@ -85,6 +85,66 @@ Supply `--history /tmp/gate-window-capture` to replay those reports. Native
 timestamps and durations will differ. Historical before/after receipts identify
 the original retained capture rather than promising identical new bytes.
 
+## Clean package and report checks
+
+A clean archive of `6aa738d` passed locked installation, Ruff, formatting,
+strict mypy (30 source files), all **388 tests**, wheel/sdist builds and
+`npm ci`. `uv run --locked python scripts/build_demo_site.py` rebuilt the
+existing gallery into `site/`. Nothing was released or deployed.
+The existing browser suite also passed all **112 offline report scenarios**
+from that clean archive. [Complete browser receipt](results/browser-full.json).
+The Kubernetes gallery page is copied from the existing committed report;
+the separate corpus replay below re-reads the underlying XML.
+
+The wheel was installed into fresh Python **3.10.21** and **3.14.7** environments,
+with only its required dependencies. Imports came from `site-packages`; all
+30 runtime files matched the clean source. Each installation passed 14 documented
+CLI workflows and the four study scenarios, including the normal demo, JSON,
+Markdown, HTML, TRX, shared failures, retry/incomplete gates and a widened
+new-flake gate. [Artifact hash and command receipt](results/verification.json).
+The four study scenarios retain byte-identical terminal, Markdown and HTML
+exports before and after this repair; the JSON adds the explicit window fields.
+
+The installed wheel's actual reports passed **16 offline scenarios** in
+Chromium and Firefox, at 375 and 1200 pixels in both color schemes. Keyboard
+expansion exposed all three failures, twenty absent/skipped cells and their
+original run IDs. No page errors, HTTP requests, page-width overflow or axe
+violations were observed. [Browser receipt](results/browser.json). All four
+captures were inspected: narrow details wrap, and the wide failure table scrolls
+inside the page. This is a focused check, not exhaustive accessibility validation.
+
+| Actual report | Chromium | Firefox |
+|---|---|---|
+| Desktop, dark | [Capture](../../docs/assets/gate-window/chromium-1200.png) | [Capture](../../docs/assets/gate-window/firefox-1200.png) |
+| Mobile, light | [Capture](../../docs/assets/gate-window/chromium-375.png) | [Capture](../../docs/assets/gate-window/firefox-375.png) |
+
+To repeat those browser checks with the repository's development dependencies:
+
+```bash
+node studies/gate-window/check_reports.mjs /tmp/gate-window-replay /tmp/gate-window-browser
+```
+
+## Retained public corpus replay
+
+The earlier Kubernetes corpus was re-read from its actual cached files. All
+**10,774 XML files** matched the sizes and MD5 values in that study's manifest,
+with no listed report missing from the cache. This is a replay of the retained
+8 October capture, not a fresh download or a claim about current Kubernetes CI.
+[Input verification](results/corpus-inputs.json).
+
+The [baseline](results/corpus-before.json) and [corrected](results/corpus-after.json)
+each analyzed 4,315 reported runs and 3,486,669 usable test-run observations.
+Every pre-existing JSON field has the same canonical hash in both versions.
+Candidate sets for windows 10, 30 and 100 also agree: this corpus does not supply
+an additional observed false-alert case. The controlled retirement capture above
+establishes the bug; the public replay checks that existing evidence survives.
+Warnings and unavailable states are retained in the receipts rather than
+silently treated as successful coverage. Replay with:
+
+```bash
+uv run --locked python studies/gate-window/audit_corpus.py studies/kubernetes-ci --out /tmp/gate-window-corpus.json
+```
+
 This correction does not establish why a test is absent, prove it was fixed,
 infer unreported outcomes, or change failure-rate denominators. A passing gate
 means no supported new onset was detected in the specified supplied window;

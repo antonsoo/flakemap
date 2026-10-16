@@ -1,0 +1,45 @@
+{
+  "source": "https://storage.googleapis.com/kubernetes-ci-logs/logs/<job>/<build>/",
+  "manifest_sha256": "c5d11a6f85b73f0aa52c0e71f4d0ff3b5883bb80efc5a800bd3ef21502c65a66",
+  "claim": "Replay of the retained 2026-10-08 capture, not a fresh CI collection",
+  "jobs": {
+    "ci-kubernetes-integration-master": {
+      "listed_builds": 2169,
+      "input_files": 4331,
+      "input_tree_sha256": "08bb5cd36543dafc9671f03913ec52b4bea1b14045eaa5263e1c25391920e6ce",
+      "runs": 2162,
+      "tests": 136,
+      "usable_test_runs": 284101,
+      "final_failures": 178,
+      "warnings": 2162,
+      "ordering_available": true,
+      "existing_json_fields_sha256": "42dfa2efeaa860c250d94c57518d8f7afa2c0409d8ca91ab0d5b32c695d316d0",
+      "new_flake_candidates_by_window": {
+        "10": [],
+        "30": [],
+        "100": [
+          "[sig-scheduling] k8s.io/kubernetes/test/integration/scheduler.podgroup"
+        ]
+      },
+      "elapsed_seconds": 33.067
+    },
+    "ci-kubernetes-unit": {
+      "listed_builds": 2165,
+      "input_files": 10777,
+      "input_tree_sha256": "a3c717f4c189aae3507bfa1e6e5eb2fcf508b2929500fb9f630a0e63eb762c63",
+      "runs": 2153,
+      "tests": 1524,
+      "usable_test_runs": 3202568,
+      "final_failures": 176,
+      "warnings": 8612,
+      "ordering_available": true,
+      "existing_json_fields_sha256": "4e065609ac80892f4205e440b6c3f2330ad10e5d4655709b749155173ffb053a",
+      "new_flake_candidates_by_window": {
+        "10": [],
+        "30": [],
+        "100": []
+      },
+      "elapsed_seconds": 475.831
+    }
+  }
+}

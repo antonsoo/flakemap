@@ -6,8 +6,9 @@ test's usable executions since its first failure. Skips and absences compressed
 that count while the CI history kept growing.
 
 The corrected gate counts every supplied history run. Execution-based activity
-rules and all observed outcomes retain their meaning. This is a local source
-repair, with no PyPI release or hosted deployment.
+rules and all observed outcomes retain their meaning. The source repair is now public.
+[Pinned-file verification](results/public-source.json) compares the tested code
+and receipts with GitHub. No PyPI release or hosted deployment is included.
 
 ## Captured runner history
 

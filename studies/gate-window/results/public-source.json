@@ -1,0 +1,66 @@
+{
+  "checked_at_utc": "2026-10-16T22:54:05.445927+00:00",
+  "repository": "https://github.com/antonsoo/flakemap",
+  "source_revision": "11434608b883ca719cd74069e2fc1f7248411658",
+  "remote_main": "11434608b883ca719cd74069e2fc1f7248411658",
+  "clean_tree_at_check": true,
+  "files": [
+    {
+      "path": "src/flakemap/cli.py",
+      "url": "https://raw.githubusercontent.com/antonsoo/flakemap/11434608b883ca719cd74069e2fc1f7248411658/src/flakemap/cli.py",
+      "status": 200,
+      "bytes": 10249,
+      "sha256": "48c3050b486ab146b616db9f9a1f1463e332f6475f7eedf18292e42b14732076",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "src/flakemap/stats/analyze.py",
+      "url": "https://raw.githubusercontent.com/antonsoo/flakemap/11434608b883ca719cd74069e2fc1f7248411658/src/flakemap/stats/analyze.py",
+      "status": 200,
+      "bytes": 22935,
+      "sha256": "49a3120e50877a6395ee6707fbd7fb20e80fc44b2cc8845d978806b3d6fa2fa4",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "src/flakemap/report/json_out.py",
+      "url": "https://raw.githubusercontent.com/antonsoo/flakemap/11434608b883ca719cd74069e2fc1f7248411658/src/flakemap/report/json_out.py",
+      "status": 200,
+      "bytes": 10412,
+      "sha256": "1ebb55ddf831e9a4523cb7496057df755a1d6bf6ef73f9917114015a28cbb26b",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "tests/test_gate_window.py",
+      "url": "https://raw.githubusercontent.com/antonsoo/flakemap/11434608b883ca719cd74069e2fc1f7248411658/tests/test_gate_window.py",
+      "status": 200,
+      "bytes": 6201,
+      "sha256": "b92465f0d8e867f7c273ba529b04d69441d5d038c96dbf155188a1c1b96ec76d",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "studies/gate-window/README.md",
+      "url": "https://raw.githubusercontent.com/antonsoo/flakemap/11434608b883ca719cd74069e2fc1f7248411658/studies/gate-window/README.md",
+      "status": 200,
+      "bytes": 8180,
+      "sha256": "cb00cb7f8e1fb51717fc3db62520c9006edb4730c98377d6f7e24c17ebdcaf18",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "studies/gate-window/results/after.json",
+      "url": "https://raw.githubusercontent.com/antonsoo/flakemap/11434608b883ca719cd74069e2fc1f7248411658/studies/gate-window/results/after.json",
+      "status": 200,
+      "bytes": 12450,
+      "sha256": "9040978198df583239091a7c7b420333c8df9079c667ad8d804f814a5669e4e4",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "studies/gate-window/results/verification.json",
+      "url": "https://raw.githubusercontent.com/antonsoo/flakemap/11434608b883ca719cd74069e2fc1f7248411658/studies/gate-window/results/verification.json",
+      "status": 200,
+      "bytes": 35818,
+      "sha256": "94af679422ac0c0e848bee17c00326adaaa6f1627fc25d996d87c3d6ebbccf1f",
+      "matches_committed_bytes": true
+    }
+  ],
+  "scope": "Public source bytes only; no PyPI release, tag or hosted deployment is claimed."
+}

@@ -188,3 +188,43 @@ were inspected alongside the eight before/source captures. These checks found
 no page errors, external requests, CSP violations, accessibility violations or
 page overflow. The report layout is unchanged; native contradictions now have
 an unknown cell, an unavailable rate, their source declaration and one warning.
+
+## Public source, installation and hosted examples
+
+The [public source receipt](results/public-source.json) checks revision
+`f1916a6772a38242394caeb9fbbc9a380872f546`: remote `main` matched that revision,
+and all 80 changed/package files fetched at pinned raw URLs matched Git bytes
+(2,628,816 bytes). This establishes those public source bytes at the recorded
+pass, independently of local builds.
+
+The [actual pip upgrade](results/public-install.json) started with PyPI 0.3.7
+in a fresh Python 3.10.21 environment, outside the checkout. On the contradictory
+file that package returned 0 and kept one passing parent with no warning; its
+JSON does not have the current `input_complete` field. The documented forced
+Git install at `58958e20809400accbbb0113a59df48ac29ad19e` replaced that same-version
+installation. All 30 installed package files and all seven native analyses
+matched the clean source. The two contradictory files returned 2, retained the
+failed child and had no usable parent trial. No PyPI version or tag was published.
+
+The existing example gallery was rebuilt with
+`uv run python scripts/build_demo_site.py` into `site/` and published on
+`gh-pages` at `f03f020b615b2a6ac664b6d7bd0dd4d168bd8fd4`. All nine files,
+including root/index before and after the inventory pass, matched canonical
+hosted bytes at 12:09 UTC on 17 October 2026.
+[Canonical HTTP receipt](results/hosted.json).
+
+The [hosted browser replay](hosted.mjs) checked all five actual pages in four
+engine/viewport contexts: Chromium and Firefox, 1200-pixel light and 375-pixel
+dark. All 20 page views matched local HTML bytes. Their disclosures and embedded
+JSON downloads worked after disconnecting, with no off-origin requests, failed
+requests, page errors, CSP violations, accessibility violations or page overflow.
+All eight [hosted captures](../../docs/assets/trx-hierarchy/hosted/) were visually
+inspected; the [browser receipt](../../docs/assets/trx-hierarchy/hosted/browser.json)
+retains each view. The live zero-failure example now shows the exact zero lower
+endpoint, and interrupted-input warnings no longer repeat the same exclusion.
+
+This static gallery does not run a native TRX processor. Its four generated
+examples retain their controlled/authored provenance; the fifth copies the
+existing Kubernetes study report without collecting or re-evaluating that history.
+The new native hierarchy correction is exercised by the source and installed
+CLIs, separately from these precomputed hosted examples.

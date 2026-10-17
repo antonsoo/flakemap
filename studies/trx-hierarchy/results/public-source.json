@@ -1,0 +1,487 @@
+{
+  "revision": "f1916a6772a38242394caeb9fbbc9a380872f546",
+  "remoteMainMatches": true,
+  "scope": "Pinned public Git source and raw bytes; registry and hosted status are separate.",
+  "files": [
+    {
+      "path": ".gitignore",
+      "status": 200,
+      "bytes": 495,
+      "sha256": "b6dabec76feb5aeac68aeba8ccd0b143c832470d1087504d39e82974f1cd95bd"
+    },
+    {
+      "path": "CHANGELOG.md",
+      "status": 200,
+      "bytes": 21548,
+      "sha256": "6d699ec94b80af4e2b9d42056cf1c0462aed7f84418d0f8af42b7bc696c91fb5"
+    },
+    {
+      "path": "README.md",
+      "status": 200,
+      "bytes": 34988,
+      "sha256": "5b6769904ec3cbac0006b8bf1e1443b8d9d629c11f6085e84c8fedb789889331"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/before/browser.json",
+      "status": 200,
+      "bytes": 23358,
+      "sha256": "6f71298a0a26311b6fa2426fb260d7e26694f93906647c55b2d78a2a1a4b2596"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/before/chromium-1200.png",
+      "status": 200,
+      "bytes": 115669,
+      "sha256": "5f5ccbf50e2ab28d047389a3eba40518ca20af95097128b2d4c1ce72d23c9600"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/before/chromium-375.png",
+      "status": 200,
+      "bytes": 112566,
+      "sha256": "282f6bb9d1383085732c896081c585da437be7eb3614ea17cf79a2cecae945e8"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/before/firefox-1200.png",
+      "status": 200,
+      "bytes": 129538,
+      "sha256": "1d41896c0a58bd31b5d65a7c6ccc796f317b2eac7555393c70d4e6e7221051fe"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/before/firefox-375.png",
+      "status": 200,
+      "bytes": 120794,
+      "sha256": "4c36a52371ddec0cb1edc5f910719ea47befac5f70e615c3d20858e87571da79"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/installed/browser.json",
+      "status": 200,
+      "bytes": 23374,
+      "sha256": "ba2c083b26cc9251ba70f16c3bd2600b80caedafec1a270c966d267a59115403"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/installed/chromium-1200.png",
+      "status": 200,
+      "bytes": 171117,
+      "sha256": "c9dda3387ea9d5bb72da1c63946cba74185e41e76009081b18c45221120279b8"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/installed/chromium-375.png",
+      "status": 200,
+      "bytes": 169550,
+      "sha256": "139cbe659884c7308a6286fb6a06634bd61e4b38274fa5f35a80b199d8cfa130"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/installed/firefox-1200.png",
+      "status": 200,
+      "bytes": 190951,
+      "sha256": "19edf206715a4b7df04d511bf4a1993fb832608865815420ad7d8491744942ee"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/installed/firefox-375.png",
+      "status": 200,
+      "bytes": 183565,
+      "sha256": "44661720c42d783def9a393f0ac1ab329be8f31f325f68eea031524b7b81ceb0"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/source/browser.json",
+      "status": 200,
+      "bytes": 23374,
+      "sha256": "ba2c083b26cc9251ba70f16c3bd2600b80caedafec1a270c966d267a59115403"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/source/chromium-1200.png",
+      "status": 200,
+      "bytes": 171117,
+      "sha256": "c9dda3387ea9d5bb72da1c63946cba74185e41e76009081b18c45221120279b8"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/source/chromium-375.png",
+      "status": 200,
+      "bytes": 169550,
+      "sha256": "139cbe659884c7308a6286fb6a06634bd61e4b38274fa5f35a80b199d8cfa130"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/source/firefox-1200.png",
+      "status": 200,
+      "bytes": 190951,
+      "sha256": "19edf206715a4b7df04d511bf4a1993fb832608865815420ad7d8491744942ee"
+    },
+    {
+      "path": "docs/assets/trx-hierarchy/source/firefox-375.png",
+      "status": 200,
+      "bytes": 183565,
+      "sha256": "44661720c42d783def9a393f0ac1ab329be8f31f325f68eea031524b7b81ceb0"
+    },
+    {
+      "path": "docs/formats.md",
+      "status": 200,
+      "bytes": 34507,
+      "sha256": "93107974b2967b049564fbef9c1cb1979ec72fff42e2f7e526ed0340fccaadeb"
+    },
+    {
+      "path": "src/flakemap/__init__.py",
+      "status": 200,
+      "bytes": 103,
+      "sha256": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce"
+    },
+    {
+      "path": "src/flakemap/__main__.py",
+      "status": 200,
+      "bytes": 91,
+      "sha256": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd"
+    },
+    {
+      "path": "src/flakemap/cli.py",
+      "status": 200,
+      "bytes": 10249,
+      "sha256": "48c3050b486ab146b616db9f9a1f1463e332f6475f7eedf18292e42b14732076"
+    },
+    {
+      "path": "src/flakemap/loader.py",
+      "status": 200,
+      "bytes": 5594,
+      "sha256": "0a3df63fd86191101f896e9b71e3453abc702293c94cf38cf7b24c2f4c38bf42"
+    },
+    {
+      "path": "src/flakemap/models.py",
+      "status": 200,
+      "bytes": 6343,
+      "sha256": "6943e67aa85797dd6168a5f7480f50d87bae4e964a4b47f2c160ee8f13e101cd"
+    },
+    {
+      "path": "src/flakemap/observations.py",
+      "status": 200,
+      "bytes": 2678,
+      "sha256": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e"
+    },
+    {
+      "path": "src/flakemap/ordering.py",
+      "status": 200,
+      "bytes": 3014,
+      "sha256": "5a45e29423ebdd55a971b6b6f485bf33caf2d49f1b3b2cb4609de41227ad92d5"
+    },
+    {
+      "path": "src/flakemap/parse/__init__.py",
+      "status": 200,
+      "bytes": 155,
+      "sha256": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3"
+    },
+    {
+      "path": "src/flakemap/parse/junit.py",
+      "status": 200,
+      "bytes": 19361,
+      "sha256": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9"
+    },
+    {
+      "path": "src/flakemap/parse/junit_counts.py",
+      "status": 200,
+      "bytes": 5101,
+      "sha256": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f"
+    },
+    {
+      "path": "src/flakemap/parse/metadata.py",
+      "status": 200,
+      "bytes": 7862,
+      "sha256": "7bb47777bdc07c76bc155adf8ba6e86c54cfde76974de4329cf9618461b275a2"
+    },
+    {
+      "path": "src/flakemap/parse/trx.py",
+      "status": 200,
+      "bytes": 16632,
+      "sha256": "1d04f6313adcf68dc348937c5a082f4cc46d8a9ae63df99590b5a7d098527e5d"
+    },
+    {
+      "path": "src/flakemap/parse/trx_counts.py",
+      "status": 200,
+      "bytes": 4003,
+      "sha256": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1"
+    },
+    {
+      "path": "src/flakemap/parse/xmlinput.py",
+      "status": 200,
+      "bytes": 5690,
+      "sha256": "0049e6cca2fdf655a37c25f210cce428d72e626ffa7bb26474681ef86e31e8f0"
+    },
+    {
+      "path": "src/flakemap/parse/xmltext.py",
+      "status": 200,
+      "bytes": 2376,
+      "sha256": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031"
+    },
+    {
+      "path": "src/flakemap/report/__init__.py",
+      "status": 200,
+      "bytes": 290,
+      "sha256": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50"
+    },
+    {
+      "path": "src/flakemap/report/cofailure_html.py",
+      "status": 200,
+      "bytes": 8597,
+      "sha256": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed"
+    },
+    {
+      "path": "src/flakemap/report/html_out.py",
+      "status": 200,
+      "bytes": 40690,
+      "sha256": "2991947edbc065c9ab429a86ec4eb049fba8ddac13ba910181db86375b26f960"
+    },
+    {
+      "path": "src/flakemap/report/json_out.py",
+      "status": 200,
+      "bytes": 11037,
+      "sha256": "2cb9bda81fb9239141018f34f97a44877c3ffc0a539775db606488ca6c28fc38"
+    },
+    {
+      "path": "src/flakemap/report/markdown_out.py",
+      "status": 200,
+      "bytes": 6152,
+      "sha256": "e2fa5bb8bc8a3fa0ae2fe96b5cef5f7ec38a3b25a9350263cc0b8cd6f4763ba9"
+    },
+    {
+      "path": "src/flakemap/report/names.py",
+      "status": 200,
+      "bytes": 1621,
+      "sha256": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0"
+    },
+    {
+      "path": "src/flakemap/report/numbers.py",
+      "status": 200,
+      "bytes": 1368,
+      "sha256": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401"
+    },
+    {
+      "path": "src/flakemap/report/terminal.py",
+      "status": 200,
+      "bytes": 10099,
+      "sha256": "bc067cea56c5ef98db677d5e09d8089f5b4c83e7993241e8b83c8debe9c4f0ad"
+    },
+    {
+      "path": "src/flakemap/stats/__init__.py",
+      "status": 200,
+      "bytes": 193,
+      "sha256": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f"
+    },
+    {
+      "path": "src/flakemap/stats/activity.py",
+      "status": 200,
+      "bytes": 5535,
+      "sha256": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857"
+    },
+    {
+      "path": "src/flakemap/stats/analyze.py",
+      "status": 200,
+      "bytes": 23867,
+      "sha256": "f60db546103635939d9fe1e328409facff6a48b97d21b2dab6f1083be07f141d"
+    },
+    {
+      "path": "src/flakemap/stats/changepoint.py",
+      "status": 200,
+      "bytes": 4112,
+      "sha256": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d"
+    },
+    {
+      "path": "src/flakemap/stats/cofailure.py",
+      "status": 200,
+      "bytes": 4742,
+      "sha256": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006"
+    },
+    {
+      "path": "src/flakemap/stats/correlation.py",
+      "status": 200,
+      "bytes": 4508,
+      "sha256": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb"
+    },
+    {
+      "path": "src/flakemap/stats/wilson.py",
+      "status": 200,
+      "bytes": 2206,
+      "sha256": "71ad25d644e1557c5a5d90b04dd35b7be8455aba156fbe7ea7fa5d9fd8c7ae24"
+    },
+    {
+      "path": "studies/trx-hierarchy/README.md",
+      "status": 200,
+      "bytes": 10782,
+      "sha256": "8323453697de016ba4f1080e43a3861ee09a8637e620b5f31bcf999044cba405"
+    },
+    {
+      "path": "studies/trx-hierarchy/browser.mjs",
+      "status": 200,
+      "bytes": 4736,
+      "sha256": "00d08fcb8f3aed1198ced435807ceec01377ed03c8cb6d9cff50b7cb380dd22b"
+    },
+    {
+      "path": "studies/trx-hierarchy/capture.py",
+      "status": 200,
+      "bytes": 2854,
+      "sha256": "dc6f65da9e1ee9706481fd44327abfb7be93f2504f42d5fbf998c2b2136528fc"
+    },
+    {
+      "path": "studies/trx-hierarchy/fixtures/failed-parent-failed-row.trx",
+      "status": 200,
+      "bytes": 5362,
+      "sha256": "db89d32a8a20826ebf007bd9e238e5ca0b576602fe2aae2a1d39b76765fe5682"
+    },
+    {
+      "path": "studies/trx-hierarchy/fixtures/failed-parent-passing-rows.trx",
+      "status": 200,
+      "bytes": 5187,
+      "sha256": "b3f014cd91bcef4fb0207e88e57ac9c410570ef8b0c73d843e305abab2361f17"
+    },
+    {
+      "path": "studies/trx-hierarchy/fixtures/grandchild-events-top-level.trx",
+      "status": 200,
+      "bytes": 5846,
+      "sha256": "1b9472838ee3c816895bdd4f6e7919c883bf5320a7f1753b45737b99f2227c2b"
+    },
+    {
+      "path": "studies/trx-hierarchy/fixtures/passed-parent-failed-row.trx",
+      "status": 200,
+      "bytes": 5231,
+      "sha256": "71aed3c532a868112137d7e0bb78bb751a2962cb0c8eac5035a86334227ed9a4"
+    },
+    {
+      "path": "studies/trx-hierarchy/fixtures/passed-parent-passing-rows.trx",
+      "status": 200,
+      "bytes": 5059,
+      "sha256": "17cf0a68f0882e3b77d976dc43ff80d457c65e36aef0b236f061771c83b75883"
+    },
+    {
+      "path": "studies/trx-hierarchy/fixtures/passed-parent-skipped-row.trx",
+      "status": 200,
+      "bytes": 5121,
+      "sha256": "ddad9567b66108d3d4ca288b2f2c7b561e4cd949e75ab7ea2f468d877826c709"
+    },
+    {
+      "path": "studies/trx-hierarchy/fixtures/skipped-parent-failed-row.trx",
+      "status": 200,
+      "bytes": 5293,
+      "sha256": "eaac28ddef04fecd0b07e4af3e30aac1e25b3fcd758a7b92217357d020f55df3"
+    },
+    {
+      "path": "studies/trx-hierarchy/native/Capture.csproj",
+      "status": 200,
+      "bytes": 1021,
+      "sha256": "e0404187a0b24d07a32c410ce7c975569d46bc7abf87c6254afde907acfd4fd6"
+    },
+    {
+      "path": "studies/trx-hierarchy/native/Program.cs",
+      "status": 200,
+      "bytes": 4628,
+      "sha256": "b67d6e6c041baa5e39b54f0d7851e2983f6b4062ae748b2e827a3f1db09f8a2c"
+    },
+    {
+      "path": "studies/trx-hierarchy/native/capture.json",
+      "status": 200,
+      "bytes": 2467,
+      "sha256": "c6f8f996f40aa129e5f51f217984504163acfa7853c5ff1a9c42bf9a8a39b16e"
+    },
+    {
+      "path": "studies/trx-hierarchy/native/stderr.txt",
+      "status": 200,
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "studies/trx-hierarchy/native/stdout.txt",
+      "status": 200,
+      "bytes": 671,
+      "sha256": "7981f37853617ad6bd5156f11fc6da6215a1f3e67558bf351185d3546d707bc7"
+    },
+    {
+      "path": "studies/trx-hierarchy/oracle.py",
+      "status": 200,
+      "bytes": 5266,
+      "sha256": "5c41e7f17cac3e95d1ee7ce1c1f3d39c622abc54cc55a93ac99af32fbc19fb7b"
+    },
+    {
+      "path": "studies/trx-hierarchy/performance.py",
+      "status": 200,
+      "bytes": 4003,
+      "sha256": "bb86736d22663feffaa367f1119bd1af160bc2b15b34d614f7dcfcd652331ffc"
+    },
+    {
+      "path": "studies/trx-hierarchy/replay.py",
+      "status": 200,
+      "bytes": 4433,
+      "sha256": "0692f0cd1398f0986fb8d166d5e3fdaffc2ce031b57350e123d9536b4bbcc2ec"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/after.json",
+      "status": 200,
+      "bytes": 68817,
+      "sha256": "d8bbcc9788d454c9d208873ced2faa315f58d1d574945856d328a31574e5c4ac"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/artifacts.json",
+      "status": 200,
+      "bytes": 3802,
+      "sha256": "4051b61258bc0cd2b126531a6242ac706e172530853ff18e58c7b7efde5e6c5f"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/before.json",
+      "status": 200,
+      "bytes": 63993,
+      "sha256": "a7f171f023cf6f22b351b4484754e447c84d0233ee8459f6f44348e205d5bca2"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/counter-compatibility.json",
+      "status": 200,
+      "bytes": 32502,
+      "sha256": "d51acb9bd55f29498c8537213360f1045c9f6bb445fe154bcaab03ed74d37f7e"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/oracle.json",
+      "status": 200,
+      "bytes": 3424,
+      "sha256": "2f0638f5a2ab1608534ff148cd08a31cb24d241de43802f36663482e03d3ceab"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/performance-after.json",
+      "status": 200,
+      "bytes": 791,
+      "sha256": "88461ebb85729c31b76524bfaf8299fcfa5d5bfcd84de555b52e75eaf5add241"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/performance-before.json",
+      "status": 200,
+      "bytes": 783,
+      "sha256": "1a702acae63885c9377a1281cf44300e177bf2279a84066ff35622fc39e3129d"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/report-browser.json",
+      "status": 200,
+      "bytes": 36740,
+      "sha256": "8bd775c9a5c6e7c8df2898dd0c97045c64068cefc9b019e147e4a8e49a5560f7"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/verification.json",
+      "status": 200,
+      "bytes": 11807,
+      "sha256": "7f72ec8ce44df813ae4489d3298225bd032d818ba33f60a4949041105026c997"
+    },
+    {
+      "path": "studies/trx-hierarchy/results/wilson-boundaries.json",
+      "status": 200,
+      "bytes": 28351,
+      "sha256": "49d5f518ff14d7e84580132d488e555558a753672ba09fcd61b0fc56c19232b9"
+    },
+    {
+      "path": "tests/test_trx_counters.py",
+      "status": 200,
+      "bytes": 5898,
+      "sha256": "56e6dd64081e95c84b8899b68d7055a5822f97d080bbea85b20566ab6eaf10e4"
+    },
+    {
+      "path": "tests/test_trx_hierarchy.py",
+      "status": 200,
+      "bytes": 7459,
+      "sha256": "571de1a5837a309fd973cb3dc9cec9114629fef1325226d705563544d97dcb8c"
+    },
+    {
+      "path": "tests/test_wilson.py",
+      "status": 200,
+      "bytes": 1643,
+      "sha256": "4ddb1d1ae19cb4139e8ebc2ef24b2d5fbd65139d87458d2104769783531f602a"
+    }
+  ]
+}

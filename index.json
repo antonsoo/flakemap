@@ -2292,12 +2292,19 @@
       "activity": {
         "state": "ongoing",
         "failures": 106,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 106,
+        "recovered_runs": 0,
         "events": 53,
         "runs_since_last_failure": 1,
         "runs_since_first_failure": 221,
         "longest_gap": 6,
         "silence_ratio": 0.17
       },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "run-0001",
+      "history_runs_since_first_failure": 221,
       "same_commit": {
         "failures_passed_elsewhere": 19,
         "failures_failed_everywhere": 8,
@@ -3662,12 +3669,19 @@
       "activity": {
         "state": "ongoing",
         "failures": 65,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 65,
+        "recovered_runs": 0,
         "events": 49,
         "runs_since_last_failure": 2,
         "runs_since_first_failure": 212,
         "longest_gap": 13,
         "silence_ratio": 0.15
       },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "run-0010",
+      "history_runs_since_first_failure": 212,
       "same_commit": {
         "failures_passed_elsewhere": 10,
         "failures_failed_everywhere": 4,
@@ -4540,12 +4554,19 @@
       "activity": {
         "state": "ongoing",
         "failures": 26,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 26,
+        "recovered_runs": 0,
         "events": 22,
         "runs_since_last_failure": 12,
         "runs_since_first_failure": 214,
         "longest_gap": 26,
         "silence_ratio": 0.46
       },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "run-0008",
+      "history_runs_since_first_failure": 214,
       "same_commit": {
         "failures_passed_elsewhere": 8,
         "failures_failed_everywhere": 0,
@@ -4950,12 +4971,19 @@
       "activity": {
         "state": "ongoing",
         "failures": 70,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 70,
+        "recovered_runs": 0,
         "events": 1,
         "runs_since_last_failure": 0,
         "runs_since_first_failure": 70,
         "longest_gap": null,
         "silence_ratio": null
       },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "run-0152",
+      "history_runs_since_first_failure": 70,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 20,
@@ -5893,6 +5921,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -5977,6 +6008,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -6061,6 +6095,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -6145,6 +6182,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -6229,6 +6269,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -6313,6 +6356,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -6397,6 +6443,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -6481,6 +6530,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,

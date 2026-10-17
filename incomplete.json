@@ -29,8 +29,7 @@
   "warnings": [
     "run 01: 01/report.xml: file was not well-formed XML (unclosed token: line 9, column 30); salvaged 2 completed <testcase> element(s) before the error; incomplete records and the remainder omitted",
     "run 02: 02/report.trx: C.invalidDuration: invalid TRX duration; retained as unknown",
-    "run 02: 02/report.trx: C.qualitativeUnknown: TRX outcome 'Completed' does not establish pass, failure or skip; excluded from rates",
-    "run 02, C.qualitativeUnknown: TRX outcome 'Completed' does not establish pass, failure or skip; excluded from rates"
+    "run 02: 02/report.trx: C.qualitativeUnknown: TRX outcome 'Completed' does not establish pass, failure or skip; excluded from rates"
   ],
   "cofailure": {
     "method": "exact_outcome_history",
@@ -134,7 +133,22 @@
         ]
       },
       "excluded": [],
-      "activity": null,
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 0,
+        "recovered_runs": 1,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "01",
+      "history_runs_since_first_failure": 2,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -194,6 +208,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -248,6 +265,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -304,12 +324,19 @@
       "activity": {
         "state": "ongoing",
         "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
         "events": 1,
         "runs_since_last_failure": 0,
         "runs_since_first_failure": 1,
         "longest_gap": null,
         "silence_ratio": null
       },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "01",
+      "history_runs_since_first_failure": 2,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -399,6 +426,9 @@
         }
       ],
       "activity": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -453,6 +483,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,

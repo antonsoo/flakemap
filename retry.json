@@ -301,7 +301,22 @@
         ]
       },
       "excluded": [],
-      "activity": null,
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 0,
+        "recovered_runs": 1,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "surefire-001",
+      "history_runs_since_first_failure": 1,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -396,7 +411,22 @@
         ]
       },
       "excluded": [],
-      "activity": null,
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 0,
+        "recovered_runs": 1,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "surefire-001",
+      "history_runs_since_first_failure": 1,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -499,12 +529,19 @@
       "activity": {
         "state": "ongoing",
         "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
         "events": 1,
         "runs_since_last_failure": 0,
         "runs_since_first_failure": 1,
         "longest_gap": null,
         "silence_ratio": null
       },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "surefire-001",
+      "history_runs_since_first_failure": 1,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -620,12 +657,19 @@
       "activity": {
         "state": "ongoing",
         "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
         "events": 1,
         "runs_since_last_failure": 0,
         "runs_since_first_failure": 1,
         "longest_gap": null,
         "silence_ratio": null
       },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "surefire-001",
+      "history_runs_since_first_failure": 1,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -698,6 +742,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,
@@ -748,6 +795,9 @@
       },
       "excluded": [],
       "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
       "same_commit": {
         "failures_passed_elsewhere": 0,
         "failures_failed_everywhere": 0,

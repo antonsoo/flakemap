@@ -43,6 +43,15 @@ mean all tests passed. On the first file, the native primary counters are
 `total=5 executed=4 passed=3 failed=1`. All five result records are present.
 Counter reconciliation alone cannot establish a usable aggregate observation.
 
+```text
+Top-level records (shown by name)
++- Data: reported Passed -> normalized Unknown
+|  +- child 1: Passed
+|  `- child 2: Failed
++- Ordinary: Passed
+`- Skipped: NotExecuted
+```
+
 The last control records a useful producer boundary. This SDK writes the
 grandchild events as additional top-level results, without their event-parent
 links. The parser preserves that recorded structure. A deeper nested XML tree
@@ -142,3 +151,14 @@ uv run python studies/trx-hierarchy/performance.py --output scratch/trx-retentio
 Source, installed artifacts and public installation evidence are recorded at
 their verified revisions. No registry release or static-demo deployment follows
 automatically from this parser correction.
+
+## Exact Wilson endpoints in the report
+
+Visual review also found a zero-failure interval printed with a long tiny
+positive lower bound. The floating-point result could exclude its own zero
+point estimate. The source now uses the analytic endpoints: zero for 0/n and
+one for n/n. Interior formulas retain their precision, including genuinely small
+nonzero bounds. The [74-case independent comparison](results/wilson-boundaries.json)
+with SciPy 1.18.1 records ten containment violations before and none after,
+with maximum absolute reference error of about 1.1e-16. SciPy documents its
+[uncorrected Wilson method](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats._result_classes.BinomTestResult.proportion_ci.html).

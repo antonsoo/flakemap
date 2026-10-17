@@ -4,6 +4,13 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Wilson interval endpoints
+
+- Keep the analytic lower bound exactly zero for 0/n and the upper bound exactly
+  one for n/n. Floating-point subtraction could exclude the point estimate by a
+  tiny amount and print a long decimal in reports. Retain the independent SciPy
+  comparison of 74 endpoint/interior cases found during native-report review.
+
 ### TRX parent/child evidence
 
 - Retain nested native results without making them extra trials or retries.

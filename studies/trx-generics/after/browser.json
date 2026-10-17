@@ -1,0 +1,94 @@
+{
+  "phase": "after",
+  "scope": "Actual standalone CLI reports offline; native identities, keyboard disclosures, original evidence and JSON/DOM agreement.",
+  "records": [
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "history",
+      "tests": 2,
+      "errors": [],
+      "network": [],
+      "overflow": false,
+      "axeViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "combined",
+      "tests": 4,
+      "errors": [],
+      "network": [],
+      "overflow": false,
+      "axeViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "history",
+      "tests": 2,
+      "errors": [],
+      "network": [],
+      "overflow": false,
+      "axeViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "combined",
+      "tests": 4,
+      "errors": [],
+      "network": [],
+      "overflow": false,
+      "axeViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "history",
+      "tests": 2,
+      "errors": [],
+      "network": [],
+      "overflow": false,
+      "axeViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "combined",
+      "tests": 4,
+      "errors": [],
+      "network": [],
+      "overflow": false,
+      "axeViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "history",
+      "tests": 2,
+      "errors": [],
+      "network": [],
+      "overflow": false,
+      "axeViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "combined",
+      "tests": 4,
+      "errors": [],
+      "network": [],
+      "overflow": false,
+      "axeViolations": []
+    }
+  ]
+}

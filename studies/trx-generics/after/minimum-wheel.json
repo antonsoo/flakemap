@@ -1,0 +1,115 @@
+{
+  "phase": "after",
+  "parserSha256": "ee7f6689f65f3983416f12411150756a44cf493de12a264628976bc8e9e64813",
+  "scope": "Actual CLI over compiled controlled NUnit native TRX captures; native XML identities and outcomes are the independent oracle. No production reliability inference.",
+  "cases": [
+    {
+      "case": "history",
+      "exit": 0,
+      "nativeIdentities": {
+        "NativePairs.Pair<Int32,String>.Check": {
+          "pass": 6,
+          "fail": 0
+        },
+        "NativePairs.Pair<Int32,Double>.Check": {
+          "pass": 0,
+          "fail": 6
+        }
+      },
+      "reported": [
+        {
+          "test": "NativePairs.Pair<Int32,String>.Check",
+          "classification": "healthy",
+          "runs": {
+            "total": 6,
+            "pass": 6,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          }
+        },
+        {
+          "test": "NativePairs.Pair<Int32,Double>.Check",
+          "classification": "broken",
+          "runs": {
+            "total": 6,
+            "pass": 0,
+            "fail": 6,
+            "skip": 0,
+            "unknown": 0
+          }
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "case": "combined",
+      "exit": 0,
+      "nativeIdentities": {
+        "NativePairs.Pair<Int32,String>.Check": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NativePairs.Pair<Int32,Double>.Check": {
+          "pass": 0,
+          "fail": 1
+        },
+        "NativePairs.Ordinary.Check": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NativePairs.Single<Int32>.Check": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "reported": [
+        {
+          "test": "NativePairs.Pair<Int32,String>.Check",
+          "classification": "insufficient_data",
+          "runs": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          }
+        },
+        {
+          "test": "NativePairs.Pair<Int32,Double>.Check",
+          "classification": "insufficient_data",
+          "runs": {
+            "total": 1,
+            "pass": 0,
+            "fail": 1,
+            "skip": 0,
+            "unknown": 0
+          }
+        },
+        {
+          "test": "NativePairs.Ordinary.Check",
+          "classification": "insufficient_data",
+          "runs": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          }
+        },
+        {
+          "test": "NativePairs.Single<Int32>.Check",
+          "classification": "insufficient_data",
+          "runs": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          }
+        }
+      ],
+      "warnings": []
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "base": "https://antonsoo.github.io/flakemap/",
+  "scope": "Exact bytes for every built file and the canonical root alias.",
+  "attempts": [
+    {
+      "matching": 4,
+      "total": 13
+    },
+    {
+      "matching": 13,
+      "total": 13
+    }
+  ],
+  "files": [
+    {
+      "file": "cofailure.html",
+      "url": "https://antonsoo.github.io/flakemap/cofailure.html",
+      "status": 200,
+      "bytes": 102651,
+      "sha256": "c9bd1a76e4821a3f129cde76d4b656c5c22c82715c7bef26b530507cb0db602f",
+      "expectedSha256": "c9bd1a76e4821a3f129cde76d4b656c5c22c82715c7bef26b530507cb0db602f",
+      "matches": true,
+      "etag": "\"6ad40400-190fb\""
+    },
+    {
+      "file": "cofailure.json",
+      "url": "https://antonsoo.github.io/flakemap/cofailure.json",
+      "status": 200,
+      "bytes": 29777,
+      "sha256": "1089510668ec4153d95e0ac1ac5301ab5d34086151e1ed76ff794f3bf73a6353",
+      "expectedSha256": "1089510668ec4153d95e0ac1ac5301ab5d34086151e1ed76ff794f3bf73a6353",
+      "matches": true,
+      "etag": "\"6ad40400-7451\""
+    },
+    {
+      "file": "generic-inputs.zip",
+      "url": "https://antonsoo.github.io/flakemap/generic-inputs.zip",
+      "status": 200,
+      "bytes": 14663,
+      "sha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "expectedSha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "matches": true,
+      "etag": "\"6ad40400-3947\""
+    },
+    {
+      "file": "generic.html",
+      "url": "https://antonsoo.github.io/flakemap/generic.html",
+      "status": 200,
+      "bytes": 60962,
+      "sha256": "b17f65ec0e71fadb37a99301b3bd302ac696e4ed9c2998dd088abcb83c9ecac7",
+      "expectedSha256": "b17f65ec0e71fadb37a99301b3bd302ac696e4ed9c2998dd088abcb83c9ecac7",
+      "matches": true,
+      "etag": "\"6ad40400-ee22\""
+    },
+    {
+      "file": "generic.json",
+      "url": "https://antonsoo.github.io/flakemap/generic.json",
+      "status": 200,
+      "bytes": 9994,
+      "sha256": "e400ecff63dffb048f09536a3acda7b9a312ac21b5d6c6c03717b0d61fee52fc",
+      "expectedSha256": "e400ecff63dffb048f09536a3acda7b9a312ac21b5d6c6c03717b0d61fee52fc",
+      "matches": true,
+      "etag": "\"6ad40400-270a\""
+    },
+    {
+      "file": "incomplete.html",
+      "url": "https://antonsoo.github.io/flakemap/incomplete.html",
+      "status": 200,
+      "bytes": 52164,
+      "sha256": "453447b6e88a313a300d473e2d3cfea39c6b6afc76626e81b1cb6e119ed6864e",
+      "expectedSha256": "453447b6e88a313a300d473e2d3cfea39c6b6afc76626e81b1cb6e119ed6864e",
+      "matches": true,
+      "etag": "\"6ad40400-cbc4\""
+    },
+    {
+      "file": "incomplete.json",
+      "url": "https://antonsoo.github.io/flakemap/incomplete.json",
+      "status": 200,
+      "bytes": 13645,
+      "sha256": "763f53f144c703c2db6679700722ed10bca3871fe732af6f83611c5b16f78df8",
+      "expectedSha256": "763f53f144c703c2db6679700722ed10bca3871fe732af6f83611c5b16f78df8",
+      "matches": true,
+      "etag": "\"6ad40400-354d\""
+    },
+    {
+      "file": "index.html",
+      "url": "https://antonsoo.github.io/flakemap/index.html",
+      "status": 200,
+      "bytes": 878838,
+      "sha256": "851f618e84111c112d24166a2c53a966efc26cac6cf794418bc686ba9a120a56",
+      "expectedSha256": "851f618e84111c112d24166a2c53a966efc26cac6cf794418bc686ba9a120a56",
+      "matches": true,
+      "etag": "\"6ad40400-d68f6\""
+    },
+    {
+      "file": "index.json",
+      "url": "https://antonsoo.github.io/flakemap/index.json",
+      "status": 200,
+      "bytes": 199838,
+      "sha256": "1d07cf28991c3f79511f60ddafa761b78e05e042c63a645da3df553c1e32b71e",
+      "expectedSha256": "1d07cf28991c3f79511f60ddafa761b78e05e042c63a645da3df553c1e32b71e",
+      "matches": true,
+      "etag": "\"6ad40400-30c9e\""
+    },
+    {
+      "file": "kubernetes.html",
+      "url": "https://antonsoo.github.io/flakemap/kubernetes.html",
+      "status": 200,
+      "bytes": 417286,
+      "sha256": "caf545632d998d97f0f10f4aab106483f5a8e0b9b762557ff577439dccdfd103",
+      "expectedSha256": "caf545632d998d97f0f10f4aab106483f5a8e0b9b762557ff577439dccdfd103",
+      "matches": true,
+      "etag": "\"6ad40400-65e06\""
+    },
+    {
+      "file": "retry.html",
+      "url": "https://antonsoo.github.io/flakemap/retry.html",
+      "status": 200,
+      "bytes": 74628,
+      "sha256": "253faec3c428d6dd4f864bf15cb8de493fbb5263eb3d6e20ebfa5386d0972dc3",
+      "expectedSha256": "253faec3c428d6dd4f864bf15cb8de493fbb5263eb3d6e20ebfa5386d0972dc3",
+      "matches": true,
+      "etag": "\"6ad40400-12384\""
+    },
+    {
+      "file": "retry.json",
+      "url": "https://antonsoo.github.io/flakemap/retry.json",
+      "status": 200,
+      "bytes": 23334,
+      "sha256": "9a020cb76039170a4cd8567023bab62035ca239fff9223aaf345de8544960d5e",
+      "expectedSha256": "9a020cb76039170a4cd8567023bab62035ca239fff9223aaf345de8544960d5e",
+      "matches": true,
+      "etag": "\"6ad40400-5b26\""
+    },
+    {
+      "file": "(root alias)",
+      "url": "https://antonsoo.github.io/flakemap/",
+      "status": 200,
+      "bytes": 878838,
+      "sha256": "851f618e84111c112d24166a2c53a966efc26cac6cf794418bc686ba9a120a56",
+      "expectedSha256": "851f618e84111c112d24166a2c53a966efc26cac6cf794418bc686ba9a120a56",
+      "matches": true,
+      "etag": "\"6ad40400-d68f6\""
+    }
+  ],
+  "complete": true
+}

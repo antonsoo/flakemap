@@ -1,0 +1,24 @@
+{
+  "builtSource": "2d6b9781855f8048669c5c666dbeaf5a81314398",
+  "wheel": {
+    "filename": "flakemap-0.3.7-py3-none-any.whl",
+    "sha256": "3b9f64b88820b693174fd261ea51b2a5db921766564c9a3c05c65a113f755254",
+    "runtimeModules": 30,
+    "allModuleBytesMatchCleanSource": true,
+    "declaredVersion": "0.3.7",
+    "registryRelease": false,
+    "rebuildByteIdentical": true
+  },
+  "registry": {
+    "registry": "PyPI",
+    "version": "0.3.7",
+    "filename": "flakemap-0.3.7-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/16/b6/8b5e8937ef93fe90774fa9e472d3f46ba3550e945898a7ae4b7196f07f35/flakemap-0.3.7-py3-none-any.whl",
+    "sha256": "9a4ba59e27bd01a41b97930dcf57f06c635fbdc1b1b8b4fc477da943f56a465d",
+    "parserSha256": "be5994c7bc5d4e3580b997d770ca38e894a51c5c1f5f96f55a1d51e5e0b5425f",
+    "containsNewDelimiterScanner": false,
+    "containsFormerFirstCommaSplit": true
+  },
+  "scope": "Local wheel from verified source archive, not a PyPI release or version bump.",
+  "identicalRebuiltSource": "401dc15d86c91f8ff1f7cdb9e8961f6eb800bd81"
+}

@@ -1,0 +1,15 @@
+{
+  "sourceRevision": "401dc15d86c91f8ff1f7cdb9e8961f6eb800bd81",
+  "command": "python -m pip install --force-reinstall \"flakemap @ git+https://github.com/antonsoo/flakemap.git@401dc15d86c91f8ff1f7cdb9e8961f6eb800bd81\"",
+  "processExit": 0,
+  "python": "3.12.12",
+  "declaredVersion": "0.3.7",
+  "rich": "15.0.0",
+  "runtimeModules": 30,
+  "allModuleBytesMatchCleanSource": true,
+  "nativeReplayExits": [
+    0,
+    0
+  ],
+  "registryRelease": false
+}

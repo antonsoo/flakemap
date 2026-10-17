@@ -1,0 +1,33 @@
+{
+  "scope": "Actual offline browser native-input downloads, original TRX byte agreement and installed CLI reproduction of complete gallery JSON.",
+  "records": [
+    {
+      "file": "chromium-1200-generic-inputs.zip",
+      "sha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "nativeReportsByteIdentical": 12,
+      "cliExit": 0,
+      "completeAnalysisEqualsGallery": true
+    },
+    {
+      "file": "chromium-375-generic-inputs.zip",
+      "sha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "nativeReportsByteIdentical": 12,
+      "cliExit": 0,
+      "completeAnalysisEqualsGallery": true
+    },
+    {
+      "file": "firefox-1200-generic-inputs.zip",
+      "sha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "nativeReportsByteIdentical": 12,
+      "cliExit": 0,
+      "completeAnalysisEqualsGallery": true
+    },
+    {
+      "file": "firefox-375-generic-inputs.zip",
+      "sha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "nativeReportsByteIdentical": 12,
+      "cliExit": 0,
+      "completeAnalysisEqualsGallery": true
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "source": "401dc15d86c91f8ff1f7cdb9e8961f6eb800bd81",
+  "pages": "43f6522578bec280df65b78711cc473036e348ca",
+  "builtFiles": 12,
+  "canonicalUrlsChecked": 13,
+  "exactServedBytes": true,
+  "hostedBrowserViews": 24,
+  "offlineJsonDownloads": 20,
+  "offlineNativeArchives": 4,
+  "originalNativeReportsPerArchive": 12,
+  "installedWheelReproducesCompleteGalleryJson": true,
+  "screenshotComparisons": [
+    {
+      "file": "firefox-375-generic.png",
+      "sha256": "d3b4708be5aea6377df17f4a774ded758a6a3af58008de10a734ce0813c66da8",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "firefox-1200-cofailure.png",
+      "sha256": "c7532777f29c4b47a0fbfd775b13f600d6228c978262d1e88df96096f594ca0a",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "firefox-1200-generic.png",
+      "sha256": "ec9593b10ad52a797559f4ea1e3b28cd3449b38f11de28d3cdbb188c3d820d61",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "chromium-375-incomplete.png",
+      "sha256": "77f82e55c8a61b51e637c3841ca7d7467be243be3629f3cd09e6f2e95b9ac2a9",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "chromium-375-generic.png",
+      "sha256": "16c78ba48fd548409f6973f11fa3bfdebcde5455492df633f7f8437f6e3a6722",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "chromium-1200-cofailure.png",
+      "sha256": "03ea95d01d801d5e31d48c566ba77e373dea4596d64b5d1170011d5a76140b54",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "chromium-375-cofailure.png",
+      "sha256": "397bd6c426f826d055871df6b24b0640edd908188d33abb8c8f4903590f38c7c",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "firefox-375-cofailure.png",
+      "sha256": "5320c56327e1bc09e2ec25360924da241ddf5960feb0bed59b1c2b469998e402",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "chromium-1200-generic.png",
+      "sha256": "e3551eec13ce2fe6a04729e9d8058ef0f9a5257854a4163e44e4977cd0f35e6e",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "chromium-1200-incomplete.png",
+      "sha256": "086821833b68bc426176b2af10bfee902dc2835da52f7342c80c93b87bb7d98a",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "firefox-1200-incomplete.png",
+      "sha256": "609a70ad4bbdf8625495a875652210cd92ae2aa1d6c962c2fb38078dba0771ed",
+      "identicalToReviewedLocal": true
+    },
+    {
+      "file": "firefox-375-incomplete.png",
+      "sha256": "f163413306d125f5151dffb5dadf9e3e6e38e229b721a13bc0686ba9ea35577b",
+      "identicalToReviewedLocal": true
+    }
+  ],
+  "scope": "Hosted precomputed gallery plus actual offline native-input/JSON downloads and installed CLI replay. Not a native browser parser, registry release or separate workbench deployment."
+}

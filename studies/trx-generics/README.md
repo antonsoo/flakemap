@@ -70,3 +70,51 @@ The example gallery includes **Distinct generic fixtures**, an offline JSON
 analysis download and an archive of the 12 native TRX inputs. The archive keeps
 those exact report bytes so the CLI can reproduce the displayed result without
 NUnit or a network connection.
+
+## Read the actual report
+
+![Former report merges two fixtures into a flaky test](../../docs/assets/trx-generics/before-1200.png)
+
+![Corrected report retains the separate constant outcomes](../../docs/assets/trx-generics/after-1200.png)
+
+[Before browser receipt](before/browser.json) and [after receipt](after/browser.json)
+cover both actual CLI files in Chromium and Firefox at 1200 and 375px, offline.
+Keyboard disclosure reveals complete literal type names; JSON and displayed
+outcomes agree. All 16 captured screenshots were reviewed. Errors, extra HTTP,
+CSP violations, accessibility violations and page overflow are absent.
+
+The [local gallery receipt](local-gallery-browser.json) covers all six pages in
+24 real browser views. Its four actual offline native-input archive downloads
+retain all 12 original TRX byte sequences; an independently installed wheel
+reproduces the complete displayed JSON: [download replay](local-downloads.json).
+
+The [local wheel receipt](package-verification.json) distinguishes the verified
+runtime artifact from PyPI's separately downloaded 0.3.7 wheel, which still
+contains the former first-comma split. This correction adds no runtime dependency
+and makes no package release. The separate hosted workbench is outside this check.
+
+## Verified source and public gallery
+
+[Clean archive verification](verification.json) records source `401dc15`, fresh
+Python 3.12.12/Node 24.21.0 installs, lint/format/type checking, 412 unit checks,
+wheel/sdist builds and all 136 browser scenarios across eight engine/width/theme
+contexts. Each context completed with process exit 0. An earlier long browser
+attempt ended with exit 143 and was not accepted as a pass. Python 3.10.21 with
+Rich 13.7.0 also passes all 412 checks; its installed wheel reproduces both
+native cases. The rebuilt wheel is byte-identical to the tested artifact.
+
+The README's [pinned public source installation](public-source-install.json)
+was executed using pip in a fresh environment and reproduces both cases. All
+30 installed runtime modules match the clean source bytes.
+
+Pages `43f6522` serves that build. All 12 built files and the canonical root
+match exactly: [public HTTP bytes](hosted-bytes.json). Twenty-four
+[public browser views](hosted/browser.json) repeat the offline disclosure and
+download workflows. Twenty JSON downloads match their complete analyses. Four
+actual native-input archives retain all 12 original reports and reproduce the
+complete gallery JSON through the installed wheel:
+[public archive replay](hosted-downloads.json).
+
+All 12 public screenshots are byte-identical to the reviewed local gallery
+captures. [Publication receipt](publication.json) separates the precomputed
+hosted report from native browser ingestion, PyPI and the separate workbench.

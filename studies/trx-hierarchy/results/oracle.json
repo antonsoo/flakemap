@@ -1,0 +1,124 @@
+{
+  "scope": "Independent ElementTree inspection of actual SDK 17.11 all-result counters and replay outputs; no Flakemap imports.",
+  "nativeFiles": 7,
+  "contradictoryFiles": 2,
+  "checks": [
+    {
+      "case": "failed-parent-failed-row",
+      "sourceSha256": "db89d32a8a20826ebf007bd9e238e5ca0b576602fe2aae2a1d39b76765fe5682",
+      "nativeCounters": {
+        "total": 5,
+        "passed": 2,
+        "failed": 2,
+        "executed": 4
+      },
+      "topLevelObservations": 3,
+      "contradictions": [],
+      "beforeExit": 0,
+      "afterExit": 0,
+      "unaffectedTestStatisticsIdentical": true
+    },
+    {
+      "case": "failed-parent-passing-rows",
+      "sourceSha256": "b3f014cd91bcef4fb0207e88e57ac9c410570ef8b0c73d843e305abab2361f17",
+      "nativeCounters": {
+        "total": 5,
+        "passed": 3,
+        "failed": 1,
+        "executed": 4
+      },
+      "topLevelObservations": 3,
+      "contradictions": [],
+      "beforeExit": 0,
+      "afterExit": 0,
+      "unaffectedTestStatisticsIdentical": true
+    },
+    {
+      "case": "grandchild-events-top-level",
+      "sourceSha256": "1b9472838ee3c816895bdd4f6e7919c883bf5320a7f1753b45737b99f2227c2b",
+      "nativeCounters": {
+        "total": 6,
+        "passed": 4,
+        "failed": 1,
+        "executed": 5
+      },
+      "topLevelObservations": 5,
+      "contradictions": [],
+      "beforeExit": 0,
+      "afterExit": 0,
+      "unaffectedTestStatisticsIdentical": true
+    },
+    {
+      "case": "passed-parent-failed-row",
+      "sourceSha256": "71aed3c532a868112137d7e0bb78bb751a2962cb0c8eac5035a86334227ed9a4",
+      "nativeCounters": {
+        "total": 5,
+        "passed": 3,
+        "failed": 1,
+        "executed": 4
+      },
+      "topLevelObservations": 3,
+      "contradictions": [
+        {
+          "parent": "Capture.Example.Data",
+          "reportedOutcome": "Passed",
+          "retainedChildRows": 2
+        }
+      ],
+      "beforeExit": 0,
+      "afterExit": 2,
+      "unaffectedTestStatisticsIdentical": true
+    },
+    {
+      "case": "passed-parent-passing-rows",
+      "sourceSha256": "17cf0a68f0882e3b77d976dc43ff80d457c65e36aef0b236f061771c83b75883",
+      "nativeCounters": {
+        "total": 5,
+        "passed": 4,
+        "failed": 0,
+        "executed": 4
+      },
+      "topLevelObservations": 3,
+      "contradictions": [],
+      "beforeExit": 0,
+      "afterExit": 0,
+      "unaffectedTestStatisticsIdentical": true
+    },
+    {
+      "case": "passed-parent-skipped-row",
+      "sourceSha256": "ddad9567b66108d3d4ca288b2f2c7b561e4cd949e75ab7ea2f468d877826c709",
+      "nativeCounters": {
+        "total": 5,
+        "passed": 3,
+        "failed": 0,
+        "executed": 3
+      },
+      "topLevelObservations": 3,
+      "contradictions": [],
+      "beforeExit": 0,
+      "afterExit": 0,
+      "unaffectedTestStatisticsIdentical": true
+    },
+    {
+      "case": "skipped-parent-failed-row",
+      "sourceSha256": "eaac28ddef04fecd0b07e4af3e30aac1e25b3fcd758a7b92217357d020f55df3",
+      "nativeCounters": {
+        "total": 5,
+        "passed": 2,
+        "failed": 1,
+        "executed": 3
+      },
+      "topLevelObservations": 3,
+      "contradictions": [
+        {
+          "parent": "Capture.Example.Data",
+          "reportedOutcome": "NotExecuted",
+          "retainedChildRows": 2
+        }
+      ],
+      "beforeExit": 0,
+      "afterExit": 2,
+      "unaffectedTestStatisticsIdentical": true
+    }
+  ]
+}

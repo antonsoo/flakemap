@@ -1,0 +1,26 @@
+{
+  "scope": "One authored large hierarchy based on native record shapes; not application execution or a performance guarantee.",
+  "machine": "14-vCPU WSL2 Linux, 48 GB RAM",
+  "python": "3.12.12",
+  "visibleCpus": 14,
+  "kernel": "6.18.54.1-microsoft-standard-WSL2",
+  "memTotalKiB": 49332548,
+  "childRecords": 10000,
+  "sourceBytes": 5263070,
+  "sourceSha256": "e43420b4537f409be3980ac1428acb45dd2c51ca75f7da6bf662cbf39c220c05",
+  "analysisBytes": 5637,
+  "analysisSha256": "79e9209effc4414b3f76b9e4b1d15ba25397778cc23297ac2e110d6925d87cca",
+  "exitCode": 0,
+  "inputComplete": true,
+  "reportedTests": 3,
+  "parent": {
+    "total": 1,
+    "pass": 1,
+    "fail": 0,
+    "skip": 0,
+    "unknown": 0
+  },
+  "retainedChildRecords": 0,
+  "wallSeconds": 0.17,
+  "peakRssKiB": 51952
+}

@@ -1,0 +1,9 @@
+Results File: <capture-output>/passed-parent-failed-row/nested.trx
+Results File: <capture-output>/failed-parent-failed-row/nested.trx
+Results File: <capture-output>/passed-parent-passing-rows/nested.trx
+Results File: <capture-output>/passed-parent-skipped-row/nested.trx
+Results File: <capture-output>/skipped-parent-failed-row/nested.trx
+Results File: <capture-output>/grandchild-events-top-level/nested.trx
+Results File: <capture-output>/failed-parent-passing-rows/nested.trx
+Logger: Microsoft.VisualStudio.TestPlatform.Extensions.Trx.TestLogger, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+Logger informational version: 17.11.1-release-24455-02

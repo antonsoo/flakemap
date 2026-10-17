@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TestRun xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" id="0e0359c5-23cc-4c98-8864-2e4c00a73214" name="Controlled TRX hierarchy capture">
+  <Times creation="2026-10-17T04:20:09.2796706-07:00" queuing="2026-10-17T04:20:09.2796707-07:00" start="2026-10-17T04:20:09.2592422-07:00" finish="2026-10-17T04:20:09.3028502-07:00" />
+  <TestSettings name="default" id="54e5f8e4-aacd-480a-b0fb-56cce19f64cc">
+    <Deployment />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="2648ebf2-21a0-412c-8194-b63b1396a725" testId="4fbdcbde-a302-a5f5-8fff-77de57d1dde0" testName="Capture.Example.Data" startTime="2026-10-17T04:20:09.2664508-07:00" endTime="2026-10-17T04:20:09.2664510-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2648ebf2-21a0-412c-8194-b63b1396a725" resultType="DataDrivenTest">
+      <InnerResults>
+        <UnitTestResult executionId="8c7fa838-4cc9-4fb5-9591-5d1cb902e6fb" parentExecutionId="2648ebf2-21a0-412c-8194-b63b1396a725" testId="4fbdcbde-a302-a5f5-8fff-77de57d1dde0" testName="Data (passing row)" startTime="2026-10-17T04:20:09.2947355-07:00" endTime="2026-10-17T04:20:09.2947356-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="8c7fa838-4cc9-4fb5-9591-5d1cb902e6fb" dataRowInfo="1" resultType="DataDrivenDataRow" />
+        <UnitTestResult executionId="d1f3bfa7-3896-4668-a6fb-b8c104e0db78" parentExecutionId="2648ebf2-21a0-412c-8194-b63b1396a725" testId="4fbdcbde-a302-a5f5-8fff-77de57d1dde0" testName="Data (second row)" startTime="2026-10-17T04:20:09.2948919-07:00" endTime="2026-10-17T04:20:09.2948920-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d1f3bfa7-3896-4668-a6fb-b8c104e0db78" dataRowInfo="2" resultType="DataDrivenDataRow">
+          <Output>
+            <ErrorInfo>
+              <Message>Controlled nested row failure</Message>
+            </ErrorInfo>
+          </Output>
+        </UnitTestResult>
+      </InnerResults>
+    </UnitTestResult>
+    <UnitTestResult executionId="2fd1c204-9b5b-45c2-b06e-1040fc9ccf5d" testId="64f0eb93-d91f-172c-e13a-1bb82d2c687d" testName="Capture.Example.Ordinary" startTime="2026-10-17T04:20:09.2950291-07:00" endTime="2026-10-17T04:20:09.2950291-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="2fd1c204-9b5b-45c2-b06e-1040fc9ccf5d" />
+    <UnitTestResult executionId="282573f7-a87f-4e60-9382-22aea4b211c3" testId="046db3a3-13d8-2f63-bf5e-14a3c4ed3493" testName="Capture.Example.Skipped" startTime="2026-10-17T04:20:09.2951382-07:00" endTime="2026-10-17T04:20:09.2951382-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="282573f7-a87f-4e60-9382-22aea4b211c3" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Capture.Example.Ordinary" storage="capture.dll" id="64f0eb93-d91f-172c-e13a-1bb82d2c687d">
+      <Execution id="2fd1c204-9b5b-45c2-b06e-1040fc9ccf5d" />
+      <TestMethod codeBase="capture.dll" adapterTypeName="executor://capture/" className="Capture.Example" name="Ordinary" />
+    </UnitTest>
+    <UnitTest name="Capture.Example.Data" storage="capture.dll" id="4fbdcbde-a302-a5f5-8fff-77de57d1dde0">
+      <Execution id="2648ebf2-21a0-412c-8194-b63b1396a725" />
+      <TestMethod codeBase="capture.dll" adapterTypeName="executor://capture/" className="Capture.Example" name="Data" />
+    </UnitTest>
+    <UnitTest name="Capture.Example.Skipped" storage="capture.dll" id="046db3a3-13d8-2f63-bf5e-14a3c4ed3493">
+      <Execution id="282573f7-a87f-4e60-9382-22aea4b211c3" />
+      <TestMethod codeBase="capture.dll" adapterTypeName="executor://capture/" className="Capture.Example" name="Skipped" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="4fbdcbde-a302-a5f5-8fff-77de57d1dde0" executionId="2648ebf2-21a0-412c-8194-b63b1396a725" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="64f0eb93-d91f-172c-e13a-1bb82d2c687d" executionId="2fd1c204-9b5b-45c2-b06e-1040fc9ccf5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="046db3a3-13d8-2f63-bf5e-14a3c4ed3493" executionId="282573f7-a87f-4e60-9382-22aea4b211c3" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="5" executed="4" passed="3" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>Test 'Capture.Example.Skipped' was skipped in the test run.
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

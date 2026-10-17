@@ -1,0 +1,1983 @@
+{
+  "scope": "Run actual CLI gates on retained native VSTest hierarchy controls.",
+  "implementationTrxSha256": "bf52b1c070122b13c0fe1e9afb300bb672522e25699c876ca21e34f40c1b9fe6",
+  "implementationFiles": {
+    "__init__.py": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce",
+    "__main__.py": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd",
+    "cli.py": "48c3050b486ab146b616db9f9a1f1463e332f6475f7eedf18292e42b14732076",
+    "loader.py": "0a3df63fd86191101f896e9b71e3453abc702293c94cf38cf7b24c2f4c38bf42",
+    "models.py": "fd969e021ef5f40a5b2b93d586dd3139cc11253d76d08a448332f5ac24094351",
+    "observations.py": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e",
+    "ordering.py": "5a45e29423ebdd55a971b6b6f485bf33caf2d49f1b3b2cb4609de41227ad92d5",
+    "parse/__init__.py": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3",
+    "parse/junit.py": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9",
+    "parse/junit_counts.py": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f",
+    "parse/metadata.py": "7bb47777bdc07c76bc155adf8ba6e86c54cfde76974de4329cf9618461b275a2",
+    "parse/trx.py": "bf52b1c070122b13c0fe1e9afb300bb672522e25699c876ca21e34f40c1b9fe6",
+    "parse/trx_counts.py": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1",
+    "parse/xmlinput.py": "0049e6cca2fdf655a37c25f210cce428d72e626ffa7bb26474681ef86e31e8f0",
+    "parse/xmltext.py": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031",
+    "report/__init__.py": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50",
+    "report/cofailure_html.py": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed",
+    "report/html_out.py": "0c120d1a1dd4485766b9840b2d43ecf5ab8c79439c6f3882de4f956f40b68e08",
+    "report/json_out.py": "1ebb55ddf831e9a4523cb7496057df755a1d6bf6ef73f9917114015a28cbb26b",
+    "report/markdown_out.py": "e2fa5bb8bc8a3fa0ae2fe96b5cef5f7ec38a3b25a9350263cc0b8cd6f4763ba9",
+    "report/names.py": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0",
+    "report/numbers.py": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401",
+    "report/terminal.py": "bc067cea56c5ef98db677d5e09d8089f5b4c83e7993241e8b83c8debe9c4f0ad",
+    "stats/__init__.py": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f",
+    "stats/activity.py": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857",
+    "stats/analyze.py": "49a3120e50877a6395ee6707fbd7fb20e80fc44b2cc8845d978806b3d6fa2fa4",
+    "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
+    "stats/cofailure.py": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006",
+    "stats/correlation.py": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb",
+    "stats/wilson.py": "f771bc8ec543b1c4295a374b682c8ed35ea0564c990592bb3d0712197f3ae8f5"
+  },
+  "cases": 7,
+  "mismatches": 2,
+  "observations": [
+    {
+      "case": "passed-parent-failed-row",
+      "sourceSha256": "71aed3c532a868112137d7e0bb78bb751a2962cb0c8eac5035a86334227ed9a4",
+      "nativeSummary": "Failed",
+      "nativeCounters": {
+        "total": "5",
+        "executed": "4",
+        "passed": "3",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "exitCode": 0,
+      "matches": false,
+      "expected": {
+        "parent": "unknown",
+        "complete": false,
+        "tests": 3
+      },
+      "analysis": {
+        "schema_version": 3,
+        "summary": {
+          "input_complete": true,
+          "ordering": {
+            "available": true,
+            "basis": "single_run",
+            "reason": null
+          },
+          "total_runs": 1,
+          "run_id_range": [
+            "report",
+            "report"
+          ],
+          "timestamp_range": [
+            "2026-10-17T11:20:09.259242+00:00",
+            "2026-10-17T11:20:09.259242+00:00"
+          ],
+          "total_tests": 3,
+          "cofailure_groups": 0,
+          "cofailure_tests": 0,
+          "recovered_test_runs": 0,
+          "exhausted_test_runs": 0,
+          "excluded_test_runs": 0,
+          "flaky": 0,
+          "flaky_new": 0,
+          "flaky_quiet": 0,
+          "broken": 0,
+          "healthy": 0,
+          "insufficient_data": 3
+        },
+        "warnings": [],
+        "cofailure": {
+          "method": "exact_outcome_history",
+          "ambiguous_tests_excluded": [],
+          "runs": [
+            {
+              "run_id": "report",
+              "commit": null,
+              "branch": null,
+              "timestamp": "2026-10-17T04:20:09.259242-07:00",
+              "runner": null,
+              "os": null,
+              "sequence": null,
+              "metadata_source": "report"
+            }
+          ],
+          "groups": []
+        },
+        "tests": [
+          {
+            "test": "Capture.Example.Data",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.259242+00:00",
+            "last_seen": "2026-10-17T11:20:09.259242+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Ordinary",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.259242+00:00",
+            "last_seen": "2026-10-17T11:20:09.259242+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Skipped",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 0,
+              "pass": 0,
+              "fail": 0,
+              "skip": 1,
+              "unknown": 0
+            },
+            "failure_rate": null,
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.259242+00:00",
+            "last_seen": "2026-10-17T11:20:09.259242+00:00",
+            "last_status": "skip",
+            "temporal_available": true
+          }
+        ]
+      }
+    },
+    {
+      "case": "skipped-parent-failed-row",
+      "sourceSha256": "eaac28ddef04fecd0b07e4af3e30aac1e25b3fcd758a7b92217357d020f55df3",
+      "nativeSummary": "Failed",
+      "nativeCounters": {
+        "total": "5",
+        "executed": "3",
+        "passed": "2",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "exitCode": 0,
+      "matches": false,
+      "expected": {
+        "parent": "unknown",
+        "complete": false,
+        "tests": 3
+      },
+      "analysis": {
+        "schema_version": 3,
+        "summary": {
+          "input_complete": true,
+          "ordering": {
+            "available": true,
+            "basis": "single_run",
+            "reason": null
+          },
+          "total_runs": 1,
+          "run_id_range": [
+            "report",
+            "report"
+          ],
+          "timestamp_range": [
+            "2026-10-17T11:20:09.334578+00:00",
+            "2026-10-17T11:20:09.334578+00:00"
+          ],
+          "total_tests": 3,
+          "cofailure_groups": 0,
+          "cofailure_tests": 0,
+          "recovered_test_runs": 0,
+          "exhausted_test_runs": 0,
+          "excluded_test_runs": 0,
+          "flaky": 0,
+          "flaky_new": 0,
+          "flaky_quiet": 0,
+          "broken": 0,
+          "healthy": 0,
+          "insufficient_data": 3
+        },
+        "warnings": [],
+        "cofailure": {
+          "method": "exact_outcome_history",
+          "ambiguous_tests_excluded": [],
+          "runs": [
+            {
+              "run_id": "report",
+              "commit": null,
+              "branch": null,
+              "timestamp": "2026-10-17T04:20:09.334578-07:00",
+              "runner": null,
+              "os": null,
+              "sequence": null,
+              "metadata_source": "report"
+            }
+          ],
+          "groups": []
+        },
+        "tests": [
+          {
+            "test": "Capture.Example.Data",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 0,
+              "pass": 0,
+              "fail": 0,
+              "skip": 1,
+              "unknown": 0
+            },
+            "failure_rate": null,
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.334578+00:00",
+            "last_seen": "2026-10-17T11:20:09.334578+00:00",
+            "last_status": "skip",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Skipped",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 0,
+              "pass": 0,
+              "fail": 0,
+              "skip": 1,
+              "unknown": 0
+            },
+            "failure_rate": null,
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.334578+00:00",
+            "last_seen": "2026-10-17T11:20:09.334578+00:00",
+            "last_status": "skip",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Ordinary",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.334578+00:00",
+            "last_seen": "2026-10-17T11:20:09.334578+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          }
+        ]
+      }
+    },
+    {
+      "case": "failed-parent-failed-row",
+      "sourceSha256": "db89d32a8a20826ebf007bd9e238e5ca0b576602fe2aae2a1d39b76765fe5682",
+      "nativeSummary": "Failed",
+      "nativeCounters": {
+        "total": "5",
+        "executed": "4",
+        "passed": "2",
+        "failed": "2",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "exitCode": 0,
+      "matches": true,
+      "expected": {
+        "parent": "fail",
+        "complete": true,
+        "tests": 3
+      },
+      "analysis": {
+        "schema_version": 3,
+        "summary": {
+          "input_complete": true,
+          "ordering": {
+            "available": true,
+            "basis": "single_run",
+            "reason": null
+          },
+          "total_runs": 1,
+          "run_id_range": [
+            "report",
+            "report"
+          ],
+          "timestamp_range": [
+            "2026-10-17T11:20:09.329398+00:00",
+            "2026-10-17T11:20:09.329398+00:00"
+          ],
+          "total_tests": 3,
+          "cofailure_groups": 0,
+          "cofailure_tests": 0,
+          "recovered_test_runs": 0,
+          "exhausted_test_runs": 0,
+          "excluded_test_runs": 0,
+          "flaky": 0,
+          "flaky_new": 0,
+          "flaky_quiet": 0,
+          "broken": 0,
+          "healthy": 0,
+          "insufficient_data": 3
+        },
+        "warnings": [],
+        "cofailure": {
+          "method": "exact_outcome_history",
+          "ambiguous_tests_excluded": [],
+          "runs": [
+            {
+              "run_id": "report",
+              "commit": null,
+              "branch": null,
+              "timestamp": "2026-10-17T04:20:09.329398-07:00",
+              "runner": null,
+              "os": null,
+              "sequence": null,
+              "metadata_source": "report"
+            }
+          ],
+          "groups": []
+        },
+        "tests": [
+          {
+            "test": "Capture.Example.Data",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 0,
+              "fail": 1,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 1.0,
+              "wilson_low": 0.2065,
+              "wilson_high": 1.0
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": {
+              "state": "ongoing",
+              "failures": 1,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 1,
+              "recovered_runs": 0,
+              "events": 1,
+              "runs_since_last_failure": 0,
+              "runs_since_first_failure": 1,
+              "longest_gap": null,
+              "silence_ratio": null
+            },
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": "report",
+            "history_runs_since_first_failure": 1,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 1
+            },
+            "failures": [
+              {
+                "run_id": "report",
+                "index": 0,
+                "timestamp": "2026-10-17T11:20:09.329398+00:00",
+                "commit": null,
+                "status": "fail",
+                "message": "Controlled nested row failure",
+                "failed_within": [],
+                "same_commit": "unknown",
+                "same_commit_other_runs": 0,
+                "other_tests_failed": 0
+              }
+            ],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [
+              {
+                "message": "Controlled nested row failure",
+                "count": 1
+              }
+            ],
+            "first_seen": "2026-10-17T11:20:09.329398+00:00",
+            "last_seen": "2026-10-17T11:20:09.329398+00:00",
+            "last_status": "fail",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Ordinary",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.329398+00:00",
+            "last_seen": "2026-10-17T11:20:09.329398+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Skipped",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 0,
+              "pass": 0,
+              "fail": 0,
+              "skip": 1,
+              "unknown": 0
+            },
+            "failure_rate": null,
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.329398+00:00",
+            "last_seen": "2026-10-17T11:20:09.329398+00:00",
+            "last_status": "skip",
+            "temporal_available": true
+          }
+        ]
+      }
+    },
+    {
+      "case": "failed-parent-passing-rows",
+      "sourceSha256": "b3f014cd91bcef4fb0207e88e57ac9c410570ef8b0c73d843e305abab2361f17",
+      "nativeSummary": "Failed",
+      "nativeCounters": {
+        "total": "5",
+        "executed": "4",
+        "passed": "3",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "exitCode": 0,
+      "matches": true,
+      "expected": {
+        "parent": "fail",
+        "complete": true,
+        "tests": 3
+      },
+      "analysis": {
+        "schema_version": 3,
+        "summary": {
+          "input_complete": true,
+          "ordering": {
+            "available": true,
+            "basis": "single_run",
+            "reason": null
+          },
+          "total_runs": 1,
+          "run_id_range": [
+            "report",
+            "report"
+          ],
+          "timestamp_range": [
+            "2026-10-17T11:20:09.337876+00:00",
+            "2026-10-17T11:20:09.337876+00:00"
+          ],
+          "total_tests": 3,
+          "cofailure_groups": 0,
+          "cofailure_tests": 0,
+          "recovered_test_runs": 0,
+          "exhausted_test_runs": 0,
+          "excluded_test_runs": 0,
+          "flaky": 0,
+          "flaky_new": 0,
+          "flaky_quiet": 0,
+          "broken": 0,
+          "healthy": 0,
+          "insufficient_data": 3
+        },
+        "warnings": [],
+        "cofailure": {
+          "method": "exact_outcome_history",
+          "ambiguous_tests_excluded": [],
+          "runs": [
+            {
+              "run_id": "report",
+              "commit": null,
+              "branch": null,
+              "timestamp": "2026-10-17T04:20:09.337876-07:00",
+              "runner": null,
+              "os": null,
+              "sequence": null,
+              "metadata_source": "report"
+            }
+          ],
+          "groups": []
+        },
+        "tests": [
+          {
+            "test": "Capture.Example.Ordinary",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.337876+00:00",
+            "last_seen": "2026-10-17T11:20:09.337876+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Skipped",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 0,
+              "pass": 0,
+              "fail": 0,
+              "skip": 1,
+              "unknown": 0
+            },
+            "failure_rate": null,
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.337876+00:00",
+            "last_seen": "2026-10-17T11:20:09.337876+00:00",
+            "last_status": "skip",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Data",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 0,
+              "fail": 1,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 1.0,
+              "wilson_low": 0.2065,
+              "wilson_high": 1.0
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": {
+              "state": "ongoing",
+              "failures": 1,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 1,
+              "recovered_runs": 0,
+              "events": 1,
+              "runs_since_last_failure": 0,
+              "runs_since_first_failure": 1,
+              "longest_gap": null,
+              "silence_ratio": null
+            },
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": "report",
+            "history_runs_since_first_failure": 1,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 1
+            },
+            "failures": [
+              {
+                "run_id": "report",
+                "index": 0,
+                "timestamp": "2026-10-17T11:20:09.337876+00:00",
+                "commit": null,
+                "status": "fail",
+                "message": "Controlled nested row failure",
+                "failed_within": [],
+                "same_commit": "unknown",
+                "same_commit_other_runs": 0,
+                "other_tests_failed": 0
+              }
+            ],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [
+              {
+                "message": "Controlled nested row failure",
+                "count": 1
+              }
+            ],
+            "first_seen": "2026-10-17T11:20:09.337876+00:00",
+            "last_seen": "2026-10-17T11:20:09.337876+00:00",
+            "last_status": "fail",
+            "temporal_available": true
+          }
+        ]
+      }
+    },
+    {
+      "case": "passed-parent-passing-rows",
+      "sourceSha256": "17cf0a68f0882e3b77d976dc43ff80d457c65e36aef0b236f061771c83b75883",
+      "nativeSummary": "Completed",
+      "nativeCounters": {
+        "total": "5",
+        "executed": "4",
+        "passed": "4",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "exitCode": 0,
+      "matches": true,
+      "expected": {
+        "parent": "pass",
+        "complete": true,
+        "tests": 3
+      },
+      "analysis": {
+        "schema_version": 3,
+        "summary": {
+          "input_complete": true,
+          "ordering": {
+            "available": true,
+            "basis": "single_run",
+            "reason": null
+          },
+          "total_runs": 1,
+          "run_id_range": [
+            "report",
+            "report"
+          ],
+          "timestamp_range": [
+            "2026-10-17T11:20:09.331342+00:00",
+            "2026-10-17T11:20:09.331342+00:00"
+          ],
+          "total_tests": 3,
+          "cofailure_groups": 0,
+          "cofailure_tests": 0,
+          "recovered_test_runs": 0,
+          "exhausted_test_runs": 0,
+          "excluded_test_runs": 0,
+          "flaky": 0,
+          "flaky_new": 0,
+          "flaky_quiet": 0,
+          "broken": 0,
+          "healthy": 0,
+          "insufficient_data": 3
+        },
+        "warnings": [],
+        "cofailure": {
+          "method": "exact_outcome_history",
+          "ambiguous_tests_excluded": [],
+          "runs": [
+            {
+              "run_id": "report",
+              "commit": null,
+              "branch": null,
+              "timestamp": "2026-10-17T04:20:09.331342-07:00",
+              "runner": null,
+              "os": null,
+              "sequence": null,
+              "metadata_source": "report"
+            }
+          ],
+          "groups": []
+        },
+        "tests": [
+          {
+            "test": "Capture.Example.Data",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.331342+00:00",
+            "last_seen": "2026-10-17T11:20:09.331342+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Ordinary",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.331342+00:00",
+            "last_seen": "2026-10-17T11:20:09.331342+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Skipped",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 0,
+              "pass": 0,
+              "fail": 0,
+              "skip": 1,
+              "unknown": 0
+            },
+            "failure_rate": null,
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.331342+00:00",
+            "last_seen": "2026-10-17T11:20:09.331342+00:00",
+            "last_status": "skip",
+            "temporal_available": true
+          }
+        ]
+      }
+    },
+    {
+      "case": "passed-parent-skipped-row",
+      "sourceSha256": "ddad9567b66108d3d4ca288b2f2c7b561e4cd949e75ab7ea2f468d877826c709",
+      "nativeSummary": "Completed",
+      "nativeCounters": {
+        "total": "5",
+        "executed": "3",
+        "passed": "3",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "exitCode": 0,
+      "matches": true,
+      "expected": {
+        "parent": "pass",
+        "complete": true,
+        "tests": 3
+      },
+      "analysis": {
+        "schema_version": 3,
+        "summary": {
+          "input_complete": true,
+          "ordering": {
+            "available": true,
+            "basis": "single_run",
+            "reason": null
+          },
+          "total_runs": 1,
+          "run_id_range": [
+            "report",
+            "report"
+          ],
+          "timestamp_range": [
+            "2026-10-17T11:20:09.333007+00:00",
+            "2026-10-17T11:20:09.333007+00:00"
+          ],
+          "total_tests": 3,
+          "cofailure_groups": 0,
+          "cofailure_tests": 0,
+          "recovered_test_runs": 0,
+          "exhausted_test_runs": 0,
+          "excluded_test_runs": 0,
+          "flaky": 0,
+          "flaky_new": 0,
+          "flaky_quiet": 0,
+          "broken": 0,
+          "healthy": 0,
+          "insufficient_data": 3
+        },
+        "warnings": [],
+        "cofailure": {
+          "method": "exact_outcome_history",
+          "ambiguous_tests_excluded": [],
+          "runs": [
+            {
+              "run_id": "report",
+              "commit": null,
+              "branch": null,
+              "timestamp": "2026-10-17T04:20:09.333007-07:00",
+              "runner": null,
+              "os": null,
+              "sequence": null,
+              "metadata_source": "report"
+            }
+          ],
+          "groups": []
+        },
+        "tests": [
+          {
+            "test": "Capture.Example.Ordinary",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.333007+00:00",
+            "last_seen": "2026-10-17T11:20:09.333007+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Skipped",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 0,
+              "pass": 0,
+              "fail": 0,
+              "skip": 1,
+              "unknown": 0
+            },
+            "failure_rate": null,
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.333007+00:00",
+            "last_seen": "2026-10-17T11:20:09.333007+00:00",
+            "last_status": "skip",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Data",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.333007+00:00",
+            "last_seen": "2026-10-17T11:20:09.333007+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          }
+        ]
+      }
+    },
+    {
+      "case": "grandchild-events-top-level",
+      "sourceSha256": "1b9472838ee3c816895bdd4f6e7919c883bf5320a7f1753b45737b99f2227c2b",
+      "nativeSummary": "Failed",
+      "nativeCounters": {
+        "total": "6",
+        "executed": "5",
+        "passed": "4",
+        "failed": "1",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "exitCode": 0,
+      "matches": true,
+      "expected": {
+        "parent": "pass",
+        "complete": true,
+        "tests": 5
+      },
+      "analysis": {
+        "schema_version": 3,
+        "summary": {
+          "input_complete": true,
+          "ordering": {
+            "available": true,
+            "basis": "single_run",
+            "reason": null
+          },
+          "total_runs": 1,
+          "run_id_range": [
+            "report",
+            "report"
+          ],
+          "timestamp_range": [
+            "2026-10-17T11:20:09.336200+00:00",
+            "2026-10-17T11:20:09.336200+00:00"
+          ],
+          "total_tests": 5,
+          "cofailure_groups": 0,
+          "cofailure_tests": 0,
+          "recovered_test_runs": 0,
+          "exhausted_test_runs": 0,
+          "excluded_test_runs": 0,
+          "flaky": 0,
+          "flaky_new": 0,
+          "flaky_quiet": 0,
+          "broken": 0,
+          "healthy": 0,
+          "insufficient_data": 5
+        },
+        "warnings": [],
+        "cofailure": {
+          "method": "exact_outcome_history",
+          "ambiguous_tests_excluded": [],
+          "runs": [
+            {
+              "run_id": "report",
+              "commit": null,
+              "branch": null,
+              "timestamp": "2026-10-17T04:20:09.336200-07:00",
+              "runner": null,
+              "os": null,
+              "sequence": null,
+              "metadata_source": "report"
+            }
+          ],
+          "groups": []
+        },
+        "tests": [
+          {
+            "test": "Capture.Example.Skipped",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 0,
+              "pass": 0,
+              "fail": 0,
+              "skip": 1,
+              "unknown": 0
+            },
+            "failure_rate": null,
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_status": "skip",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Data",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Ordinary",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Data (failing leaf)",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 0,
+              "fail": 1,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 1.0,
+              "wilson_low": 0.2065,
+              "wilson_high": 1.0
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": {
+              "state": "ongoing",
+              "failures": 1,
+              "basis": "runs_with_observed_failures",
+              "run_axis": "usable_test_executions",
+              "final_failure_runs": 1,
+              "recovered_runs": 0,
+              "events": 1,
+              "runs_since_last_failure": 0,
+              "runs_since_first_failure": 1,
+              "longest_gap": null,
+              "silence_ratio": null
+            },
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": "report",
+            "history_runs_since_first_failure": 1,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 1
+            },
+            "failures": [
+              {
+                "run_id": "report",
+                "index": 0,
+                "timestamp": "2026-10-17T11:20:09.336200+00:00",
+                "commit": null,
+                "status": "fail",
+                "message": "Controlled nested row failure",
+                "failed_within": [],
+                "same_commit": "unknown",
+                "same_commit_other_runs": 0,
+                "other_tests_failed": 0
+              }
+            ],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [
+              {
+                "message": "Controlled nested row failure",
+                "count": 1
+              }
+            ],
+            "first_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_status": "fail",
+            "temporal_available": true
+          },
+          {
+            "test": "Capture.Example.Data (passing leaf)",
+            "suite": "Capture",
+            "classification": "insufficient_data",
+            "flakiness_score": 0.0,
+            "runs": {
+              "total": 1,
+              "pass": 1,
+              "fail": 0,
+              "skip": 0,
+              "unknown": 0
+            },
+            "failure_rate": {
+              "point": 0.0,
+              "wilson_low": 0.0,
+              "wilson_high": 0.7935
+            },
+            "flip_rate": null,
+            "flip_pairs": 0,
+            "rerun_signal": {
+              "value": 0.0,
+              "groups_with_reruns": 0,
+              "groups_with_flip": 0
+            },
+            "retries": {
+              "recovered_runs": 0,
+              "exhausted_runs": 0,
+              "observed_failed_attempts": 0,
+              "evidence": []
+            },
+            "excluded": [],
+            "activity": null,
+            "activity_unavailable_reason": null,
+            "first_failure_run_id": null,
+            "history_runs_since_first_failure": null,
+            "same_commit": {
+              "failures_passed_elsewhere": 0,
+              "failures_failed_everywhere": 0,
+              "failures_without_another_run": 0
+            },
+            "failures": [],
+            "named_failures": [],
+            "change_point": null,
+            "duration": {
+              "observations": 0,
+              "trend_axis": "supplied_history_run_index",
+              "trend_seconds_per_run": null,
+              "failure_correlation": null
+            },
+            "runner_rates": [],
+            "os_rates": [],
+            "top_failure_messages": [],
+            "first_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_seen": "2026-10-17T11:20:09.336200+00:00",
+            "last_status": "pass",
+            "temporal_available": true
+          }
+        ]
+      }
+    }
+  ]
+}

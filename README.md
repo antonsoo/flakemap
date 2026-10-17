@@ -38,6 +38,11 @@ This correction preserves observed test outcomes; source publication is separate
 from a PyPI release.
 The same protection now covers [TRX primary counters](studies/trx-counters/README.md),
 including nested data rows, while preserving VSTest's skipped-test convention.
+Counter agreement alone does not establish a consistent hierarchy: the actual
+VSTest logger can emit a passed parent containing a failed row. The source
+checkout now retains that child evidence, excludes the contradictory parent as
+unknown and exits 2 with `--fail-on-incomplete`.
+[Native logger controls and scope](studies/trx-hierarchy/README.md).
 
 <p align="center"><img src="docs/assets/hero-heatmap.png" width="820" alt="flakemap HTML report: an inspection-report-styled page with a test x run heatmap. 222 runs, 12 tests, 1 broken (red DEFECT stamp) and 3 flaky (amber INTERMITTENT stamps) rows shown above 8 healthy rows, each row a strip of small green/red cells for pass/fail across chronological runs, with a failure rate percentage on the right"></p>
 

@@ -4,6 +4,22 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### TRX parent/child evidence
+
+- Retain nested native results without making them extra trials or retries.
+  A passed/skipped parent containing a recorded failure now becomes unknown;
+  `--fail-on-incomplete` exits 2 even when primary counters reconcile. Keep
+  already-failed parents and unsupported parent outcomes distinct.
+- Include the reported parent outcome and child paths, names, outcomes,
+  durations and messages in record evidence. HTML identifies the reported
+  outcome separately from its normalized eligibility. Keep the parser's
+  source-specific warning once instead of repeating it during analysis.
+- Retain seven actual VSTest logger controls, independent XML checks, unchanged
+  counter-study results, before/after standalone reports and a labelled authored
+  large-hierarchy measurement in `studies/trx-hierarchy`. The controls use public
+  events, not a test adapter or production CI. Source changes remain separate
+  from the registry release.
+
 ### New-flake gate windows
 
 - Count every supplied history run in the trailing new-flake window, including

@@ -1,0 +1,1091 @@
+{
+  "cases": 21,
+  "allCapturedInputCountsGatesAndTestStatisticsIdentical": true,
+  "observations": [
+    {
+      "case": "dotnet-run-01",
+      "source": "examples/trx_history/run-01.trx",
+      "source_sha256": "58f561c5d774bfe213b1d5837935a51455947978d77a52c208b0499e66f3eb4e",
+      "input_sha256": "58f561c5d774bfe213b1d5837935a51455947978d77a52c208b0499e66f3eb4e",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:02.575012+00:00",
+          "2026-10-01T03:46:02.575012+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "de9e58a8300cb9637e96fbf4452df42435e06f8a1242b4d4e226bf3f918d6515"
+    },
+    {
+      "case": "dotnet-run-02",
+      "source": "examples/trx_history/run-02.trx",
+      "source_sha256": "1d8deb36e01bd8f491f92a90b8d8e2feb631703b7bcfda4dcbc11684fe964b1e",
+      "input_sha256": "1d8deb36e01bd8f491f92a90b8d8e2feb631703b7bcfda4dcbc11684fe964b1e",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:03.793831+00:00",
+          "2026-10-01T03:46:03.793831+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "00136687a2acf67a1e7cc8061df8e20301777575040b03177a422c3e04f91f35"
+    },
+    {
+      "case": "dotnet-run-03",
+      "source": "examples/trx_history/run-03.trx",
+      "source_sha256": "6e7b815fc16ddc4e0c08672d85c311ae5c1cf43847f1457a1f12e7d273620edd",
+      "input_sha256": "6e7b815fc16ddc4e0c08672d85c311ae5c1cf43847f1457a1f12e7d273620edd",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:04.921287+00:00",
+          "2026-10-01T03:46:04.921287+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "53931f046c4663a2c3b6d8309cabeccadddcc2d3e0894378560efb8a129fc573"
+    },
+    {
+      "case": "dotnet-run-04",
+      "source": "examples/trx_history/run-04.trx",
+      "source_sha256": "45ba3235eb43e40460735a936de215fcea2446dcdd864e8ed382c07704cf1de7",
+      "input_sha256": "45ba3235eb43e40460735a936de215fcea2446dcdd864e8ed382c07704cf1de7",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:06.043661+00:00",
+          "2026-10-01T03:46:06.043661+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "6942a67b852bcc0d1d759cc66443de8219581aabde1826c4ec9b15afb603d257"
+    },
+    {
+      "case": "dotnet-run-05",
+      "source": "examples/trx_history/run-05.trx",
+      "source_sha256": "5431e5dd57217c33faa3f5f839f604121b55749cfb50b6b498d467d0523cc4b0",
+      "input_sha256": "5431e5dd57217c33faa3f5f839f604121b55749cfb50b6b498d467d0523cc4b0",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:07.168319+00:00",
+          "2026-10-01T03:46:07.168319+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "2564caba1b6a6b1720297313bc2f2edefc166ea3044732f3bf94b08065f6e27f"
+    },
+    {
+      "case": "dotnet-run-06",
+      "source": "examples/trx_history/run-06.trx",
+      "source_sha256": "03e2af04e935f0e2eb1a5b102c3d9420afc6fe41a330f5ec86574790d5c7589b",
+      "input_sha256": "03e2af04e935f0e2eb1a5b102c3d9420afc6fe41a330f5ec86574790d5c7589b",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:08.284484+00:00",
+          "2026-10-01T03:46:08.284484+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "09f212fad4e0a0c3ee267e005bcb69f8a0f8830b1675ecf46bf479e3f9574cb2"
+    },
+    {
+      "case": "dotnet-run-07",
+      "source": "examples/trx_history/run-07.trx",
+      "source_sha256": "2e2194f4af21cb279c5fedc7195e2063cff0d653396b16713f8586d2c677120a",
+      "input_sha256": "2e2194f4af21cb279c5fedc7195e2063cff0d653396b16713f8586d2c677120a",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:09.350007+00:00",
+          "2026-10-01T03:46:09.350007+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "04f3acdb2bc48c8051eb8852e9c8bc44dfd241c930c0215ca295c9bc04b63189"
+    },
+    {
+      "case": "dotnet-run-08",
+      "source": "examples/trx_history/run-08.trx",
+      "source_sha256": "0ad9142766d89c99fe1f73529fab0e38229883504291a478d8411173301cb264",
+      "input_sha256": "0ad9142766d89c99fe1f73529fab0e38229883504291a478d8411173301cb264",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:10.408692+00:00",
+          "2026-10-01T03:46:10.408692+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "8d6fb98a74922603545a119f50a6ed27541ef4add7faed78246cb4ee86536ea7"
+    },
+    {
+      "case": "dotnet-run-09",
+      "source": "examples/trx_history/run-09.trx",
+      "source_sha256": "71d6c50530e95379f3e4e6b241b4c35da93482207196885299b506b1f4255f9b",
+      "input_sha256": "71d6c50530e95379f3e4e6b241b4c35da93482207196885299b506b1f4255f9b",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:11.524968+00:00",
+          "2026-10-01T03:46:11.524968+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 1,
+        "cofailure_tests": 2,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "d62391d9a511811c9d0a2a04f5b06da51e135f0cb961c212019822a00f0234ad"
+    },
+    {
+      "case": "dotnet-run-10",
+      "source": "examples/trx_history/run-10.trx",
+      "source_sha256": "2da74abc550673bc98bb0d60d6470cae8e17a30c4a3802ca5a74807ac2fe7c9f",
+      "input_sha256": "2da74abc550673bc98bb0d60d6470cae8e17a30c4a3802ca5a74807ac2fe7c9f",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:12.588398+00:00",
+          "2026-10-01T03:46:12.588398+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "06c3280c60f9fdc8d90f6fbf241534a55991694ba4eb3450f5eee3ee1bb8c851"
+    },
+    {
+      "case": "dotnet-run-11",
+      "source": "examples/trx_history/run-11.trx",
+      "source_sha256": "0f20f5dd7f5510bee9651ecc861d66ac624a250ad88ca028447b9e9dbd9ff4be",
+      "input_sha256": "0f20f5dd7f5510bee9651ecc861d66ac624a250ad88ca028447b9e9dbd9ff4be",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:13.691106+00:00",
+          "2026-10-01T03:46:13.691106+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "8ab2cc0abae40293f75182fbcc022ee39752cdf80b9aa0ec03edb2770ae78571"
+    },
+    {
+      "case": "dotnet-run-12",
+      "source": "examples/trx_history/run-12.trx",
+      "source_sha256": "0f515c6eeea95058932e83431c09355810a69639aa71f01cc4fc8beb64302506",
+      "input_sha256": "0f515c6eeea95058932e83431c09355810a69639aa71f01cc4fc8beb64302506",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:14.775940+00:00",
+          "2026-10-01T03:46:14.775940+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "260bab8011142cc01316c41b00a813d673f2e8390148844a339e672fa4ab8b24"
+    },
+    {
+      "case": "removed-failed-result",
+      "source": "examples/trx_history/run-02.trx",
+      "source_sha256": "1d8deb36e01bd8f491f92a90b8d8e2feb631703b7bcfda4dcbc11684fe964b1e",
+      "input_sha256": "6e5f2f406a83d1af796ced1fa9616ed96ff92b4c5fab4cbf7fc5a04a855b2b34",
+      "transformed": true,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 2,
+      "expected_complete": false,
+      "input_complete": false,
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:03.793831+00:00",
+          "2026-10-01T03:46:03.793831+00:00"
+        ],
+        "total_tests": 5,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 5
+      },
+      "warnings": [
+        "run report: report.trx: TRX summary counters do not reconcile: declares total=6, executed=5, passed=4, failed=1; retained all result records (total=5, executed=4, passed=4, failed=0). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ],
+      "test_outcomes_sha256": "8edd9627e8c3e0ee26c46e048385b1e3cb04956e84593a14573709dd49620516"
+    },
+    {
+      "case": "rewritten-failed-outcome",
+      "source": "examples/trx_history/run-02.trx",
+      "source_sha256": "1d8deb36e01bd8f491f92a90b8d8e2feb631703b7bcfda4dcbc11684fe964b1e",
+      "input_sha256": "fd63648981cbce4b6d535afe0c843e7296868a1ea4f81a042a22e031e6b85ba5",
+      "transformed": true,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 2,
+      "expected_complete": false,
+      "input_complete": false,
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:03.793831+00:00",
+          "2026-10-01T03:46:03.793831+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [
+        "run report: report.trx: TRX summary counters do not reconcile: declares total=6, executed=5, passed=4, failed=1; retained all result records (total=6, executed=5, passed=5, failed=0). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ],
+      "test_outcomes_sha256": "cd405f6aeb79a444573155afe469f27466b14300e1bf31fff1ea705feeb45c22"
+    },
+    {
+      "case": "removed-skipped-result",
+      "source": "examples/trx_history/run-02.trx",
+      "source_sha256": "1d8deb36e01bd8f491f92a90b8d8e2feb631703b7bcfda4dcbc11684fe964b1e",
+      "input_sha256": "be1e355f08452f7c7af26354157f72009abc0525c1259ef397e45bc62dcefb5a",
+      "transformed": true,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 2,
+      "expected_complete": false,
+      "input_complete": false,
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:03.793831+00:00",
+          "2026-10-01T03:46:03.793831+00:00"
+        ],
+        "total_tests": 5,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 5
+      },
+      "warnings": [
+        "run report: report.trx: TRX summary counters do not reconcile: declares total=6, executed=5, passed=4, failed=1; retained all result records (total=5, executed=5, passed=4, failed=1). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ],
+      "test_outcomes_sha256": "77f763d97af1f219efb813d1675bde336684389a5d3f90b6f964101d643b6d5f"
+    },
+    {
+      "case": "invalid-total",
+      "source": "examples/trx_history/run-02.trx",
+      "source_sha256": "1d8deb36e01bd8f491f92a90b8d8e2feb631703b7bcfda4dcbc11684fe964b1e",
+      "input_sha256": "5b439a64a04a8cec9c909ab9765ff08bf8c4fde9a9f292331d9d2c0eadb3470d",
+      "transformed": true,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 2,
+      "expected_complete": false,
+      "input_complete": false,
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:03.793831+00:00",
+          "2026-10-01T03:46:03.793831+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [
+        "run report: report.trx: TRX summary counter total='-6' is not a supported nonnegative integer; individual coverage is unverified"
+      ],
+      "test_outcomes_sha256": "00136687a2acf67a1e7cc8061df8e20301777575040b03177a422c3e04f91f35"
+    },
+    {
+      "case": "ambiguous-summary",
+      "source": "examples/trx_history/run-02.trx",
+      "source_sha256": "1d8deb36e01bd8f491f92a90b8d8e2feb631703b7bcfda4dcbc11684fe964b1e",
+      "input_sha256": "60132c6a8324a5c8223d5395aac8fedac1c50a5b81fb20b00a54f1f752b92d6b",
+      "transformed": true,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 2,
+      "expected_complete": false,
+      "input_complete": false,
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-01T03:46:03.793831+00:00",
+          "2026-10-01T03:46:03.793831+00:00"
+        ],
+        "total_tests": 6,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 6
+      },
+      "warnings": [
+        "run report: report.trx: multiple TRX ResultSummary containers; summary counter coverage is ambiguous"
+      ],
+      "test_outcomes_sha256": "00136687a2acf67a1e7cc8061df8e20301777575040b03177a422c3e04f91f35"
+    },
+    {
+      "case": "logger-nested-original",
+      "source": "examples/trx_counters_project/captures/nested.trx",
+      "source_sha256": "c5d503d319fbd7390871b5eb4f2bfa6bdd22e760188dad309a975badc49f4a15",
+      "input_sha256": "c5d503d319fbd7390871b5eb4f2bfa6bdd22e760188dad309a975badc49f4a15",
+      "transformed": false,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-10T19:02:24.127317+00:00",
+          "2026-10-10T19:02:24.127317+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "d6c8df4fd41e3de4a897848aff722aec13006d1b8fc1d94923f78cc3c90242f3"
+    },
+    {
+      "case": "nested-removed-failed-row",
+      "source": "examples/trx_counters_project/captures/nested.trx",
+      "source_sha256": "c5d503d319fbd7390871b5eb4f2bfa6bdd22e760188dad309a975badc49f4a15",
+      "input_sha256": "50497779fe8bfcf80f6941972bc0d67e4611614405ee72db4d43c7cecb07750b",
+      "transformed": true,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 2,
+      "expected_complete": false,
+      "input_complete": false,
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-10T19:02:24.127317+00:00",
+          "2026-10-10T19:02:24.127317+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [
+        "run report: report.trx: TRX summary counters do not reconcile: declares total=5, executed=4, passed=2, failed=2; retained all result records (total=4, executed=3, passed=2, failed=1) or excluding data-driven parents (total=3, executed=2, passed=2, failed=0). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ],
+      "test_outcomes_sha256": "d6c8df4fd41e3de4a897848aff722aec13006d1b8fc1d94923f78cc3c90242f3"
+    },
+    {
+      "case": "nested-newer-count-convention",
+      "source": "examples/trx_counters_project/captures/nested.trx",
+      "source_sha256": "c5d503d319fbd7390871b5eb4f2bfa6bdd22e760188dad309a975badc49f4a15",
+      "input_sha256": "8e1ccc3289d18c7d5e3a1eeea9674086797d21d64d08e690c7b1aaf4a89b9ce2",
+      "transformed": true,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 0,
+      "expected_complete": true,
+      "input_complete": true,
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-10T19:02:24.127317+00:00",
+          "2026-10-10T19:02:24.127317+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [],
+      "test_outcomes_sha256": "d6c8df4fd41e3de4a897848aff722aec13006d1b8fc1d94923f78cc3c90242f3"
+    },
+    {
+      "case": "nested-mixed-count-conventions",
+      "source": "examples/trx_counters_project/captures/nested.trx",
+      "source_sha256": "c5d503d319fbd7390871b5eb4f2bfa6bdd22e760188dad309a975badc49f4a15",
+      "input_sha256": "474bd7d5b0cb078ec05d7dabfde14eb6ceb1d9d9aeee5fac7f185d792f204609",
+      "transformed": true,
+      "command": [
+        "python",
+        "-m",
+        "flakemap",
+        ".",
+        "--json",
+        "--fail-on-incomplete",
+        "--html",
+        "report.html"
+      ],
+      "exit": 2,
+      "expected_complete": false,
+      "input_complete": false,
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "report",
+          "report"
+        ],
+        "timestamp_range": [
+          "2026-10-10T19:02:24.127317+00:00",
+          "2026-10-10T19:02:24.127317+00:00"
+        ],
+        "total_tests": 3,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 3
+      },
+      "warnings": [
+        "run report: report.trx: TRX summary counters do not reconcile: declares total=5, executed=4, passed=2, failed=1; retained all result records (total=5, executed=4, passed=2, failed=2) or excluding data-driven parents (total=4, executed=3, passed=2, failed=1). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged."
+      ],
+      "test_outcomes_sha256": "d6c8df4fd41e3de4a897848aff722aec13006d1b8fc1d94923f78cc3c90242f3"
+    }
+  ]
+}

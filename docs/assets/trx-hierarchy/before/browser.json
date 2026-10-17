@@ -1,0 +1,1069 @@
+{
+  "scope": "Actual CLI-generated standalone HTML files, offline in both engines; keyboard disclosure, JSON/DOM agreement, native evidence labels and accessibility.",
+  "views": [
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "passed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "skipped-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "failed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "failed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "passed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "passed-parent-skipped-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "light",
+      "case": "grandchild-events-top-level",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "dark",
+      "case": "passed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "dark",
+      "case": "skipped-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "dark",
+      "case": "failed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "dark",
+      "case": "failed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "dark",
+      "case": "passed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "dark",
+      "case": "passed-parent-skipped-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 1200,
+      "theme": "dark",
+      "case": "grandchild-events-top-level",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "case": "passed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "case": "skipped-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "case": "failed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "case": "failed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "case": "passed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "case": "passed-parent-skipped-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "light",
+      "case": "grandchild-events-top-level",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "passed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "skipped-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "failed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "failed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "passed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "passed-parent-skipped-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "chromium",
+      "width": 375,
+      "theme": "dark",
+      "case": "grandchild-events-top-level",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "passed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "skipped-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "failed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "failed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "passed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "passed-parent-skipped-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "light",
+      "case": "grandchild-events-top-level",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "dark",
+      "case": "passed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "dark",
+      "case": "skipped-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "dark",
+      "case": "failed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "dark",
+      "case": "failed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "dark",
+      "case": "passed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "dark",
+      "case": "passed-parent-skipped-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 1200,
+      "theme": "dark",
+      "case": "grandchild-events-top-level",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "light",
+      "case": "passed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "light",
+      "case": "skipped-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "light",
+      "case": "failed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "light",
+      "case": "failed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "light",
+      "case": "passed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "light",
+      "case": "passed-parent-skipped-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "light",
+      "case": "grandchild-events-top-level",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "passed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "skipped-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "failed-parent-failed-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "failed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "passed-parent-passing-rows",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "passed-parent-skipped-row",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    },
+    {
+      "engine": "firefox",
+      "width": 375,
+      "theme": "dark",
+      "case": "grandchild-events-top-level",
+      "inputComplete": true,
+      "parent": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "noOverflow": true,
+      "axeViolations": [],
+      "pageErrors": [],
+      "networkRequests": [],
+      "cspViolations": []
+    }
+  ]
+}

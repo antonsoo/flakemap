@@ -1,0 +1,257 @@
+{
+  "schema_version": 3,
+  "summary": {
+    "input_complete": false,
+    "ordering": {
+      "available": true,
+      "basis": "single_run",
+      "reason": null
+    },
+    "total_runs": 1,
+    "run_id_range": [
+      "combined",
+      "combined"
+    ],
+    "timestamp_range": [
+      "2026-10-17T23:13:23.694767+00:00",
+      "2026-10-17T23:13:23.694767+00:00"
+    ],
+    "total_tests": 3,
+    "cofailure_groups": 0,
+    "cofailure_tests": 0,
+    "recovered_test_runs": 0,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 1,
+    "flaky": 0,
+    "flaky_new": 0,
+    "flaky_quiet": 0,
+    "broken": 0,
+    "healthy": 0,
+    "insufficient_data": 3
+  },
+  "warnings": [
+    "run combined, NativePairs.Pair<Int32.Check: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates"
+  ],
+  "cofailure": {
+    "method": "exact_outcome_history",
+    "ambiguous_tests_excluded": [
+      "NativePairs.Pair<Int32.Check"
+    ],
+    "runs": [
+      {
+        "run_id": "combined",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:23.694767-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      }
+    ],
+    "groups": []
+  },
+  "tests": [
+    {
+      "test": "NativePairs.Pair<Int32.Check",
+      "suite": "NativePairs",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 1
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [
+        {
+          "run_id": "combined",
+          "commit": null,
+          "reason": "2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
+          "records": [
+            {
+              "name": "Check",
+              "classname": "NativePairs.Pair<Int32",
+              "source": {
+                "report": "combined.trx",
+                "testcase": 1
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.000172,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "Check",
+              "classname": "NativePairs.Pair<Int32",
+              "source": {
+                "report": "combined.trx",
+                "testcase": 2
+              },
+              "status": "fail",
+              "message": "Controlled second type argument: String passes; Double fails.",
+              "reported_duration_seconds": 0.039724,
+              "issue": null,
+              "retry": null
+            }
+          ]
+        }
+      ],
+      "activity": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-17T23:13:23.694767+00:00",
+      "last_seen": "2026-10-17T23:13:23.694767+00:00",
+      "last_status": "unknown",
+      "temporal_available": true
+    },
+    {
+      "test": "NativePairs.Ordinary.Check",
+      "suite": "NativePairs",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-17T23:13:23.694767+00:00",
+      "last_seen": "2026-10-17T23:13:23.694767+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "NativePairs.Single<Int32>.Check",
+      "suite": "NativePairs",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-17T23:13:23.694767+00:00",
+      "last_seen": "2026-10-17T23:13:23.694767+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    }
+  ]
+}

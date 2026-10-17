@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TestRun xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010" id="966369ad-eb40-4e7f-89fc-7109e69470ed" name="Controlled NUnit generic fixture identity run-10">
+  <Times creation="2026-10-17T16:13:19.4787743-07:00" queuing="2026-10-17T16:13:19.4787744-07:00" start="2026-10-17T16:13:18.6902901-07:00" finish="2026-10-17T16:13:19.4857558-07:00" />
+  <TestSettings name="default" id="349c47d0-bb6b-442a-bb2c-06ed9ad13c6e">
+    <Deployment />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="0489cad2-3375-440a-b56f-7e20f5a3dc5d" testId="a11fd06b-85d2-0b31-9a0e-3758705c8f5b" testName="Check" duration="00:00:00.0319540" startTime="2026-10-17T16:13:19.2806080-07:00" endTime="2026-10-17T16:13:19.3125026-07:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Failed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0489cad2-3375-440a-b56f-7e20f5a3dc5d">
+      <Output>
+        <ErrorInfo>
+          <Message>  Controlled second type argument: String passes; Double fails.
+  Expected: &lt;System.String&gt;
+  But was:  &lt;System.Double&gt;
+</Message>
+          <StackTrace>   at NativePairs.Pair`2.Check() in FixtureIdentity.cs:line 10
+
+1)    at NativePairs.Pair`2.Check() in FixtureIdentity.cs:line 10
+
+</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="Check" storage="capture.dll" id="a11fd06b-85d2-0b31-9a0e-3758705c8f5b">
+      <Execution id="0489cad2-3375-440a-b56f-7e20f5a3dc5d" />
+      <TestMethod codeBase="Capture.dll" adapterTypeName="executor://nunit3testexecutor/" className="NativePairs.Pair&lt;Int32,Double&gt;" name="Check" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="a11fd06b-85d2-0b31-9a0e-3758705c8f5b" executionId="0489cad2-3375-440a-b56f-7e20f5a3dc5d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Failed">
+    <Counters total="1" executed="1" passed="0" failed="1" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>NUnit Adapter 4.6.0.0: Test execution started
+Running selected tests in bin/Debug/net8.0/Capture.dll
+   NUnit3TestExecutor discovered 1 of 1 NUnit test cases using Current Discovery mode, Non-Explicit run
+NUnit Adapter 4.6.0.0: Test execution complete
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

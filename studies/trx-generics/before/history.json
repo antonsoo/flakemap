@@ -1,0 +1,309 @@
+{
+  "schema_version": 3,
+  "summary": {
+    "input_complete": true,
+    "ordering": {
+      "available": true,
+      "basis": "timestamp",
+      "reason": null
+    },
+    "total_runs": 12,
+    "run_id_range": [
+      "run-01",
+      "run-12"
+    ],
+    "timestamp_range": [
+      "2026-10-17T23:13:02.715100+00:00",
+      "2026-10-17T23:13:22.059642+00:00"
+    ],
+    "total_tests": 1,
+    "cofailure_groups": 0,
+    "cofailure_tests": 0,
+    "recovered_test_runs": 0,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 0,
+    "flaky": 1,
+    "flaky_new": 0,
+    "flaky_quiet": 0,
+    "broken": 0,
+    "healthy": 0,
+    "insufficient_data": 0
+  },
+  "warnings": [],
+  "cofailure": {
+    "method": "exact_outcome_history",
+    "ambiguous_tests_excluded": [],
+    "runs": [
+      {
+        "run_id": "run-01",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:02.715100-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-02",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:04.329111-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-03",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:05.986600-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-04",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:07.932695-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-05",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:09.862465-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-06",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:11.596901-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-07",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:13.304556-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-08",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:14.911018-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-09",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:16.807162-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-10",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:18.690290-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-11",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:20.335015-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      },
+      {
+        "run_id": "run-12",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-17T16:13:22.059642-07:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      }
+    ],
+    "groups": []
+  },
+  "tests": [
+    {
+      "test": "NativePairs.Pair<Int32.Check",
+      "suite": "NativePairs",
+      "classification": "flaky",
+      "flakiness_score": 0.36,
+      "runs": {
+        "total": 12,
+        "pass": 6,
+        "fail": 6,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.5,
+        "wilson_low": 0.2538,
+        "wilson_high": 0.7462
+      },
+      "flip_rate": 1.0,
+      "flip_pairs": 11,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 6,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 6,
+        "recovered_runs": 0,
+        "events": 6,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 11,
+        "longest_gap": 1,
+        "silence_ratio": 0.0
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "run-02",
+      "history_runs_since_first_failure": 11,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 6
+      },
+      "failures": [
+        {
+          "run_id": "run-02",
+          "index": 1,
+          "timestamp": "2026-10-17T23:13:04.329111+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Controlled second type argument: String passes; Double fails.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        },
+        {
+          "run_id": "run-04",
+          "index": 3,
+          "timestamp": "2026-10-17T23:13:07.932695+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Controlled second type argument: String passes; Double fails.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        },
+        {
+          "run_id": "run-06",
+          "index": 5,
+          "timestamp": "2026-10-17T23:13:11.596901+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Controlled second type argument: String passes; Double fails.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        },
+        {
+          "run_id": "run-08",
+          "index": 7,
+          "timestamp": "2026-10-17T23:13:14.911018+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Controlled second type argument: String passes; Double fails.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        },
+        {
+          "run_id": "run-10",
+          "index": 9,
+          "timestamp": "2026-10-17T23:13:18.690290+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Controlled second type argument: String passes; Double fails.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        },
+        {
+          "run_id": "run-12",
+          "index": 11,
+          "timestamp": "2026-10-17T23:13:22.059642+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Controlled second type argument: String passes; Double fails.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 12,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": 0.000198,
+        "failure_correlation": 0.982
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "Controlled second type argument: String passes; Double fails.",
+          "count": 6
+        }
+      ],
+      "first_seen": "2026-10-17T23:13:02.715100+00:00",
+      "last_seen": "2026-10-17T23:13:22.059642+00:00",
+      "last_status": "fail",
+      "temporal_available": true
+    }
+  ]
+}

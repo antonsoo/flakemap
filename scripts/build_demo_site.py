@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Build five navigable, offline examples using the CLI's own HTML renderer.
+"""Build navigable, offline examples using the CLI's own HTML renderer.
 
 All inputs are committed. Captured controlled runs and hand-authored boundary
 cases are explicitly distinguished. No data is fetched and nothing is deployed.
 Run `uv run python scripts/build_demo_site.py` to write the `site/` directory.
 
-Four are rendered here from committed reports. The fifth is a real history too
+Controlled examples are rendered here from committed reports. One real history is too
 large to commit as reports (1.2 GB of them): 2,153 builds of Kubernetes' unit-test
 job, rendered once by `flakemap --html` for `studies/kubernetes-ci` and committed
 as that page.
@@ -14,7 +14,10 @@ as that page.
 from __future__ import annotations
 
 import base64
+import hashlib
+import io
 import json
+import zipfile
 from html import escape
 from pathlib import Path
 
@@ -47,6 +50,15 @@ DEMOS = (
         "Captured Maven Surefire output from intentionally failing Java tests. "
         "Two tests passed only after failed attempts. Open their evidence to see why "
         "a green final result does not erase a failure, and why attempts are not extra runs.",
+    ),
+    (
+        "generic",
+        "Distinct generic fixtures",
+        "studies/trx-generics/native-capture/history",
+        "Twelve actual NUnit executions alternate two closed generic fixtures. "
+        "One passes all six executions; the other fails all six. Their different "
+        "second type arguments must not become one 50% flaky test. "
+        "Controlled compiled tests, not production reliability data.",
     ),
     (
         "incomplete",
@@ -133,14 +145,36 @@ def build(output: Path) -> list[dict[str, object]]:
         payload = json.dumps(to_json_dict(result), indent=2, allow_nan=False) + "\n"
         encoded = base64.b64encode(payload.encode()).decode("ascii")
         title = f"flakemap · {label}"
+        actions = (
+            f'<a href="data:application/json;base64,{encoded}" download="{slug}.json">'
+            "Download this analysis as JSON</a> · "
+            f'<a href="https://github.com/antonsoo/flakemap/tree/main/{source}">Source fixture</a>'
+        )
+        extra: dict[str, object] = {}
+        if slug == "generic":
+            # Retain native XML bytes inside an offline download; timestamps in
+            # the ZIP envelope are fixed, while each report's recorded time stays intact.
+            archive = io.BytesIO()
+            with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
+                for report in sorted((ROOT / source).glob("*.trx")):
+                    entry = zipfile.ZipInfo(report.name, (1980, 1, 1, 0, 0, 0))
+                    entry.compress_type = zipfile.ZIP_DEFLATED
+                    entry.external_attr = 0o644 << 16
+                    bundle.writestr(entry, report.read_bytes())
+            inputs = archive.getvalue()
+            (output / "generic-inputs.zip").write_bytes(inputs)
+            input_data = base64.b64encode(inputs).decode("ascii")
+            actions += (
+                f' · <a href="data:application/zip;base64,{input_data}" '
+                'download="nunit-generic-history.zip">Download native TRX inputs</a>'
+            )
+            extra["inputZipSha256"] = hashlib.sha256(inputs).hexdigest()
         context = _context(
             slug,
             label,
             description,
             links_for(slug),
-            f'<a href="data:application/json;base64,{encoded}" download="{slug}.json">'
-            "Download this analysis as JSON</a> · "
-            f'<a href="https://github.com/antonsoo/flakemap/tree/main/{source}">Source fixture</a>',
+            actions,
         )
         page = render_html(result, runs, title=title).replace(
             "</head>", _metadata(slug, title, description) + "</head>", 1
@@ -149,7 +183,7 @@ def build(output: Path) -> list[dict[str, object]]:
         (output / f"{slug}.html").write_text(page, encoding="utf-8")
         (output / f"{slug}.json").write_text(payload, encoding="utf-8")
         manifest.append(
-            {"name": slug, "source": source, "runs": len(runs), "tests": len(result.tests)}
+            {"name": slug, "source": source, "runs": len(runs), "tests": len(result.tests), **extra}
         )
         print(f"wrote {output / (slug + '.html')} from {len(runs)} runs")
 

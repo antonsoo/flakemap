@@ -151,6 +151,8 @@ def main() -> None:
         ("googletest", "examples/googletest_history", 8, 5),
         ("history", "examples/demo_project/runs", 222, 12),
         ("trx", "examples/trx_history", 12, 6),
+        ("trx-generics", "studies/trx-generics/native-capture/history", 12, 2),
+        ("trx-generics-combined", "studies/trx-generics/native-capture/combined", 1, 4),
         ("incomplete", "examples/incomplete_history", 3, 6),
         ("cofailure", "examples/cofailure_history", 12, 6),
         ("cofailure-bounds", "synthetic boundary case in scripts/browser_fixtures.py", 26, 69),

@@ -1,0 +1,62 @@
+[
+  {
+    "source": "examples/demo_project/runs",
+    "exit": 0,
+    "jsonSha256": "e69f5a5c7849f42c495ae745266afad040f824b5198572d54152f62997b8ffb6",
+    "tests": 12
+  },
+  {
+    "source": "examples/trx_history",
+    "exit": 0,
+    "jsonSha256": "0e1718e03ae65f916411d5e0261e8266514da0a0905c9103a09ae09003dc99c8",
+    "tests": 6
+  },
+  {
+    "source": "examples/cofailure_history",
+    "exit": 0,
+    "jsonSha256": "c4b6529d4411fd48f3f2b72cdc51f927cc965778aae3ab8a8e0f474d2550424a",
+    "tests": 6
+  },
+  {
+    "source": "examples/retry_history",
+    "exit": 0,
+    "jsonSha256": "2700521fb3af0fd07114fb5d658a76644f1ae53a0bca1ed7b094f898a3f61043",
+    "tests": 6
+  },
+  {
+    "source": "examples/googletest_history",
+    "exit": 0,
+    "jsonSha256": "74ebff4a3292c1fe9ab853b438134ab8d38953abbd6e059401617360312e5f8f",
+    "tests": 5
+  },
+  {
+    "source": "examples/incomplete_history",
+    "exit": 0,
+    "jsonSha256": "211c7ba791789612c35ebfb3a6bc3912e5e41c55a3cd4665f1485e6bc6416f94",
+    "tests": 6
+  },
+  {
+    "source": "examples/trx_counters_project/captures",
+    "exit": 0,
+    "jsonSha256": "2434abbaf73dc8301cdff9137f5c6114b47e4b5af836d0c07dad80f10fbf5508",
+    "tests": 3
+  },
+  {
+    "source": "examples/googletest_project/captures",
+    "exit": 0,
+    "jsonSha256": "0fadbb49d99723c8ab4f7e112f105536677c40df85059c06d3748f025235aebf",
+    "tests": 6
+  },
+  {
+    "source": "examples/junit_counters_project/captures",
+    "exit": 0,
+    "jsonSha256": "209ce4a66913d5c73d7a9399e96961b71d1214dd234d57a176c218f983ce429d",
+    "tests": 7
+  },
+  {
+    "source": "studies/trx-hierarchy/fixtures",
+    "exit": 0,
+    "jsonSha256": "ea77211a390a64bc272e85232ab3f16e5191b975fa2b7eb761eaa21eed098008",
+    "tests": 5
+  }
+]

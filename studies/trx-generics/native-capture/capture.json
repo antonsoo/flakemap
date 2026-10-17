@@ -1,0 +1,236 @@
+{
+  "sdk": "8.0.425",
+  "packages": {
+    "Microsoft.NET.Test.Sdk": "17.11.1",
+    "NUnit": "3.14.0",
+    "NUnit3TestAdapter": "4.6.0"
+  },
+  "scope": "Actual compiled controlled NUnit test execution and native TRX logger, not production reliability evidence.",
+  "normalization": "Only machine/user/deployment details and local code/stack paths. Native class names, outcomes, counters and recorded run times unchanged.",
+  "projectFiles": [
+    {
+      "file": "Capture.csproj",
+      "sha256": "679938d7d52812f6c08b2742fa6a8be5d08a83a9f671c6e9126cdd0b3f4f53c0"
+    },
+    {
+      "file": "FixtureIdentity.cs",
+      "sha256": "264b123c6bf26e9e03f9df2e780f02baa112bad0a7b6a5ca2a5a2ffb552112e6"
+    },
+    {
+      "file": "packages.lock.json",
+      "sha256": "49905a6d8768cb9399b2a141ed141917ff884a1fbd86bef5304bac0f52e933ae"
+    }
+  ],
+  "reports": [
+    {
+      "scenario": "run-01",
+      "selection": "String",
+      "processExit": 0,
+      "report": "history/run-01.trx",
+      "rawSha256": "c09360078472484cd835c114ff5e07636233cca488006037cde69448af0ecc9d",
+      "retainedSha256": "c1b4036d054574b1f5b99e77934c616a139dda61dd3583f0eb2c43197bf081e6",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,String>",
+          "testName": "Check",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-02",
+      "selection": "Double",
+      "processExit": 1,
+      "report": "history/run-02.trx",
+      "rawSha256": "2deeb880dcb8820ae16a6db1d77d16573c2160669278fb5bd27f3f3097ab222a",
+      "retainedSha256": "71e6bda463ca402aa941f96067042ab96ad85176a7533d799923950bf626510b",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,Double>",
+          "testName": "Check",
+          "outcome": "Failed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-03",
+      "selection": "String",
+      "processExit": 0,
+      "report": "history/run-03.trx",
+      "rawSha256": "0ff758dbd1637894a25eee69a491077eaba33331c0970aaf20ec94454ae4f058",
+      "retainedSha256": "f239ccbfcf4de20b29dc25e5c4b58c2ee5dcb905e2a45b196a795148bf0be4db",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,String>",
+          "testName": "Check",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-04",
+      "selection": "Double",
+      "processExit": 1,
+      "report": "history/run-04.trx",
+      "rawSha256": "ced6ad870bc4e9b162f94e6e2cc47f2a9ab24c01d693465ebabfaa5ee98cdd96",
+      "retainedSha256": "26f671f4224b2814578bfb306e1f311f88f7800a1c2b4c06189b245773e6badd",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,Double>",
+          "testName": "Check",
+          "outcome": "Failed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-05",
+      "selection": "String",
+      "processExit": 0,
+      "report": "history/run-05.trx",
+      "rawSha256": "5cd1f2c7253bd51f8e3749b612e5555ae5fc40943f0baf584abd93ca352fb91b",
+      "retainedSha256": "adcd0d89c36d89c3879107ca3c8b554eaaaf63009ca09709314078cdddea75c4",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,String>",
+          "testName": "Check",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-06",
+      "selection": "Double",
+      "processExit": 1,
+      "report": "history/run-06.trx",
+      "rawSha256": "1900b5f1489bbf494929b2ba6ae7ce9deff981a0ac9583f946f1899a9fad7167",
+      "retainedSha256": "0acb02f21f5e2a3c9167756546eab5144ed77af59be65c4d545a362c1ced06d7",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,Double>",
+          "testName": "Check",
+          "outcome": "Failed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-07",
+      "selection": "String",
+      "processExit": 0,
+      "report": "history/run-07.trx",
+      "rawSha256": "6628ea2bddf0414cf211cff0330046aa7f31072a8faacb20b9925aa5a0599248",
+      "retainedSha256": "9b6c9d405f410632a132a9cfd2c2e07871a8b935925f0984fccbaa3d9d3cc6e3",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,String>",
+          "testName": "Check",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-08",
+      "selection": "Double",
+      "processExit": 1,
+      "report": "history/run-08.trx",
+      "rawSha256": "df9adc713000e67a4d35e04cfe3c99bc8601be28181ed4e17c07ff75c5fac738",
+      "retainedSha256": "69d5d57f444e6ca14d80c53da3e9c01e3c06895c7d87bd70bca8e61aee99028e",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,Double>",
+          "testName": "Check",
+          "outcome": "Failed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-09",
+      "selection": "String",
+      "processExit": 0,
+      "report": "history/run-09.trx",
+      "rawSha256": "915fd8a422c9892eee824545fb91dc80d1ba9625b1fa43ed8161044320073b9d",
+      "retainedSha256": "496d396edf699b4a3978a5e0a7bbe4dea4bd57033de55bb5f61d3adc1953cc76",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,String>",
+          "testName": "Check",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-10",
+      "selection": "Double",
+      "processExit": 1,
+      "report": "history/run-10.trx",
+      "rawSha256": "7a36ce69a61843afe1633e24213aa68096d606b7f8ef878da40bad5946bbabb0",
+      "retainedSha256": "786af3c11d7ab2c7b4d203dad9265dde2f21c89800152ec73993703250bdcdc1",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,Double>",
+          "testName": "Check",
+          "outcome": "Failed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-11",
+      "selection": "String",
+      "processExit": 0,
+      "report": "history/run-11.trx",
+      "rawSha256": "c0778c6f0ea1b48d5a11b2949be1bf1c34641bd1d483976530562e09b9b03f69",
+      "retainedSha256": "70af46322b95e9ed1f592d099c18398a5476c90641c10e4be331043064e3f137",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,String>",
+          "testName": "Check",
+          "outcome": "Passed"
+        }
+      ]
+    },
+    {
+      "scenario": "run-12",
+      "selection": "Double",
+      "processExit": 1,
+      "report": "history/run-12.trx",
+      "rawSha256": "1d04b0c5a8f6df0e0fa151641a370f6de55aa5f82b0c6e47e33d66b92dbf6780",
+      "retainedSha256": "6b10d339604a67df78168800af5f3212a52ee03d910521d2e5b2dce0fe8f1e7a",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,Double>",
+          "testName": "Check",
+          "outcome": "Failed"
+        }
+      ]
+    },
+    {
+      "scenario": "combined",
+      "selection": null,
+      "processExit": 1,
+      "report": "combined/combined.trx",
+      "rawSha256": "84b663fb0d5211e2c82470dc261e803f3ef001ea652b5edbec22e5971777c6e1",
+      "retainedSha256": "10d58dbecb4238302a19420001c1f9154b6447fe6065faac0410f684857e602d",
+      "nativeOutcomes": [
+        {
+          "className": "NativePairs.Pair<Int32,String>",
+          "testName": "Check",
+          "outcome": "Passed"
+        },
+        {
+          "className": "NativePairs.Pair<Int32,Double>",
+          "testName": "Check",
+          "outcome": "Failed"
+        },
+        {
+          "className": "NativePairs.Ordinary",
+          "testName": "Check",
+          "outcome": "Passed"
+        },
+        {
+          "className": "NativePairs.Single<Int32>",
+          "testName": "Check",
+          "outcome": "Passed"
+        }
+      ]
+    }
+  ]
+}

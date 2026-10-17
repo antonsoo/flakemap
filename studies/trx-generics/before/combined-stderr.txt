@@ -1,0 +1,2 @@
+HTML report written to /home/antonsoloviev/work/projects/showcases/flakemap/studies/trx-generics/before/combined.html
+error: incomplete report; inspect the reported warnings

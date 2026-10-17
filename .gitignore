@@ -25,3 +25,5 @@ node_modules/
 /studies/retry-activity/project/target/
 /studies/trx-hierarchy/native/bin/
 /studies/trx-hierarchy/native/obj/
+/studies/trx-generics/native/bin/
+/studies/trx-generics/native/obj/

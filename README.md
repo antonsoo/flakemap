@@ -44,6 +44,12 @@ checkout now retains that child evidence, excludes the contradictory parent as
 unknown and exits 2 with `--fail-on-incomplete`.
 [Native logger controls and scope](studies/trx-hierarchy/README.md).
 
+Native NUnit generic fixtures also keep their complete type arguments. The old
+reader merged `Pair<Int32,String>` and `Pair<Int32,Double>` into a 50% flaky
+history; the compiled capture instead has one fixture passing all six executions
+and one failing all six. [Native records and before/after reports](studies/trx-generics/README.md).
+This source correction is separate from the PyPI release.
+
 <p align="center"><img src="docs/assets/hero-heatmap.png" width="820" alt="flakemap HTML report: an inspection-report-styled page with a test x run heatmap. 222 runs, 12 tests, 1 broken (red DEFECT stamp) and 3 flaky (amber INTERMITTENT stamps) rows shown above 8 healthy rows, each row a strip of small green/red cells for pass/fail across chronological runs, with a failure rate percentage on the right"></p>
 
 ## On a real history: 91 days of Kubernetes CI

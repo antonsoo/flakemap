@@ -154,6 +154,30 @@ def _started_at(root: ET.Element) -> datetime | None:
     return started if started.tzinfo is not None else None
 
 
+def _class_without_assembly(raw: str) -> str:
+    """Strip only a top-level assembly qualifier, preserving generic arguments.
+
+    NUnit prints ``Pair<Int32,String>``; CLR names can instead contain nested
+    ``[[Type, Assembly]]`` and array ranks. Their commas belong to the identity.
+    Keep unfamiliar/unbalanced names literally rather than truncating evidence.
+    """
+    stack: list[str] = []
+    escaped = False
+    for index, char in enumerate(raw):
+        if escaped:
+            escaped = False
+        elif char == "\\":
+            escaped = True
+        elif char in "<[":
+            stack.append(char)
+        elif char in ">]":
+            if not stack or stack.pop() != {">": "<", "]": "["}[char]:
+                return raw.strip()
+        elif char == "," and not stack:
+            return raw[:index].strip()
+    return raw.strip()
+
+
 def _definitions(root: ET.Element) -> dict[str, tuple[str, str] | None]:
     """testId -> (class name, method name) from ``<TestDefinitions>``."""
     out: dict[str, tuple[str, str] | None] = {}
@@ -162,7 +186,7 @@ def _definitions(root: ET.Element) -> dict[str, tuple[str, str] | None]:
         test_id = unit_test.get("id")
         if method is None or not test_id:
             continue
-        class_name = (method.get("className") or "").split(",", 1)[0].strip()
+        class_name = _class_without_assembly(method.get("className") or "")
         identity = (class_name, method.get("name") or unit_test.get("name") or "")
         out[test_id] = None if test_id in out and out[test_id] != identity else identity
     return out

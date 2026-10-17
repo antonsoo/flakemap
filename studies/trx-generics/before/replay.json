@@ -1,0 +1,95 @@
+{
+  "phase": "before",
+  "parserSha256": "1d04f6313adcf68dc348937c5a082f4cc46d8a9ae63df99590b5a7d098527e5d",
+  "scope": "Actual CLI over compiled controlled NUnit native TRX captures; native XML identities and outcomes are the independent oracle. No production reliability inference.",
+  "cases": [
+    {
+      "case": "history",
+      "exit": 0,
+      "nativeIdentities": {
+        "NativePairs.Pair<Int32,String>.Check": {
+          "pass": 6,
+          "fail": 0
+        },
+        "NativePairs.Pair<Int32,Double>.Check": {
+          "pass": 0,
+          "fail": 6
+        }
+      },
+      "reported": [
+        {
+          "test": "NativePairs.Pair<Int32.Check",
+          "classification": "flaky",
+          "runs": {
+            "total": 12,
+            "pass": 6,
+            "fail": 6,
+            "skip": 0,
+            "unknown": 0
+          }
+        }
+      ],
+      "warnings": []
+    },
+    {
+      "case": "combined",
+      "exit": 2,
+      "nativeIdentities": {
+        "NativePairs.Pair<Int32,String>.Check": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NativePairs.Pair<Int32,Double>.Check": {
+          "pass": 0,
+          "fail": 1
+        },
+        "NativePairs.Ordinary.Check": {
+          "pass": 1,
+          "fail": 0
+        },
+        "NativePairs.Single<Int32>.Check": {
+          "pass": 1,
+          "fail": 0
+        }
+      },
+      "reported": [
+        {
+          "test": "NativePairs.Pair<Int32.Check",
+          "classification": "insufficient_data",
+          "runs": {
+            "total": 0,
+            "pass": 0,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 1
+          }
+        },
+        {
+          "test": "NativePairs.Ordinary.Check",
+          "classification": "insufficient_data",
+          "runs": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          }
+        },
+        {
+          "test": "NativePairs.Single<Int32>.Check",
+          "classification": "insufficient_data",
+          "runs": {
+            "total": 1,
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          }
+        }
+      ],
+      "warnings": [
+        "run combined, NativePairs.Pair<Int32.Check: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates"
+      ]
+    }
+  ]
+}

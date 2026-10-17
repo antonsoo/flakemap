@@ -4,6 +4,16 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Distinct native generic fixtures
+
+- Keep type-argument commas in TRX class names. NUnit's `Pair<Int32,String>` and
+  `Pair<Int32,Double>` previously collapsed into one ambiguous observation or a
+  false 50% flaky history, depending on whether both ran together.
+- Strip assembly qualifiers only outside generic/array brackets and escaped
+  characters. Preserve unfamiliar unbalanced names literally. Retain actual
+  compiled NUnit TRX, complete CLI before/after reports and unchanged captured
+  histories in the [generic fixture study](studies/trx-generics/README.md).
+
 ### Wilson interval endpoints
 
 - Keep the analytic lower bound exactly zero for 0/n and the upper bound exactly

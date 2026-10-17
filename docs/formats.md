@@ -122,13 +122,17 @@ TRX, whatever its extension; `.trx` files are picked up by the default
 `--pattern` (`*.xml,*.trx`). From each `<UnitTestResult>`:
 
 - **Identity.** The classname comes from the matching `<TestDefinitions>`
-  `<TestMethod className>` (any `, Assembly` suffix dropped). The name is
+  `<TestMethod className>` (only a top-level `, Assembly` suffix is dropped).
+  Generic arguments such as `Pair<Int32,String>`, CLR bracketed arguments,
+  array-rank commas and escaped commas remain part of the identity. The name is
   `testName`, minus the class name when it starts with it: MSTest and NUnit
   write the short name, xUnit the fully qualified one. A data row keeps its
   arguments (`CurrencyHasMinorUnits ("JPY",0)`), so each row is its own test.
   Rows nested under `<InnerResults>` are retained under their parent as evidence,
   rather than separate rate observations. A recorded child failure cannot
   silently coexist with a passing or skipped parent.
+  [Compiled NUnit fixture captures](../studies/trx-generics/README.md) show why
+  truncating a generic argument creates a false flaky history.
 - **Outcome.** The mappings below follow VSTest's definitions. MSTest reports a
   test that throws as `Failed`. `Completed` only says execution ended; it does
   not establish success.

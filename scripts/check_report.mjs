@@ -48,7 +48,8 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.match(await page.locator('meta[http-equiv="Content-Security-Policy"]').getAttribute("content"), /default-src 'none'/);
               if (fixture.name.startsWith("gallery/")) {
                 const nav = page.getByRole("navigation", { name: "Report examples" });
-                assert.equal(await nav.getByRole("link").count(), 5);
+                assert.equal(await nav.getByRole("link").count(), 6);
+                assert.equal(await nav.getByRole("link", { name: "Distinct generic fixtures", exact: true }).count(), 1);
                 assert.equal(await nav.locator('[aria-current="page"]').count(), 1);
                 assert.equal(await nav.locator('[aria-current="page"]').getAttribute("href"), `${fixture.name.split("/")[1]}.html`);
                 const destination = fixture.name === "gallery/cofailure" ? "retry.html" : "cofailure.html";
@@ -65,6 +66,13 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                   const download = await pending;
                   assert.deepEqual(JSON.parse(await readFile(await download.path(), "utf8")),
                     JSON.parse(await readFile(resolve(directory, `${fixture.name}.json`), "utf8")));
+                }
+                if (fixture.inputZipSha256) {
+                  const pending = page.waitForEvent("download");
+                  await page.getByRole("link", { name: "Download native TRX inputs", exact: true }).click();
+                  const downloaded = await pending;
+                  const bytes = await readFile(await downloaded.path());
+                  assert.equal(createHash("sha256").update(bytes).digest("hex"), fixture.inputZipSha256);
                 }
               }
               if (fixture.prebuilt) {
@@ -108,6 +116,24 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 assert.equal(await row.locator(".dot-insufficient_data").count(), 1);
                 assert.match(await row.innerText(), /runs: 1; skipped: 7; excluded: 0/);
                 assert.match(await row.innerText(), /Timing observations \(without retries\)\s+1/);
+              }
+              if (["trx-generics", "gallery/generic"].includes(fixture.name)) {
+                const row = page.locator("details.row").filter({ hasText: "NativePairs.Pair<Int32,Double>.Check" });
+                await row.locator("summary").focus();
+                await page.keyboard.press("Enter");
+                assert.equal(await row.locator(".test-identity").innerText(), "NativePairs.Pair<Int32,Double>.Check");
+                assert.equal(await row.locator(".s-fail").count(), 6);
+                assert.equal(await row.locator(".s-pass, .s-unknown").count(), 0);
+                assert.match(await row.innerText(), /Controlled second type argument/);
+                const passing = page.locator("details.row").filter({ hasText: "NativePairs.Pair<Int32,String>.Check" });
+                assert.equal(await passing.locator(".s-pass").count(), 6);
+                assert.equal(await passing.locator(".s-fail, .s-unknown").count(), 0);
+                assert.equal(await passing.locator(".dot-healthy").count(), 1);
+              }
+              if (fixture.name === "trx-generics-combined") {
+                assert.equal(await page.locator(".row-heatmap .s-unknown").count(), 0);
+                assert.equal(await page.locator(".row-heatmap .s-pass").count(), 3);
+                assert.equal(await page.locator(".row-heatmap .s-fail").count(), 1);
               }
               if (fixture.name === "long") {
                 // A long history: one strip per drawn row, a mark per stretch that did not

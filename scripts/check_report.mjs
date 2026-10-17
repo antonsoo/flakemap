@@ -10,6 +10,10 @@ import { chromium, firefox } from "playwright";
 const require = createRequire(import.meta.url);
 const axeSource = await readFile(require.resolve("axe-core/axe.min.js"), "utf8");
 const directory = resolve(process.argv[2] ?? "scratch/browser");
+const selectedContext = process.argv[3];
+const contexts = ["chromium", "firefox"].flatMap(engine => [320, 1200].flatMap(width =>
+  ["light", "dark"].map(theme => `${engine}-${width}-${theme}`)));
+assert(!selectedContext || contexts.includes(selectedContext), "Unknown browser context");
 const fixtures = JSON.parse(await readFile(resolve(directory, "manifest.json"), "utf8"));
 const screenshots = resolve(directory, "screenshots");
 await mkdir(screenshots, { recursive: true });
@@ -19,6 +23,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
   try {
     for (const width of [320, 1200]) {
       for (const colorScheme of ["light", "dark"]) {
+        if (selectedContext && selectedContext !== `${engine}-${width}-${colorScheme}`) continue;
         const context = await browser.newContext({
           viewport: { width, height: 900 }, colorScheme, offline: true,
           reducedMotion: "reduce",
@@ -315,10 +320,11 @@ for (const fixture of fixtures) {
   const bytes = await readFile(resolve(directory, `${fixture.name}.html`));
   artifacts.push({ fixture: fixture.name, bytes: bytes.length, sha256: createHash("sha256").update(bytes).digest("hex") });
 }
-await writeFile(resolve(directory, "browser-results.json"), JSON.stringify({
+await writeFile(resolve(directory, selectedContext ? `browser-results-${selectedContext}.json` : "browser-results.json"), JSON.stringify({
   generatedAt: new Date().toISOString(), node: process.version,
   playwright: require("playwright/package.json").version,
   axe: require("axe-core/package.json").version,
+  ...(selectedContext ? { selectedContext } : {}),
   scenarios: results, artifacts,
 }, null, 2) + "\n");
 console.log(`PASS ${results.length} offline report scenarios; evidence in ${directory}`);

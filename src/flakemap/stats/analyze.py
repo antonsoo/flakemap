@@ -546,11 +546,28 @@ def analyze(runs: list[Run]) -> AnalysisResult:
         )
 
     warnings = [f"run {r.metadata.run_id}: {w}" for r in runs for w in r.warnings]
-    warnings.extend(
-        f"run {o.run.metadata.run_id}, {t.full_name}: {o.result.issue}; excluded from rates"
-        for t in tests
-        for o in t.excluded_observations
-    )
+    parsed_messages = {r.metadata.run_id: set(r.warnings) for r in runs}
+    for test in tests:
+        for observation in test.excluded_observations:
+            detail = f"{test.full_name}: {observation.result.issue}; excluded from rates"
+            messages = parsed_messages[observation.run.metadata.run_id]
+            # Keep the parser's source-specific warning once. A normalization
+            # issue (duplicates, conflicting metadata, etc.) still needs its
+            # own warning when no original record already reported that issue.
+            reported = any(
+                record.issue == observation.result.issue
+                and record.full_name == test.full_name
+                and (
+                    detail in messages
+                    or (
+                        record.source is not None
+                        and f"{record.source.report}: {detail}" in messages
+                    )
+                )
+                for record in observation.records
+            )
+            if not reported:
+                warnings.append(f"run {observation.run.metadata.run_id}, {detail}")
     if mtime_warning:
         warnings.append(mtime_warning)
     if ordering.reason:

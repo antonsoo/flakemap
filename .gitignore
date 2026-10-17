@@ -23,3 +23,5 @@ node_modules/
 .venv-minimums/
 /studies/*/cache/
 /studies/retry-activity/project/target/
+/studies/trx-hierarchy/native/bin/
+/studies/trx-hierarchy/native/obj/

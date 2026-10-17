@@ -13,7 +13,7 @@ from flakemap.stats.cofailure import CoFailureAnalysis, FailureCohort
 
 
 def record_to_dict(record: TestCaseResult) -> dict[str, Any]:
-    return {
+    result: dict[str, Any] = {
         "name": record.name,
         "classname": record.classname,
         "source": {"report": record.source.report, "testcase": record.source.testcase}
@@ -34,6 +34,22 @@ def record_to_dict(record: TestCaseResult) -> dict[str, Any]:
         if record.retry
         else None,
     }
+    if record.nested_results:
+        result["nested_results"] = {
+            "reported_parent_outcome": record.nested_results.reported_parent_outcome,
+            "rows": [
+                {
+                    "path": list(row.path),
+                    "name": row.name,
+                    "reported_outcome": row.reported_outcome,
+                    "status": row.status.value,
+                    "reported_duration_seconds": row.duration,
+                    "message": row.message,
+                }
+                for row in record.nested_results.rows
+            ],
+        }
+    return result
 
 
 def _evidence(obs: Observation) -> dict[str, Any]:

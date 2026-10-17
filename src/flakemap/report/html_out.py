@@ -398,10 +398,13 @@ def _test_detail(t: TestStats) -> str:
                 if record.source
                 else "source location not supplied"
             )
-            parts.append(
-                f'<p class="source"><code>{escape(source)}</code> '
-                f"&mdash; reported {record.status.value}</p>"
+            reported = (
+                f"reported {escape(record.nested_results.reported_parent_outcome or '(missing)')}; "
+                f"normalized {record.status.value}"
+                if record.nested_results
+                else f"reported {record.status.value}"
             )
+            parts.append(f'<p class="source"><code>{escape(source)}</code> &mdash; {reported}</p>')
             if record.retry:
                 parts.append(
                     f"<p>{record.retry.attempts} recorded attempts; "

@@ -74,7 +74,16 @@ def test_nested_row_removal_is_detected_without_changing_parent_observations() -
     assert inner is not None
     inner.remove(next(row for row in inner if row.get("outcome") == "Failed"))
     after, warnings, _ = read(root)
-    assert after == before
+    # Parent observations remain the same; retained native row evidence records
+    # the deletion instead of pretending the original and damaged trees match.
+    from dataclasses import replace
+
+    assert [replace(case, nested_results=None) for case in after] == [
+        replace(case, nested_results=None) for case in before
+    ]
+    original = next(case.nested_results for case in before if case.nested_results)
+    damaged = next(case.nested_results for case in after if case.nested_results)
+    assert len(original.rows) == 2 and len(damaged.rows) == 1
     assert len(warnings) == 1 and "do not reconcile" in warnings[0]
 
 

@@ -7,8 +7,10 @@ TRX is not a JUnit dialect. A ``<TestRun>`` (namespace
 - ``<Results>``: one ``<UnitTestResult>`` per test, with ``testName``,
   ``testId``, ``outcome``, ``duration`` (``hh:mm:ss.fffffff``, optionally
   prefixed by days) and ``<Output><ErrorInfo><Message>`` on a failure. A
-  data-driven test nests its rows under ``<InnerResults>``; the parent's
-  outcome already aggregates them, so the parent is the one record kept.
+  data-driven test nests its rows under ``<InnerResults>``. One parent
+  observation is kept, with child records retained as evidence. A reported
+  nonfailure parent conflicting with a recorded failing child is unknown;
+  inner rows do not add independent trials or retries.
 - ``<TestDefinitions>``: each ``<UnitTest id=...>`` has a ``<TestMethod
   className=... name=...>``. The class name, minus any ``, Assembly`` suffix,
   becomes the classname. ``testName`` becomes the name, minus the class name
@@ -35,7 +37,7 @@ from datetime import datetime
 from pathlib import Path
 from xml.etree import ElementTree as ET
 
-from flakemap.models import SourceLocation, Status, TestCaseResult
+from flakemap.models import NestedResults, NestedTestResult, SourceLocation, Status, TestCaseResult
 from flakemap.parse.junit import _first_line
 from flakemap.parse.trx_counts import summary_warning
 from flakemap.parse.xmlinput import (
@@ -187,6 +189,82 @@ def _message(result: ET.Element) -> str | None:
     return _first_line(lines[0] if lines else None)
 
 
+def _nested_results(result: ET.Element, warnings: list[str]) -> NestedResults | None:
+    """Keep the native result tree without flattening correlated data rows."""
+    rows: list[NestedTestResult] = []
+    issues: list[str] = []
+    issue_count = 0
+    pending: list[tuple[ET.Element, tuple[int, ...]]] = [(result, ())]
+    while pending:
+        node, path = pending.pop()
+        if path:
+            outcome = (node.get("outcome") or "").strip()
+            status = _OUTCOMES.get(outcome.lower(), Status.UNKNOWN)
+            duration_raw = node.get("duration")
+            duration = _duration(duration_raw)
+            if (
+                status is Status.UNKNOWN
+                or outcome.lower() == "passedbutrunaborted"
+                or not (node.get("testName") or "").strip()
+                or (duration_raw is not None and duration is None)
+            ):
+                issue_count += 1
+                if len(issues) < 3:
+                    issues.append(
+                        f"inner row {'.'.join(map(str, path))} has "
+                        "unknown/incomplete outcome, identity or duration"
+                    )
+            rows.append(
+                NestedTestResult(
+                    path,
+                    node.get("testName") or "(unnamed)",
+                    outcome,
+                    status,
+                    duration,
+                    _message(node),
+                )
+            )
+        supported = []
+        for group in _children(node, "InnerResults"):
+            for child in group:
+                if _local(child.tag) in ("UnitTestResult", "TestResult"):
+                    supported.append(child)
+                else:
+                    issue_count += 1
+                    if len(issues) < 3:
+                        issues.append(f"unsupported inner result element {_local(child.tag)!r}")
+        pending.extend(
+            (child, (*path, index)) for index, child in reversed(list(enumerate(supported, 1)))
+        )
+    if issue_count:
+        warnings.append(
+            f"{result.get('testName', '(unnamed)')}: {issue_count} nested TRX result issue(s): "
+            + "; ".join(issues)
+            + "; inner coverage is unverified"
+        )
+    return NestedResults(result.get("outcome") or "", tuple(rows)) if rows else None
+
+
+def _nested_contradiction(nested: NestedResults) -> str | None:
+    failures = [row for row in nested.rows if row.status.is_failure]
+    declared = _OUTCOMES.get(nested.reported_parent_outcome.strip().lower(), Status.UNKNOWN)
+    # Unknown is not an assertion of nonfailure. Keep an unsupported parent
+    # outcome's own reason; a child failure cannot supply its aggregate result.
+    if declared not in (Status.PASS, Status.SKIP) or not failures:
+        return None
+    evidence = "; ".join(
+        f"row {'.'.join(map(str, row.path))} {row.name[:120]!r} "
+        f"({row.reported_outcome[:60]}): {row.message or '(no message recorded)'}"
+        for row in failures[:3]
+    )
+    more = f"; {len(failures) - 3} more recorded failing row(s)" if len(failures) > 3 else ""
+    return (
+        f"TRX parent outcome {nested.reported_parent_outcome[:60]!r} conflicts with "
+        f"recorded failing inner results: {evidence}{more}. "
+        "The parent outcome is unknown; inner rows are not independent trials"
+    )
+
+
 def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], datetime | None]:
     """Parse TRX text. Returns ``(testcases, warnings, run start time)``."""
     warnings: list[str] = []
@@ -255,6 +333,11 @@ def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], da
         if definition is None:
             status = Status.UNKNOWN
             issue = "conflicting TRX test definitions for this testId; identity is ambiguous"
+        nested = _nested_results(result, warnings)
+        contradiction = _nested_contradiction(nested) if nested else None
+        if contradiction:
+            status = Status.UNKNOWN
+            issue = f"{issue}; {contradiction}" if issue else contradiction
         if outcome.lower() == "passedbutrunaborted":
             warnings.append(
                 f"{test_name}: test passed but its run was aborted; history may be incomplete"
@@ -271,6 +354,7 @@ def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], da
                 duration=duration,
                 message=_message(result) if status is not Status.PASS else None,
                 issue=issue,
+                nested_results=nested,
             )
         )
 

@@ -104,7 +104,14 @@ zero even when it retains skipped results. Unknown conventions remain unverified
 
 Counter mismatches, invalid primary counters and ambiguous duplicate summaries
 warn and make `--fail-on-incomplete` exit 2. Missing counters remain optional.
-Neither counters nor nested rows change the parent observations used for rates.
+Counters alone do not change the parent observations used for rates. The current
+source also checks the recorded hierarchy: a passed/skipped parent containing a
+known failing inner result is contradictory and becomes unknown. Its raw parent
+outcome and child records remain evidence; children never add independent trials
+or retries. An unsupported parent outcome keeps its own unknown reason. Unknown
+child outcomes or unsupported inner elements warn about unverified coverage.
+The [native hierarchy study](../studies/trx-hierarchy/README.md) retains actual
+SDK logger files, an independent XML/counter check and before/after CLI gates.
 The [TRX counter study](../studies/trx-counters/README.md) retains twelve actual
 `dotnet test` reports, an actual VSTest logger capture of controlled nested
 events, and explicitly transformed copies used to reproduce missing evidence.
@@ -119,8 +126,9 @@ TRX, whatever its extension; `.trx` files are picked up by the default
   `testName`, minus the class name when it starts with it: MSTest and NUnit
   write the short name, xUnit the fully qualified one. A data row keeps its
   arguments (`CurrencyHasMinorUnits ("JPY",0)`), so each row is its own test.
-  The rows nested under `<InnerResults>` are not read separately; their
-  parent's outcome already aggregates them.
+  Rows nested under `<InnerResults>` are retained under their parent as evidence,
+  rather than separate rate observations. A recorded child failure cannot
+  silently coexist with a passing or skipped parent.
 - **Outcome.** The mappings below follow VSTest's definitions. MSTest reports a
   test that throws as `Failed`. `Completed` only says execution ended; it does
   not establish success.
@@ -399,6 +407,7 @@ retry evidence. Consumers of version 1 must account for these changes:
 | `tests[].rerun_signal.groups_with_reruns` / `groups_with_flip` | Replace the version 1 `commits_with_*` keys; groups include branch/runner/OS |
 | `tests[].retries` | Recovered/exhausted counts, observed failed-attempt count, and evidence |
 | `tests[].excluded` | Excluded observations with reason and original records |
+| `records[].nested_results` (when present in evidence) | Raw `reported_parent_outcome` and retained child `rows`: one-based result `path`, `name`, `reported_outcome`, mapped `status`, reported duration and message. Child statuses describe native vocabulary, not independent trials or inferred parent outcomes |
 | `summary.cofailure_groups` / `cofailure_tests` | Exact shared-outcome cohort count and number of member tests (source checkout) |
 | `cofailure.method` | `exact_outcome_history`; descriptive matching, not causal inference |
 | `cofailure.runs` | Ordered metadata for every supplied run, including runner/OS, commit, branch and metadata source |

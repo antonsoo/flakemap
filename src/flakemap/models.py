@@ -60,8 +60,32 @@ class RetryEvidence:
 
 
 @dataclass(frozen=True, slots=True)
+class NestedTestResult:
+    """A reported child, retained as evidence rather than an independent trial.
+
+    Status maps the reported vocabulary; eligibility belongs to its parent.
+    """
+
+    path: tuple[int, ...]
+    """One-based child-result ordinals from the top-level result, in XML order."""
+    name: str
+    reported_outcome: str
+    status: Status
+    duration: float | None
+    message: str | None
+
+
+@dataclass(frozen=True, slots=True)
+class NestedResults:
+    """A native aggregate declaration and its retained child records."""
+
+    reported_parent_outcome: str
+    rows: tuple[NestedTestResult, ...]
+
+
+@dataclass(frozen=True, slots=True)
 class TestCaseResult:
-    """One `<testcase>` element, normalized."""
+    """One top-level testcase/result observation, normalized."""
 
     name: str
     classname: str
@@ -76,6 +100,8 @@ class TestCaseResult:
     failed_within: tuple[str, ...] = ()
     """Tests the runner's own output names as failed inside this testcase, when a report
     rolls a whole Go package up into one record. See `flakemap.parse.junit`."""
+    nested_results: NestedResults | None = None
+    """Native child records; they never add trials, retries or passing observations."""
 
     @property
     def full_name(self) -> str:

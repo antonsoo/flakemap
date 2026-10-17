@@ -44,6 +44,9 @@ def wilson_interval(successes: int, n: int, z: float = DEFAULT_Z) -> Interval:
     denom = 1 + z2 / n
     center = (p + z2 / (2 * n)) / denom
     margin = (z * math.sqrt(p * (1 - p) / n + z2 / (4 * n * n))) / denom
-    low = max(0.0, center - margin)
-    high = min(1.0, center + margin)
+    # The analytic endpoints are exact at 0/n and n/n. Subtraction can leave
+    # a tiny positive lower bound that excludes the zero point estimate and
+    # prints as a long decimal in reports; do not round genuine small rates.
+    low = 0.0 if successes == 0 else max(0.0, center - margin)
+    high = 1.0 if successes == n else min(1.0, center + margin)
     return Interval(point=p, low=low, high=high)

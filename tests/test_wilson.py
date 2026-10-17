@@ -16,7 +16,16 @@ def test_point_estimate_is_plain_proportion() -> None:
 
 
 def test_interval_always_contains_point_and_is_within_bounds() -> None:
-    for successes, n in [(0, 5), (5, 5), (1, 5), (50, 100), (1, 1000), (999, 1000)]:
+    for successes, n in [
+        (0, 5),
+        (5, 5),
+        (0, 12),
+        (12, 12),
+        (1, 5),
+        (50, 100),
+        (1, 1000),
+        (999, 1000),
+    ]:
         iv = wilson_interval(successes, n)
         assert 0.0 <= iv.low <= iv.point <= iv.high <= 1.0
 

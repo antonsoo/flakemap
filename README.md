@@ -117,8 +117,8 @@ remain `insufficient_data`, rather than being labeled permanently broken.
 ![Actual Surefire retry evidence, including source records and failed attempts](docs/assets/retry-evidence.png)
 
 Retry inspection is in the CLI and in every generated HTML report. The hosted
-demo's pytest history contains no retries, so the retry view shows up only in
-reports built from retry data, like the commands above.
+gallery includes the [captured Surefire retry report](https://antonsoo.github.io/flakemap/retry.html),
+alongside the original pytest history and its other examples.
 
 ## When several failures belong to the same investigation
 
@@ -175,8 +175,9 @@ from a new PyPI release.
   against real tool output; Gradle merged retries and go-junit-report supported
   against their documented formats.
 - **.NET TRX**: `dotnet test --logger trx` output (MSTest, xUnit, NUnit), checked
-  against twelve real MSTest runs in `examples/trx_history`. Data rows stay
-  separate tests, and each file's own start time orders the runs. Malformed and truncated files
+  against twelve real MSTest runs in `examples/trx_history`. Top-level results
+  stay separate tests; nested rows remain evidence of their parent. Each file's
+  own start time orders the runs. Malformed and truncated files
   degrade to a warning, never a crash. Details and sources:
   [`docs/formats.md`](docs/formats.md).
 - **Retry evidence**: explicit recovered and exhausted attempts, source file and

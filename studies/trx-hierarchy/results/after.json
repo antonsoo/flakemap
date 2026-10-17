@@ -31,7 +31,7 @@
     "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
     "stats/cofailure.py": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006",
     "stats/correlation.py": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb",
-    "stats/wilson.py": "f771bc8ec543b1c4295a374b682c8ed35ea0564c990592bb3d0712197f3ae8f5"
+    "stats/wilson.py": "71ad25d644e1557c5a5d90b04dd35b7be8455aba156fbe7ea7fa5d9fd8c7ae24"
   },
   "cases": 7,
   "mismatches": 0,

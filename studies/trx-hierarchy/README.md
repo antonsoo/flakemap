@@ -157,8 +157,34 @@ automatically from this parser correction.
 Visual review also found a zero-failure interval printed with a long tiny
 positive lower bound. The floating-point result could exclude its own zero
 point estimate. The source now uses the analytic endpoints: zero for 0/n and
-one for n/n. Interior formulas retain their precision, including genuinely small
+one for n/n. Interior formulas retain their precision, including small
 nonzero bounds. The [74-case independent comparison](results/wilson-boundaries.json)
 with SciPy 1.18.1 records ten containment violations before and none after,
 with maximum absolute reference error of about 1.1e-16. SciPy documents its
 [uncorrected Wilson method](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats._result_classes.BinomTestResult.proportion_ci.html).
+
+## Clean source and installed artifacts
+
+The [verification receipt](results/verification.json) records the clean archive
+at `0fa4d5eb2bb1aba53920aa618e712644fff0ddb4`, including the Wilson correction.
+Both Python 3.14.7 and the minimum Python 3.10.21 environment passed all 402
+tests, with no skips. The latter used the minimum Rich 13.7.0. Ruff, format
+checks and mypy also passed. The independent native oracle was repeated against
+this source; all 21 earlier TRX counter replays remain identical.
+
+The built wheel and sdist, then fresh runtime-only installations of each,
+matched all 30 package source files. The wheel used Python 3.14.7 / Rich 15.0.0;
+the sdist used Python 3.10.21 / Rich 13.7.0. Both installed CLIs reproduced all
+seven analyses and completeness exits. [Artifact hashes and installation receipt](results/artifacts.json).
+The version remains 0.3.7; these locally built artifacts are not a PyPI release.
+
+The [full report browser replay](results/report-browser.json) passed 112 offline
+scenarios in Chromium and Firefox at 320 and 1200 pixels, light and dark,
+including the existing five-page gallery. All 48 generated full-report captures
+were visually inspected. The installed wheel's native reports passed another
+[56 offline views](../../docs/assets/trx-hierarchy/installed/browser.json) at
+375 and 1200 pixels. Its four [captures](../../docs/assets/trx-hierarchy/installed/)
+were inspected alongside the eight before/source captures. These checks found
+no page errors, external requests, CSP violations, accessibility violations or
+page overflow. The report layout is unchanged; native contradictions now have
+an unknown cell, an unavailable rate, their source declaration and one warning.

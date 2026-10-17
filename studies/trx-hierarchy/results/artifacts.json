@@ -1,0 +1,68 @@
+{
+  "sourceRevision": "0fa4d5eb2bb1aba53920aa618e712644fff0ddb4",
+  "files": {
+    "__init__.py": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce",
+    "models.py": "6943e67aa85797dd6168a5f7480f50d87bae4e964a4b47f2c160ee8f13e101cd",
+    "ordering.py": "5a45e29423ebdd55a971b6b6f485bf33caf2d49f1b3b2cb4609de41227ad92d5",
+    "observations.py": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e",
+    "loader.py": "0a3df63fd86191101f896e9b71e3453abc702293c94cf38cf7b24c2f4c38bf42",
+    "cli.py": "48c3050b486ab146b616db9f9a1f1463e332f6475f7eedf18292e42b14732076",
+    "__main__.py": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd",
+    "stats/changepoint.py": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d",
+    "stats/__init__.py": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f",
+    "stats/analyze.py": "f60db546103635939d9fe1e328409facff6a48b97d21b2dab6f1083be07f141d",
+    "stats/correlation.py": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb",
+    "stats/cofailure.py": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006",
+    "stats/wilson.py": "71ad25d644e1557c5a5d90b04dd35b7be8455aba156fbe7ea7fa5d9fd8c7ae24",
+    "stats/activity.py": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857",
+    "report/numbers.py": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401",
+    "report/terminal.py": "bc067cea56c5ef98db677d5e09d8089f5b4c83e7993241e8b83c8debe9c4f0ad",
+    "report/__init__.py": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50",
+    "report/html_out.py": "2991947edbc065c9ab429a86ec4eb049fba8ddac13ba910181db86375b26f960",
+    "report/names.py": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0",
+    "report/cofailure_html.py": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed",
+    "report/json_out.py": "2cb9bda81fb9239141018f34f97a44877c3ffc0a539775db606488ca6c28fc38",
+    "report/markdown_out.py": "e2fa5bb8bc8a3fa0ae2fe96b5cef5f7ec38a3b25a9350263cc0b8cd6f4763ba9",
+    "parse/junit_counts.py": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f",
+    "parse/xmltext.py": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031",
+    "parse/__init__.py": "41fd24ab3dd3174db479f17311d63afb53684d4e8ef53277f29532174e84e6e3",
+    "parse/junit.py": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9",
+    "parse/metadata.py": "7bb47777bdc07c76bc155adf8ba6e86c54cfde76974de4329cf9618461b275a2",
+    "parse/trx.py": "1d04f6313adcf68dc348937c5a082f4cc46d8a9ae63df99590b5a7d098527e5d",
+    "parse/trx_counts.py": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1",
+    "parse/xmlinput.py": "0049e6cca2fdf655a37c25f210cce428d72e626ffa7bb26474681ef86e31e8f0"
+  },
+  "artifacts": [
+    {
+      "file": "flakemap-0.3.7-py3-none-any.whl",
+      "bytes": 94215,
+      "sha256": "90f162d872bc9af97da739663dc05c8732fe0ec196ffa25f2973b93c8cde3140",
+      "packageFilesMatch": 30
+    },
+    {
+      "file": "flakemap-0.3.7.tar.gz",
+      "bytes": 120601,
+      "sha256": "17a98e13948eb92b7c60ae4c2b5c01bb96023b37f66fd405e23e8b7ec7b1efc1",
+      "packageFilesMatch": 30
+    }
+  ],
+  "installations": [
+    {
+      "environment": "wheel314",
+      "python": "3.14.7",
+      "rich": "15.0.0",
+      "installedUnderItsOwnPrefix": true,
+      "packageFilesMatch": 30,
+      "allNativeAnalysesAndGatesMatch": true
+    },
+    {
+      "environment": "sdist310",
+      "python": "3.10.21",
+      "rich": "13.7.0",
+      "installedUnderItsOwnPrefix": true,
+      "packageFilesMatch": 30,
+      "allNativeAnalysesAndGatesMatch": true
+    }
+  ],
+  "scope": "Actual built wheel/sdist and fresh runtime-only installations; no registry release."
+}

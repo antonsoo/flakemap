@@ -1,0 +1,543 @@
+{
+  "scope": "Separate interactive Hugging Face workbench publication, actual canonical file audit and native browser workflows. Source/package/Pages evidence is retained separately. No registry publication.",
+  "publication": {
+    "published": {
+      "repo_id": "antonsoloviev/flakemap",
+      "commit": "fef6bbcfcc7105c9580b1627d2a8619270d6e409",
+      "manifest_sha256": "fdf0b644c29caf3001b779f3ef79dff9adc9e906b06d8f3449c135ff2438e8ab",
+      "published_at": "2026-10-18T13:44:02.307316+00:00",
+      "host": "https://antonsoloviev-flakemap.static.hf.space"
+    },
+    "publicAudit": {
+      "verified_at": "2026-10-18T13:45:20.856Z",
+      "results": [
+        {
+          "name": "flakemap",
+          "url": "https://antonsoloviev-flakemap.static.hf.space/",
+          "startup_ms": 5285,
+          "desktop": "1440x1050",
+          "mobile": {
+            "width": 375,
+            "scroll": 375
+          },
+          "workflow": "passed",
+          "served_files_verified": true,
+          "lifecycle_regressions": "passed",
+          "network_requests_during_analysis": 0
+        }
+      ],
+      "errors": [],
+      "worker_failure_recovery": "passed",
+      "bundle_digests": {
+        "flakemap": "fdf0b644c29caf3001b779f3ef79dff9adc9e906b06d8f3449c135ff2438e8ab"
+      }
+    },
+    "buildManifest": {
+      "schema_version": 2,
+      "sdk": "static",
+      "space": "flakemap",
+      "engine": "flakemap @ git+https://github.com/antonsoo/flakemap@6c14af96a106f71a22ee81efdb5b10e0e5288047",
+      "pyodide": "314.0.7",
+      "files": {
+        "LICENSE": "e26144be8673d69c175126ad8dcd9ed78431464f0b97120b799dc75ec7edb647",
+        "LOCAL-GRADIO.md": "dc8321df56cf927515a9c3cbade0df27e77a212f059cd92ec2cd1b90dde4d4ea",
+        "README.md": "bd33d303457725d3d1bd24ffdd144355ee9b8e5e5252f1c1748685a80541d512",
+        "app.js": "2265b0a6ba3bdddb21ed7af4c81fad194852bf2493221f33857e1c7496ff9f0f",
+        "app.py": "9f97205fa86aa8a2001e1f22a8efefe45be847bb17ccdf5c614d0d5dfc2c4355",
+        "assets/workbench.png": "635b3df839c85e81394ca5573267ad1521d8eefce5201c90f1efd7d3a7fad26e",
+        "bridge.py": "c4117be22241104a333bae92b0864e1eabfedc07fd467d66911c9758d450d2f1",
+        "browser.css": "ca6a2629e7402cf6a3d046ac935c4ad201d9406b2585758f2e1ead568b032a90",
+        "constraints.txt": "36a82ce76196d01d868f86b93f4949f7a94052843ae84c428f0039f58cca4818",
+        "examples/PROVENANCE.json": "52ec7568805ee92adfbd84fde032f41246a3485346dc07420ee4a1488d77fa57",
+        "examples/junit-history.zip": "1f614049eb51d2abbb2793e71255a60589e0d15e9e529915474182bf66e0e6af",
+        "examples/nunit-history.zip": "611c6cb90036e906f3f0d2057107f707f7c1819cead230ea02d2b4e2888885c0",
+        "examples/trx-history.zip": "c8c1342f05d619ad670139001421a5ab73bf1bb5bf908aa19816bce50ef8d426",
+        "flake_workbench.py": "956469b7521aafafaa79156ef5c4b0fc838b174852650562451b884fb1f32a76",
+        "index.html": "5dfd75a4e172ca7edb352afd9b34dc4f64327d28f667197205bd72b28380ec41",
+        "licenses/defusedxml-PSF.txt": "b80ce9da8c42a1f91079627fbbe2bf27210ae108a0ffe5f077d5b08e076c24c8",
+        "licenses/flakemap-MIT.txt": "e26144be8673d69c175126ad8dcd9ed78431464f0b97120b799dc75ec7edb647",
+        "python.zip": "d21f95dd8e8d84b93832162155399323a3d96c57deb2becce299acd71cc2d3a1",
+        "requirements.txt": "4a4fda53c93d24bb46fac5b1f0ff62e0e19fdfd1be3f5d901bf12722df605f83",
+        "runtime-provenance.json": "48f3de67b8f611d89bcfbd5037b59b8a4fddada812f31d5b3b61ddf17ad83624",
+        "spacekit/__init__.py": "ab3651e938f896e9271d6c08c19b5ce2dda9305f201dc4dabaae495fd5086610",
+        "spacekit/html.py": "b0cfe2d79d70255e563d8730b350241d2df351b2882a5865319c88e7e0b3f585",
+        "spacekit/io.py": "a3a79deb53e0b1378e2e74ea1c60ea2a26d3aa0fc6d83fbc30a285cd92d2125f",
+        "spacekit/ui.py": "c559d6b5de79b99890c3e68ad44dc4d92032ea6066234d81c8c3e59ac130675b",
+        "spacekit/workbench.css": "535f9b642d608d796832310d6170ba66b2e8319767701a14216ace58607043fe",
+        "test-requirements.txt": "1438527233ce7beb1cdf4a046b8b5d38f140bd77217ef4df17d5592989d3ec15",
+        "tests/test_boundaries.py": "7cb17ba2a5c17849029f48d642fd63af0cc80588437228be1a2e2fced3830507",
+        "tests/test_flakemap.py": "4672d5baf6d8e8d91132719b2bbda5c58ed88cf5be3d3ea6616ced0b2da4af55",
+        "workbench.css": "535f9b642d608d796832310d6170ba66b2e8319767701a14216ace58607043fe",
+        "worker.mjs": "4c805fa6870bc0b09614105fa0017aed0d8795c54208bc2e6e3f0225c179849a"
+      }
+    },
+    "scope": "Only Flakemap was published in this update. Other local app builds and their validation are separate from their public deployments."
+  },
+  "browser": {
+    "checkedAtUtc": "2026-10-18T13:45:30.634Z",
+    "site": "https://antonsoloviev-flakemap.static.hf.space/",
+    "scope": "Actual served workbench and Pyodide Python. Native archive downloads while connected; actual uploads, complete JSON downloads, bundled examples and strict refusals after disconnection. No application assets, Python outputs or analysis responses mocked.",
+    "records": [
+      {
+        "engine": "chromium",
+        "browserVersion": "153.0.8010.12",
+        "width": 1440,
+        "offlineAnalysis": true,
+        "cases": [
+          {
+            "case": "missing-case.zip",
+            "refused": true,
+            "error": "Report 'captured-v3/report.xml' could not be fully verified: NUnit summary counters do not reconcile in 5 container(s): test-suite 'Pair<Int32,Double>': declares total=1, passed=0, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=0, passed=0, failed=0, warnings=0, inconclusive=0, skipped=0; test-suite 'Pair<T,U>': declares total=2, passed=1, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=1, passed=1, failed=0, warnings=0, inconclusive=0, skipped=0; test-suite 'NativeNUnit': declares total=2, passed=1, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=1, passed=1, failed=0, warnings=0, inconclusive=0, skipped=0; 2 more container(s). Individual coverage is unverified. Retained outcomes are unchanged.; NUnit suite outcomes have 5 failure/coverage issue(s): 'Pair<Int32,Double>' result='Failed' site='Child': One or more child tests had errors; 'Pair<T,U>' result='Failed' site='Child': One or more child tests had errors; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 2 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged. This workbench does not analyze partial or uncertain reports.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "teardown.zip",
+            "refused": true,
+            "error": "Report 'teardown/report.xml' could not be fully verified: NUnit suite outcomes have 4 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 'Capture.dll' result='Failed' site='Child': One or more child tests had errors; 1 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged. This workbench does not analyze partial or uncertain reports.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "contradictory-order.zip",
+            "refused": true,
+            "error": "Metadata ordering needs consistent distinct timestamps or sequences for every run. Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology. Add sidecars or explicitly choose filename order.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "nunit-history.zip",
+            "completeUploadJsonMatchesNative": true,
+            "completeExampleJsonMatchesNative": true,
+            "runs": 2,
+            "tests": 2
+          },
+          {
+            "case": "trx-history.zip",
+            "completeUploadJsonMatchesNative": true,
+            "completeExampleJsonMatchesNative": true,
+            "runs": 12,
+            "tests": 6
+          }
+        ],
+        "downloads": [
+          {
+            "file": "chromium-1440-nunit-history.zip",
+            "suggested": "nunit-history.zip",
+            "bytes": 2941,
+            "sha256": "611c6cb90036e906f3f0d2057107f707f7c1819cead230ea02d2b4e2888885c0"
+          },
+          {
+            "file": "chromium-1440-trx-history.zip",
+            "suggested": "trx-history.zip",
+            "bytes": 23477,
+            "sha256": "c8c1342f05d619ad670139001421a5ab73bf1bb5bf908aa19816bce50ef8d426"
+          },
+          {
+            "file": "chromium-1440-nunit-history.zip-upload.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5853,
+            "sha256": "e43252bc98012f73c08f58e2eb957dbacda3e1f6091960bf8ca6ebe699b31377"
+          },
+          {
+            "file": "chromium-1440-nunit-history.zip-example.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "chromium-1440-nunit-history.zip-example.html",
+            "suggested": "flakemap-report.html",
+            "bytes": 20836,
+            "sha256": "59aa6f22f0497c8ac48bc5f4a4b0e2255b20246c04332edddd2e47879beb3953"
+          },
+          {
+            "file": "chromium-1440-refused-missing-case.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "chromium-1440-refused-teardown.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "chromium-1440-refused-contradictory-order.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "chromium-1440-trx-history.zip-upload.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 19249,
+            "sha256": "8cb5cbc383ae4ce58f6acc026b0e6789938f208902dec1e4b1703c4bca5168f0"
+          },
+          {
+            "file": "chromium-1440-trx-history.zip-example.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 19303,
+            "sha256": "c50ec2611e3f8043adec20bd62439924c2b6e871cd9b9611d49452502d90f104"
+          },
+          {
+            "file": "chromium-1440-trx-history.zip-example.html",
+            "suggested": "flakemap-report.html",
+            "bytes": 44554,
+            "sha256": "95fbc11081840cafda585381868b51df6bee362641c3a0b7a3ff7ee5242ad8dc"
+          }
+        ],
+        "errors": [],
+        "network": [],
+        "diagnostics": {
+          "csp": [],
+          "rejected": []
+        },
+        "overflow": false
+      },
+      {
+        "engine": "chromium",
+        "browserVersion": "153.0.8010.12",
+        "width": 375,
+        "offlineAnalysis": true,
+        "cases": [
+          {
+            "case": "missing-case.zip",
+            "refused": true,
+            "error": "Report 'captured-v3/report.xml' could not be fully verified: NUnit summary counters do not reconcile in 5 container(s): test-suite 'Pair<Int32,Double>': declares total=1, passed=0, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=0, passed=0, failed=0, warnings=0, inconclusive=0, skipped=0; test-suite 'Pair<T,U>': declares total=2, passed=1, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=1, passed=1, failed=0, warnings=0, inconclusive=0, skipped=0; test-suite 'NativeNUnit': declares total=2, passed=1, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=1, passed=1, failed=0, warnings=0, inconclusive=0, skipped=0; 2 more container(s). Individual coverage is unverified. Retained outcomes are unchanged.; NUnit suite outcomes have 5 failure/coverage issue(s): 'Pair<Int32,Double>' result='Failed' site='Child': One or more child tests had errors; 'Pair<T,U>' result='Failed' site='Child': One or more child tests had errors; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 2 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged. This workbench does not analyze partial or uncertain reports.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "teardown.zip",
+            "refused": true,
+            "error": "Report 'teardown/report.xml' could not be fully verified: NUnit suite outcomes have 4 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 'Capture.dll' result='Failed' site='Child': One or more child tests had errors; 1 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged. This workbench does not analyze partial or uncertain reports.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "contradictory-order.zip",
+            "refused": true,
+            "error": "Metadata ordering needs consistent distinct timestamps or sequences for every run. Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology. Add sidecars or explicitly choose filename order.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "nunit-history.zip",
+            "completeUploadJsonMatchesNative": true,
+            "completeExampleJsonMatchesNative": true,
+            "runs": 2,
+            "tests": 2
+          },
+          {
+            "case": "trx-history.zip",
+            "completeUploadJsonMatchesNative": true,
+            "completeExampleJsonMatchesNative": true,
+            "runs": 12,
+            "tests": 6
+          }
+        ],
+        "downloads": [
+          {
+            "file": "chromium-375-nunit-history.zip",
+            "suggested": "nunit-history.zip",
+            "bytes": 2941,
+            "sha256": "611c6cb90036e906f3f0d2057107f707f7c1819cead230ea02d2b4e2888885c0"
+          },
+          {
+            "file": "chromium-375-trx-history.zip",
+            "suggested": "trx-history.zip",
+            "bytes": 23477,
+            "sha256": "c8c1342f05d619ad670139001421a5ab73bf1bb5bf908aa19816bce50ef8d426"
+          },
+          {
+            "file": "chromium-375-nunit-history.zip-upload.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5853,
+            "sha256": "e43252bc98012f73c08f58e2eb957dbacda3e1f6091960bf8ca6ebe699b31377"
+          },
+          {
+            "file": "chromium-375-nunit-history.zip-example.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "chromium-375-nunit-history.zip-example.html",
+            "suggested": "flakemap-report.html",
+            "bytes": 20836,
+            "sha256": "59aa6f22f0497c8ac48bc5f4a4b0e2255b20246c04332edddd2e47879beb3953"
+          },
+          {
+            "file": "chromium-375-refused-missing-case.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "chromium-375-refused-teardown.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "chromium-375-refused-contradictory-order.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "chromium-375-trx-history.zip-upload.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 19249,
+            "sha256": "8cb5cbc383ae4ce58f6acc026b0e6789938f208902dec1e4b1703c4bca5168f0"
+          },
+          {
+            "file": "chromium-375-trx-history.zip-example.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 19303,
+            "sha256": "c50ec2611e3f8043adec20bd62439924c2b6e871cd9b9611d49452502d90f104"
+          },
+          {
+            "file": "chromium-375-trx-history.zip-example.html",
+            "suggested": "flakemap-report.html",
+            "bytes": 44554,
+            "sha256": "95fbc11081840cafda585381868b51df6bee362641c3a0b7a3ff7ee5242ad8dc"
+          }
+        ],
+        "errors": [],
+        "network": [],
+        "diagnostics": {
+          "csp": [],
+          "rejected": []
+        },
+        "overflow": false
+      },
+      {
+        "engine": "firefox",
+        "browserVersion": "155.0",
+        "width": 1440,
+        "offlineAnalysis": true,
+        "cases": [
+          {
+            "case": "missing-case.zip",
+            "refused": true,
+            "error": "Report 'captured-v3/report.xml' could not be fully verified: NUnit summary counters do not reconcile in 5 container(s): test-suite 'Pair<Int32,Double>': declares total=1, passed=0, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=0, passed=0, failed=0, warnings=0, inconclusive=0, skipped=0; test-suite 'Pair<T,U>': declares total=2, passed=1, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=1, passed=1, failed=0, warnings=0, inconclusive=0, skipped=0; test-suite 'NativeNUnit': declares total=2, passed=1, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=1, passed=1, failed=0, warnings=0, inconclusive=0, skipped=0; 2 more container(s). Individual coverage is unverified. Retained outcomes are unchanged.; NUnit suite outcomes have 5 failure/coverage issue(s): 'Pair<Int32,Double>' result='Failed' site='Child': One or more child tests had errors; 'Pair<T,U>' result='Failed' site='Child': One or more child tests had errors; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 2 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged. This workbench does not analyze partial or uncertain reports.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "teardown.zip",
+            "refused": true,
+            "error": "Report 'teardown/report.xml' could not be fully verified: NUnit suite outcomes have 4 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 'Capture.dll' result='Failed' site='Child': One or more child tests had errors; 1 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged. This workbench does not analyze partial or uncertain reports.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "contradictory-order.zip",
+            "refused": true,
+            "error": "Metadata ordering needs consistent distinct timestamps or sequences for every run. Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology. Add sidecars or explicitly choose filename order.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "nunit-history.zip",
+            "completeUploadJsonMatchesNative": true,
+            "completeExampleJsonMatchesNative": true,
+            "runs": 2,
+            "tests": 2
+          },
+          {
+            "case": "trx-history.zip",
+            "completeUploadJsonMatchesNative": true,
+            "completeExampleJsonMatchesNative": true,
+            "runs": 12,
+            "tests": 6
+          }
+        ],
+        "downloads": [
+          {
+            "file": "firefox-1440-nunit-history.zip",
+            "suggested": "nunit-history.zip",
+            "bytes": 2941,
+            "sha256": "611c6cb90036e906f3f0d2057107f707f7c1819cead230ea02d2b4e2888885c0"
+          },
+          {
+            "file": "firefox-1440-trx-history.zip",
+            "suggested": "trx-history.zip",
+            "bytes": 23477,
+            "sha256": "c8c1342f05d619ad670139001421a5ab73bf1bb5bf908aa19816bce50ef8d426"
+          },
+          {
+            "file": "firefox-1440-nunit-history.zip-upload.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5853,
+            "sha256": "e43252bc98012f73c08f58e2eb957dbacda3e1f6091960bf8ca6ebe699b31377"
+          },
+          {
+            "file": "firefox-1440-nunit-history.zip-example.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "firefox-1440-nunit-history.zip-example.html",
+            "suggested": "flakemap-report.html",
+            "bytes": 20836,
+            "sha256": "59aa6f22f0497c8ac48bc5f4a4b0e2255b20246c04332edddd2e47879beb3953"
+          },
+          {
+            "file": "firefox-1440-refused-missing-case.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "firefox-1440-refused-teardown.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "firefox-1440-refused-contradictory-order.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "firefox-1440-trx-history.zip-upload.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 19249,
+            "sha256": "8cb5cbc383ae4ce58f6acc026b0e6789938f208902dec1e4b1703c4bca5168f0"
+          },
+          {
+            "file": "firefox-1440-trx-history.zip-example.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 19303,
+            "sha256": "c50ec2611e3f8043adec20bd62439924c2b6e871cd9b9611d49452502d90f104"
+          },
+          {
+            "file": "firefox-1440-trx-history.zip-example.html",
+            "suggested": "flakemap-report.html",
+            "bytes": 44554,
+            "sha256": "95fbc11081840cafda585381868b51df6bee362641c3a0b7a3ff7ee5242ad8dc"
+          }
+        ],
+        "errors": [],
+        "network": [],
+        "diagnostics": {
+          "csp": [],
+          "rejected": []
+        },
+        "overflow": false
+      },
+      {
+        "engine": "firefox",
+        "browserVersion": "155.0",
+        "width": 375,
+        "offlineAnalysis": true,
+        "cases": [
+          {
+            "case": "missing-case.zip",
+            "refused": true,
+            "error": "Report 'captured-v3/report.xml' could not be fully verified: NUnit summary counters do not reconcile in 5 container(s): test-suite 'Pair<Int32,Double>': declares total=1, passed=0, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=0, passed=0, failed=0, warnings=0, inconclusive=0, skipped=0; test-suite 'Pair<T,U>': declares total=2, passed=1, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=1, passed=1, failed=0, warnings=0, inconclusive=0, skipped=0; test-suite 'NativeNUnit': declares total=2, passed=1, failed=1, warnings=0, inconclusive=0, skipped=0; retained case results total=1, passed=1, failed=0, warnings=0, inconclusive=0, skipped=0; 2 more container(s). Individual coverage is unverified. Retained outcomes are unchanged.; NUnit suite outcomes have 5 failure/coverage issue(s): 'Pair<Int32,Double>' result='Failed' site='Child': One or more child tests had errors; 'Pair<T,U>' result='Failed' site='Child': One or more child tests had errors; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 2 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged. This workbench does not analyze partial or uncertain reports.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "teardown.zip",
+            "refused": true,
+            "error": "Report 'teardown/report.xml' could not be fully verified: NUnit suite outcomes have 4 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 'Capture.dll' result='Failed' site='Child': One or more child tests had errors; 1 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged. This workbench does not analyze partial or uncertain reports.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "contradictory-order.zip",
+            "refused": true,
+            "error": "Metadata ordering needs consistent distinct timestamps or sequences for every run. Recorded timestamps contradict the supplied sequence order. Supply consistent distinct sequences or recorded timestamps for every run. Temporal statistics and the new-flake gate are unavailable; display order is not chronology. Add sidecars or explicitly choose filename order.",
+            "previousAnalysisPreserved": true
+          },
+          {
+            "case": "nunit-history.zip",
+            "completeUploadJsonMatchesNative": true,
+            "completeExampleJsonMatchesNative": true,
+            "runs": 2,
+            "tests": 2
+          },
+          {
+            "case": "trx-history.zip",
+            "completeUploadJsonMatchesNative": true,
+            "completeExampleJsonMatchesNative": true,
+            "runs": 12,
+            "tests": 6
+          }
+        ],
+        "downloads": [
+          {
+            "file": "firefox-375-nunit-history.zip",
+            "suggested": "nunit-history.zip",
+            "bytes": 2941,
+            "sha256": "611c6cb90036e906f3f0d2057107f707f7c1819cead230ea02d2b4e2888885c0"
+          },
+          {
+            "file": "firefox-375-trx-history.zip",
+            "suggested": "trx-history.zip",
+            "bytes": 23477,
+            "sha256": "c8c1342f05d619ad670139001421a5ab73bf1bb5bf908aa19816bce50ef8d426"
+          },
+          {
+            "file": "firefox-375-nunit-history.zip-upload.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5853,
+            "sha256": "e43252bc98012f73c08f58e2eb957dbacda3e1f6091960bf8ca6ebe699b31377"
+          },
+          {
+            "file": "firefox-375-nunit-history.zip-example.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "firefox-375-nunit-history.zip-example.html",
+            "suggested": "flakemap-report.html",
+            "bytes": 20836,
+            "sha256": "59aa6f22f0497c8ac48bc5f4a4b0e2255b20246c04332edddd2e47879beb3953"
+          },
+          {
+            "file": "firefox-375-refused-missing-case.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "firefox-375-refused-teardown.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "firefox-375-refused-contradictory-order.zip.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 5907,
+            "sha256": "1e37f862a6e1776ff8bb25cb7ae4f48958336dd961b9b027f0ac917addc1b60d"
+          },
+          {
+            "file": "firefox-375-trx-history.zip-upload.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 19249,
+            "sha256": "8cb5cbc383ae4ce58f6acc026b0e6789938f208902dec1e4b1703c4bca5168f0"
+          },
+          {
+            "file": "firefox-375-trx-history.zip-example.json",
+            "suggested": "flakemap-report.json",
+            "bytes": 19303,
+            "sha256": "c50ec2611e3f8043adec20bd62439924c2b6e871cd9b9611d49452502d90f104"
+          },
+          {
+            "file": "firefox-375-trx-history.zip-example.html",
+            "suggested": "flakemap-report.html",
+            "bytes": 44554,
+            "sha256": "95fbc11081840cafda585381868b51df6bee362641c3a0b7a3ff7ee5242ad8dc"
+          }
+        ],
+        "errors": [],
+        "network": [],
+        "diagnostics": {
+          "csp": [],
+          "rejected": []
+        },
+        "overflow": false
+      }
+    ]
+  }
+}

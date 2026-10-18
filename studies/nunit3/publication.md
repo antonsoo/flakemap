@@ -49,6 +49,12 @@ produced complete JSON equal to the [browser download](hosted/download.json).
 Its exit 2 is expected: unknown results and the suite failure remain visible.
 The Pages report is precomputed; the separate Space executes Python in the tab.
 
+The [interactive workbench receipt](workbench-publication.json) retains its
+immutable Hub revision, complete thirty-file audit and four actual native
+NUnit/TRX workflows in Chromium/Firefox at desktop and phone widths. Uploaded
+original archives and bundled examples produce complete JSON equal to CPython
+after disconnecting. Strict refusals preserve the previous analysis and exports.
+
 ## Reproduce
 
 ```sh

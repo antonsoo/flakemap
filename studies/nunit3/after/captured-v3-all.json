@@ -1,0 +1,1492 @@
+{
+  "schema_version": 3,
+  "summary": {
+    "input_complete": false,
+    "ordering": {
+      "available": true,
+      "basis": "single_run",
+      "reason": null
+    },
+    "total_runs": 1,
+    "run_id_range": [
+      "Capture",
+      "Capture"
+    ],
+    "timestamp_range": [
+      "2026-10-18T12:46:01+00:00",
+      "2026-10-18T12:46:01+00:00"
+    ],
+    "total_tests": 18,
+    "cofailure_groups": 1,
+    "cofailure_tests": 7,
+    "recovered_test_runs": 0,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 2,
+    "flaky": 0,
+    "flaky_new": 0,
+    "flaky_quiet": 0,
+    "broken": 0,
+    "healthy": 0,
+    "insufficient_data": 18
+  },
+  "warnings": [
+    "run Capture: Capture.xml: NativeNUnit.Outcomes.Inconclusive: NUnit result 'Inconclusive' does not establish pass, failure or skip; excluded from rates",
+    "run Capture: Capture.xml: NativeNUnit.Outcomes.Warning: NUnit result 'Warning' does not establish pass, failure or skip; excluded from rates",
+    "run Capture: Capture.xml: NUnit suite outcomes have 1 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.. Suite failures are not extra test observations. Retained case outcomes are unchanged."
+  ],
+  "cofailure": {
+    "method": "exact_outcome_history",
+    "ambiguous_tests_excluded": [
+      "NativeNUnit.Outcomes.Inconclusive",
+      "NativeNUnit.Outcomes.Warning"
+    ],
+    "runs": [
+      {
+        "run_id": "Capture",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-18T12:46:01+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      }
+    ],
+    "groups": [
+      {
+        "id": "cohort-1",
+        "tests": [
+          "NativeNUnit.BrokenSetup.NeverReachedA",
+          "NativeNUnit.BrokenSetup.NeverReachedB",
+          "NativeNUnit.InvalidSignature.MissingArgument",
+          "NativeNUnit.MultipleAssertions.TwoFailures",
+          "NativeNUnit.Outcomes.Error",
+          "NativeNUnit.Outcomes.Failure",
+          "NativeNUnit.Pair<Int32,Double>.Check"
+        ],
+        "run_states": {
+          "pass": [],
+          "failed": [
+            "Capture"
+          ],
+          "recovered": [],
+          "exhausted": [],
+          "skip": [],
+          "absent": []
+        },
+        "failed_runs": 1,
+        "recovered_runs": 0,
+        "affected_test_runs": 7,
+        "evidence": [
+          {
+            "test": "NativeNUnit.BrokenSetup.NeverReachedA",
+            "run_id": "Capture",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "NeverReachedA",
+                "classname": "NativeNUnit.BrokenSetup",
+                "source": {
+                  "report": "Capture.xml",
+                  "testcase": 1
+                },
+                "status": "error",
+                "message": "NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.",
+                "reported_duration_seconds": 0.006779,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "NativeNUnit.BrokenSetup.NeverReachedB",
+            "run_id": "Capture",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "NeverReachedB",
+                "classname": "NativeNUnit.BrokenSetup",
+                "source": {
+                  "report": "Capture.xml",
+                  "testcase": 2
+                },
+                "status": "error",
+                "message": "NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.",
+                "reported_duration_seconds": 0.007595,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "NativeNUnit.InvalidSignature.MissingArgument",
+            "run_id": "Capture",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "MissingArgument",
+                "classname": "NativeNUnit.InvalidSignature",
+                "source": {
+                  "report": "Capture.xml",
+                  "testcase": 4
+                },
+                "status": "error",
+                "message": "NUnit label=Invalid: No arguments were provided",
+                "reported_duration_seconds": 0.000261,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "NativeNUnit.MultipleAssertions.TwoFailures",
+            "run_id": "Capture",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "TwoFailures",
+                "classname": "NativeNUnit.MultipleAssertions",
+                "source": {
+                  "report": "Capture.xml",
+                  "testcase": 5
+                },
+                "status": "fail",
+                "message": "Multiple failures or warnings in test:",
+                "reported_duration_seconds": 0.019818,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "NativeNUnit.Outcomes.Error",
+            "run_id": "Capture",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "Error",
+                "classname": "NativeNUnit.Outcomes",
+                "source": {
+                  "report": "Capture.xml",
+                  "testcase": 6
+                },
+                "status": "error",
+                "message": "NUnit label=Error: System.InvalidOperationException : Controlled unhandled exception.",
+                "reported_duration_seconds": 0.000201,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "NativeNUnit.Outcomes.Failure",
+            "run_id": "Capture",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "Failure",
+                "classname": "NativeNUnit.Outcomes",
+                "source": {
+                  "report": "Capture.xml",
+                  "testcase": 8
+                },
+                "status": "fail",
+                "message": "Controlled assertion failure.",
+                "reported_duration_seconds": 0.000438,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          },
+          {
+            "test": "NativeNUnit.Pair<Int32,Double>.Check",
+            "run_id": "Capture",
+            "commit": null,
+            "reason": null,
+            "records": [
+              {
+                "name": "Check",
+                "classname": "NativeNUnit.Pair<Int32,Double>",
+                "source": {
+                  "report": "Capture.xml",
+                  "testcase": 17
+                },
+                "status": "fail",
+                "message": "Controlled generic fixture outcome.",
+                "reported_duration_seconds": 0.0021,
+                "issue": null,
+                "retry": null
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "tests": [
+    {
+      "test": "NativeNUnit.BrokenSetup.NeverReachedA",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "Capture",
+      "history_runs_since_first_failure": 1,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "Capture",
+          "index": 0,
+          "timestamp": "2026-10-18T12:46:01+00:00",
+          "commit": null,
+          "status": "error",
+          "message": "NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 6
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "error",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.BrokenSetup.NeverReachedB",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "Capture",
+      "history_runs_since_first_failure": 1,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "Capture",
+          "index": 0,
+          "timestamp": "2026-10-18T12:46:01+00:00",
+          "commit": null,
+          "status": "error",
+          "message": "NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 6
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "error",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.BrokenTeardown.PassedBody",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.InvalidSignature.MissingArgument",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "Capture",
+      "history_runs_since_first_failure": 1,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "Capture",
+          "index": 0,
+          "timestamp": "2026-10-18T12:46:01+00:00",
+          "commit": null,
+          "status": "error",
+          "message": "NUnit label=Invalid: No arguments were provided",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 6
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "NUnit label=Invalid: No arguments were provided",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "error",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.MultipleAssertions.TwoFailures",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "Capture",
+      "history_runs_since_first_failure": 1,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "Capture",
+          "index": 0,
+          "timestamp": "2026-10-18T12:46:01+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Multiple failures or warnings in test:",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 6
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "Multiple failures or warnings in test:",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "fail",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.Error",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "Capture",
+      "history_runs_since_first_failure": 1,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "Capture",
+          "index": 0,
+          "timestamp": "2026-10-18T12:46:01+00:00",
+          "commit": null,
+          "status": "error",
+          "message": "NUnit label=Error: System.InvalidOperationException : Controlled unhandled exception.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 6
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "NUnit label=Error: System.InvalidOperationException : Controlled unhandled exception.",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "error",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.Explicit",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "skip",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.Failure",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "Capture",
+      "history_runs_since_first_failure": 1,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "Capture",
+          "index": 0,
+          "timestamp": "2026-10-18T12:46:01+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Controlled assertion failure.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 6
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "Controlled assertion failure.",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "fail",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.Ignored",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "skip",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.Inconclusive",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 1
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [
+        {
+          "run_id": "Capture",
+          "commit": null,
+          "reason": "NUnit result 'Inconclusive' does not establish pass, failure or skip",
+          "records": [
+            {
+              "name": "Inconclusive",
+              "classname": "NativeNUnit.Outcomes",
+              "source": {
+                "report": "Capture.xml",
+                "testcase": 10
+              },
+              "status": "unknown",
+              "message": "Controlled inconclusive result.",
+              "reported_duration_seconds": 0.00039,
+              "issue": "NUnit result 'Inconclusive' does not establish pass, failure or skip",
+              "retry": null
+            }
+          ]
+        }
+      ],
+      "activity": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "unknown",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.row.with.dots(\"a.b\")",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.row.with.dots(\"x,y\")",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.Pass",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.RetryRecovered",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.Skipped",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 1,
+        "unknown": 0
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "skip",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Outcomes.Warning",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 1
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [
+        {
+          "run_id": "Capture",
+          "commit": null,
+          "reason": "NUnit result 'Warning' does not establish pass, failure or skip",
+          "records": [
+            {
+              "name": "Warning",
+              "classname": "NativeNUnit.Outcomes",
+              "source": {
+                "report": "Capture.xml",
+                "testcase": 16
+              },
+              "status": "unknown",
+              "message": "Controlled warning, not a proven pass.",
+              "reported_duration_seconds": 0.000183,
+              "issue": "NUnit result 'Warning' does not establish pass, failure or skip",
+              "retry": null
+            }
+          ]
+        }
+      ],
+      "activity": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "unknown",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Pair<Int32,Double>.Check",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "Capture",
+      "history_runs_since_first_failure": 1,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "Capture",
+          "index": 0,
+          "timestamp": "2026-10-18T12:46:01+00:00",
+          "commit": null,
+          "status": "fail",
+          "message": "Controlled generic fixture outcome.",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 6
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "Controlled generic fixture outcome.",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "fail",
+      "temporal_available": true
+    },
+    {
+      "test": "NativeNUnit.Pair<Int32,String>.Check",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:01+00:00",
+      "last_seen": "2026-10-18T12:46:01+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    }
+  ]
+}

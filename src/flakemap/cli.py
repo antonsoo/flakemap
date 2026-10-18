@@ -21,11 +21,13 @@ from flakemap.stats.analyze import NamedFailure, TestStats
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="flakemap",
-        description="Find the flaky tests in your CI history from JUnit XML reports.",
+        description="Find the flaky tests in your CI history from JUnit, NUnit 3 XML or TRX reports.",
     )
     parser.add_argument("--version", action="version", version=f"flakemap {__version__}")
     parser.add_argument(
-        "reports_dir", type=Path, help="directory to scan recursively for JUnit XML or TRX reports"
+        "reports_dir",
+        type=Path,
+        help="directory to scan recursively for JUnit, NUnit 3 XML or TRX reports",
     )
     parser.add_argument(
         "--pattern",

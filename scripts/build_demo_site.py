@@ -61,6 +61,16 @@ DEMOS = (
         "Controlled compiled tests, not production reliability data.",
     ),
     (
+        "nunit",
+        "Native NUnit results",
+        "studies/nunit3/captured-v4/all",
+        "Eighteen actual NUnit 4 case records in native NUnit 3 XML. "
+        "Inspect closed generic fixtures, setup errors, and a suite teardown failure "
+        "after a passing test body. Warning and inconclusive results remain unknown. "
+        "A final pass alone does not prove retry recovery. Controlled compiled tests, "
+        "not production reliability data.",
+    ),
+    (
         "incomplete",
         "Interrupted input",
         "examples/incomplete_history",
@@ -151,24 +161,31 @@ def build(output: Path) -> list[dict[str, object]]:
             f'<a href="https://github.com/antonsoo/flakemap/tree/main/{source}">Source fixture</a>'
         )
         extra: dict[str, object] = {}
-        if slug == "generic":
+        if slug in ("generic", "nunit"):
             # Retain native XML bytes inside an offline download; timestamps in
             # the ZIP envelope are fixed, while each report's recorded time stays intact.
             archive = io.BytesIO()
             with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_DEFLATED) as bundle:
-                for report in sorted((ROOT / source).glob("*.trx")):
+                pattern = "*.trx" if slug == "generic" else "*.xml"
+                for report in sorted((ROOT / source).glob(pattern)):
                     entry = zipfile.ZipInfo(report.name, (1980, 1, 1, 0, 0, 0))
                     entry.compress_type = zipfile.ZIP_DEFLATED
                     entry.external_attr = 0o644 << 16
                     bundle.writestr(entry, report.read_bytes())
             inputs = archive.getvalue()
-            (output / "generic-inputs.zip").write_bytes(inputs)
+            (output / f"{slug}-inputs.zip").write_bytes(inputs)
             input_data = base64.b64encode(inputs).decode("ascii")
+            filename, label = (
+                ("nunit-generic-history.zip", "Download native TRX inputs")
+                if slug == "generic"
+                else ("nunit-native-inputs.zip", "Download native NUnit XML")
+            )
             actions += (
                 f' · <a href="data:application/zip;base64,{input_data}" '
-                'download="nunit-generic-history.zip">Download native TRX inputs</a>'
+                f'download="{filename}">{label}</a>'
             )
             extra["inputZipSha256"] = hashlib.sha256(inputs).hexdigest()
+            extra["inputDownloadLabel"] = label
         context = _context(
             slug,
             label,

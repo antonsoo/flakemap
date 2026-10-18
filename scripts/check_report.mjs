@@ -53,7 +53,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.match(await page.locator('meta[http-equiv="Content-Security-Policy"]').getAttribute("content"), /default-src 'none'/);
               if (fixture.name.startsWith("gallery/")) {
                 const nav = page.getByRole("navigation", { name: "Report examples" });
-                assert.equal(await nav.getByRole("link").count(), 6);
+                assert.equal(await nav.getByRole("link").count(), 7);
                 assert.equal(await nav.getByRole("link", { name: "Distinct generic fixtures", exact: true }).count(), 1);
                 assert.equal(await nav.locator('[aria-current="page"]').count(), 1);
                 assert.equal(await nav.locator('[aria-current="page"]').getAttribute("href"), `${fixture.name.split("/")[1]}.html`);
@@ -74,7 +74,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 }
                 if (fixture.inputZipSha256) {
                   const pending = page.waitForEvent("download");
-                  await page.getByRole("link", { name: "Download native TRX inputs", exact: true }).click();
+                  await page.getByRole("link", { name: fixture.inputDownloadLabel, exact: true }).click();
                   const downloaded = await pending;
                   const bytes = await readFile(await downloaded.path());
                   assert.equal(createHash("sha256").update(bytes).digest("hex"), fixture.inputZipSha256);
@@ -91,6 +91,32 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 assert.match(await factory.innerText(), /Quiet: .*longest quiet spell between failures was 125 runs, and it has now been 850 runs/);
                 assert.match(await factory.innerText(), /TestTimeTravelHealthcheck\s+44\s+41 of 43/);
                 assert.match(await factory.innerText(), /healthcheck\(\) called etcd 1 times, expected only two calls/);
+              }
+              if (["nunit", "gallery/nunit"].includes(fixture.name)) {
+                assert.equal(await page.locator(".row-heatmap .s-pass").count(), 6);
+                assert.equal(await page.locator(".row-heatmap .s-fail").count(), 3);
+                assert.equal(await page.locator(".row-heatmap .s-error").count(), 4);
+                assert.equal(await page.locator(".row-heatmap .s-skip").count(), 3);
+                assert.equal(await page.locator(".row-heatmap .s-unknown").count(), 2);
+                const warning = page.locator("details.warning");
+                await warning.locator("summary").focus();
+                await page.keyboard.press("Enter");
+                assert.match(await warning.innerText(), /BrokenTeardown.*TearDown.*Controlled one-time teardown failure/s);
+                for (const identity of ["Outcomes.Inconclusive", "Outcomes.Warning"]) {
+                  const row = page.locator("details.row").filter({ hasText: identity });
+                  await row.locator("summary").click();
+                  assert.equal(await row.locator(".s-unknown").count(), 1);
+                  assert.match(await row.innerText(), /excluded: 1/);
+                }
+                const setup = page.locator("details.row").filter({ hasText: "BrokenSetup.NeverReachedA" });
+                await setup.locator("summary").click();
+                assert.match(await setup.innerText(), /site=Parent.*OneTimeSetUp/);
+                const retry = page.locator("details.row").filter({ hasText: "Outcomes.RetryRecovered" });
+                assert.equal(await retry.locator(".s-recovered").count(), 0);
+                assert.equal(await retry.locator(".s-pass").count(), 1);
+                const pair = page.locator("details.row").filter({ hasText: "Pair<Int32,Double>.Check" });
+                await pair.locator("summary").click();
+                assert.match(await pair.locator(".test-identity").innerText(), /NativeNUnit\.Pair<Int32,Double>\.Check/);
               }
               if (fixture.name === "retry") {
                 assert.equal(await page.locator(".row-heatmap .s-recovered").count(), 2);
@@ -246,8 +272,9 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 await link.focus();
                 await page.keyboard.press("Enter");
                 assert.equal(await page.evaluate(() => document.activeElement.id), target.slice(1));
+                const wasOpen = await page.locator(target).evaluate(el => el.parentElement.open);
                 await page.keyboard.press("Enter");
-                assert.equal(await page.locator(target).evaluate(el => el.parentElement.open), true);
+                assert.equal(await page.locator(target).evaluate(el => el.parentElement.open), !wasOpen);
                 if (width === 320) {
                   const scroller = first.locator(".cohort-scroll");
                   await scroller.focus();
@@ -289,7 +316,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.deepEqual(errors, []);
               assert.deepEqual(network, []);
               assert.deepEqual(await page.evaluate(() => window.reportCspViolations), []);
-              if (fixture.chronology === false || ["retry", "incomplete", "cofailure", "long", "googletest"].includes(fixture.name)) {
+              if (fixture.chronology === false || ["retry", "incomplete", "cofailure", "long", "googletest", "nunit"].includes(fixture.name)) {
                 await page.evaluate(() => {
                   document.querySelectorAll(".cohort-scroll").forEach(el => { el.scrollLeft = 0; });
                   window.scrollTo(0, 0);

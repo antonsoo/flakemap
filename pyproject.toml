@@ -1,7 +1,7 @@
 [project]
 name = "flakemap"
 version = "0.3.7"
-description = "Find the flaky tests in your CI history from JUnit XML reports."
+description = "Inspect failures and retries in JUnit, NUnit 3 XML and TRX test histories."
 dynamic = ["readme"]
 license = { text = "MIT" }
 authors = [{ name = "Anton Soloviev", email = "anton@praviel.com" }]
@@ -12,6 +12,8 @@ keywords = [
     "flaky-tests",
     "junit",
     "junit-xml",
+    "nunit",
+    "trx",
     "pytest",
     "test-reliability",
     "statistics",

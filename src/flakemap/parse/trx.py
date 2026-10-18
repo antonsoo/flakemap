@@ -42,13 +42,12 @@ from flakemap.parse.junit import _first_line
 from flakemap.parse.trx_counts import summary_warning
 from flakemap.parse.xmlinput import (
     MAX_REPORT_BYTES,
-    MAX_XML_DEPTH,
-    MAX_XML_ELEMENTS,
     contains_dtd,
     exclude_lossy_identifiers,
+    has_xml_root,
+    parse_xml_root,
     read_xml_file,
     without_declaration,
-    xml_events,
 )
 from flakemap.parse.xmltext import repair_xml_text, replaced_warning
 
@@ -86,42 +85,7 @@ def _child(el: ET.Element, name: str) -> ET.Element | None:
 
 def is_trx(raw: str) -> bool:
     """True if the document's root element is a TRX ``<TestRun>``."""
-    pos = 0
-    while pos < len(raw):
-        if raw[pos].isspace() or raw[pos] == "\ufeff":
-            pos += 1
-            continue
-        terminator = (
-            "-->" if raw.startswith("<!--", pos) else "?>" if raw.startswith("<?", pos) else None
-        )
-        if terminator is None:
-            return re.compile(r"<(?:[\w.-]+:)?TestRun[\s>/]").match(raw, pos) is not None
-        end = raw.find(terminator, pos + 2)
-        if end == -1:
-            return False
-        pos = end + len(terminator)
-    return False
-
-
-def _parse_root(raw: str) -> ET.Element:
-    depth = 0
-    elements = 0
-    root = None
-    for event, element in xml_events(raw):
-        if event == "start":
-            elements += 1
-            if elements > MAX_XML_ELEMENTS:
-                raise ET.ParseError(f"XML exceeds the {MAX_XML_ELEMENTS} element limit")
-            depth += 1
-            if depth > MAX_XML_DEPTH:
-                raise ET.ParseError(f"XML nesting exceeds the {MAX_XML_DEPTH} level limit")
-            if root is None:
-                root = element
-        else:
-            depth -= 1
-    if root is None:
-        raise ET.ParseError("no document element")
-    return root
+    return has_xml_root(raw, "TestRun")
 
 
 def _duration(raw: str | None) -> float | None:
@@ -304,14 +268,14 @@ def read_trx(raw: str, source: str) -> tuple[list[TestCaseResult], list[str], da
     # make the parser reject it.
     raw = without_declaration(raw)
     try:
-        root = _parse_root(raw)
+        root = parse_xml_root(raw)
     except ET.ParseError as first_error:
         # As for JUnit: control characters from test output are the usual reason.
         repaired, _, replaced = repair_xml_text(raw)
         if repaired == raw:
             return [], [f"not well-formed TRX XML ({first_error})"], None
         try:
-            root = _parse_root(repaired)
+            root = parse_xml_root(repaired)
         except ET.ParseError as exc:
             return [], [f"not well-formed TRX XML ({exc})"], None
         if replaced:

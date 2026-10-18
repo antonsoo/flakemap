@@ -153,6 +153,7 @@ def main() -> None:
         ("trx", "examples/trx_history", 12, 6),
         ("trx-generics", "studies/trx-generics/native-capture/history", 12, 2),
         ("trx-generics-combined", "studies/trx-generics/native-capture/combined", 1, 4),
+        ("nunit", "studies/nunit3/captured-v4/all", 1, 18),
         ("incomplete", "examples/incomplete_history", 3, 6),
         ("cofailure", "examples/cofailure_history", 12, 6),
         ("cofailure-bounds", "synthetic boundary case in scripts/browser_fixtures.py", 26, 69),

@@ -1,0 +1,146 @@
+{
+  "phase": "before",
+  "scope": "Complete retained native reports from unchanged NodaTime 3.2.0 and Math.NET Numerics 5.0.0 source executions. Actual CLI outputs compared to an independent XML grouping/verdict oracle. This verifies import accounting on these two executions, not upstream reliability or general NUnit compatibility.",
+  "cases": [
+    {
+      "case": "nodatime-3.2.0",
+      "cliExit": 2,
+      "nativeCaseRecords": 22498,
+      "uniqueNativeFullnames": 22498,
+      "reportedTests": 0,
+      "discrepancies": 22498,
+      "firstDiscrepancies": [
+        {
+          "test": "NodaTime.Test.Annotations.MutabilityTest.AllPublicClassesAreMutableOrImmutable",
+          "expected": {
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "actual": null
+        },
+        {
+          "test": "NodaTime.Test.Annotations.PurityTest.AllPublicStructMethodsArePure",
+          "expected": {
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "actual": null
+        },
+        {
+          "test": "NodaTime.Test.Annotations.ReflectionTest.ConversionNamesMatchTargetType",
+          "expected": {
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "actual": null
+        }
+      ],
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "nodatime-3.2.0",
+          "nodatime-3.2.0"
+        ],
+        "timestamp_range": null,
+        "total_tests": 0,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "warnings": 2,
+      "counterMismatchWarnings": 0,
+      "canonicalJsonSha256": "ba66d36ec1a0166653d1cb38da95f26ff7ba240eb173816b105a8c64bf41350b",
+      "canonicalJsonBytes": 1079
+    },
+    {
+      "case": "mathnet-5.0.0",
+      "cliExit": 2,
+      "nativeCaseRecords": 22226,
+      "uniqueNativeFullnames": 22185,
+      "reportedTests": 0,
+      "discrepancies": 22185,
+      "firstDiscrepancies": [
+        {
+          "test": "MathNet.Numerics.Tests.CombinatoricsTests.CombinatoricsCountingTest.CanCountCombinations(0,0,1)",
+          "expected": {
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "actual": null
+        },
+        {
+          "test": "MathNet.Numerics.Tests.CombinatoricsTests.CombinatoricsCountingTest.CanCountCombinations(1,0,1)",
+          "expected": {
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "actual": null
+        },
+        {
+          "test": "MathNet.Numerics.Tests.CombinatoricsTests.CombinatoricsCountingTest.CanCountCombinations(10,0,1)",
+          "expected": {
+            "pass": 1,
+            "fail": 0,
+            "skip": 0,
+            "unknown": 0
+          },
+          "actual": null
+        }
+      ],
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "mathnet-5.0.0",
+          "mathnet-5.0.0"
+        ],
+        "timestamp_range": null,
+        "total_tests": 0,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 0
+      },
+      "warnings": 2,
+      "counterMismatchWarnings": 0,
+      "canonicalJsonSha256": "ddcbd54c62649ef420aff6391f12145de740476cc5f729597aa07aa4c64ba52e",
+      "canonicalJsonBytes": 1074
+    }
+  ]
+}

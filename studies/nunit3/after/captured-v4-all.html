@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>flakemap report</title>
+<style>
+:root {
+  --paper: #e7edee; --paper-raised: #f4f7f7; --ink: #16232a; --ink-soft: #46585f;
+  --grid-line: #c4d0d2; --pass: #2e6f4e; --fail: #b4392b; --error: #b8631a;
+  --skip: #8b98a0; --missing: #d7dee0; --flaky: #c08a1b; --broken: #b4392b;
+  --healthy: #2e6f4e; --accent: #1c4f63;
+  --flaky-ink: #926915;  /* --flaky as text: 4.5:1 on the raised paper, where the cell colour is 2.8:1 */
+  --font-display: "Archivo Narrow", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: ui-sans-serif, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", "Roboto Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #10181b; --paper-raised: #172226; --ink: #dce7e9; --ink-soft: #93a6ac;
+    --grid-line: #29383d; --pass: #52b788; --fail: #e2665a; --error: #e2924c;
+    --skip: #5e6e75; --missing: #223034; --flaky: #e0a93a; --broken: #e2665a;
+    --healthy: #52b788; --accent: #6fc3db; --flaky-ink: #e0a93a;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #10181b; --paper-raised: #172226; --ink: #dce7e9; --ink-soft: #93a6ac;
+  --grid-line: #29383d; --pass: #52b788; --fail: #e2665a; --error: #e2924c;
+  --skip: #5e6e75; --missing: #223034; --flaky: #e0a93a; --broken: #e2665a;
+  --healthy: #52b788; --accent: #6fc3db; --flaky-ink: #e0a93a;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body);
+  padding: 0 0 4rem;
+}
+.masthead {
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 24px 24px; background-position: -1px -1px;
+  border-bottom: 3px solid var(--ink); padding: 2rem 1.5rem 1.5rem;
+}
+.masthead h1 {
+  font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.06em; font-size: clamp(1.8rem, 5vw, 2.9rem); margin: 0 0 0.15rem;
+}
+.masthead .tagline { color: var(--ink-soft); margin: 0 0 1.1rem; font-size: 0.98rem; }
+.meta-strip {
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; font-family: var(--font-mono);
+  font-size: 0.82rem; color: var(--ink-soft); background: var(--paper-raised);
+  border: 1px solid var(--grid-line); padding: 0.6rem 0.9rem; max-width: fit-content;
+}
+.meta-strip b { color: var(--ink); font-weight: 600; }
+.tally { display: flex; flex-wrap: wrap; gap: 0.6rem; padding: 1.25rem 1.5rem 0; }
+.tally-item {
+  font-family: var(--font-mono); font-size: 0.82rem; border: 1px solid var(--grid-line);
+  padding: 0.35rem 0.7rem; background: var(--paper-raised); border-radius: 2px;
+}
+.tally-item b { font-family: var(--font-display); font-size: 1rem; margin-right: 0.35em; }
+.tally-broken b { color: var(--broken); } .tally-flaky b { color: var(--flaky-ink); }
+.tally-healthy b { color: var(--healthy); } .tally-na b { color: var(--ink-soft); }
+.warning {
+  margin: 1rem 1.5rem 0; padding: 0.6rem 0.9rem; border: 1px solid var(--flaky);
+  border-left-width: 4px; background: var(--paper-raised); font-size: 0.85rem; color: var(--ink-soft);
+}
+section.heatmap { padding: 1.75rem 1.5rem 0; }
+section.heatmap h2 {
+  font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.05em;
+  font-size: 1.05rem; border-bottom: 2px solid var(--ink); padding-bottom: 0.4rem; margin-bottom: 0.9rem;
+}
+.rows { border: 1px solid var(--grid-line); background: var(--paper-raised); }
+.row { border-bottom: 1px solid var(--grid-line); }
+.row:last-child { border-bottom: none; }
+.row summary {
+  list-style: none; cursor: pointer; display: flex; align-items: center; gap: 0.9rem;
+  padding: 0.4rem 0.75rem; font-family: var(--font-mono); font-size: 0.78rem;
+}
+.row summary::-webkit-details-marker { display: none; }
+.row summary::marker { content: ""; }
+.row summary:hover { background: rgba(28, 79, 99, 0.06); }
+.row summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.row-name {
+  flex: 0 0 clamp(200px, 30vw, 420px); min-width: 0; display: flex; align-items: center; gap: 0.5em;
+}
+.name-text { display: flex; min-width: 0; white-space: nowrap; }
+.name-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.name-tail { flex: 0 0 auto; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.dot-broken { background: var(--broken); } .dot-flaky { background: var(--flaky); }
+.dot-healthy { background: var(--healthy); } .dot-insufficient_data { background: var(--ink-soft); }
+.stamp {
+  font-family: var(--font-display); font-weight: 800; font-size: 0.6rem; letter-spacing: 0.06em;
+  border: 1.5px solid currentColor; border-radius: 3px; padding: 0.05em 0.35em; transform: rotate(-3deg);
+  display: inline-block; flex: none; white-space: nowrap;
+}
+.stamp-broken { color: var(--broken); } .stamp-flaky { color: var(--flaky-ink); }
+.stamp-new { color: var(--paper-raised); background: var(--flaky-ink); border-color: var(--flaky-ink); }
+.stamp-quiet { color: var(--ink-soft); transform: none; }
+/* Every run gets a column that fits the row: a scrolling strip would hide the most
+   recent runs, which is exactly where a newly broken test shows up. */
+.row-heatmap {
+  flex: 1 1 auto; min-width: 0; padding: 2px 0;
+  display: grid; grid-template-columns: repeat(var(--runs, 1), minmax(0, 1fr)); column-gap: 1px;
+}
+.cell { height: 14px; border-radius: 1px; }
+.s-pass { background: var(--pass); } .s-fail { background: var(--fail); }
+.s-error { background: var(--error); } .s-skip { background: var(--skip); }
+.s-missing { background: var(--missing); }
+.s-recovered { background: var(--flaky); box-shadow: inset 0 -3px var(--pass); }
+.s-unknown { background: repeating-linear-gradient(135deg, var(--ink-soft) 0 2px, var(--paper) 2px 4px); }
+.row-rate { flex: 0 0 3.2rem; text-align: right; color: var(--ink-soft); }
+/* A long history: a rail of passing runs, and a mark standing clear of it wherever a run
+   did not pass, so a failure is read from its shape and not only from its colour. */
+.row-strip { display: block; padding: 0; }
+.strip { display: block; width: 100%; height: 16px; overflow: visible; }
+.strip .r-pass { fill: var(--pass); opacity: 0.55; } .strip .r-skip { fill: var(--skip); }
+.strip [class^="m-"] { stroke-width: 2px; vector-effect: non-scaling-stroke; }
+.strip .m-fail { fill: var(--fail); stroke: var(--fail); }
+.strip .m-error { fill: var(--error); stroke: var(--error); }
+.strip .m-recovered { fill: var(--flaky); stroke: var(--flaky); }
+.strip .m-unknown { fill: var(--ink-soft); stroke: var(--ink-soft); stroke-dasharray: 2 2; }
+.strip .hit { fill: transparent; stroke: transparent; stroke-width: 9px; vector-effect: non-scaling-stroke; }
+.row-count { flex-basis: 6.6rem; white-space: nowrap; }
+.row-count b { color: var(--ink); font-weight: 600; margin-right: 0.5em; }
+.axis {
+  display: flex; align-items: flex-end; gap: 0.9rem; padding: 0.3rem 0.75rem 0.2rem;
+  font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-soft);
+  border-bottom: 1px solid var(--grid-line);
+}
+.axis-ticks { flex: 1 1 auto; min-width: 0; position: relative; height: 1.1rem; }
+.axis-ticks span { position: absolute; bottom: 0; transform: translateX(-50%); white-space: nowrap; }
+.axis-ticks span:first-child { transform: none; }
+.axis-ticks span:last-child { transform: translateX(-100%); }
+.healthy { border: 1px solid var(--grid-line); border-top: none; background: var(--paper-raised); font-size: 0.83rem; }
+.healthy summary { cursor: pointer; padding: 0.6rem 0.75rem; color: var(--ink-soft); }
+.healthy summary b { color: var(--healthy); font-family: var(--font-display); font-size: 1rem; margin-right: 0.2em; }
+.healthy summary:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.healthy-list {
+  margin: 0; padding: 0.4rem 0.75rem 0.9rem; list-style: none; columns: 26rem auto; column-gap: 2rem;
+  font-family: var(--font-mono); font-size: 0.74rem; overflow-wrap: anywhere;
+}
+.healthy-list li { padding: 0.12rem 0; break-inside: avoid; }
+.healthy-list span { color: var(--ink-soft); white-space: nowrap; }
+.healthy-list li:target { outline: 2px solid var(--accent); outline-offset: 2px; }
+.detail h3 { font-size: 0.85rem; margin: 1.1rem 0 0.4rem; }
+.scroll { overflow-x: auto; }
+.scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+table.failures { border-collapse: collapse; width: 100%; font-size: 0.78rem; }
+table.failures th, table.failures td {
+  text-align: left; vertical-align: top; padding: 0.4rem 0.9rem 0.4rem 0;
+  border-bottom: 1px solid var(--grid-line); font-weight: normal;
+}
+table.failures thead th { color: var(--ink-soft); white-space: nowrap; }
+table.failures tbody th { white-space: nowrap; }
+table.failures code { font-family: var(--font-mono); }
+.detail { padding: 0.7rem 1rem 1rem 2.4rem; background: var(--paper); font-size: 0.83rem; }
+.test-identity { font-family: var(--font-mono); font-size: 0.85rem; margin: 0 0 0.65rem; }
+.stat { display: flex; gap: 0.6rem; padding: 0.15rem 0; }
+.stat-label { flex: 0 0 15rem; color: var(--ink-soft); }
+.stat-value { font-family: var(--font-mono); min-width: 0; }
+.detail, .warning, .meta-strip { overflow-wrap: anywhere; }
+.evidence { border-left: 3px solid var(--flaky); padding: 0.1rem 1rem; margin: 0.8rem 0; background: var(--paper-raised); }
+.evidence h4 { margin: 0.65rem 0; }
+.evidence p { margin: 0.5rem 0; }
+.evidence-note, .source { color: var(--ink-soft); }
+.chronology-note { margin: 1.25rem 1.5rem 0; overflow-wrap: anywhere; }
+.warning summary { cursor: pointer; }
+.messages { margin: 0.2rem 0 0.6rem; padding-left: 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; }
+.prefix { margin: -0.4rem 0 0.8rem; font-size: 0.8rem; color: var(--ink-soft); }
+.legend { display: flex; flex-wrap: wrap; gap: 1rem; padding: 0.9rem 0.1rem 0; font-size: 0.78rem; color: var(--ink-soft); align-items: center; }
+.legend .cell { display: inline-block; width: 6px; vertical-align: middle; margin-right: 0.3em; }
+.legend .key { display: inline-block; width: 14px; vertical-align: middle; margin-right: 0.4em; }
+footer { padding: 2rem 1.5rem 0; font-size: 0.8rem; color: var(--ink-soft); }
+footer a { color: var(--accent); }
+@media (max-width: 900px) { .row-heatmap { column-gap: 0; } .cell { border-radius: 0; } }
+@media (max-width: 600px) {
+  .row summary { flex-wrap: wrap; gap: 0.5rem; }
+  .row-name { flex: 1 1 70%; font-size: 0.7rem; }
+  .row-heatmap { order: 3; flex-basis: 100%; }
+  .row-count { flex-basis: auto; }
+  .axis .row-name, .axis .row-rate { display: none; }
+  table.failures { min-width: 34rem; }
+  .stat { display: block; padding: 0.35rem 0; }
+  .stat-label, .stat-value { display: block; }
+  .detail { padding: 0.8rem; }
+}
+
+.cofailure { padding: 1.75rem 1.5rem 0; font-size: .86rem; overflow-wrap: anywhere; }
+.cofailure h2 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: .05em;
+  font-size: 1.05rem; border-bottom: 2px solid var(--ink); padding-bottom: .4rem; }
+.cofailure a { color: var(--accent); text-underline-offset: .15em; }
+.cofailure a:focus-visible, .cohort summary:focus-visible, .cohort-scroll:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 3px; }
+.cohort { margin: .6rem 0; border: 1px solid var(--grid-line); background: var(--paper-raised); }
+.cohort summary { padding: .8rem; cursor: pointer; line-height: 1.6; }
+.cohort summary strong { font-family: var(--font-mono); margin-right: .25em; }
+.cohort-detail { padding: 0 1rem 1rem; }
+.cohort-detail h3 { font-size: .85rem; margin: 1rem 0 .5rem; }
+.cohort-states { display: grid; grid-template-columns: 12rem minmax(0, 1fr); gap: .4rem 1rem; }
+.cohort-states dt { color: var(--ink-soft); }
+.cohort-states dd { margin: 0; }
+.cohort-members { padding-left: 1.2rem; line-height: 1.7; }
+.cohort-limit, .cohort-context, .cohort-scroll-hint { color: var(--ink-soft); font-size: .8rem; }
+.cohort-scroll { overflow-x: auto; }
+.cohort table { width: 100%; min-width: 800px; border-collapse: collapse; table-layout: fixed; font-size: .78rem; }
+.cohort caption { text-align: left; padding: .6rem 0; font-weight: 600; }
+.cohort th, .cohort td { text-align: left; vertical-align: top; padding: .7rem; border-bottom: 1px solid var(--grid-line); }
+.cohort th:nth-child(1) { width: 23%; }
+.cohort th:nth-child(2) { width: 23%; }
+.cohort th:nth-child(3) { width: 17%; }
+.cohort tbody th { font-weight: normal; }
+.cohort td p { margin: .45rem 0 0; }
+.row summary:target { outline: 2px solid var(--accent); outline-offset: -2px; }
+@media (min-width: 950px) { .cohort-scroll-hint { display: none; } }
+@media (max-width: 600px) { .cohort-states { grid-template-columns: 1fr; gap: .3rem; }
+  .cohort-states dd { margin-bottom: .5rem; } .cohort-detail { padding: 0 .65rem .65rem; } }
+</style>
+</head>
+<body>
+<header class="masthead">
+  <h1>flakemap &mdash; inspection report</h1>
+  <p class="tagline">Test reliability across CI history, computed from JUnit XML and TRX.</p>
+  <div class="meta-strip">
+    <span><b>runs</b> 1</span>
+    <span><b>tests</b> 18</span>
+    <span><b>run range</b> Capture → Capture</span>
+    <span><b>window</b> 2026-10-18 → 2026-10-18</span>
+  </div>
+</header>
+<main>
+<details class="warning"><summary>3 input / ordering warnings &mdash; inspect before using this report</summary><ul><li>run Capture: Capture.xml: NativeNUnit.Outcomes.Inconclusive: NUnit result &#x27;Inconclusive&#x27; does not establish pass, failure or skip; excluded from rates</li><li>run Capture: Capture.xml: NativeNUnit.Outcomes.Warning: NUnit result &#x27;Warning&#x27; does not establish pass, failure or skip; excluded from rates</li><li>run Capture: Capture.xml: NUnit suite outcomes have 1 failure/coverage issue(s): &#x27;BrokenTeardown&#x27; result=&#x27;Failed&#x27; site=&#x27;TearDown&#x27;: TearDown : System.InvalidOperationException : Controlled one-time teardown failure.. Suite failures are not extra test observations. Retained case outcomes are unchanged.</li></ul></details>
+<div class="tally">
+  <div class="tally-item tally-broken"><b>0</b>broken</div>
+  <div class="tally-item tally-flaky"><b>0</b>flaky</div>
+  
+  <div class="tally-item tally-healthy"><b>0</b>healthy</div>
+  <div class="tally-item tally-na"><b>18</b>insufficient data</div>
+  <div class="tally-item tally-flaky"><b>0</b>test-runs passed on retry</div>
+  <div class="tally-item tally-na"><b>2</b>test-runs excluded</div>
+</div>
+<section class="cofailure" aria-labelledby="cofailure-heading"><h2 id="cofailure-heading">Tests that fail together</h2><p>7 tests in 1 exact outcome cohort. Each group has the same normalized outcomes, retry states, skips and missing runs. A shared history is a lead to investigate, not proof of a common cause.</p><p>2 tests have ambiguous outcomes and are excluded from grouping. See their individual evidence below.</p><a class="cofailure-download" download="flakemap-cofailure.json" href="data:application/json;base64,eyJzY2hlbWFfdmVyc2lvbiI6IDEsICJpbnB1dF9jb21wbGV0ZSI6IGZhbHNlLCAid2FybmluZ3MiOiBbInJ1biBDYXB0dXJlOiBDYXB0dXJlLnhtbDogTmF0aXZlTlVuaXQuT3V0Y29tZXMuSW5jb25jbHVzaXZlOiBOVW5pdCByZXN1bHQgJ0luY29uY2x1c2l2ZScgZG9lcyBub3QgZXN0YWJsaXNoIHBhc3MsIGZhaWx1cmUgb3Igc2tpcDsgZXhjbHVkZWQgZnJvbSByYXRlcyIsICJydW4gQ2FwdHVyZTogQ2FwdHVyZS54bWw6IE5hdGl2ZU5Vbml0Lk91dGNvbWVzLldhcm5pbmc6IE5Vbml0IHJlc3VsdCAnV2FybmluZycgZG9lcyBub3QgZXN0YWJsaXNoIHBhc3MsIGZhaWx1cmUgb3Igc2tpcDsgZXhjbHVkZWQgZnJvbSByYXRlcyIsICJydW4gQ2FwdHVyZTogQ2FwdHVyZS54bWw6IE5Vbml0IHN1aXRlIG91dGNvbWVzIGhhdmUgMSBmYWlsdXJlL2NvdmVyYWdlIGlzc3VlKHMpOiAnQnJva2VuVGVhcmRvd24nIHJlc3VsdD0nRmFpbGVkJyBzaXRlPSdUZWFyRG93bic6IFRlYXJEb3duIDogU3lzdGVtLkludmFsaWRPcGVyYXRpb25FeGNlcHRpb24gOiBDb250cm9sbGVkIG9uZS10aW1lIHRlYXJkb3duIGZhaWx1cmUuLiBTdWl0ZSBmYWlsdXJlcyBhcmUgbm90IGV4dHJhIHRlc3Qgb2JzZXJ2YXRpb25zLiBSZXRhaW5lZCBjYXNlIG91dGNvbWVzIGFyZSB1bmNoYW5nZWQuIl0sICJjb2ZhaWx1cmUiOiB7Im1ldGhvZCI6ICJleGFjdF9vdXRjb21lX2hpc3RvcnkiLCAiYW1iaWd1b3VzX3Rlc3RzX2V4Y2x1ZGVkIjogWyJOYXRpdmVOVW5pdC5PdXRjb21lcy5JbmNvbmNsdXNpdmUiLCAiTmF0aXZlTlVuaXQuT3V0Y29tZXMuV2FybmluZyJdLCAicnVucyI6IFt7InJ1bl9pZCI6ICJDYXB0dXJlIiwgImNvbW1pdCI6IG51bGwsICJicmFuY2giOiBudWxsLCAidGltZXN0YW1wIjogIjIwMjYtMTAtMThUMTI6NDY6MjkrMDA6MDAiLCAicnVubmVyIjogbnVsbCwgIm9zIjogbnVsbCwgInNlcXVlbmNlIjogbnVsbCwgIm1ldGFkYXRhX3NvdXJjZSI6ICJyZXBvcnQifV0sICJncm91cHMiOiBbeyJpZCI6ICJjb2hvcnQtMSIsICJ0ZXN0cyI6IFsiTmF0aXZlTlVuaXQuQnJva2VuU2V0dXAuTmV2ZXJSZWFjaGVkQSIsICJOYXRpdmVOVW5pdC5Ccm9rZW5TZXR1cC5OZXZlclJlYWNoZWRCIiwgIk5hdGl2ZU5Vbml0LkludmFsaWRTaWduYXR1cmUuTWlzc2luZ0FyZ3VtZW50IiwgIk5hdGl2ZU5Vbml0Lk11bHRpcGxlQXNzZXJ0aW9ucy5Ud29GYWlsdXJlcyIsICJOYXRpdmVOVW5pdC5PdXRjb21lcy5FcnJvciIsICJOYXRpdmVOVW5pdC5PdXRjb21lcy5GYWlsdXJlIiwgIk5hdGl2ZU5Vbml0LlBhaXI8SW50MzIsRG91YmxlPi5DaGVjayJdLCAicnVuX3N0YXRlcyI6IHsicGFzcyI6IFtdLCAiZmFpbGVkIjogWyJDYXB0dXJlIl0sICJyZWNvdmVyZWQiOiBbXSwgImV4aGF1c3RlZCI6IFtdLCAic2tpcCI6IFtdLCAiYWJzZW50IjogW119LCAiZmFpbGVkX3J1bnMiOiAxLCAicmVjb3ZlcmVkX3J1bnMiOiAwLCAiYWZmZWN0ZWRfdGVzdF9ydW5zIjogNywgImV2aWRlbmNlIjogW3sidGVzdCI6ICJOYXRpdmVOVW5pdC5Ccm9rZW5TZXR1cC5OZXZlclJlYWNoZWRBIiwgInJ1bl9pZCI6ICJDYXB0dXJlIiwgImNvbW1pdCI6IG51bGwsICJyZWFzb24iOiBudWxsLCAicmVjb3JkcyI6IFt7Im5hbWUiOiAiTmV2ZXJSZWFjaGVkQSIsICJjbGFzc25hbWUiOiAiTmF0aXZlTlVuaXQuQnJva2VuU2V0dXAiLCAic291cmNlIjogeyJyZXBvcnQiOiAiQ2FwdHVyZS54bWwiLCAidGVzdGNhc2UiOiAxfSwgInN0YXR1cyI6ICJlcnJvciIsICJtZXNzYWdlIjogIk5Vbml0IGxhYmVsPUVycm9yLCBzaXRlPVBhcmVudDogT25lVGltZVNldFVwOiBTeXN0ZW0uSW52YWxpZE9wZXJhdGlvbkV4Y2VwdGlvbiA6IENvbnRyb2xsZWQgb25lLXRpbWUgc2V0dXAgZmFpbHVyZS4iLCAicmVwb3J0ZWRfZHVyYXRpb25fc2Vjb25kcyI6IDAuMDA3MjkyLCAiaXNzdWUiOiBudWxsLCAicmV0cnkiOiBudWxsfV19LCB7InRlc3QiOiAiTmF0aXZlTlVuaXQuQnJva2VuU2V0dXAuTmV2ZXJSZWFjaGVkQiIsICJydW5faWQiOiAiQ2FwdHVyZSIsICJjb21taXQiOiBudWxsLCAicmVhc29uIjogbnVsbCwgInJlY29yZHMiOiBbeyJuYW1lIjogIk5ldmVyUmVhY2hlZEIiLCAiY2xhc3NuYW1lIjogIk5hdGl2ZU5Vbml0LkJyb2tlblNldHVwIiwgInNvdXJjZSI6IHsicmVwb3J0IjogIkNhcHR1cmUueG1sIiwgInRlc3RjYXNlIjogMn0sICJzdGF0dXMiOiAiZXJyb3IiLCAibWVzc2FnZSI6ICJOVW5pdCBsYWJlbD1FcnJvciwgc2l0ZT1QYXJlbnQ6IE9uZVRpbWVTZXRVcDogU3lzdGVtLkludmFsaWRPcGVyYXRpb25FeGNlcHRpb24gOiBDb250cm9sbGVkIG9uZS10aW1lIHNldHVwIGZhaWx1cmUuIiwgInJlcG9ydGVkX2R1cmF0aW9uX3NlY29uZHMiOiAwLjAwNzgzNywgImlzc3VlIjogbnVsbCwgInJldHJ5IjogbnVsbH1dfSwgeyJ0ZXN0IjogIk5hdGl2ZU5Vbml0LkludmFsaWRTaWduYXR1cmUuTWlzc2luZ0FyZ3VtZW50IiwgInJ1bl9pZCI6ICJDYXB0dXJlIiwgImNvbW1pdCI6IG51bGwsICJyZWFzb24iOiBudWxsLCAicmVjb3JkcyI6IFt7Im5hbWUiOiAiTWlzc2luZ0FyZ3VtZW50IiwgImNsYXNzbmFtZSI6ICJOYXRpdmVOVW5pdC5JbnZhbGlkU2lnbmF0dXJlIiwgInNvdXJjZSI6IHsicmVwb3J0IjogIkNhcHR1cmUueG1sIiwgInRlc3RjYXNlIjogNH0sICJzdGF0dXMiOiAiZXJyb3IiLCAibWVzc2FnZSI6ICJOVW5pdCBsYWJlbD1JbnZhbGlkOiBObyBhcmd1bWVudHMgd2VyZSBwcm92aWRlZCIsICJyZXBvcnRlZF9kdXJhdGlvbl9zZWNvbmRzIjogMC4wMDAxMTgsICJpc3N1ZSI6IG51bGwsICJyZXRyeSI6IG51bGx9XX0sIHsidGVzdCI6ICJOYXRpdmVOVW5pdC5NdWx0aXBsZUFzc2VydGlvbnMuVHdvRmFpbHVyZXMiLCAicnVuX2lkIjogIkNhcHR1cmUiLCAiY29tbWl0IjogbnVsbCwgInJlYXNvbiI6IG51bGwsICJyZWNvcmRzIjogW3sibmFtZSI6ICJUd29GYWlsdXJlcyIsICJjbGFzc25hbWUiOiAiTmF0aXZlTlVuaXQuTXVsdGlwbGVBc3NlcnRpb25zIiwgInNvdXJjZSI6IHsicmVwb3J0IjogIkNhcHR1cmUueG1sIiwgInRlc3RjYXNlIjogNX0sICJzdGF0dXMiOiAiZmFpbCIsICJtZXNzYWdlIjogIk11bHRpcGxlIGZhaWx1cmVzIG9yIHdhcm5pbmdzIGluIHRlc3Q6IiwgInJlcG9ydGVkX2R1cmF0aW9uX3NlY29uZHMiOiAwLjAxODcwMiwgImlzc3VlIjogbnVsbCwgInJldHJ5IjogbnVsbH1dfSwgeyJ0ZXN0IjogIk5hdGl2ZU5Vbml0Lk91dGNvbWVzLkVycm9yIiwgInJ1bl9pZCI6ICJDYXB0dXJlIiwgImNvbW1pdCI6IG51bGwsICJyZWFzb24iOiBudWxsLCAicmVjb3JkcyI6IFt7Im5hbWUiOiAiRXJyb3IiLCAiY2xhc3NuYW1lIjogIk5hdGl2ZU5Vbml0Lk91dGNvbWVzIiwgInNvdXJjZSI6IHsicmVwb3J0IjogIkNhcHR1cmUueG1sIiwgInRlc3RjYXNlIjogNn0sICJzdGF0dXMiOiAiZXJyb3IiLCAibWVzc2FnZSI6ICJOVW5pdCBsYWJlbD1FcnJvcjogU3lzdGVtLkludmFsaWRPcGVyYXRpb25FeGNlcHRpb24gOiBDb250cm9sbGVkIHVuaGFuZGxlZCBleGNlcHRpb24uIiwgInJlcG9ydGVkX2R1cmF0aW9uX3NlY29uZHMiOiAwLjAwMDIzOSwgImlzc3VlIjogbnVsbCwgInJldHJ5IjogbnVsbH1dfSwgeyJ0ZXN0IjogIk5hdGl2ZU5Vbml0Lk91dGNvbWVzLkZhaWx1cmUiLCAicnVuX2lkIjogIkNhcHR1cmUiLCAiY29tbWl0IjogbnVsbCwgInJlYXNvbiI6IG51bGwsICJyZWNvcmRzIjogW3sibmFtZSI6ICJGYWlsdXJlIiwgImNsYXNzbmFtZSI6ICJOYXRpdmVOVW5pdC5PdXRjb21lcyIsICJzb3VyY2UiOiB7InJlcG9ydCI6ICJDYXB0dXJlLnhtbCIsICJ0ZXN0Y2FzZSI6IDh9LCAic3RhdHVzIjogImZhaWwiLCAibWVzc2FnZSI6ICJDb250cm9sbGVkIGFzc2VydGlvbiBmYWlsdXJlLiIsICJyZXBvcnRlZF9kdXJhdGlvbl9zZWNvbmRzIjogMC4wMDAzODIsICJpc3N1ZSI6IG51bGwsICJyZXRyeSI6IG51bGx9XX0sIHsidGVzdCI6ICJOYXRpdmVOVW5pdC5QYWlyPEludDMyLERvdWJsZT4uQ2hlY2siLCAicnVuX2lkIjogIkNhcHR1cmUiLCAiY29tbWl0IjogbnVsbCwgInJlYXNvbiI6IG51bGwsICJyZWNvcmRzIjogW3sibmFtZSI6ICJDaGVjayIsICJjbGFzc25hbWUiOiAiTmF0aXZlTlVuaXQuUGFpcjxJbnQzMixEb3VibGU+IiwgInNvdXJjZSI6IHsicmVwb3J0IjogIkNhcHR1cmUueG1sIiwgInRlc3RjYXNlIjogMTd9LCAic3RhdHVzIjogImZhaWwiLCAibWVzc2FnZSI6ICJDb250cm9sbGVkIGdlbmVyaWMgZml4dHVyZSBvdXRjb21lLiIsICJyZXBvcnRlZF9kdXJhdGlvbl9zZWNvbmRzIjogMC4wMDU3OTgsICJpc3N1ZSI6IG51bGwsICJyZXRyeSI6IG51bGx9XX1dfV19fQ==">Download all shared-outcome evidence</a><p class="cohort-limit">Showing 1 of 1 cohorts, ordered by affected test-runs. Final failures and passed-on-retry results remain separate.</p><details class="cohort" id="cohort-1"><summary><strong>7 tests</strong> share 1 final-failure runs and 0 recovered runs</summary><div class="cohort-detail"><h3>Matching run history</h3><dl class="cohort-states"><dt>Final fail or error (1)</dt><dd><code>Capture</code></dd></dl><h3>Members (7)</h3><ul class="cohort-members"><li><a href="#test-0"><code>NativeNUnit.BrokenSetup.NeverReachedA</code></a></li><li><a href="#test-1"><code>NativeNUnit.BrokenSetup.NeverReachedB</code></a></li><li><a href="#test-3"><code>NativeNUnit.InvalidSignature.MissingArgument</code></a></li><li><a href="#test-4"><code>NativeNUnit.MultipleAssertions.TwoFailures</code></a></li><li><a href="#test-5"><code>NativeNUnit.Outcomes.Error</code></a></li><li><a href="#test-7"><code>NativeNUnit.Outcomes.Failure</code></a></li><li><a href="#test-16"><code>NativeNUnit.Pair&lt;Int32,Double&gt;.Check</code></a></li></ul><p class="cohort-limit">Showing 7 of 7 affected test-runs. Source positions are 1-based result ordinals. Long text and retry lists are previewed; the JSON download retains every record.</p><p class="cohort-scroll-hint">Scroll the evidence table horizontally to inspect every column.</p><div class="cohort-scroll" role="region" tabindex="0" aria-label="Evidence for cohort-1"><table><caption>Original failures and recovered retries</caption><thead><tr><th scope="col">Run / environment</th><th scope="col">Test</th><th scope="col">Reported outcome</th><th scope="col">Source and message</th></tr></thead><tbody><tr><th scope="row"><code>Capture</code><br><span class="cohort-context">Environment not recorded</span></th><td><code>BrokenSetup.NeverReachedA</code></td><td>error</td><td><code>Capture.xml :: testcase 1</code><p>NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</p></td></tr><tr><th scope="row"><code>Capture</code><br><span class="cohort-context">Environment not recorded</span></th><td><code>BrokenSetup.NeverReachedB</code></td><td>error</td><td><code>Capture.xml :: testcase 2</code><p>NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</p></td></tr><tr><th scope="row"><code>Capture</code><br><span class="cohort-context">Environment not recorded</span></th><td><code>InvalidSignature.MissingArgument</code></td><td>error</td><td><code>Capture.xml :: testcase 4</code><p>NUnit label=Invalid: No arguments were provided</p></td></tr><tr><th scope="row"><code>Capture</code><br><span class="cohort-context">Environment not recorded</span></th><td><code>MultipleAssertions.TwoFailures</code></td><td>fail</td><td><code>Capture.xml :: testcase 5</code><p>Multiple failures or warnings in test:</p></td></tr><tr><th scope="row"><code>Capture</code><br><span class="cohort-context">Environment not recorded</span></th><td><code>Outcomes.Error</code></td><td>error</td><td><code>Capture.xml :: testcase 6</code><p>NUnit label=Error: System.InvalidOperationException : Controlled unhandled exception.</p></td></tr><tr><th scope="row"><code>Capture</code><br><span class="cohort-context">Environment not recorded</span></th><td><code>Outcomes.Failure</code></td><td>fail</td><td><code>Capture.xml :: testcase 8</code><p>Controlled assertion failure.</p></td></tr><tr><th scope="row"><code>Capture</code><br><span class="cohort-context">Environment not recorded</span></th><td><code>Pair&lt;Int32,Double&gt;.Check</code></td><td>fail</td><td><code>Capture.xml :: testcase 17</code><p>Controlled generic fixture outcome.</p></td></tr></tbody></table></div></div></details></section>
+<section class="heatmap">
+  <h2>Test &times; run heatmap</h2>
+  <p class="prefix">Tests under <code>NativeNUnit</code></p>
+  <div class="rows">
+<details class="row row-insufficient_data">
+  <summary id="test-0">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.BrokenSetup.NeverReachedA"><span class="name-head">BrokenSetup.</span><span class="name-tail">NeverReachedA</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-error" role="img" aria-label="Capture · 2026-10-18 12:46 · error · 0.01s · NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure." title="Capture · 2026-10-18 12:46 · error · 0.01s · NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure."></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">100%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.BrokenSetup.NeverReachedA</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">100%  [21%–100%]  ·  1 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">1 failures: too few to place.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</code> ×1</li></ul><h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" aria-label="Failures of NativeNUnit.BrokenSetup.NeverReachedA"><table class="failures"><thead><tr><th scope="col">Run</th><th scope="col">Same commit, other runs</th><th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th></tr></thead><tbody><tr><th scope="row"><code>Capture</code><br>2026-10-18 12:46</th><td>commit not recorded</td><td>6</td><td><code>NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</code></td></tr></tbody></table></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-1">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.BrokenSetup.NeverReachedB"><span class="name-head">BrokenSetup.</span><span class="name-tail">NeverReachedB</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-error" role="img" aria-label="Capture · 2026-10-18 12:46 · error · 0.01s · NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure." title="Capture · 2026-10-18 12:46 · error · 0.01s · NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure."></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">100%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.BrokenSetup.NeverReachedB</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">100%  [21%–100%]  ·  1 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">1 failures: too few to place.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</code> ×1</li></ul><h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" aria-label="Failures of NativeNUnit.BrokenSetup.NeverReachedB"><table class="failures"><thead><tr><th scope="col">Run</th><th scope="col">Same commit, other runs</th><th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th></tr></thead><tbody><tr><th scope="row"><code>Capture</code><br>2026-10-18 12:46</th><td>commit not recorded</td><td>6</td><td><code>NUnit label=Error, site=Parent: OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</code></td></tr></tbody></table></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-2">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.BrokenTeardown.PassedBody"><span class="name-head">BrokenTeardown.</span><span class="name-tail">PassedBody</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-pass" role="img" aria-label="Capture · 2026-10-18 12:46 · pass · 0.00s" title="Capture · 2026-10-18 12:46 · pass · 0.00s"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.BrokenTeardown.PassedBody</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-3">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.InvalidSignature.MissingArgument"><span class="name-head">InvalidSignature.</span><span class="name-tail">MissingArgument</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-error" role="img" aria-label="Capture · 2026-10-18 12:46 · error · 0.00s · NUnit label=Invalid: No arguments were provided" title="Capture · 2026-10-18 12:46 · error · 0.00s · NUnit label=Invalid: No arguments were provided"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">100%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.InvalidSignature.MissingArgument</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">100%  [21%–100%]  ·  1 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">1 failures: too few to place.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>NUnit label=Invalid: No arguments were provided</code> ×1</li></ul><h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" aria-label="Failures of NativeNUnit.InvalidSignature.MissingArgument"><table class="failures"><thead><tr><th scope="col">Run</th><th scope="col">Same commit, other runs</th><th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th></tr></thead><tbody><tr><th scope="row"><code>Capture</code><br>2026-10-18 12:46</th><td>commit not recorded</td><td>6</td><td><code>NUnit label=Invalid: No arguments were provided</code></td></tr></tbody></table></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-4">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.MultipleAssertions.TwoFailures"><span class="name-head">MultipleAssertions.</span><span class="name-tail">TwoFailures</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-fail" role="img" aria-label="Capture · 2026-10-18 12:46 · fail · 0.02s · Multiple failures or warnings in test:" title="Capture · 2026-10-18 12:46 · fail · 0.02s · Multiple failures or warnings in test:"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">100%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.MultipleAssertions.TwoFailures</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">100%  [21%–100%]  ·  1 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">1 failures: too few to place.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>Multiple failures or warnings in test:</code> ×1</li></ul><h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" aria-label="Failures of NativeNUnit.MultipleAssertions.TwoFailures"><table class="failures"><thead><tr><th scope="col">Run</th><th scope="col">Same commit, other runs</th><th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th></tr></thead><tbody><tr><th scope="row"><code>Capture</code><br>2026-10-18 12:46</th><td>commit not recorded</td><td>6</td><td><code>Multiple failures or warnings in test:</code></td></tr></tbody></table></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-5">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.Error"><span class="name-head">Outcomes.</span><span class="name-tail">Error</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-error" role="img" aria-label="Capture · 2026-10-18 12:46 · error · 0.00s · NUnit label=Error: System.InvalidOperationException : Controlled unhandled exception." title="Capture · 2026-10-18 12:46 · error · 0.00s · NUnit label=Error: System.InvalidOperationException : Controlled unhandled exception."></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">100%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.Error</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">100%  [21%–100%]  ·  1 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">1 failures: too few to place.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>NUnit label=Error: System.InvalidOperationException : Controlled unhandled exception.</code> ×1</li></ul><h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" aria-label="Failures of NativeNUnit.Outcomes.Error"><table class="failures"><thead><tr><th scope="col">Run</th><th scope="col">Same commit, other runs</th><th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th></tr></thead><tbody><tr><th scope="row"><code>Capture</code><br>2026-10-18 12:46</th><td>commit not recorded</td><td>6</td><td><code>NUnit label=Error: System.InvalidOperationException : Controlled unhandled exception.</code></td></tr></tbody></table></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-6">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.Explicit"><span class="name-head">Outcomes.</span><span class="name-tail">Explicit</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-skip" role="img" aria-label="Capture · 2026-10-18 12:46 · skip · 0.00s · NUnit label=Explicit: Controlled explicit test." title="Capture · 2026-10-18 12:46 · skip · 0.00s · NUnit label=Explicit: Controlled explicit test."></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">n/a</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.Explicit</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">unknown: no usable outcomes</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 0; skipped: 1; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">0</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-7">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.Failure"><span class="name-head">Outcomes.</span><span class="name-tail">Failure</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-fail" role="img" aria-label="Capture · 2026-10-18 12:46 · fail · 0.00s · Controlled assertion failure." title="Capture · 2026-10-18 12:46 · fail · 0.00s · Controlled assertion failure."></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">100%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.Failure</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">100%  [21%–100%]  ·  1 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">1 failures: too few to place.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>Controlled assertion failure.</code> ×1</li></ul><h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" aria-label="Failures of NativeNUnit.Outcomes.Failure"><table class="failures"><thead><tr><th scope="col">Run</th><th scope="col">Same commit, other runs</th><th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th></tr></thead><tbody><tr><th scope="row"><code>Capture</code><br>2026-10-18 12:46</th><td>commit not recorded</td><td>6</td><td><code>Controlled assertion failure.</code></td></tr></tbody></table></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-8">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.Ignored"><span class="name-head">Outcomes.</span><span class="name-tail">Ignored</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-skip" role="img" aria-label="Capture · 2026-10-18 12:46 · skip · 0.00s · NUnit label=Ignored: Controlled ignored test." title="Capture · 2026-10-18 12:46 · skip · 0.00s · NUnit label=Ignored: Controlled ignored test."></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">n/a</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.Ignored</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">unknown: no usable outcomes</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 0; skipped: 1; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">0</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-9">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.Inconclusive"><span class="name-head">Outcomes.</span><span class="name-tail">Inconclusive</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-unknown" role="img" aria-label="Capture · 2026-10-18 12:46 · unknown; excluded · 0.00s · Controlled inconclusive result. · NUnit result &#x27;Inconclusive&#x27; does not establish pass, failure or skip" title="Capture · 2026-10-18 12:46 · unknown; excluded · 0.00s · Controlled inconclusive result. · NUnit result &#x27;Inconclusive&#x27; does not establish pass, failure or skip"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">n/a</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.Inconclusive</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">unknown: no usable outcomes</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 0; skipped: 0; excluded: 1</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">Unavailable: ambiguous outcomes interrupt the failure history.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">0</span></div><h3>Recorded evidence</h3><p class="evidence-note">Sources identify a file and its 1-based testcase position. Failure records follow XML order. Attempt timing and total retry cost are not inferred.</p><article class="evidence"><h4><code>Capture</code> &mdash; excluded</h4><p>NUnit result &#x27;Inconclusive&#x27; does not establish pass, failure or skip</p><p class="source"><code>Capture.xml :: testcase 10</code> &mdash; reported unknown</p><p>Controlled inconclusive result.</p></article></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-10">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.row.with.dots(&quot;a.b&quot;)"><span class="name-head">Outcomes.row.with.dots(&quot;a.</span><span class="name-tail">b&quot;)</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-pass" role="img" aria-label="Capture · 2026-10-18 12:46 · pass · 0.00s" title="Capture · 2026-10-18 12:46 · pass · 0.00s"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.row.with.dots(&quot;a.b&quot;)</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-11">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.row.with.dots(&quot;x,y&quot;)"><span class="name-head">Outcomes.row.with.</span><span class="name-tail">dots(&quot;x,y&quot;)</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-pass" role="img" aria-label="Capture · 2026-10-18 12:46 · pass · 0.00s" title="Capture · 2026-10-18 12:46 · pass · 0.00s"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.row.with.dots(&quot;x,y&quot;)</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-12">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.Pass"><span class="name-head">Outcomes.</span><span class="name-tail">Pass</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-pass" role="img" aria-label="Capture · 2026-10-18 12:46 · pass · 0.00s" title="Capture · 2026-10-18 12:46 · pass · 0.00s"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.Pass</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-13">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.RetryRecovered"><span class="name-head">Outcomes.</span><span class="name-tail">RetryRecovered</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-pass" role="img" aria-label="Capture · 2026-10-18 12:46 · pass · 0.00s" title="Capture · 2026-10-18 12:46 · pass · 0.00s"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.RetryRecovered</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-14">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.Skipped"><span class="name-head">Outcomes.</span><span class="name-tail">Skipped</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-skip" role="img" aria-label="Capture · 2026-10-18 12:46 · skip · 0.00s · NUnit label=Ignored: Controlled runtime skip." title="Capture · 2026-10-18 12:46 · skip · 0.00s · NUnit label=Ignored: Controlled runtime skip."></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">n/a</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.Skipped</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">unknown: no usable outcomes</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 0; skipped: 1; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">0</span></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-15">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Outcomes.Warning"><span class="name-head">Outcomes.</span><span class="name-tail">Warning</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-unknown" role="img" aria-label="Capture · 2026-10-18 12:46 · unknown; excluded · 0.00s · Controlled warning, not a proven pass. · NUnit result &#x27;Warning&#x27; does not establish pass, failure or skip" title="Capture · 2026-10-18 12:46 · unknown; excluded · 0.00s · Controlled warning, not a proven pass. · NUnit result &#x27;Warning&#x27; does not establish pass, failure or skip"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">n/a</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Outcomes.Warning</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">unknown: no usable outcomes</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 0; skipped: 0; excluded: 1</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">Unavailable: ambiguous outcomes interrupt the failure history.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">0</span></div><h3>Recorded evidence</h3><p class="evidence-note">Sources identify a file and its 1-based testcase position. Failure records follow XML order. Attempt timing and total retry cost are not inferred.</p><article class="evidence"><h4><code>Capture</code> &mdash; excluded</h4><p>NUnit result &#x27;Warning&#x27; does not establish pass, failure or skip</p><p class="source"><code>Capture.xml :: testcase 16</code> &mdash; reported unknown</p><p>Controlled warning, not a proven pass.</p></article></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-16">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Pair&lt;Int32,Double&gt;.Check"><span class="name-head">Pair&lt;Int32,Double&gt;.</span><span class="name-tail">Check</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-fail" role="img" aria-label="Capture · 2026-10-18 12:46 · fail · 0.01s · Controlled generic fixture outcome." title="Capture · 2026-10-18 12:46 · fail · 0.01s · Controlled generic fixture outcome."></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">100%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Pair&lt;Int32,Double&gt;.Check</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">100%  [21%–100%]  ·  1 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Activity</span><span class="stat-value">1 failures: too few to place.</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div><div class="stat"><span class="stat-label">Failure messages</span></div><ul class="messages"><li><code>Controlled generic fixture outcome.</code> ×1</li></ul><h3>Failures, newest first</h3><div class="scroll" role="region" tabindex="0" aria-label="Failures of NativeNUnit.Pair&lt;Int32,Double&gt;.Check"><table class="failures"><thead><tr><th scope="col">Run</th><th scope="col">Same commit, other runs</th><th scope="col">Other tests failed</th><th scope="col">Named in output, or message</th></tr></thead><tbody><tr><th scope="row"><code>Capture</code><br>2026-10-18 12:46</th><td>commit not recorded</td><td>6</td><td><code>Controlled generic fixture outcome.</code></td></tr></tbody></table></div></div>
+</details>
+<details class="row row-insufficient_data">
+  <summary id="test-17">
+    <span class="row-name">
+      <span class="dot dot-insufficient_data"></span>
+      <span class="name-text" title="NativeNUnit.Pair&lt;Int32,String&gt;.Check"><span class="name-head">Pair&lt;Int32,String&gt;.</span><span class="name-tail">Check</span></span>
+      
+    </span>
+    <span class="row-heatmap" style="--runs:1"><span class="cell s-pass" role="img" aria-label="Capture · 2026-10-18 12:46 · pass · 0.00s" title="Capture · 2026-10-18 12:46 · pass · 0.00s"></span></span>
+    <span class="row-rate" title="Final failure rate; one outcome per run">0%</span>
+  </summary>
+  <div class="detail"><h3 class="test-identity">NativeNUnit.Pair&lt;Int32,String&gt;.Check</h3><div class="stat"><span class="stat-label">Final failure rate (95% CI)</span><span class="stat-value">0%  [0%–79%]  ·  0 of 1 runs</span></div><div class="stat"><span class="stat-label">Usable outcomes</span><span class="stat-value">runs: 1; skipped: 0; excluded: 0</span></div><div class="stat"><span class="stat-label">Passed on retry</span><span class="stat-value">0 (explicit failed attempts before a pass)</span></div><div class="stat"><span class="stat-label">Retry exhaustion</span><span class="stat-value">0 (every recorded attempt failed)</span></div><div class="stat"><span class="stat-label">Flip rate</span><span class="stat-value">unavailable: no usable consecutive pairs</span></div><div class="stat"><span class="stat-label">Same-context rerun disagreement</span><span class="stat-value">no commits with multiple runs observed</span></div><div class="stat"><span class="stat-label">Flakiness score</span><span class="stat-value">0.000</span></div><div class="stat"><span class="stat-label">Timing observations (without retries)</span><span class="stat-value">1</span></div></div>
+</details></div>
+  
+  <div class="legend">
+    <span><span class="cell s-pass"></span>pass</span>
+    <span><span class="cell s-recovered"></span>passed on retry</span>
+    <span><span class="cell s-fail"></span>fail</span>
+    <span><span class="cell s-error"></span>error</span>
+    <span><span class="cell s-skip"></span>skip</span>
+    <span><span class="cell s-missing"></span>not run</span>
+    <span><span class="cell s-unknown"></span>unknown / excluded</span>
+    <span>Rates use the final outcome of each run; retry attempts do not increase the sample size.</span>
+    <span>Rows sorted broken &rarr; new &rarr; flaky &rarr; quiet &rarr; insufficient data &rarr; healthy, then by score. Columns are runs in chronological order. Click a row for detail. Hover a cell for the run.</span>
+  </div>
+</section>
+</main>
+<footer>
+  Generated by <a href="https://github.com/antonsoo/flakemap">flakemap</a>. Scoring formula and
+  methodology: see the README. Pairs with <a href="https://github.com/antonsoo/logdelta">logdelta</a>
+  for diffing the actual failing-run logs once you know which test to look at.
+</footer>
+</body>
+</html>

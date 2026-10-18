@@ -1,6 +1,6 @@
 # flakemap
 
-**Find the failures that green retries hide. Inspect JUnit history locally, down
+**Find the failures that green retries hide. Inspect test-result history locally, down
 to the failed attempts and source records.**
 
 [![PyPI](https://img.shields.io/pypi/v/flakemap)](https://pypi.org/project/flakemap/)
@@ -49,6 +49,14 @@ reader merged `Pair<Int32,String>` and `Pair<Int32,Double>` into a 50% flaky
 history; the compiled capture instead has one fixture passing all six executions
 and one failing all six. [Native records and before/after reports](studies/trx-generics/README.md).
 This source correction is separate from the PyPI release.
+
+Native **NUnit 3 XML** can now be read directly from source, including reports
+emitted by NUnit 4. The [native report study](studies/nunit3/README.md) retains
+18 controlled reports and two unchanged upstream executions with 44,724 case
+records. Closed generic identities stay distinct; warning/inconclusive results
+and repeated full names remain excluded. A failed suite teardown stays visible
+even when its test body passed and the adapter process exited successfully.
+This capability is separate from the registry release and hosted workbench.
 
 <p align="center"><img src="docs/assets/hero-heatmap.png" width="820" alt="flakemap HTML report: an inspection-report-styled page with a test x run heatmap. 222 runs, 12 tests, 1 broken (red DEFECT stamp) and 3 flaky (amber INTERMITTENT stamps) rows shown above 8 healthy rows, each row a strip of small green/red cells for pass/fail across chronological runs, with a failure rate percentage on the right"></p>
 
@@ -187,6 +195,10 @@ from a new PyPI release.
   own start time orders the runs. Malformed and truncated files
   degrade to a warning, never a crash. Details and sources:
   [`docs/formats.md`](docs/formats.md).
+- **Native NUnit 3 XML** (source checkout): `.xml` output from NUnit 3/4 and
+  NUnitLite, with exact native full names, case outcomes, durations, start times,
+  per-suite counters and separate suite-failure warnings. No JUnit conversion
+  or runtime dependency is required. [Capture, replay and limits](studies/nunit3/README.md).
 - **Retry evidence**: explicit recovered and exhausted attempts, source file and
   testcase positions, failure messages, and a separate recovered-run count.
   Retries never inflate the per-run failure-rate denominator.

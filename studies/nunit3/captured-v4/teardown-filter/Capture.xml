@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="0" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1" engine-version="3.18.1.0" clr-version="8.0.31" start-time="2026-10-18 12:46:37Z" end-time="2026-10-18 12:46:37Z" duration="0.053583">
+  <command-line>&lt;native NUnit adapter command; host paths and transient ports omitted&gt;</command-line>
+  <filter>
+    <test>NativeNUnit.BrokenTeardown.PassedBody</test>
+  </filter>
+  <test-suite type="Assembly" id="0-1027" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:37.6204054Z" end-time="2026-10-18T12:46:37.6382881Z" duration="0.017856" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+    <environment framework-version="4.3.2.0" clr-version="8.0.31" os-version="Ubuntu 24.04.5 LTS" platform="Unix" culture="" uiculture="" os-architecture="x64" />
+    <settings>
+      <setting name="SynchronousEvents" value="False" />
+      <setting name="InternalTraceLevel" value="Off" />
+      <setting name="RandomSeed" value="945168838" />
+      <setting name="SkipNonTestAssemblies" value="True" />
+      <setting name="ProcessModel" value="InProcess" />
+      <setting name="DomainUsage" value="Single" />
+      <setting name="DefaultTestNamePattern" value="{m}{a}" />
+      <setting name="WorkDirectory" value="&lt;native-project&gt;/bin/Debug/net8.0" />
+      <setting name="NumberOfTestWorkers" value="14" />
+    </settings>
+    <properties>
+      <property name="_PID" value="&lt;process-id&gt;" />
+      <property name="_APPDOMAIN" value="testhost" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1028" name="NativeNUnit" fullname="NativeNUnit" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:37.6236970Z" end-time="2026-10-18T12:46:37.6382781Z" duration="0.014581" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestFixture" id="0-1023" name="BrokenTeardown" fullname="NativeNUnit.BrokenTeardown" classname="NativeNUnit.BrokenTeardown" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="TearDown" start-time="2026-10-18T12:46:37.6250235Z" end-time="2026-10-18T12:46:37.6380338Z" duration="0.013010" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+        <failure>
+          <message>TearDown : System.InvalidOperationException : Controlled one-time teardown failure.</message>
+          <stack-trace>--TearDown
+   at NativeNUnit.BrokenTeardown.TearDown() in studies/nunit3/native/Outcomes.cs:line 50
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+        </failure>
+        <test-case id="0-1024" name="PassedBody" fullname="NativeNUnit.BrokenTeardown.PassedBody" methodname="PassedBody" classname="NativeNUnit.BrokenTeardown" runstate="Runnable" seed="1285695738" result="Passed" start-time="2026-10-18T12:46:37.6277250Z" end-time="2026-10-18T12:46:37.6299898Z" duration="0.002292" asserts="1" />
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

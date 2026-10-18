@@ -27,3 +27,7 @@ node_modules/
 /studies/trx-hierarchy/native/obj/
 /studies/trx-generics/native/bin/
 /studies/trx-generics/native/obj/
+/studies/nunit3/native/bin/
+/studies/nunit3/native/obj/
+/studies/nunit3/native4/bin/
+/studies/nunit3/native4/obj/

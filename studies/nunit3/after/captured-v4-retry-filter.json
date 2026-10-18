@@ -1,0 +1,109 @@
+{
+  "schema_version": 3,
+  "summary": {
+    "input_complete": true,
+    "ordering": {
+      "available": true,
+      "basis": "single_run",
+      "reason": null
+    },
+    "total_runs": 1,
+    "run_id_range": [
+      "Capture",
+      "Capture"
+    ],
+    "timestamp_range": [
+      "2026-10-18T12:46:40+00:00",
+      "2026-10-18T12:46:40+00:00"
+    ],
+    "total_tests": 1,
+    "cofailure_groups": 0,
+    "cofailure_tests": 0,
+    "recovered_test_runs": 0,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 0,
+    "flaky": 0,
+    "flaky_new": 0,
+    "flaky_quiet": 0,
+    "broken": 0,
+    "healthy": 0,
+    "insufficient_data": 1
+  },
+  "warnings": [],
+  "cofailure": {
+    "method": "exact_outcome_history",
+    "ambiguous_tests_excluded": [],
+    "runs": [
+      {
+        "run_id": "Capture",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-18T12:46:40+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      }
+    ],
+    "groups": []
+  },
+  "tests": [
+    {
+      "test": "NativeNUnit.Outcomes.RetryRecovered",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-18T12:46:40+00:00",
+      "last_seen": "2026-10-18T12:46:40+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    }
+  ]
+}

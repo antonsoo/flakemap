@@ -1,0 +1,2 @@
+HTML report written to <replay-output>/captured-v4-teardown-filter.html
+error: incomplete report; inspect the reported warnings

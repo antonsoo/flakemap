@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="0" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Warning" total="1" passed="0" failed="0" warnings="1" inconclusive="0" skipped="0" asserts="0" engine-version="3.18.1.0" clr-version="8.0.31" start-time="2026-10-18 12:46:33Z" end-time="2026-10-18 12:46:33Z" duration="0.044325">
+  <command-line>&lt;native NUnit adapter command; host paths and transient ports omitted&gt;</command-line>
+  <filter>
+    <test>NativeNUnit.Outcomes.Warning</test>
+  </filter>
+  <test-suite type="Assembly" id="0-1027" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Warning" site="Child" start-time="2026-10-18T12:46:33.4653105Z" end-time="2026-10-18T12:46:33.4868792Z" duration="0.021543" total="1" passed="0" failed="0" warnings="1" inconclusive="0" skipped="0" asserts="0">
+    <environment framework-version="4.3.2.0" clr-version="8.0.31" os-version="Ubuntu 24.04.5 LTS" platform="Unix" culture="" uiculture="" os-architecture="x64" />
+    <settings>
+      <setting name="SynchronousEvents" value="False" />
+      <setting name="InternalTraceLevel" value="Off" />
+      <setting name="RandomSeed" value="1293477446" />
+      <setting name="SkipNonTestAssemblies" value="True" />
+      <setting name="ProcessModel" value="InProcess" />
+      <setting name="DomainUsage" value="Single" />
+      <setting name="DefaultTestNamePattern" value="{m}{a}" />
+      <setting name="WorkDirectory" value="&lt;native-project&gt;/bin/Debug/net8.0" />
+      <setting name="NumberOfTestWorkers" value="14" />
+    </settings>
+    <properties>
+      <property name="_PID" value="&lt;process-id&gt;" />
+      <property name="_APPDOMAIN" value="testhost" />
+    </properties>
+    <reason>
+      <message>One or more child tests had warnings</message>
+    </reason>
+    <test-suite type="TestSuite" id="0-1028" name="NativeNUnit" fullname="NativeNUnit" runstate="Runnable" testcasecount="18" result="Warning" site="Child" start-time="2026-10-18T12:46:33.4686108Z" end-time="2026-10-18T12:46:33.4868694Z" duration="0.018258" total="1" passed="0" failed="0" warnings="1" inconclusive="0" skipped="0" asserts="0">
+      <reason>
+        <message>One or more child tests had warnings</message>
+      </reason>
+      <test-suite type="TestFixture" id="0-1000" name="Outcomes" fullname="NativeNUnit.Outcomes" classname="NativeNUnit.Outcomes" runstate="Runnable" testcasecount="11" result="Warning" site="Child" start-time="2026-10-18T12:46:33.4701660Z" end-time="2026-10-18T12:46:33.4866856Z" duration="0.016519" total="1" passed="0" failed="0" warnings="1" inconclusive="0" skipped="0" asserts="0">
+        <properties>
+          <property name="ParallelScope" value="None" />
+        </properties>
+        <reason>
+          <message>One or more child tests had warnings</message>
+        </reason>
+        <test-case id="0-1008" name="Warning" fullname="NativeNUnit.Outcomes.Warning" methodname="Warning" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="1882438946" result="Warning" start-time="2026-10-18T12:46:33.4719338Z" end-time="2026-10-18T12:46:33.4854025Z" duration="0.013494" asserts="0">
+          <reason>
+            <message>Controlled warning, not a proven pass.</message>
+          </reason>
+          <assertions>
+            <assertion result="Warning">
+              <message>Controlled warning, not a proven pass.</message>
+              <stack-trace>   at NativeNUnit.Outcomes.Warning() in studies/nunit3/native/Outcomes.cs:line 18
+</stack-trace>
+            </assertion>
+          </assertions>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

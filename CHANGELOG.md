@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Native NUnit reports
+
+- Read native NUnit 3 result XML directly, including NUnit 4 and NUnitLite
+  output. Preserve closed fixture full names, custom case names, per-case
+  results, durations, source ordinals and offset-bearing recorded start times.
+- Check native counters on every suite and the run. Discovery count may exceed
+  filtered execution count. Assertions and aggregate suites never add trials;
+  final passes without attempt records do not establish retry recovery.
+- Keep warning/inconclusive and duplicate identities unknown. Surface separate
+  suite teardown failures without changing passing body outcomes.
+- Retain actual pinned NUnit 3/4 captures, unchanged NodaTime/Math.NET source
+  executions, installed-CLI replay and an offline native-input gallery example
+  in the [study](studies/nunit3/README.md). This adds no runtime dependency or
+  registry release.
+
 ### Distinct native generic fixtures
 
 - Keep type-argument commas in TRX class names. NUnit's `Pair<Int32,String>` and

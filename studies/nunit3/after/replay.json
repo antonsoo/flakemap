@@ -1,0 +1,560 @@
+{
+  "phase": "after",
+  "scope": "Actual CLI JSON and standalone HTML exports over compiled controlled NUnit 3.14.0 and 4.3.2 native reports. Independent XML fullnames/verdicts, not adapter console summaries, are the case oracle. No production reliability inference.",
+  "cases": [
+    {
+      "case": "captured-v3-all",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 18,
+      "reportedCases": 18,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.BrokenSetup.NeverReachedA": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.BrokenSetup.NeverReachedB": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.BrokenTeardown.PassedBody": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.InvalidSignature.MissingArgument": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.MultipleAssertions.TwoFailures": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Error": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Explicit": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 1,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Failure": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Ignored": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 1,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Inconclusive": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 1
+        },
+        "NativeNUnit.Outcomes.row.with.dots(\"a.b\")": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.row.with.dots(\"x,y\")": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Pass": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.RetryRecovered": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Skipped": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 1,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Warning": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 1
+        },
+        "NativeNUnit.Pair<Int32,Double>.Check": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Pair<Int32,String>.Check": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": [
+        "run Capture: Capture.xml: NativeNUnit.Outcomes.Inconclusive: NUnit result 'Inconclusive' does not establish pass, failure or skip; excluded from rates",
+        "run Capture: Capture.xml: NativeNUnit.Outcomes.Warning: NUnit result 'Warning' does not establish pass, failure or skip; excluded from rates",
+        "run Capture: Capture.xml: NUnit suite outcomes have 1 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.. Suite failures are not extra test observations. Retained case outcomes are unchanged."
+      ]
+    },
+    {
+      "case": "captured-v3-pass-filter",
+      "producerExit": 0,
+      "cliExit": 0,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Outcomes.Pass": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v3-pairs-filter",
+      "producerExit": 1,
+      "cliExit": 0,
+      "nativeCases": 2,
+      "reportedCases": 2,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Pair<Int32,Double>.Check": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Pair<Int32,String>.Check": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v3-warning-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Outcomes.Warning": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 1
+        }
+      },
+      "warnings": [
+        "run Capture: Capture.xml: NativeNUnit.Outcomes.Warning: NUnit result 'Warning' does not establish pass, failure or skip; excluded from rates"
+      ]
+    },
+    {
+      "case": "captured-v3-inconclusive-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Outcomes.Inconclusive": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 1
+        }
+      },
+      "warnings": [
+        "run Capture: Capture.xml: NativeNUnit.Outcomes.Inconclusive: NUnit result 'Inconclusive' does not establish pass, failure or skip; excluded from rates"
+      ]
+    },
+    {
+      "case": "captured-v3-setup-filter",
+      "producerExit": 1,
+      "cliExit": 0,
+      "nativeCases": 2,
+      "reportedCases": 2,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.BrokenSetup.NeverReachedA": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.BrokenSetup.NeverReachedB": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v3-teardown-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.BrokenTeardown.PassedBody": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": [
+        "run Capture: Capture.xml: NUnit suite outcomes have 4 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 'Capture.dll' result='Failed' site='Child': One or more child tests had errors; 1 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged."
+      ]
+    },
+    {
+      "case": "captured-v3-invalid-filter",
+      "producerExit": 1,
+      "cliExit": 0,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.InvalidSignature.MissingArgument": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v3-retry-filter",
+      "producerExit": 0,
+      "cliExit": 0,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Outcomes.RetryRecovered": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v4-all",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 18,
+      "reportedCases": 18,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.BrokenSetup.NeverReachedA": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.BrokenSetup.NeverReachedB": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.BrokenTeardown.PassedBody": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.InvalidSignature.MissingArgument": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.MultipleAssertions.TwoFailures": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Error": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Explicit": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 1,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Failure": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Ignored": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 1,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Inconclusive": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 1
+        },
+        "NativeNUnit.Outcomes.row.with.dots(\"a.b\")": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.row.with.dots(\"x,y\")": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Pass": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.RetryRecovered": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Skipped": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 1,
+          "unknown": 0
+        },
+        "NativeNUnit.Outcomes.Warning": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 1
+        },
+        "NativeNUnit.Pair<Int32,Double>.Check": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Pair<Int32,String>.Check": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": [
+        "run Capture: Capture.xml: NativeNUnit.Outcomes.Inconclusive: NUnit result 'Inconclusive' does not establish pass, failure or skip; excluded from rates",
+        "run Capture: Capture.xml: NativeNUnit.Outcomes.Warning: NUnit result 'Warning' does not establish pass, failure or skip; excluded from rates",
+        "run Capture: Capture.xml: NUnit suite outcomes have 1 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.. Suite failures are not extra test observations. Retained case outcomes are unchanged."
+      ]
+    },
+    {
+      "case": "captured-v4-pass-filter",
+      "producerExit": 0,
+      "cliExit": 0,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Outcomes.Pass": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v4-pairs-filter",
+      "producerExit": 1,
+      "cliExit": 0,
+      "nativeCases": 2,
+      "reportedCases": 2,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Pair<Int32,Double>.Check": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.Pair<Int32,String>.Check": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v4-warning-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Outcomes.Warning": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 1
+        }
+      },
+      "warnings": [
+        "run Capture: Capture.xml: NativeNUnit.Outcomes.Warning: NUnit result 'Warning' does not establish pass, failure or skip; excluded from rates"
+      ]
+    },
+    {
+      "case": "captured-v4-inconclusive-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Outcomes.Inconclusive": {
+          "pass": 0,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 1
+        }
+      },
+      "warnings": [
+        "run Capture: Capture.xml: NativeNUnit.Outcomes.Inconclusive: NUnit result 'Inconclusive' does not establish pass, failure or skip; excluded from rates"
+      ]
+    },
+    {
+      "case": "captured-v4-setup-filter",
+      "producerExit": 1,
+      "cliExit": 0,
+      "nativeCases": 2,
+      "reportedCases": 2,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.BrokenSetup.NeverReachedA": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        },
+        "NativeNUnit.BrokenSetup.NeverReachedB": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v4-teardown-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.BrokenTeardown.PassedBody": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": [
+        "run Capture: Capture.xml: NUnit suite outcomes have 4 failure/coverage issue(s): 'BrokenTeardown' result='Failed' site='TearDown': TearDown : System.InvalidOperationException : Controlled one-time teardown failure.; 'NativeNUnit' result='Failed' site='Child': One or more child tests had errors; 'Capture.dll' result='Failed' site='Child': One or more child tests had errors; 1 more container(s). Suite failures are not extra test observations. Retained case outcomes are unchanged."
+      ]
+    },
+    {
+      "case": "captured-v4-invalid-filter",
+      "producerExit": 1,
+      "cliExit": 0,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.InvalidSignature.MissingArgument": {
+          "pass": 0,
+          "fail": 1,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    },
+    {
+      "case": "captured-v4-retry-filter",
+      "producerExit": 0,
+      "cliExit": 0,
+      "nativeCases": 1,
+      "reportedCases": 1,
+      "identitiesAndCountsMatch": true,
+      "reported": {
+        "NativeNUnit.Outcomes.RetryRecovered": {
+          "pass": 1,
+          "fail": 0,
+          "skip": 0,
+          "unknown": 0
+        }
+      },
+      "warnings": []
+    }
+  ]
+}

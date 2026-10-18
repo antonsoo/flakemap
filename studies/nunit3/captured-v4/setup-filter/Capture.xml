@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="0" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" total="2" passed="0" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.18.1.0" clr-version="8.0.31" start-time="2026-10-18 12:46:36Z" end-time="2026-10-18 12:46:36Z" duration="0.050809">
+  <command-line>&lt;native NUnit adapter command; host paths and transient ports omitted&gt;</command-line>
+  <filter>
+    <or>
+      <test>NativeNUnit.BrokenSetup.NeverReachedA</test>
+      <test>NativeNUnit.BrokenSetup.NeverReachedB</test>
+    </or>
+  </filter>
+  <test-suite type="Assembly" id="0-1027" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:36.1890590Z" end-time="2026-10-18T12:46:36.2066391Z" duration="0.017549" total="2" passed="0" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="0">
+    <environment framework-version="4.3.2.0" clr-version="8.0.31" os-version="Ubuntu 24.04.5 LTS" platform="Unix" culture="" uiculture="" os-architecture="x64" />
+    <settings>
+      <setting name="SynchronousEvents" value="False" />
+      <setting name="InternalTraceLevel" value="Off" />
+      <setting name="RandomSeed" value="1224760818" />
+      <setting name="SkipNonTestAssemblies" value="True" />
+      <setting name="ProcessModel" value="InProcess" />
+      <setting name="DomainUsage" value="Single" />
+      <setting name="DefaultTestNamePattern" value="{m}{a}" />
+      <setting name="WorkDirectory" value="&lt;native-project&gt;/bin/Debug/net8.0" />
+      <setting name="NumberOfTestWorkers" value="14" />
+    </settings>
+    <properties>
+      <property name="_PID" value="&lt;process-id&gt;" />
+      <property name="_APPDOMAIN" value="testhost" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1028" name="NativeNUnit" fullname="NativeNUnit" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:36.1921045Z" end-time="2026-10-18T12:46:36.2066074Z" duration="0.014503" total="2" passed="0" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="0">
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestFixture" id="0-1018" name="BrokenSetup" fullname="NativeNUnit.BrokenSetup" classname="NativeNUnit.BrokenSetup" runstate="Runnable" testcasecount="2" result="Failed" label="Error" site="SetUp" start-time="2026-10-18T12:46:36.1929785Z" end-time="2026-10-18T12:46:36.2053235Z" duration="0.012345" total="2" passed="0" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="0">
+        <failure>
+          <message>System.InvalidOperationException : Controlled one-time setup failure.</message>
+          <stack-trace>   at NativeNUnit.BrokenSetup.SetUp() in studies/nunit3/native/Outcomes.cs:line 35
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+        </failure>
+        <test-case id="0-1019" name="NeverReachedA" fullname="NativeNUnit.BrokenSetup.NeverReachedA" methodname="NeverReachedA" classname="NativeNUnit.BrokenSetup" runstate="Runnable" seed="1657271089" result="Failed" label="Error" site="Parent" start-time="2026-10-18T12:46:36.1929785Z" end-time="2026-10-18T12:46:36.2039021Z" duration="0.010962" asserts="0">
+          <failure>
+            <message>OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</message>
+            <stack-trace>   at NativeNUnit.BrokenSetup.SetUp() in studies/nunit3/native/Outcomes.cs:line 35
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="0-1020" name="NeverReachedB" fullname="NativeNUnit.BrokenSetup.NeverReachedB" methodname="NeverReachedB" classname="NativeNUnit.BrokenSetup" runstate="Runnable" seed="952939008" result="Failed" label="Error" site="Parent" start-time="2026-10-18T12:46:36.1929785Z" end-time="2026-10-18T12:46:36.2046133Z" duration="0.011635" asserts="0">
+          <failure>
+            <message>OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</message>
+            <stack-trace>   at NativeNUnit.BrokenSetup.SetUp() in studies/nunit3/native/Outcomes.cs:line 35
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+          </failure>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

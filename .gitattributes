@@ -1,0 +1,3 @@
+# Retain actual CLI output bytes, including template indentation on blank lines.
+studies/nunit3/before/*.html whitespace=-blank-at-eol
+studies/nunit3/after/*.html whitespace=-blank-at-eol

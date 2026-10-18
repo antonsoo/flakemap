@@ -1,4 +1,4 @@
-"""Bounded report reads and XML text decoding shared by JUnit and TRX."""
+"""Bounded report reads and XML text decoding shared by JUnit, NUnit and TRX."""
 
 from __future__ import annotations
 
@@ -33,6 +33,50 @@ def xml_events(raw: str) -> Iterator[tuple[str, ET.Element]]:
         yield from cast(Iterator[tuple[str, ET.Element]], parser.read_events())
         raise
     yield from cast(Iterator[tuple[str, ET.Element]], parser.read_events())
+
+
+def parse_xml_root(raw: str) -> ET.Element:
+    """Parse a complete document within the shared XML depth/element limits."""
+    depth = 0
+    elements = 0
+    root = None
+    for event, element in xml_events(raw):
+        if event == "start":
+            elements += 1
+            if elements > MAX_XML_ELEMENTS:
+                raise ET.ParseError(f"XML exceeds the {MAX_XML_ELEMENTS} element limit")
+            depth += 1
+            if depth > MAX_XML_DEPTH:
+                raise ET.ParseError(f"XML nesting exceeds the {MAX_XML_DEPTH} level limit")
+            if root is None:
+                root = element
+        else:
+            depth -= 1
+    if root is None:
+        raise ET.ParseError("no document element")
+    return root
+
+
+def has_xml_root(raw: str, name: str) -> bool:
+    """Inspect the first tag, ignoring declarations/comments, without parsing a body."""
+    pos = 0
+    while pos < len(raw):
+        if raw[pos].isspace() or raw[pos] == "\ufeff":
+            pos += 1
+            continue
+        terminator = (
+            "-->" if raw.startswith("<!--", pos) else "?>" if raw.startswith("<?", pos) else None
+        )
+        if terminator is None:
+            return (
+                re.compile(r"<(?:[\w.-]+:)?" + re.escape(name) + r"[\s>/]").match(raw, pos)
+                is not None
+            )
+        end = raw.find(terminator, pos + 2)
+        if end == -1:
+            return False
+        pos = end + len(terminator)
+    return False
 
 
 def contains_dtd(raw: str) -> bool:

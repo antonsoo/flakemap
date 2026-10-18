@@ -1,0 +1,90 @@
+{
+  "phase": "after",
+  "scope": "Complete retained native reports from unchanged NodaTime 3.2.0 and Math.NET Numerics 5.0.0 source executions. Actual CLI outputs compared to an independent XML grouping/verdict oracle. This verifies import accounting on these two executions, not upstream reliability or general NUnit compatibility.",
+  "cases": [
+    {
+      "case": "nodatime-3.2.0",
+      "cliExit": 0,
+      "nativeCaseRecords": 22498,
+      "uniqueNativeFullnames": 22498,
+      "reportedTests": 22498,
+      "discrepancies": 0,
+      "firstDiscrepancies": [],
+      "summary": {
+        "input_complete": true,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "nodatime-3.2.0",
+          "nodatime-3.2.0"
+        ],
+        "timestamp_range": [
+          "2026-10-18T12:48:42+00:00",
+          "2026-10-18T12:48:42+00:00"
+        ],
+        "total_tests": 22498,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 0,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 22498
+      },
+      "warnings": 0,
+      "counterMismatchWarnings": 0,
+      "canonicalJsonSha256": "b60ee9769ce9436a61082e7ed03c643aec0acf391a9a4d1822ede3651a7b5eea",
+      "canonicalJsonBytes": 27261121
+    },
+    {
+      "case": "mathnet-5.0.0",
+      "cliExit": 2,
+      "nativeCaseRecords": 22226,
+      "uniqueNativeFullnames": 22185,
+      "reportedTests": 22185,
+      "discrepancies": 0,
+      "firstDiscrepancies": [],
+      "summary": {
+        "input_complete": false,
+        "ordering": {
+          "available": true,
+          "basis": "single_run",
+          "reason": null
+        },
+        "total_runs": 1,
+        "run_id_range": [
+          "mathnet-5.0.0",
+          "mathnet-5.0.0"
+        ],
+        "timestamp_range": [
+          "2026-10-18T12:49:25.043652+00:00",
+          "2026-10-18T12:49:25.043652+00:00"
+        ],
+        "total_tests": 22185,
+        "cofailure_groups": 0,
+        "cofailure_tests": 0,
+        "recovered_test_runs": 0,
+        "exhausted_test_runs": 0,
+        "excluded_test_runs": 1349,
+        "flaky": 0,
+        "flaky_new": 0,
+        "flaky_quiet": 0,
+        "broken": 0,
+        "healthy": 0,
+        "insufficient_data": 22185
+      },
+      "warnings": 1349,
+      "counterMismatchWarnings": 0,
+      "canonicalJsonSha256": "9158ebb1557c0e1e98d24f3044d7ee3cbffcc212aea9c4cb25f1a3262987d058",
+      "canonicalJsonBytes": 29624152
+    }
+  ]
+}

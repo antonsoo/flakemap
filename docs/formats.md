@@ -1,4 +1,4 @@
-# JUnit XML dialects, and the run-metadata convention
+# JUnit, native NUnit and TRX reports, and the run-metadata convention
 
 There is no single "JUnit XML" specification; every test runner emits a dialect
 of a format Ant/Surefire popularized decades ago. `flakemap` normalizes across
@@ -31,6 +31,47 @@ uses the same recovered-failure convention.
 Where a dialect couldn't be run locally, the fixture is marked as hand-authored
 in `tests/test_junit_parsing.py`'s module docstring too -- this is stated
 rather than silently presented as "verified".
+
+## Native NUnit 3 XML
+
+The source checkout detects `<test-run>` independently of JUnit's `<testsuite>`
+and TRX's `<TestRun>`. This includes the NUnit 3 XML dialect emitted by NUnit 4.
+Use the runner's native result file, or the adapter's documented
+[`NUnit.TestOutputXml`](https://docs.nunit.org/articles/nunit/getting-started/dotnet-core-and-dotnet-standard.html)
+option. The [study](../studies/nunit3/README.md) retains actual NUnit 3.14.0,
+NUnit 4.3.2 and NUnitLite 3.13.3 reports, plus NodaTime's NUnit 4.0.1 output.
+Other NUnit dialects, including NUnit 2 XML, are outside this reader's contract.
+
+| Native record | Flakemap observation |
+| --- | --- |
+| `result="Passed"` | Pass, unless failure/assertion evidence contradicts it |
+| `result="Failed"` | Failure; `Error`, `Cancelled` and `Invalid` labels become error |
+| `result="Skipped"` | Skip, with recorded reason/label/site |
+| `Warning`, `Inconclusive`, missing/unsupported result | Unknown, excluded from rates with a warning |
+| Suite failure after passing case bodies | Warning retaining suite/site/message; no invented failed test |
+| Same `fullname` more than once in a run | One unknown observation with all original records retained |
+
+Only structural `test-case` children of the run and its nested `test-suite`
+elements become observations. Filters, output, assertions, properties and other
+metadata never contribute cases. The exact native `fullname` identifies a case;
+NUnit's `classname` may name an open generic class shared by different closed
+fixtures. A recognized literal fixture prefix supplies the grouping, preserving
+the complete full name and custom dotted/quoted case names.
+
+`total`, `passed`, `failed`, `warnings`, `inconclusive` and `skipped` are checked
+against native descendant results in every suite and the root. `testcasecount`
+is a discovery count: filtered executions may legitimately be fewer. A counter
+cannot create an omitted case or overwrite an observed verdict. Native
+`asserts` is not a case or attempt count; the controlled retry capture has a
+final pass and no retained failed attempt, so it cannot establish recovery.
+
+The root's offset-bearing `start-time` is report metadata; bare local times
+are not assumed UTC. Nonnegative finite durations up to `1e100` seconds are
+retained. Invalid durations warn and remain unavailable. A malformed/truncated
+NUnit document is omitted with a warning. XML text decoding, DTD rejection and
+the shared size/depth/element limits apply. These rules interpret the
+[native result format](https://docs.nunit.org/articles/nunit/technical-notes/usage/Test-Result-XML-Format.html),
+with capture-based boundaries documented in the study.
 
 ## JUnit summary counters
 
@@ -224,7 +265,7 @@ there is no claim of preserving every tick at the largest magnitudes.
 
 ## Text decoding and limits
 
-Both parsers recognize UTF-8/16/32 signatures, including UTF-16/32 without a BOM,
+All three parsers recognize UTF-8/16/32 signatures, including UTF-16/32 without a BOM,
 and declared text encodings such as Windows-1252 and ISO-8859-1. Unsupported
 encodings are not guessed. Invalid bytes produce an explicit warning and U+FFFD
 replacement text. A name or classname containing U+FFFD in a lossy/repaired
@@ -238,7 +279,7 @@ examples in comments or CDATA are inert.
 | --- | --- |
 | Report file | 64 MiB; larger files are omitted with a warning before decoding |
 | Decoded input to the parser API | 64 Mi characters |
-| XML structure | At most 256 nested elements and 250,000 elements; JUnit keeps the completed prefix, TRX is omitted |
+| XML structure | At most 256 nested elements and 250,000 elements; JUnit keeps the completed prefix, TRX/NUnit are omitted |
 | Metadata sidecar | 1 MiB and 128 nested levels; invalid sidecars warn and fall back to path/mtime |
 | Failure message | First useful line, capped at 500 characters (TRX may join the first two lines) |
 
@@ -288,7 +329,8 @@ resolves that from the report file's location, tried in this order (see
 
    Without an explicit sidecar timestamp, the run's time is the report's own
    when it has one: a TRX file's `<Times start>` or, in the source checkout, a
-   JUnit suite's offset-bearing `timestamp` (metadata source `report`). Several
+   JUnit suite's offset-bearing `timestamp`, or a native NUnit root's `start-time`
+   (metadata source `report`). Several
    reports of one run take the earliest. Only two *sidecar* timestamps that
    disagree exclude a run.
 

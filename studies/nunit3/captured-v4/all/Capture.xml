@@ -1,0 +1,233 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="0" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" total="18" passed="6" failed="7" warnings="1" inconclusive="1" skipped="3" asserts="10" engine-version="3.18.1.0" clr-version="8.0.31" start-time="2026-10-18 12:46:29Z" end-time="2026-10-18 12:46:29Z" duration="0.092096">
+  <command-line>&lt;native NUnit adapter command; host paths and transient ports omitted&gt;</command-line>
+  <test-suite type="Assembly" id="0-1027" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:29.7589353Z" end-time="2026-10-18T12:46:29.8080196Z" duration="0.049058" total="18" passed="6" failed="7" warnings="1" inconclusive="1" skipped="3" asserts="10">
+    <environment framework-version="4.3.2.0" clr-version="8.0.31" os-version="Ubuntu 24.04.5 LTS" platform="Unix" culture="" uiculture="" os-architecture="x64" />
+    <settings>
+      <setting name="SynchronousEvents" value="False" />
+      <setting name="InternalTraceLevel" value="Off" />
+      <setting name="RandomSeed" value="521882040" />
+      <setting name="SkipNonTestAssemblies" value="True" />
+      <setting name="ProcessModel" value="InProcess" />
+      <setting name="DomainUsage" value="Single" />
+      <setting name="DefaultTestNamePattern" value="{m}{a}" />
+      <setting name="WorkDirectory" value="&lt;native-project&gt;/bin/Debug/net8.0" />
+      <setting name="NumberOfTestWorkers" value="14" />
+    </settings>
+    <properties>
+      <property name="_PID" value="&lt;process-id&gt;" />
+      <property name="_APPDOMAIN" value="testhost" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1028" name="NativeNUnit" fullname="NativeNUnit" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:29.7616551Z" end-time="2026-10-18T12:46:29.8080142Z" duration="0.046359" total="18" passed="6" failed="7" warnings="1" inconclusive="1" skipped="3" asserts="10">
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestFixture" id="0-1018" name="BrokenSetup" fullname="NativeNUnit.BrokenSetup" classname="NativeNUnit.BrokenSetup" runstate="Runnable" testcasecount="2" result="Failed" label="Error" site="SetUp" start-time="2026-10-18T12:46:29.7625538Z" end-time="2026-10-18T12:46:29.7709181Z" duration="0.008364" total="2" passed="0" failed="2" warnings="0" inconclusive="0" skipped="0" asserts="0">
+        <failure>
+          <message>System.InvalidOperationException : Controlled one-time setup failure.</message>
+          <stack-trace>   at NativeNUnit.BrokenSetup.SetUp() in studies/nunit3/native/Outcomes.cs:line 35
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+        </failure>
+        <test-case id="0-1019" name="NeverReachedA" fullname="NativeNUnit.BrokenSetup.NeverReachedA" methodname="NeverReachedA" classname="NativeNUnit.BrokenSetup" runstate="Runnable" seed="1060261710" result="Failed" label="Error" site="Parent" start-time="2026-10-18T12:46:29.7625538Z" end-time="2026-10-18T12:46:29.7697903Z" duration="0.007292" asserts="0">
+          <failure>
+            <message>OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</message>
+            <stack-trace>   at NativeNUnit.BrokenSetup.SetUp() in studies/nunit3/native/Outcomes.cs:line 35
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="0-1020" name="NeverReachedB" fullname="NativeNUnit.BrokenSetup.NeverReachedB" methodname="NeverReachedB" classname="NativeNUnit.BrokenSetup" runstate="Runnable" seed="48448999" result="Failed" label="Error" site="Parent" start-time="2026-10-18T12:46:29.7625538Z" end-time="2026-10-18T12:46:29.7703906Z" duration="0.007837" asserts="0">
+          <failure>
+            <message>OneTimeSetUp: System.InvalidOperationException : Controlled one-time setup failure.</message>
+            <stack-trace>   at NativeNUnit.BrokenSetup.SetUp() in studies/nunit3/native/Outcomes.cs:line 35
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+          </failure>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="0-1023" name="BrokenTeardown" fullname="NativeNUnit.BrokenTeardown" classname="NativeNUnit.BrokenTeardown" runstate="Runnable" testcasecount="1" result="Failed" label="Error" site="TearDown" start-time="2026-10-18T12:46:29.7721630Z" end-time="2026-10-18T12:46:29.7755933Z" duration="0.003430" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+        <failure>
+          <message>TearDown : System.InvalidOperationException : Controlled one-time teardown failure.</message>
+          <stack-trace>--TearDown
+   at NativeNUnit.BrokenTeardown.TearDown() in studies/nunit3/native/Outcomes.cs:line 50
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+        </failure>
+        <test-case id="0-1024" name="PassedBody" fullname="NativeNUnit.BrokenTeardown.PassedBody" methodname="PassedBody" classname="NativeNUnit.BrokenTeardown" runstate="Runnable" seed="2012407907" result="Passed" start-time="2026-10-18T12:46:29.7722663Z" end-time="2026-10-18T12:46:29.7743622Z" duration="0.002096" asserts="1" />
+      </test-suite>
+      <test-suite type="TestFixture" id="0-1025" name="InvalidSignature" fullname="NativeNUnit.InvalidSignature" classname="NativeNUnit.InvalidSignature" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-18T12:46:29.7756191Z" end-time="2026-10-18T12:46:29.7758228Z" duration="0.000204" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-case id="0-1026" name="MissingArgument" fullname="NativeNUnit.InvalidSignature.MissingArgument" methodname="MissingArgument" classname="NativeNUnit.InvalidSignature" runstate="NotRunnable" seed="1153168542" result="Failed" label="Invalid" start-time="2026-10-18T12:46:29.7756831Z" end-time="2026-10-18T12:46:29.7758011Z" duration="0.000118" asserts="0">
+          <properties>
+            <property name="_SKIPREASON" value="No arguments were provided" />
+          </properties>
+          <failure>
+            <message>No arguments were provided</message>
+          </failure>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="0-1021" name="MultipleAssertions" fullname="NativeNUnit.MultipleAssertions" classname="NativeNUnit.MultipleAssertions" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-18T12:46:29.7758475Z" end-time="2026-10-18T12:46:29.7946703Z" duration="0.018823" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="2">
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-case id="0-1022" name="TwoFailures" fullname="NativeNUnit.MultipleAssertions.TwoFailures" methodname="TwoFailures" classname="NativeNUnit.MultipleAssertions" runstate="Runnable" seed="191543773" result="Failed" start-time="2026-10-18T12:46:29.7759231Z" end-time="2026-10-18T12:46:29.7946250Z" duration="0.018702" asserts="2">
+          <failure>
+            <message>Multiple failures or warnings in test:
+  1)   Controlled first assertion.
+Assert.That(1, Is.EqualTo(2))
+  Expected: 2
+  But was:  1
+
+  2)   Controlled second assertion.
+Assert.That(3, Is.EqualTo(4))
+  Expected: 4
+  But was:  3
+
+</message>
+            <stack-trace>   at NativeNUnit.MultipleAssertions.TwoFailures() in studies/nunit3/native/Outcomes.cs:line 42
+</stack-trace>
+          </failure>
+          <assertions>
+            <assertion result="Failed">
+              <message>  Controlled first assertion.
+Assert.That(1, Is.EqualTo(2))
+  Expected: 2
+  But was:  1
+</message>
+              <stack-trace>   at NativeNUnit.MultipleAssertions.&lt;&gt;c.&lt;TwoFailures&gt;b__0_0() in studies/nunit3/native/Outcomes.cs:line 43
+   at NUnit.Framework.Assert.Multiple(TestDelegate testDelegate)
+   at NativeNUnit.MultipleAssertions.TwoFailures() in studies/nunit3/native/Outcomes.cs:line 42
+</stack-trace>
+            </assertion>
+            <assertion result="Failed">
+              <message>  Controlled second assertion.
+Assert.That(3, Is.EqualTo(4))
+  Expected: 4
+  But was:  3
+</message>
+              <stack-trace>   at NativeNUnit.MultipleAssertions.&lt;&gt;c.&lt;TwoFailures&gt;b__0_0() in studies/nunit3/native/Outcomes.cs:line 44
+   at NUnit.Framework.Assert.Multiple(TestDelegate testDelegate)
+   at NativeNUnit.MultipleAssertions.TwoFailures() in studies/nunit3/native/Outcomes.cs:line 42
+</stack-trace>
+            </assertion>
+          </assertions>
+        </test-case>
+      </test-suite>
+      <test-suite type="TestFixture" id="0-1000" name="Outcomes" fullname="NativeNUnit.Outcomes" classname="NativeNUnit.Outcomes" runstate="Runnable" testcasecount="11" result="Failed" site="Child" start-time="2026-10-18T12:46:29.7946965Z" end-time="2026-10-18T12:46:29.8017663Z" duration="0.007070" total="11" passed="4" failed="2" warnings="1" inconclusive="1" skipped="3" asserts="5">
+        <properties>
+          <property name="ParallelScope" value="None" />
+        </properties>
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-case id="0-1003" name="Error" fullname="NativeNUnit.Outcomes.Error" methodname="Error" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="902189466" result="Failed" label="Error" start-time="2026-10-18T12:46:29.7948947Z" end-time="2026-10-18T12:46:29.7951341Z" duration="0.000239" asserts="0">
+          <failure>
+            <message>System.InvalidOperationException : Controlled unhandled exception.</message>
+            <stack-trace>   at NativeNUnit.Outcomes.Error() in studies/nunit3/native/Outcomes.cs:line 13
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)</stack-trace>
+          </failure>
+        </test-case>
+        <test-case id="0-1007" name="Explicit" fullname="NativeNUnit.Outcomes.Explicit" methodname="Explicit" classname="NativeNUnit.Outcomes" runstate="Explicit" seed="1022535175" result="Skipped" label="Explicit" start-time="2026-10-18T12:46:29.7951536Z" end-time="2026-10-18T12:46:29.7952072Z" duration="0.000054" asserts="0">
+          <properties>
+            <property name="_SKIPREASON" value="Controlled explicit test." />
+          </properties>
+          <reason>
+            <message>Controlled explicit test.</message>
+          </reason>
+        </test-case>
+        <test-case id="0-1002" name="Failure" fullname="NativeNUnit.Outcomes.Failure" methodname="Failure" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="73136285" result="Failed" start-time="2026-10-18T12:46:29.7952179Z" end-time="2026-10-18T12:46:29.7956002Z" duration="0.000382" asserts="0">
+          <failure>
+            <message>Controlled assertion failure.</message>
+            <stack-trace>   at NativeNUnit.Outcomes.Failure() in studies/nunit3/native/Outcomes.cs:line 12
+</stack-trace>
+          </failure>
+          <assertions>
+            <assertion result="Failed">
+              <message>Controlled assertion failure.</message>
+              <stack-trace>   at NativeNUnit.Outcomes.Failure() in studies/nunit3/native/Outcomes.cs:line 12
+</stack-trace>
+            </assertion>
+          </assertions>
+        </test-case>
+        <test-case id="0-1005" name="Ignored" fullname="NativeNUnit.Outcomes.Ignored" methodname="Ignored" classname="NativeNUnit.Outcomes" runstate="Ignored" seed="1499154720" result="Skipped" label="Ignored" start-time="2026-10-18T12:46:29.7956114Z" end-time="2026-10-18T12:46:29.7956147Z" duration="0.000003" asserts="0">
+          <properties>
+            <property name="_SKIPREASON" value="Controlled ignored test." />
+          </properties>
+          <reason>
+            <message>Controlled ignored test.</message>
+          </reason>
+        </test-case>
+        <test-case id="0-1004" name="Inconclusive" fullname="NativeNUnit.Outcomes.Inconclusive" methodname="Inconclusive" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="1302701035" result="Inconclusive" start-time="2026-10-18T12:46:29.7956189Z" end-time="2026-10-18T12:46:29.7959295Z" duration="0.000311" asserts="0">
+          <reason>
+            <message>Controlled inconclusive result.</message>
+          </reason>
+        </test-case>
+        <test-suite type="ParameterizedMethod" id="0-1012" name="NamedParameter" fullname="NativeNUnit.Outcomes.NamedParameter" classname="NativeNUnit.Outcomes" runstate="Runnable" testcasecount="2" result="Passed" start-time="2026-10-18T12:46:29.7959421Z" end-time="2026-10-18T12:46:29.7997645Z" duration="0.003822" total="2" passed="2" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="2">
+          <test-case id="0-1010" name="row.with.dots(&quot;a.b&quot;)" fullname="NativeNUnit.Outcomes.row.with.dots(&quot;a.b&quot;)" methodname="NamedParameter" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="1184687522" result="Passed" start-time="2026-10-18T12:46:29.7959591Z" end-time="2026-10-18T12:46:29.7980627Z" duration="0.002104" asserts="1" />
+          <test-case id="0-1011" name="row.with.dots(&quot;x,y&quot;)" fullname="NativeNUnit.Outcomes.row.with.dots(&quot;x,y&quot;)" methodname="NamedParameter" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="571521332" result="Passed" start-time="2026-10-18T12:46:29.7980750Z" end-time="2026-10-18T12:46:29.7997473Z" duration="0.001672" asserts="1" />
+        </test-suite>
+        <test-case id="0-1001" name="Pass" fullname="NativeNUnit.Outcomes.Pass" methodname="Pass" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="235689984" result="Passed" start-time="2026-10-18T12:46:29.7997735Z" end-time="2026-10-18T12:46:29.8001603Z" duration="0.000387" asserts="1" />
+        <test-case id="0-1009" name="RetryRecovered" fullname="NativeNUnit.Outcomes.RetryRecovered" methodname="RetryRecovered" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="425763598" result="Passed" start-time="2026-10-18T12:46:29.8001820Z" end-time="2026-10-18T12:46:29.8012113Z" duration="0.001029" asserts="2" />
+        <test-case id="0-1006" name="Skipped" fullname="NativeNUnit.Outcomes.Skipped" methodname="Skipped" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="845479945" result="Skipped" label="Ignored" start-time="2026-10-18T12:46:29.8012232Z" end-time="2026-10-18T12:46:29.8015468Z" duration="0.000324" asserts="0">
+          <reason>
+            <message>Controlled runtime skip.</message>
+          </reason>
+        </test-case>
+        <test-case id="0-1008" name="Warning" fullname="NativeNUnit.Outcomes.Warning" methodname="Warning" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="478568244" result="Warning" start-time="2026-10-18T12:46:29.8015577Z" end-time="2026-10-18T12:46:29.8017538Z" duration="0.000196" asserts="0">
+          <reason>
+            <message>Controlled warning, not a proven pass.</message>
+          </reason>
+          <assertions>
+            <assertion result="Warning">
+              <message>Controlled warning, not a proven pass.</message>
+              <stack-trace>   at NativeNUnit.Outcomes.Warning() in studies/nunit3/native/Outcomes.cs:line 18
+</stack-trace>
+            </assertion>
+          </assertions>
+        </test-case>
+      </test-suite>
+      <test-suite type="GenericFixture" id="0-1017" name="Pair&lt;T,U&gt;" fullname="NativeNUnit.Pair&lt;T,U&gt;" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-10-18T12:46:29.7619507Z" end-time="2026-10-18T12:46:29.8079954Z" duration="0.046045" total="2" passed="1" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="2">
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-suite type="TestFixture" id="0-1015" name="Pair&lt;Int32,Double&gt;" fullname="NativeNUnit.Pair&lt;Int32,Double&gt;" classname="NativeNUnit.Pair`2" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-18T12:46:29.8017824Z" end-time="2026-10-18T12:46:29.8076532Z" duration="0.005871" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="1">
+          <failure>
+            <message>One or more child tests had errors</message>
+          </failure>
+          <test-case id="0-1016" name="Check" fullname="NativeNUnit.Pair&lt;Int32,Double&gt;.Check" methodname="Check" classname="NativeNUnit.Pair`2" runstate="Runnable" seed="1673638105" result="Failed" start-time="2026-10-18T12:46:29.8018407Z" end-time="2026-10-18T12:46:29.8076384Z" duration="0.005798" asserts="1">
+            <failure>
+              <message>  Controlled generic fixture outcome.
+Assert.That(typeof(U), Is.EqualTo(typeof(string)))
+  Expected: &lt;System.String&gt;
+  But was:  &lt;System.Double&gt;
+</message>
+              <stack-trace>   at NativeNUnit.Pair`2.Check() in studies/nunit3/native/Outcomes.cs:line 30
+</stack-trace>
+            </failure>
+            <assertions>
+              <assertion result="Failed">
+                <message>  Controlled generic fixture outcome.
+Assert.That(typeof(U), Is.EqualTo(typeof(string)))
+  Expected: &lt;System.String&gt;
+  But was:  &lt;System.Double&gt;
+</message>
+                <stack-trace>   at NativeNUnit.Pair`2.Check() in studies/nunit3/native/Outcomes.cs:line 30
+</stack-trace>
+              </assertion>
+            </assertions>
+          </test-case>
+        </test-suite>
+        <test-suite type="TestFixture" id="0-1013" name="Pair&lt;Int32,String&gt;" fullname="NativeNUnit.Pair&lt;Int32,String&gt;" classname="NativeNUnit.Pair`2" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-18T12:46:29.8076746Z" end-time="2026-10-18T12:46:29.8079879Z" duration="0.000313" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+          <test-case id="0-1014" name="Check" fullname="NativeNUnit.Pair&lt;Int32,String&gt;.Check" methodname="Check" classname="NativeNUnit.Pair`2" runstate="Runnable" seed="334663373" result="Passed" start-time="2026-10-18T12:46:29.8078142Z" end-time="2026-10-18T12:46:29.8079687Z" duration="0.000155" asserts="1" />
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

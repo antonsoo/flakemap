@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="0" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0" engine-version="3.18.1.0" clr-version="8.0.31" start-time="2026-10-18 12:46:10Z" end-time="2026-10-18 12:46:10Z" duration="0.032253">
+  <command-line>&lt;native NUnit adapter command; host paths and transient ports omitted&gt;</command-line>
+  <filter>
+    <test>NativeNUnit.InvalidSignature.MissingArgument</test>
+  </filter>
+  <test-suite type="Assembly" id="0-1027" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:10.0386655Z" end-time="2026-10-18T12:46:10.0482541Z" duration="0.009554" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+    <environment framework-version="3.14.0.0" clr-version="8.0.31" os-version="Ubuntu 24.04.5 LTS" platform="Unix" culture="" uiculture="" os-architecture="x64" />
+    <settings>
+      <setting name="SynchronousEvents" value="False" />
+      <setting name="InternalTraceLevel" value="Off" />
+      <setting name="RandomSeed" value="830419169" />
+      <setting name="SkipNonTestAssemblies" value="True" />
+      <setting name="ProcessModel" value="InProcess" />
+      <setting name="DomainUsage" value="Single" />
+      <setting name="DefaultTestNamePattern" value="{m}{a}" />
+      <setting name="WorkDirectory" value="&lt;native-project&gt;/bin/Debug/net8.0" />
+      <setting name="NumberOfTestWorkers" value="14" />
+    </settings>
+    <properties>
+      <property name="_PID" value="&lt;process-id&gt;" />
+      <property name="_APPDOMAIN" value="testhost" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1028" name="NativeNUnit" fullname="NativeNUnit" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:10.0418824Z" end-time="2026-10-18T12:46:10.0482386Z" duration="0.006356" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="TestFixture" id="0-1025" name="InvalidSignature" fullname="NativeNUnit.InvalidSignature" classname="NativeNUnit.InvalidSignature" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-18T12:46:10.0433559Z" end-time="2026-10-18T12:46:10.0480383Z" duration="0.004682" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="0">
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-case id="0-1026" name="MissingArgument" fullname="NativeNUnit.InvalidSignature.MissingArgument" methodname="MissingArgument" classname="NativeNUnit.InvalidSignature" runstate="NotRunnable" seed="1840906915" result="Failed" label="Invalid" start-time="2026-10-18T12:46:10.0446755Z" end-time="2026-10-18T12:46:10.0464002Z" duration="0.001761" asserts="0">
+          <properties>
+            <property name="_SKIPREASON" value="No arguments were provided" />
+          </properties>
+          <failure>
+            <message>No arguments were provided</message>
+          </failure>
+        </test-case>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

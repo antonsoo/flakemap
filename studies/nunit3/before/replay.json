@@ -1,0 +1,240 @@
+{
+  "phase": "before",
+  "scope": "Actual CLI JSON and standalone HTML exports over compiled controlled NUnit 3.14.0 and 4.3.2 native reports. Independent XML fullnames/verdicts, not adapter console summaries, are the case oracle. No production reliability inference.",
+  "cases": [
+    {
+      "case": "captured-v3-all",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 18,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v3-pass-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v3-pairs-filter",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 2,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v3-warning-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v3-inconclusive-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v3-setup-filter",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 2,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v3-teardown-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v3-invalid-filter",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v3-retry-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-all",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 18,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-pass-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-pairs-filter",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 2,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-warning-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-inconclusive-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-setup-filter",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 2,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-teardown-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-invalid-filter",
+      "producerExit": 1,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    },
+    {
+      "case": "captured-v4-retry-filter",
+      "producerExit": 0,
+      "cliExit": 2,
+      "nativeCases": 1,
+      "reportedCases": 0,
+      "identitiesAndCountsMatch": false,
+      "reported": {},
+      "warnings": [
+        "run Capture: Capture.xml: parsed successfully but contained zero <testcase> elements",
+        "1/1 runs have no sidecar timestamp/sequence and were displayed by file mtime. Copy times do not establish CI chronology; temporal statistics require recorded timestamps or explicit sequences."
+      ]
+    }
+  ]
+}

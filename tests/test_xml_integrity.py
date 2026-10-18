@@ -221,7 +221,7 @@ def test_element_limit_is_visible_in_both_parsers(monkeypatch: pytest.MonkeyPatc
     )
     assert [case.name for case in cases] == ["one", "two"]
     assert any("element limit" in warning for warning in warnings)
-    monkeypatch.setattr(trx, "MAX_XML_ELEMENTS", 2)
+    monkeypatch.setattr(xmlinput, "MAX_XML_ELEMENTS", 2)
     cases, warnings, _ = trx.read_trx(
         '<TestRun><Results><UnitTestResult testName="one" outcome="Passed"/></Results></TestRun>',
         "limited.trx",

@@ -1,4 +1,4 @@
-"""Turn a directory of JUnit XML (and TRX) files into an ordered list of `Run` objects."""
+"""Turn JUnit, native NUnit 3 and TRX reports into an ordered list of runs."""
 
 from __future__ import annotations
 
@@ -8,6 +8,7 @@ from flakemap.models import Run, TestCaseResult
 from flakemap.ordering import order_runs
 from flakemap.parse.junit import read_junit_with_start
 from flakemap.parse.metadata import resolve_metadata
+from flakemap.parse.nunit import is_nunit, read_nunit
 from flakemap.parse.trx import is_trx, read_trx
 from flakemap.parse.xmlinput import exclude_lossy_identifiers, read_xml_file
 
@@ -22,7 +23,7 @@ def report_patterns(pattern: str) -> list[str]:
 
 
 def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
-    """Load every JUnit or TRX report, resolving one common chronological key.
+    """Load every JUnit, NUnit 3 or TRX report, resolving a chronological key.
 
     Without that evidence the list has deterministic display order only;
     `analyze` reports the limit and withholds temporal statistics.
@@ -47,6 +48,9 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
             cases = []
         elif path.suffix.lower() == ".trx" or is_trx(raw):
             cases, more, started = read_trx(raw, source)
+            warnings.extend(more)
+        elif is_nunit(raw):
+            cases, more, started = read_nunit(raw, source)
             warnings.extend(more)
         else:
             cases, more, started = read_junit_with_start(raw, source)

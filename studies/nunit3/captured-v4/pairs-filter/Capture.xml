@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="0" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" total="2" passed="1" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="2" engine-version="3.18.1.0" clr-version="8.0.31" start-time="2026-10-18 12:46:32Z" end-time="2026-10-18 12:46:32Z" duration="0.056162">
+  <command-line>&lt;native NUnit adapter command; host paths and transient ports omitted&gt;</command-line>
+  <filter>
+    <or>
+      <test>NativeNUnit.Pair&lt;Int32,Double&gt;.Check</test>
+      <test>NativeNUnit.Pair&lt;Int32,String&gt;.Check</test>
+    </or>
+  </filter>
+  <test-suite type="Assembly" id="0-1027" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:32.2176571Z" end-time="2026-10-18T12:46:32.2493144Z" duration="0.031631" total="2" passed="1" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="2">
+    <environment framework-version="4.3.2.0" clr-version="8.0.31" os-version="Ubuntu 24.04.5 LTS" platform="Unix" culture="" uiculture="" os-architecture="x64" />
+    <settings>
+      <setting name="SynchronousEvents" value="False" />
+      <setting name="InternalTraceLevel" value="Off" />
+      <setting name="RandomSeed" value="1547673916" />
+      <setting name="SkipNonTestAssemblies" value="True" />
+      <setting name="ProcessModel" value="InProcess" />
+      <setting name="DomainUsage" value="Single" />
+      <setting name="DefaultTestNamePattern" value="{m}{a}" />
+      <setting name="WorkDirectory" value="&lt;native-project&gt;/bin/Debug/net8.0" />
+      <setting name="NumberOfTestWorkers" value="14" />
+    </settings>
+    <properties>
+      <property name="_PID" value="&lt;process-id&gt;" />
+      <property name="_APPDOMAIN" value="testhost" />
+    </properties>
+    <failure>
+      <message>One or more child tests had errors</message>
+    </failure>
+    <test-suite type="TestSuite" id="0-1028" name="NativeNUnit" fullname="NativeNUnit" runstate="Runnable" testcasecount="18" result="Failed" site="Child" start-time="2026-10-18T12:46:32.2205201Z" end-time="2026-10-18T12:46:32.2493117Z" duration="0.028792" total="2" passed="1" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="2">
+      <failure>
+        <message>One or more child tests had errors</message>
+      </failure>
+      <test-suite type="GenericFixture" id="0-1017" name="Pair&lt;T,U&gt;" fullname="NativeNUnit.Pair&lt;T,U&gt;" runstate="Runnable" testcasecount="2" result="Failed" site="Child" start-time="2026-10-18T12:46:32.2207072Z" end-time="2026-10-18T12:46:32.2493078Z" duration="0.028600" total="2" passed="1" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="2">
+        <failure>
+          <message>One or more child tests had errors</message>
+        </failure>
+        <test-suite type="TestFixture" id="0-1015" name="Pair&lt;Int32,Double&gt;" fullname="NativeNUnit.Pair&lt;Int32,Double&gt;" classname="NativeNUnit.Pair`2" runstate="Runnable" testcasecount="1" result="Failed" site="Child" start-time="2026-10-18T12:46:32.2212144Z" end-time="2026-10-18T12:46:32.2480142Z" duration="0.026800" total="1" passed="0" failed="1" warnings="0" inconclusive="0" skipped="0" asserts="1">
+          <failure>
+            <message>One or more child tests had errors</message>
+          </failure>
+          <test-case id="0-1016" name="Check" fullname="NativeNUnit.Pair&lt;Int32,Double&gt;.Check" methodname="Check" classname="NativeNUnit.Pair`2" runstate="Runnable" seed="2014279349" result="Failed" start-time="2026-10-18T12:46:32.2228158Z" end-time="2026-10-18T12:46:32.2466111Z" duration="0.023828" asserts="1">
+            <failure>
+              <message>  Controlled generic fixture outcome.
+Assert.That(typeof(U), Is.EqualTo(typeof(string)))
+  Expected: &lt;System.String&gt;
+  But was:  &lt;System.Double&gt;
+</message>
+              <stack-trace>   at NativeNUnit.Pair`2.Check() in studies/nunit3/native/Outcomes.cs:line 30
+</stack-trace>
+            </failure>
+            <assertions>
+              <assertion result="Failed">
+                <message>  Controlled generic fixture outcome.
+Assert.That(typeof(U), Is.EqualTo(typeof(string)))
+  Expected: &lt;System.String&gt;
+  But was:  &lt;System.Double&gt;
+</message>
+                <stack-trace>   at NativeNUnit.Pair`2.Check() in studies/nunit3/native/Outcomes.cs:line 30
+</stack-trace>
+              </assertion>
+            </assertions>
+          </test-case>
+        </test-suite>
+        <test-suite type="TestFixture" id="0-1013" name="Pair&lt;Int32,String&gt;" fullname="NativeNUnit.Pair&lt;Int32,String&gt;" classname="NativeNUnit.Pair`2" runstate="Runnable" testcasecount="1" result="Passed" start-time="2026-10-18T12:46:32.2489420Z" end-time="2026-10-18T12:46:32.2492977Z" duration="0.000356" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+          <test-case id="0-1014" name="Check" fullname="NativeNUnit.Pair&lt;Int32,String&gt;.Check" methodname="Check" classname="NativeNUnit.Pair`2" runstate="Runnable" seed="633096433" result="Passed" start-time="2026-10-18T12:46:32.2490411Z" end-time="2026-10-18T12:46:32.2491954Z" duration="0.000154" asserts="1" />
+        </test-suite>
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

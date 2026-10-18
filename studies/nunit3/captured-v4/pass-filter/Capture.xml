@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<test-run id="0" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Passed" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1" engine-version="3.18.1.0" clr-version="8.0.31" start-time="2026-10-18 12:46:30Z" end-time="2026-10-18 12:46:31Z" duration="0.029445">
+  <command-line>&lt;native NUnit adapter command; host paths and transient ports omitted&gt;</command-line>
+  <filter>
+    <test>NativeNUnit.Outcomes.Pass</test>
+  </filter>
+  <test-suite type="Assembly" id="0-1027" name="Capture.dll" fullname="&lt;native-project&gt;/bin/Debug/net8.0/Capture.dll" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-18T12:46:31.0025474Z" end-time="2026-10-18T12:46:31.0118568Z" duration="0.009284" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+    <environment framework-version="4.3.2.0" clr-version="8.0.31" os-version="Ubuntu 24.04.5 LTS" platform="Unix" culture="" uiculture="" os-architecture="x64" />
+    <settings>
+      <setting name="SynchronousEvents" value="False" />
+      <setting name="InternalTraceLevel" value="Off" />
+      <setting name="RandomSeed" value="1033576653" />
+      <setting name="SkipNonTestAssemblies" value="True" />
+      <setting name="ProcessModel" value="InProcess" />
+      <setting name="DomainUsage" value="Single" />
+      <setting name="DefaultTestNamePattern" value="{m}{a}" />
+      <setting name="WorkDirectory" value="&lt;native-project&gt;/bin/Debug/net8.0" />
+      <setting name="NumberOfTestWorkers" value="14" />
+    </settings>
+    <properties>
+      <property name="_PID" value="&lt;process-id&gt;" />
+      <property name="_APPDOMAIN" value="testhost" />
+    </properties>
+    <test-suite type="TestSuite" id="0-1028" name="NativeNUnit" fullname="NativeNUnit" runstate="Runnable" testcasecount="18" result="Passed" start-time="2026-10-18T12:46:31.0052434Z" end-time="2026-10-18T12:46:31.0118268Z" duration="0.006583" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+      <test-suite type="TestFixture" id="0-1000" name="Outcomes" fullname="NativeNUnit.Outcomes" classname="NativeNUnit.Outcomes" runstate="Runnable" testcasecount="11" result="Passed" start-time="2026-10-18T12:46:31.0064922Z" end-time="2026-10-18T12:46:31.0116078Z" duration="0.005115" total="1" passed="1" failed="0" warnings="0" inconclusive="0" skipped="0" asserts="1">
+        <properties>
+          <property name="ParallelScope" value="None" />
+        </properties>
+        <test-case id="0-1001" name="Pass" fullname="NativeNUnit.Outcomes.Pass" methodname="Pass" classname="NativeNUnit.Outcomes" runstate="Runnable" seed="1204679291" result="Passed" start-time="2026-10-18T12:46:31.0080186Z" end-time="2026-10-18T12:46:31.0103941Z" duration="0.002400" asserts="1" />
+      </test-suite>
+    </test-suite>
+  </test-suite>
+</test-run>

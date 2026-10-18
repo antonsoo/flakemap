@@ -1,0 +1,139 @@
+{
+  "schema_version": 3,
+  "summary": {
+    "input_complete": true,
+    "ordering": {
+      "available": true,
+      "basis": "single_run",
+      "reason": null
+    },
+    "total_runs": 1,
+    "run_id_range": [
+      "Capture",
+      "Capture"
+    ],
+    "timestamp_range": [
+      "2026-10-18T12:46:10+00:00",
+      "2026-10-18T12:46:10+00:00"
+    ],
+    "total_tests": 1,
+    "cofailure_groups": 0,
+    "cofailure_tests": 0,
+    "recovered_test_runs": 0,
+    "exhausted_test_runs": 0,
+    "excluded_test_runs": 0,
+    "flaky": 0,
+    "flaky_new": 0,
+    "flaky_quiet": 0,
+    "broken": 0,
+    "healthy": 0,
+    "insufficient_data": 1
+  },
+  "warnings": [],
+  "cofailure": {
+    "method": "exact_outcome_history",
+    "ambiguous_tests_excluded": [],
+    "runs": [
+      {
+        "run_id": "Capture",
+        "commit": null,
+        "branch": null,
+        "timestamp": "2026-10-18T12:46:10+00:00",
+        "runner": null,
+        "os": null,
+        "sequence": null,
+        "metadata_source": "report"
+      }
+    ],
+    "groups": []
+  },
+  "tests": [
+    {
+      "test": "NativeNUnit.InvalidSignature.MissingArgument",
+      "suite": "NativeNUnit",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 0,
+        "fail": 1,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 1.0,
+        "wilson_low": 0.2065,
+        "wilson_high": 1.0
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": {
+        "state": "ongoing",
+        "failures": 1,
+        "basis": "runs_with_observed_failures",
+        "run_axis": "usable_test_executions",
+        "final_failure_runs": 1,
+        "recovered_runs": 0,
+        "events": 1,
+        "runs_since_last_failure": 0,
+        "runs_since_first_failure": 1,
+        "longest_gap": null,
+        "silence_ratio": null
+      },
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": "Capture",
+      "history_runs_since_first_failure": 1,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 1
+      },
+      "failures": [
+        {
+          "run_id": "Capture",
+          "index": 0,
+          "timestamp": "2026-10-18T12:46:10+00:00",
+          "commit": null,
+          "status": "error",
+          "message": "NUnit label=Invalid: No arguments were provided",
+          "failed_within": [],
+          "same_commit": "unknown",
+          "same_commit_other_runs": 0,
+          "other_tests_failed": 0
+        }
+      ],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [
+        {
+          "message": "NUnit label=Invalid: No arguments were provided",
+          "count": 1
+        }
+      ],
+      "first_seen": "2026-10-18T12:46:10+00:00",
+      "last_seen": "2026-10-18T12:46:10+00:00",
+      "last_status": "error",
+      "temporal_available": true
+    }
+  ]
+}

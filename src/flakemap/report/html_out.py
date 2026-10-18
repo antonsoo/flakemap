@@ -796,7 +796,7 @@ def render_html(result: AnalysisResult, runs: list[Run], title: str = "flakemap 
 <body>
 <header class="masthead">
   <h1>flakemap &mdash; inspection report</h1>
-  <p class="tagline">Test reliability across CI history, computed from JUnit XML and TRX.</p>
+  <p class="tagline">Test reliability across CI history, computed from JUnit, NUnit XML and TRX.</p>
   <div class="meta-strip">
     <span><b>runs</b> {count(result.total_runs)}</span>
     <span><b>tests</b> {count(len(result.tests))}</span>

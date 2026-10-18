@@ -175,17 +175,17 @@ def build(output: Path) -> list[dict[str, object]]:
             inputs = archive.getvalue()
             (output / f"{slug}-inputs.zip").write_bytes(inputs)
             input_data = base64.b64encode(inputs).decode("ascii")
-            filename, label = (
+            filename, download_label = (
                 ("nunit-generic-history.zip", "Download native TRX inputs")
                 if slug == "generic"
                 else ("nunit-native-inputs.zip", "Download native NUnit XML")
             )
             actions += (
                 f' · <a href="data:application/zip;base64,{input_data}" '
-                f'download="{filename}">{label}</a>'
+                f'download="{filename}">{download_label}</a>'
             )
             extra["inputZipSha256"] = hashlib.sha256(inputs).hexdigest()
-            extra["inputDownloadLabel"] = label
+            extra["inputDownloadLabel"] = download_label
         context = _context(
             slug,
             label,

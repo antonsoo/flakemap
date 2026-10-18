@@ -55,6 +55,8 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 const nav = page.getByRole("navigation", { name: "Report examples" });
                 assert.equal(await nav.getByRole("link").count(), 7);
                 assert.equal(await nav.getByRole("link", { name: "Distinct generic fixtures", exact: true }).count(), 1);
+                if (fixture.name === "gallery/nunit") assert.equal(await page.locator(".demo-context h2").innerText(), "Native NUnit results");
+                if (fixture.name === "gallery/generic") assert.equal(await page.locator(".demo-context h2").innerText(), "Distinct generic fixtures");
                 assert.equal(await nav.locator('[aria-current="page"]').count(), 1);
                 assert.equal(await nav.locator('[aria-current="page"]').getAttribute("href"), `${fixture.name.split("/")[1]}.html`);
                 const destination = fixture.name === "gallery/cofailure" ? "retry.html" : "cofailure.html";

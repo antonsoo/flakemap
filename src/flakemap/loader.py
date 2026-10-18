@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from pathlib import Path
 
 from flakemap.models import Run, TestCaseResult
@@ -20,6 +21,28 @@ def report_patterns(pattern: str) -> list[str]:
     if not globs or any(Path(glob).is_absolute() or ".." in Path(glob).parts for glob in globs):
         raise ValueError("report patterns must be nonempty relative globs within the scan root")
     return globs
+
+
+def parse_report_file(
+    path: Path, *, source: str | None = None
+) -> tuple[list[TestCaseResult], list[str], datetime | None]:
+    """Decode and route one report with the same format rules as ``load_runs``.
+
+    ``source`` is an inspectable original name, such as an archive member, when
+    the actual path is temporary. Warnings and native start times are returned
+    rather than silently discarded; callers decide their input policy.
+    """
+    raw, warnings = read_xml_file(path)
+    if raw is None:
+        return [], warnings, None
+    if path.suffix.lower() == ".trx" or is_trx(raw):
+        cases, more, started = read_trx(raw, source or path.name)
+    elif is_nunit(raw):
+        cases, more, started = read_nunit(raw, source or path.name)
+    else:
+        cases, more, started = read_junit_with_start(raw, source or path.name)
+    warnings.extend(more)
+    return exclude_lossy_identifiers(cases, warnings), warnings, started
 
 
 def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
@@ -41,21 +64,7 @@ def load_runs(root: Path, pattern: str = DEFAULT_PATTERN) -> list[Run]:
     by_run_id: dict[str, Run] = {}
     for path in files:
         source = path.relative_to(root).as_posix()
-        started = None
-        raw, warnings = read_xml_file(path)
-        cases: list[TestCaseResult]
-        if raw is None:
-            cases = []
-        elif path.suffix.lower() == ".trx" or is_trx(raw):
-            cases, more, started = read_trx(raw, source)
-            warnings.extend(more)
-        elif is_nunit(raw):
-            cases, more, started = read_nunit(raw, source)
-            warnings.extend(more)
-        else:
-            cases, more, started = read_junit_with_start(raw, source)
-            warnings.extend(more)
-        cases = exclude_lossy_identifiers(cases, warnings)
+        cases, warnings, started = parse_report_file(path, source=source)
         metadata = resolve_metadata(path, root, warnings=warnings)
         # A sequence supplies an ordering key, not a timestamp. Keep the report's
         # recorded time as well so order_runs can detect contradictory evidence.

@@ -65,6 +65,12 @@ cannot create an omitted case or overwrite an observed verdict. Native
 `asserts` is not a case or attempt count; the controlled retry capture has a
 final pass and no retained failed attempt, so it cannot establish recovery.
 
+Adapters can use `flakemap.loader.parse_report_file(path, source="archive/member.xml")`
+to share the CLI's decoding and format detection. It returns cases, warnings
+and a native report start time; `source` keeps original member names in evidence
+when the actual input path is temporary. A caller must preserve or explicitly
+handle warnings rather than treating a nonempty case list as complete coverage.
+
 The root's offset-bearing `start-time` is report metadata; bare local times
 are not assumed UTC. Nonnegative finite durations up to `1e100` seconds are
 retained. Invalid durations warn and remain unavailable. A malformed/truncated

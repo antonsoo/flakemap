@@ -173,12 +173,14 @@ The source corrections described above are not in the tested PyPI 0.3.7 build.
 To use them on your own reports, install this verified public revision:
 
 ```bash
-python -m pip install --force-reinstall "flakemap @ git+https://github.com/antonsoo/flakemap.git@401dc15d86c91f8ff1f7cdb9e8961f6eb800bd81"
+python -m pip install --force-reinstall "flakemap @ git+https://github.com/antonsoo/flakemap.git@6c14af96a106f71a22ee81efdb5b10e0e5288047"
 ```
 
 `--force-reinstall` replaces an existing 0.3.7 installation; this source still
-declares that version. The [generic fixture study](studies/trx-generics/README.md) retains the current
-correction and its installed-artifact checks; the [native hierarchy study](studies/trx-hierarchy/README.md)
+declares that version. The [native NUnit publication checks](studies/nunit3/publication.md)
+retain the current installed artifact, hosted bytes and actual download replay.
+The [generic fixture study](studies/trx-generics/README.md) retains the preceding
+correction; the [native hierarchy study](studies/trx-hierarchy/README.md)
 retains the earlier parent/child correction.
 The [earlier installation and gate replay](studies/gate-window/results/source-install.json)
 records the preceding recent-build correction. A source installation is separate

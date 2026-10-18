@@ -3,8 +3,8 @@
 Flakemap's former loader treated NUnit's native `<test-run>` as JUnit XML and
 reported zero usable tests. Source now reads this format directly, including
 output from NUnit 4 and NUnitLite. It adds no runtime dependency and changes no
-statistical formulas. The registry release and separate hosted workbench are
-outside this source change.
+statistical formulas. [Publication checks](publication.md) distinguish the source,
+installed artifact, public gallery and separate browser workbench from PyPI.
 
 ## What a conversion can hide
 
@@ -86,7 +86,7 @@ uv run flakemap studies/nunit3/captured-v4/teardown-filter --json --fail-on-inco
 ```
 
 The last command intentionally exits 2. The [gallery's Native NUnit results
-example](https://antonsoo.github.io/flakemap/nunit.html), when deployed, contains
+example](https://antonsoo.github.io/flakemap/nunit.html) contains
 the same controlled report plus offline JSON and native-input archive downloads.
 The hosted report is precomputed; it does not run a Python parser in the browser.
 

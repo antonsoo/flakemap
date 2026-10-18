@@ -1,0 +1,146 @@
+{
+  "sourceRevision": "6c14af96a106f71a22ee81efdb5b10e0e5288047",
+  "deploymentRevision": "3f907bdaf0c63e2535da0b8c8aaacd5b38c155c9",
+  "scope": "Final heading/caption correction; local rebuilt wheel, unchanged controlled JSON and actual hosted native archive replay. Full core/minimum suites are recorded separately at 4d52c1b. No registry publication.",
+  "wheel": {
+    "sha256": "5849fb0482ef5c80e33f21d62da9876a11ff9e8054dd526550a619afb97ada30",
+    "bytes": 100098
+  },
+  "modules": [
+    {
+      "path": "flakemap/__init__.py",
+      "sha256": "811170463d073d711791baf2720d9c6bf734a2752e119c1f5f0c859e5bfb02ce"
+    },
+    {
+      "path": "flakemap/__main__.py",
+      "sha256": "b3349084c0510509e575feabe2a567414f4b7fe25b189a1fa7ae829aec5e7dfd"
+    },
+    {
+      "path": "flakemap/cli.py",
+      "sha256": "0624847793556e375df8a71be90038d8b020e84817afeb0f5a41cb44e92e84d8"
+    },
+    {
+      "path": "flakemap/loader.py",
+      "sha256": "72bd592eacebc7b8e873a0d60f43b07652ba8bce2c4e2f2f6b8da5b916a5b54c"
+    },
+    {
+      "path": "flakemap/models.py",
+      "sha256": "6943e67aa85797dd6168a5f7480f50d87bae4e964a4b47f2c160ee8f13e101cd"
+    },
+    {
+      "path": "flakemap/observations.py",
+      "sha256": "9759d15f3625fc048a48ec137fad40b7a4e9251b3c9ad38b6395074793610b6e"
+    },
+    {
+      "path": "flakemap/ordering.py",
+      "sha256": "5a45e29423ebdd55a971b6b6f485bf33caf2d49f1b3b2cb4609de41227ad92d5"
+    },
+    {
+      "path": "flakemap/parse/__init__.py",
+      "sha256": "c4a58f9cbf23bc8366bba5ac741dc90e0fe0eb99498a5f4c10c88188bf1d05d3"
+    },
+    {
+      "path": "flakemap/parse/junit.py",
+      "sha256": "fbe48fb41bb5f446a1cb98a9c57070d9b9c82b18ddbf4558ec3ef4c91fd594b9"
+    },
+    {
+      "path": "flakemap/parse/junit_counts.py",
+      "sha256": "241f68738ab3a86d5415c8ed445bf87ea19f3b2bdba81dc9f63f8075decb954f"
+    },
+    {
+      "path": "flakemap/parse/metadata.py",
+      "sha256": "7bb47777bdc07c76bc155adf8ba6e86c54cfde76974de4329cf9618461b275a2"
+    },
+    {
+      "path": "flakemap/parse/nunit.py",
+      "sha256": "271f9d1cec1c99fcf79326594cb13d734dfda3bac2ce987e988cff9f8ad7b5da"
+    },
+    {
+      "path": "flakemap/parse/nunit_counts.py",
+      "sha256": "6c0bfd44379b350653b42b2f69f1b09254976619ead8c258323a973534909f3b"
+    },
+    {
+      "path": "flakemap/parse/trx.py",
+      "sha256": "0e1d1f5dc12f5cca63d5624f68e8decfefce7e0eca04bad547cbd889c9226699"
+    },
+    {
+      "path": "flakemap/parse/trx_counts.py",
+      "sha256": "58e2384f71f5b159c9bd03404290e171361c551b3c3de4755998f0f8666968f1"
+    },
+    {
+      "path": "flakemap/parse/xmlinput.py",
+      "sha256": "028424185b7fc5236c0defe35ded3a4af34f7466454d38c2dcfc730f511c325e"
+    },
+    {
+      "path": "flakemap/parse/xmltext.py",
+      "sha256": "3742c67eff4fc51acca4252c3b032f07757222a494fdeb7ff3454634b276a031"
+    },
+    {
+      "path": "flakemap/report/__init__.py",
+      "sha256": "5b377f64295647ab739f970ecda3d4604e1aa1af9ba4e27cb30f1590b2fc1b50"
+    },
+    {
+      "path": "flakemap/report/cofailure_html.py",
+      "sha256": "30ad8b8deeb8075631681edcd04bf7076185d80337598eb0d5666e0f34479fed"
+    },
+    {
+      "path": "flakemap/report/html_out.py",
+      "sha256": "95f7854106efa8a8f0006f5d4a613d0756118379945bde2c1336a12cf0e35d3e"
+    },
+    {
+      "path": "flakemap/report/json_out.py",
+      "sha256": "2cb9bda81fb9239141018f34f97a44877c3ffc0a539775db606488ca6c28fc38"
+    },
+    {
+      "path": "flakemap/report/markdown_out.py",
+      "sha256": "e2fa5bb8bc8a3fa0ae2fe96b5cef5f7ec38a3b25a9350263cc0b8cd6f4763ba9"
+    },
+    {
+      "path": "flakemap/report/names.py",
+      "sha256": "6e20f1ce913035d5c7fa477406424e77b8d8a71d63501f647e442fcb9fd98dc0"
+    },
+    {
+      "path": "flakemap/report/numbers.py",
+      "sha256": "7174b04e8802abb0412932e137ea641be2d5b9b9f49277652c4c4a5d4f0d2401"
+    },
+    {
+      "path": "flakemap/report/terminal.py",
+      "sha256": "bc067cea56c5ef98db677d5e09d8089f5b4c83e7993241e8b83c8debe9c4f0ad"
+    },
+    {
+      "path": "flakemap/stats/__init__.py",
+      "sha256": "ea5275c8a8c3bbc95fad7a0df465956b8d7a27de1591d8c12d18555dc5b05c6f"
+    },
+    {
+      "path": "flakemap/stats/activity.py",
+      "sha256": "698ed6cb69c9364cf1d15faba04a18c99bc1faa04c8f1b17b17dc2cb09432857"
+    },
+    {
+      "path": "flakemap/stats/analyze.py",
+      "sha256": "f60db546103635939d9fe1e328409facff6a48b97d21b2dab6f1083be07f141d"
+    },
+    {
+      "path": "flakemap/stats/changepoint.py",
+      "sha256": "21416b0266e28e0a715326dbf1aae6c2f291a41ac756619a33402d8d930ea85d"
+    },
+    {
+      "path": "flakemap/stats/cofailure.py",
+      "sha256": "33706b34c55ad4bfef665f7fe6c941b048842049a40e9ad42c78085104b82006"
+    },
+    {
+      "path": "flakemap/stats/correlation.py",
+      "sha256": "4c1db17a510f3d16ec452bc889444c9e9ebbd5158a3155af97386b077aca6efb"
+    },
+    {
+      "path": "flakemap/stats/wilson.py",
+      "sha256": "71ad25d644e1557c5a5d90b04dd35b7be8455aba156fbe7ea7fa5d9fd8c7ae24"
+    }
+  ],
+  "controlledReports": 18,
+  "hostedDownload": {
+    "archiveSha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff",
+    "inputSha256": "b71097c0890fd5d0804a7b9475b06bd56c33520faef653268b1b17be1e6f1f34",
+    "cliExit": 2,
+    "completeJsonEqualsBrowserDownload": true
+  }
+}

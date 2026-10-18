@@ -33,6 +33,7 @@ for (const [engine, launcher] of Object.entries({ chromium, firefox })) {
         page.on('request', request => { if (/^https?:/.test(request.url())) network.push(request.url()); });
         assert.equal(await page.locator('details.row').count(), 18);
         assert.equal(await page.locator('.demo-context h2').innerText(), 'Native NUnit results');
+        assert.match(await page.locator('.tagline').innerText(), /JUnit, NUnit XML and TRX/);
         assert.equal(await page.locator('.row-heatmap .s-unknown').count(), 2);
         assert.equal(await page.locator('.row-heatmap .s-pass').count(), 6);
         assert.equal(await page.locator('.row-heatmap .s-fail').count(), 3);

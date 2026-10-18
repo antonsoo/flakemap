@@ -1,0 +1,137 @@
+{
+  "checkedAtUtc": "2026-10-18T13:32:14.133439+00:00",
+  "baseUrl": "https://antonsoo.github.io/flakemap/",
+  "sourceRevision": "6c14af9",
+  "deploymentRevision": "3f907bd",
+  "scope": "Every fresh built file and the canonical root, using direct public requests without query cache busters.",
+  "checks": [
+    {
+      "path": "(canonical root)",
+      "status": 200,
+      "bytes": 878899,
+      "sha256": "39b56c39dfac8cf2ef3ab3dbf9a848973b94299690af1964a300cc23255adb87",
+      "expectedSha256": "39b56c39dfac8cf2ef3ab3dbf9a848973b94299690af1964a300cc23255adb87",
+      "matches": true
+    },
+    {
+      "path": "cofailure.html",
+      "status": 200,
+      "bytes": 102712,
+      "sha256": "7e7d5039f5e5c9296d61dabbe921760040cb00b0bb7ba4bef7117540da9eab28",
+      "expectedSha256": "7e7d5039f5e5c9296d61dabbe921760040cb00b0bb7ba4bef7117540da9eab28",
+      "matches": true
+    },
+    {
+      "path": "cofailure.json",
+      "status": 200,
+      "bytes": 29777,
+      "sha256": "1089510668ec4153d95e0ac1ac5301ab5d34086151e1ed76ff794f3bf73a6353",
+      "expectedSha256": "1089510668ec4153d95e0ac1ac5301ab5d34086151e1ed76ff794f3bf73a6353",
+      "matches": true
+    },
+    {
+      "path": "generic-inputs.zip",
+      "status": 200,
+      "bytes": 14663,
+      "sha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "expectedSha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "matches": true
+    },
+    {
+      "path": "generic.html",
+      "status": 200,
+      "bytes": 61023,
+      "sha256": "85055a77bfc03835017ea0d903293e0c5cd138197c4d2b2719714c074681bb64",
+      "expectedSha256": "85055a77bfc03835017ea0d903293e0c5cd138197c4d2b2719714c074681bb64",
+      "matches": true
+    },
+    {
+      "path": "generic.json",
+      "status": 200,
+      "bytes": 9994,
+      "sha256": "e400ecff63dffb048f09536a3acda7b9a312ac21b5d6c6c03717b0d61fee52fc",
+      "expectedSha256": "e400ecff63dffb048f09536a3acda7b9a312ac21b5d6c6c03717b0d61fee52fc",
+      "matches": true
+    },
+    {
+      "path": "incomplete.html",
+      "status": 200,
+      "bytes": 52225,
+      "sha256": "fb8b9817ced19f0afeed077ab335753e5767a46ce6ff4bd25bd9a42de9527f63",
+      "expectedSha256": "fb8b9817ced19f0afeed077ab335753e5767a46ce6ff4bd25bd9a42de9527f63",
+      "matches": true
+    },
+    {
+      "path": "incomplete.json",
+      "status": 200,
+      "bytes": 13645,
+      "sha256": "763f53f144c703c2db6679700722ed10bca3871fe732af6f83611c5b16f78df8",
+      "expectedSha256": "763f53f144c703c2db6679700722ed10bca3871fe732af6f83611c5b16f78df8",
+      "matches": true
+    },
+    {
+      "path": "index.html",
+      "status": 200,
+      "bytes": 878899,
+      "sha256": "39b56c39dfac8cf2ef3ab3dbf9a848973b94299690af1964a300cc23255adb87",
+      "expectedSha256": "39b56c39dfac8cf2ef3ab3dbf9a848973b94299690af1964a300cc23255adb87",
+      "matches": true
+    },
+    {
+      "path": "index.json",
+      "status": 200,
+      "bytes": 199838,
+      "sha256": "1d07cf28991c3f79511f60ddafa761b78e05e042c63a645da3df553c1e32b71e",
+      "expectedSha256": "1d07cf28991c3f79511f60ddafa761b78e05e042c63a645da3df553c1e32b71e",
+      "matches": true
+    },
+    {
+      "path": "kubernetes.html",
+      "status": 200,
+      "bytes": 417340,
+      "sha256": "ab6f8e8fd7ef50ee97c6a7a2ac20550cf901a16d49a462fd18949929c5e465f5",
+      "expectedSha256": "ab6f8e8fd7ef50ee97c6a7a2ac20550cf901a16d49a462fd18949929c5e465f5",
+      "matches": true
+    },
+    {
+      "path": "nunit-inputs.zip",
+      "status": 200,
+      "bytes": 3275,
+      "sha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff",
+      "expectedSha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff",
+      "matches": true
+    },
+    {
+      "path": "nunit.html",
+      "status": 200,
+      "bytes": 134102,
+      "sha256": "5a3ba598f1c6dcacf32910b2d6764a1f55af071efdc4e4212df9f7a59854e5b2",
+      "expectedSha256": "5a3ba598f1c6dcacf32910b2d6764a1f55af071efdc4e4212df9f7a59854e5b2",
+      "matches": true
+    },
+    {
+      "path": "nunit.json",
+      "status": 200,
+      "bytes": 42919,
+      "sha256": "dedcb407e3614a5492a8a7ea454cca6e1ea6f4d930fe3067fbcfc1bc024bc356",
+      "expectedSha256": "dedcb407e3614a5492a8a7ea454cca6e1ea6f4d930fe3067fbcfc1bc024bc356",
+      "matches": true
+    },
+    {
+      "path": "retry.html",
+      "status": 200,
+      "bytes": 74689,
+      "sha256": "f3f660886b91c15717a3c8da94407ae85dfa522330695681e60a5580d10f0df4",
+      "expectedSha256": "f3f660886b91c15717a3c8da94407ae85dfa522330695681e60a5580d10f0df4",
+      "matches": true
+    },
+    {
+      "path": "retry.json",
+      "status": 200,
+      "bytes": 23334,
+      "sha256": "9a020cb76039170a4cd8567023bab62035ca239fff9223aaf345de8544960d5e",
+      "expectedSha256": "9a020cb76039170a4cd8567023bab62035ca239fff9223aaf345de8544960d5e",
+      "matches": true
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "checkedAtUtc": "2026-10-18T13:32:24.959Z",
+  "base": "https://antonsoo.github.io/flakemap/",
+  "scope": "Actual served native NUnit report, original identities, suite failure and parent/setup evidence, keyboard disclosures, actual JSON/native-input archive downloads after disconnection. No application assets intercepted.",
+  "records": [
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "width": 1200,
+      "theme": "light",
+      "offline": true,
+      "rows": 18,
+      "downloads": [
+        {
+          "kind": "json",
+          "filename": "nunit.json",
+          "bytes": 42919,
+          "sha256": "dedcb407e3614a5492a8a7ea454cca6e1ea6f4d930fe3067fbcfc1bc024bc356"
+        },
+        {
+          "kind": "zip",
+          "filename": "nunit-native-inputs.zip",
+          "bytes": 3275,
+          "sha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff"
+        }
+      ],
+      "errors": [],
+      "network": [],
+      "axeViolations": [],
+      "overflow": false,
+      "csp": []
+    },
+    {
+      "engine": "chromium",
+      "browserVersion": "153.0.8010.12",
+      "width": 375,
+      "theme": "dark",
+      "offline": true,
+      "rows": 18,
+      "downloads": [
+        {
+          "kind": "json",
+          "filename": "nunit.json",
+          "bytes": 42919,
+          "sha256": "dedcb407e3614a5492a8a7ea454cca6e1ea6f4d930fe3067fbcfc1bc024bc356"
+        },
+        {
+          "kind": "zip",
+          "filename": "nunit-native-inputs.zip",
+          "bytes": 3275,
+          "sha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff"
+        }
+      ],
+      "errors": [],
+      "network": [],
+      "axeViolations": [],
+      "overflow": false,
+      "csp": []
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "width": 1200,
+      "theme": "light",
+      "offline": true,
+      "rows": 18,
+      "downloads": [
+        {
+          "kind": "json",
+          "filename": "nunit.json",
+          "bytes": 42919,
+          "sha256": "dedcb407e3614a5492a8a7ea454cca6e1ea6f4d930fe3067fbcfc1bc024bc356"
+        },
+        {
+          "kind": "zip",
+          "filename": "nunit-native-inputs.zip",
+          "bytes": 3275,
+          "sha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff"
+        }
+      ],
+      "errors": [],
+      "network": [],
+      "axeViolations": [],
+      "overflow": false,
+      "csp": []
+    },
+    {
+      "engine": "firefox",
+      "browserVersion": "155.0",
+      "width": 375,
+      "theme": "dark",
+      "offline": true,
+      "rows": 18,
+      "downloads": [
+        {
+          "kind": "json",
+          "filename": "nunit.json",
+          "bytes": 42919,
+          "sha256": "dedcb407e3614a5492a8a7ea454cca6e1ea6f4d930fe3067fbcfc1bc024bc356"
+        },
+        {
+          "kind": "zip",
+          "filename": "nunit-native-inputs.zip",
+          "bytes": 3275,
+          "sha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff"
+        }
+      ],
+      "errors": [],
+      "network": [],
+      "axeViolations": [],
+      "overflow": false,
+      "csp": []
+    }
+  ]
+}

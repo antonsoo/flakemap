@@ -13,8 +13,8 @@
       "report"
     ],
     "timestamp_range": [
-      "2026-10-21T12:24:38.006061+00:00",
-      "2026-10-21T12:24:38.006061+00:00"
+      "2026-10-21T12:36:08.396088+00:00",
+      "2026-10-21T12:36:08.396088+00:00"
     ],
     "total_tests": 15,
     "cofailure_groups": 0,
@@ -33,13 +33,13 @@
     "run report: report.xml: JUnit summary counters do not reconcile in 1 container(s): <testsuite> #2 'pytest': declares tests=19, failures=3, errors=3, skipped=2; retained testcase records (tests=31, failures=3, errors=3, skipped=2). Counts may describe filtered/aggregated records or an unsupported counting convention; individual coverage is unverified. Retained outcomes are unchanged.",
     "run report, test_retries.test_exhausted_call: 3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
     "run report, test_retries.test_recovered_call: 3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
-    "run report, test_retries.test_recovered_setup: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
-    "run report, test_retries.test_recovered_teardown: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
-    "run report, test_retries.test_exhausted_teardown: 3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
-    "run report, test_retries.test_recovered_call_and_teardown: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
     "run report, test_retries.test_exhausted_setup: 3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
-    "run report, test_retries.test_strict_xpass: 3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
-    "run report, test_retries.test_exhausted_call_and_teardown: 4 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates"
+    "run report, test_retries.test_recovered_setup: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
+    "run report, test_retries.test_exhausted_teardown: 3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
+    "run report, test_retries.test_recovered_teardown: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
+    "run report, test_retries.test_exhausted_call_and_teardown: 4 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
+    "run report, test_retries.test_recovered_call_and_teardown: 2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates",
+    "run report, test_retries.test_strict_xpass: 3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts; excluded from rates"
   ],
   "cofailure": {
     "method": "exact_outcome_history",
@@ -59,7 +59,7 @@
         "run_id": "report",
         "commit": null,
         "branch": null,
-        "timestamp": "2026-10-21T05:24:38.006061-07:00",
+        "timestamp": "2026-10-21T05:36:08.396088-07:00",
         "runner": null,
         "os": null,
         "sequence": null,
@@ -121,8 +121,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -176,7 +176,7 @@
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
-                "testcase": 3
+                "testcase": 4
               },
               "status": "pass",
               "message": null,
@@ -189,11 +189,11 @@
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
-                "testcase": 5
+                "testcase": 7
               },
               "status": "fail",
               "message": "Failed: service never ready",
-              "reported_duration_seconds": 0.001,
+              "reported_duration_seconds": 0.0,
               "issue": null,
               "retry": null
             }
@@ -221,8 +221,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -263,11 +263,11 @@
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
-                "testcase": 4
+                "testcase": 3
               },
               "status": "pass",
               "message": null,
-              "reported_duration_seconds": 0.001,
+              "reported_duration_seconds": 0.0,
               "issue": null,
               "retry": null
             },
@@ -276,90 +276,16 @@
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
-                "testcase": 10
+                "testcase": 5
               },
               "status": "pass",
               "message": null,
-              "reported_duration_seconds": 0.001,
+              "reported_duration_seconds": 0.0,
               "issue": null,
               "retry": null
             },
             {
               "name": "test_recovered_call",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 12
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.005,
-              "issue": null,
-              "retry": null
-            }
-          ]
-        }
-      ],
-      "activity": null,
-      "activity_unavailable_reason": "ambiguous_outcomes",
-      "first_failure_run_id": null,
-      "history_runs_since_first_failure": null,
-      "same_commit": {
-        "failures_passed_elsewhere": 0,
-        "failures_failed_everywhere": 0,
-        "failures_without_another_run": 0
-      },
-      "failures": [],
-      "named_failures": [],
-      "change_point": null,
-      "duration": {
-        "observations": 0,
-        "trend_axis": "supplied_history_run_index",
-        "trend_seconds_per_run": null,
-        "failure_correlation": null
-      },
-      "runner_rates": [],
-      "os_rates": [],
-      "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_status": "unknown",
-      "temporal_available": true
-    },
-    {
-      "test": "test_retries.test_recovered_setup",
-      "suite": "test_retries",
-      "classification": "insufficient_data",
-      "flakiness_score": 0.0,
-      "runs": {
-        "total": 0,
-        "pass": 0,
-        "fail": 0,
-        "skip": 0,
-        "unknown": 1
-      },
-      "failure_rate": null,
-      "flip_rate": null,
-      "flip_pairs": 0,
-      "rerun_signal": {
-        "value": 0.0,
-        "groups_with_reruns": 0,
-        "groups_with_flip": 0
-      },
-      "retries": {
-        "recovered_runs": 0,
-        "exhausted_runs": 0,
-        "observed_failed_attempts": 0,
-        "evidence": []
-      },
-      "excluded": [
-        {
-          "run_id": "report",
-          "commit": null,
-          "reason": "2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
-          "records": [
-            {
-              "name": "test_recovered_setup",
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
@@ -367,106 +293,6 @@
               },
               "status": "pass",
               "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_recovered_setup",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 7
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            }
-          ]
-        }
-      ],
-      "activity": null,
-      "activity_unavailable_reason": "ambiguous_outcomes",
-      "first_failure_run_id": null,
-      "history_runs_since_first_failure": null,
-      "same_commit": {
-        "failures_passed_elsewhere": 0,
-        "failures_failed_everywhere": 0,
-        "failures_without_another_run": 0
-      },
-      "failures": [],
-      "named_failures": [],
-      "change_point": null,
-      "duration": {
-        "observations": 0,
-        "trend_axis": "supplied_history_run_index",
-        "trend_seconds_per_run": null,
-        "failure_correlation": null
-      },
-      "runner_rates": [],
-      "os_rates": [],
-      "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_status": "unknown",
-      "temporal_available": true
-    },
-    {
-      "test": "test_retries.test_recovered_teardown",
-      "suite": "test_retries",
-      "classification": "insufficient_data",
-      "flakiness_score": 0.0,
-      "runs": {
-        "total": 0,
-        "pass": 0,
-        "fail": 0,
-        "skip": 0,
-        "unknown": 1
-      },
-      "failure_rate": null,
-      "flip_rate": null,
-      "flip_pairs": 0,
-      "rerun_signal": {
-        "value": 0.0,
-        "groups_with_reruns": 0,
-        "groups_with_flip": 0
-      },
-      "retries": {
-        "recovered_runs": 0,
-        "exhausted_runs": 0,
-        "observed_failed_attempts": 0,
-        "evidence": []
-      },
-      "excluded": [
-        {
-          "run_id": "report",
-          "commit": null,
-          "reason": "2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
-          "records": [
-            {
-              "name": "test_recovered_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 8
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_recovered_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 9
-              },
-              "status": "pass",
-              "message": null,
               "reported_duration_seconds": 0.0,
               "issue": null,
               "retry": null
@@ -495,195 +321,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_status": "unknown",
-      "temporal_available": true
-    },
-    {
-      "test": "test_retries.test_exhausted_teardown",
-      "suite": "test_retries",
-      "classification": "insufficient_data",
-      "flakiness_score": 0.0,
-      "runs": {
-        "total": 0,
-        "pass": 0,
-        "fail": 0,
-        "skip": 0,
-        "unknown": 1
-      },
-      "failure_rate": null,
-      "flip_rate": null,
-      "flip_pairs": 0,
-      "rerun_signal": {
-        "value": 0.0,
-        "groups_with_reruns": 0,
-        "groups_with_flip": 0
-      },
-      "retries": {
-        "recovered_runs": 0,
-        "exhausted_runs": 0,
-        "observed_failed_attempts": 0,
-        "evidence": []
-      },
-      "excluded": [
-        {
-          "run_id": "report",
-          "commit": null,
-          "reason": "3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
-          "records": [
-            {
-              "name": "test_exhausted_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 11
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_exhausted_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 13
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_exhausted_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 14
-              },
-              "status": "error",
-              "message": "failed on teardown with \"Failed: teardown never ready\"",
-              "reported_duration_seconds": 0.0,
-              "issue": null,
-              "retry": null
-            }
-          ]
-        }
-      ],
-      "activity": null,
-      "activity_unavailable_reason": "ambiguous_outcomes",
-      "first_failure_run_id": null,
-      "history_runs_since_first_failure": null,
-      "same_commit": {
-        "failures_passed_elsewhere": 0,
-        "failures_failed_everywhere": 0,
-        "failures_without_another_run": 0
-      },
-      "failures": [],
-      "named_failures": [],
-      "change_point": null,
-      "duration": {
-        "observations": 0,
-        "trend_axis": "supplied_history_run_index",
-        "trend_seconds_per_run": null,
-        "failure_correlation": null
-      },
-      "runner_rates": [],
-      "os_rates": [],
-      "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_status": "unknown",
-      "temporal_available": true
-    },
-    {
-      "test": "test_retries.test_recovered_call_and_teardown",
-      "suite": "test_retries",
-      "classification": "insufficient_data",
-      "flakiness_score": 0.0,
-      "runs": {
-        "total": 0,
-        "pass": 0,
-        "fail": 0,
-        "skip": 0,
-        "unknown": 1
-      },
-      "failure_rate": null,
-      "flip_rate": null,
-      "flip_pairs": 0,
-      "rerun_signal": {
-        "value": 0.0,
-        "groups_with_reruns": 0,
-        "groups_with_flip": 0
-      },
-      "retries": {
-        "recovered_runs": 0,
-        "exhausted_runs": 0,
-        "observed_failed_attempts": 0,
-        "evidence": []
-      },
-      "excluded": [
-        {
-          "run_id": "report",
-          "commit": null,
-          "reason": "2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
-          "records": [
-            {
-              "name": "test_recovered_call_and_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 15
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_recovered_call_and_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 17
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            }
-          ]
-        }
-      ],
-      "activity": null,
-      "activity_unavailable_reason": "ambiguous_outcomes",
-      "first_failure_run_id": null,
-      "history_runs_since_first_failure": null,
-      "same_commit": {
-        "failures_passed_elsewhere": 0,
-        "failures_failed_everywhere": 0,
-        "failures_without_another_run": 0
-      },
-      "failures": [],
-      "named_failures": [],
-      "change_point": null,
-      "duration": {
-        "observations": 0,
-        "trend_axis": "supplied_history_run_index",
-        "trend_seconds_per_run": null,
-        "failure_correlation": null
-      },
-      "runner_rates": [],
-      "os_rates": [],
-      "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -724,20 +363,7 @@
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
-                "testcase": 16
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_exhausted_setup",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 19
+                "testcase": 8
               },
               "status": "pass",
               "message": null,
@@ -750,7 +376,20 @@
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
-                "testcase": 22
+                "testcase": 9
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_exhausted_setup",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 12
               },
               "status": "error",
               "message": "failed on setup with \"Failed: setup never ready\"",
@@ -782,13 +421,13 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
     {
-      "test": "test_retries.test_skipped",
+      "test": "test_retries.test_recovered_setup",
       "suite": "test_retries",
       "classification": "insufficient_data",
       "flakiness_score": 0.0,
@@ -796,8 +435,8 @@
         "total": 0,
         "pass": 0,
         "fail": 0,
-        "skip": 1,
-        "unknown": 0
+        "skip": 0,
+        "unknown": 1
       },
       "failure_rate": null,
       "flip_rate": null,
@@ -813,9 +452,43 @@
         "observed_failed_attempts": 0,
         "evidence": []
       },
-      "excluded": [],
+      "excluded": [
+        {
+          "run_id": "report",
+          "commit": null,
+          "reason": "2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
+          "records": [
+            {
+              "name": "test_recovered_setup",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 10
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_recovered_setup",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 11
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            }
+          ]
+        }
+      ],
       "activity": null,
-      "activity_unavailable_reason": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
       "first_failure_run_id": null,
       "history_runs_since_first_failure": null,
       "same_commit": {
@@ -835,9 +508,396 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_status": "skip",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_status": "unknown",
+      "temporal_available": true
+    },
+    {
+      "test": "test_retries.test_exhausted_teardown",
+      "suite": "test_retries",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 1
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [
+        {
+          "run_id": "report",
+          "commit": null,
+          "reason": "3 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
+          "records": [
+            {
+              "name": "test_exhausted_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 13
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_exhausted_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 16
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_exhausted_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 17
+              },
+              "status": "error",
+              "message": "failed on teardown with \"Failed: teardown never ready\"",
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            }
+          ]
+        }
+      ],
+      "activity": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_status": "unknown",
+      "temporal_available": true
+    },
+    {
+      "test": "test_retries.test_recovered_teardown",
+      "suite": "test_retries",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 1
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [
+        {
+          "run_id": "report",
+          "commit": null,
+          "reason": "2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
+          "records": [
+            {
+              "name": "test_recovered_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 14
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_recovered_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 15
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            }
+          ]
+        }
+      ],
+      "activity": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_status": "unknown",
+      "temporal_available": true
+    },
+    {
+      "test": "test_retries.test_exhausted_call_and_teardown",
+      "suite": "test_retries",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 1
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [
+        {
+          "run_id": "report",
+          "commit": null,
+          "reason": "4 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
+          "records": [
+            {
+              "name": "test_exhausted_call_and_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 18
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.001,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_exhausted_call_and_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 21
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_exhausted_call_and_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 25
+              },
+              "status": "fail",
+              "message": "Failed: call never ready either",
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_exhausted_call_and_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 26
+              },
+              "status": "error",
+              "message": "failed on teardown with \"Failed: teardown never ready\"",
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            }
+          ]
+        }
+      ],
+      "activity": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_status": "unknown",
+      "temporal_available": true
+    },
+    {
+      "test": "test_retries.test_recovered_call_and_teardown",
+      "suite": "test_retries",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 0,
+        "pass": 0,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 1
+      },
+      "failure_rate": null,
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [
+        {
+          "run_id": "report",
+          "commit": null,
+          "reason": "2 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
+          "records": [
+            {
+              "name": "test_recovered_call_and_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 19
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_recovered_call_and_teardown",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 20
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            }
+          ]
+        }
+      ],
+      "activity": null,
+      "activity_unavailable_reason": "ambiguous_outcomes",
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 0,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_status": "unknown",
       "temporal_available": true
     },
     {
@@ -888,8 +948,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
       "last_status": "skip",
       "temporal_available": true
     },
@@ -945,8 +1005,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -987,19 +1047,6 @@
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
-                "testcase": 23
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.0,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_strict_xpass",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
                 "testcase": 24
               },
               "status": "pass",
@@ -1013,7 +1060,20 @@
               "classname": "test_retries",
               "source": {
                 "report": "report.xml",
-                "testcase": 25
+                "testcase": 27
+              },
+              "status": "pass",
+              "message": null,
+              "reported_duration_seconds": 0.0,
+              "issue": null,
+              "retry": null
+            },
+            {
+              "name": "test_strict_xpass",
+              "classname": "test_retries",
+              "source": {
+                "report": "report.xml",
+                "testcase": 28
               },
               "status": "fail",
               "message": "[XPASS(strict)] strict unexpected pass",
@@ -1045,28 +1105,24 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
     {
-      "test": "test_retries.test_parameter_identity[ordinary]",
+      "test": "test_retries.test_skipped",
       "suite": "test_retries",
       "classification": "insufficient_data",
       "flakiness_score": 0.0,
       "runs": {
-        "total": 1,
-        "pass": 1,
+        "total": 0,
+        "pass": 0,
         "fail": 0,
-        "skip": 0,
+        "skip": 1,
         "unknown": 0
       },
-      "failure_rate": {
-        "point": 0.0,
-        "wilson_low": 0.0,
-        "wilson_high": 0.7935
-      },
+      "failure_rate": null,
       "flip_rate": null,
       "flip_pairs": 0,
       "rerun_signal": {
@@ -1094,119 +1150,6 @@
       "named_failures": [],
       "change_point": null,
       "duration": {
-        "observations": 1,
-        "trend_axis": "supplied_history_run_index",
-        "trend_seconds_per_run": null,
-        "failure_correlation": null
-      },
-      "runner_rates": [],
-      "os_rates": [],
-      "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_status": "pass",
-      "temporal_available": true
-    },
-    {
-      "test": "test_retries.test_exhausted_call_and_teardown",
-      "suite": "test_retries",
-      "classification": "insufficient_data",
-      "flakiness_score": 0.0,
-      "runs": {
-        "total": 0,
-        "pass": 0,
-        "fail": 0,
-        "skip": 0,
-        "unknown": 1
-      },
-      "failure_rate": null,
-      "flip_rate": null,
-      "flip_pairs": 0,
-      "rerun_signal": {
-        "value": 0.0,
-        "groups_with_reruns": 0,
-        "groups_with_flip": 0
-      },
-      "retries": {
-        "recovered_runs": 0,
-        "exhausted_runs": 0,
-        "observed_failed_attempts": 0,
-        "evidence": []
-      },
-      "excluded": [
-        {
-          "run_id": "report",
-          "commit": null,
-          "reason": "4 records share this test identifier in one run; cannot distinguish retries, shards, or duplicate artifacts",
-          "records": [
-            {
-              "name": "test_exhausted_call_and_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 27
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.0,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_exhausted_call_and_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 28
-              },
-              "status": "pass",
-              "message": null,
-              "reported_duration_seconds": 0.001,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_exhausted_call_and_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 29
-              },
-              "status": "fail",
-              "message": "Failed: call never ready either",
-              "reported_duration_seconds": 0.0,
-              "issue": null,
-              "retry": null
-            },
-            {
-              "name": "test_exhausted_call_and_teardown",
-              "classname": "test_retries",
-              "source": {
-                "report": "report.xml",
-                "testcase": 30
-              },
-              "status": "error",
-              "message": "failed on teardown with \"Failed: teardown never ready\"",
-              "reported_duration_seconds": 0.0,
-              "issue": null,
-              "retry": null
-            }
-          ]
-        }
-      ],
-      "activity": null,
-      "activity_unavailable_reason": "ambiguous_outcomes",
-      "first_failure_run_id": null,
-      "history_runs_since_first_failure": null,
-      "same_commit": {
-        "failures_passed_elsewhere": 0,
-        "failures_failed_everywhere": 0,
-        "failures_without_another_run": 0
-      },
-      "failures": [],
-      "named_failures": [],
-      "change_point": null,
-      "duration": {
         "observations": 0,
         "trend_axis": "supplied_history_run_index",
         "trend_seconds_per_run": null,
@@ -1215,9 +1158,9 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_status": "unknown",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_status": "skip",
       "temporal_available": true
     },
     {
@@ -1272,8 +1215,65 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.006061+00:00",
-      "last_seen": "2026-10-21T12:24:38.006061+00:00",
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_status": "pass",
+      "temporal_available": true
+    },
+    {
+      "test": "test_retries.test_parameter_identity[ordinary]",
+      "suite": "test_retries",
+      "classification": "insufficient_data",
+      "flakiness_score": 0.0,
+      "runs": {
+        "total": 1,
+        "pass": 1,
+        "fail": 0,
+        "skip": 0,
+        "unknown": 0
+      },
+      "failure_rate": {
+        "point": 0.0,
+        "wilson_low": 0.0,
+        "wilson_high": 0.7935
+      },
+      "flip_rate": null,
+      "flip_pairs": 0,
+      "rerun_signal": {
+        "value": 0.0,
+        "groups_with_reruns": 0,
+        "groups_with_flip": 0
+      },
+      "retries": {
+        "recovered_runs": 0,
+        "exhausted_runs": 0,
+        "observed_failed_attempts": 0,
+        "evidence": []
+      },
+      "excluded": [],
+      "activity": null,
+      "activity_unavailable_reason": null,
+      "first_failure_run_id": null,
+      "history_runs_since_first_failure": null,
+      "same_commit": {
+        "failures_passed_elsewhere": 0,
+        "failures_failed_everywhere": 0,
+        "failures_without_another_run": 0
+      },
+      "failures": [],
+      "named_failures": [],
+      "change_point": null,
+      "duration": {
+        "observations": 1,
+        "trend_axis": "supplied_history_run_index",
+        "trend_seconds_per_run": null,
+        "failure_correlation": null
+      },
+      "runner_rates": [],
+      "os_rates": [],
+      "top_failure_messages": [],
+      "first_seen": "2026-10-21T12:36:08.396088+00:00",
+      "last_seen": "2026-10-21T12:36:08.396088+00:00",
       "last_status": "pass",
       "temporal_available": true
     }

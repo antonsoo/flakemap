@@ -77,6 +77,9 @@ def test_native_retry_phases_and_independent_execution_counts(
     assert actual["test_xfail"].status is Status.SKIP
     assert actual["test_xpass"].status is Status.PASS
     assert actual["test_strict_xpass"].status is Status.FAIL
+    assert "XPASS(strict)" in actual["test_strict_xpass"].retry.failures[0].message
+    assert "[gw" not in actual["test_strict_xpass"].retry.failures[0].message
+    assert "known failure" in actual["test_xfail"].message
     assert actual["test_parameter_identity[<xml>&[name]]"].status is Status.PASS
     ledger: dict[str, list[int]] = {}
     for path in tmp_path.glob("executed-*.jsonl"):

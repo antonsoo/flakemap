@@ -7,7 +7,7 @@
     "pytest-xdist": "3.8.0"
   },
   "runtimeSha256": {
-    "pytest_plugin.py": "de5c0ea4a0d2b3602ef4445c4b7d99a6ad4a30ee663e0f06b45306f47a04519a",
+    "pytest_plugin.py": "fdd1871a3c86704b294d886cc76b98ca209757b7bfc997731d85c22f523196d3",
     "parse/junit.py": "52482500e92d5345c655450ef635449c242b764449c7a9a9aeba0914bf89ec4f"
   },
   "fixtureSha256": "4a85c2507804c570a9ca56dcfd8f3d136af8c53a4ef96c4c3a59ae5717066625",

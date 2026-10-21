@@ -144,6 +144,19 @@ class _Capture:
         if not math.isfinite(report.duration) or report.duration < 0:
             test.issue = "invalid phase duration"
             return
+        # xdist adds a worker/interpreter header to longreprtext. String
+        # outcomes (notably strict XPASS) and skip tuples already carry the
+        # original reason; the header must not become their failure message.
+        if isinstance(report.longrepr, str):
+            message = report.longrepr
+        elif isinstance(report.longrepr, tuple):
+            message = str(report.longrepr[2])
+        else:
+            message = str(getattr(getattr(report.longrepr, "reprcrash", None), "message", ""))
+        expected_failure = getattr(report, "wasxfail", None)
+        if original == "skipped" and expected_failure is not None:
+            message = f"XFAIL: {expected_failure}; {message}"
+        message = _text(message)
         test.phases.append(
             _Phase(
                 attempt,
@@ -152,13 +165,7 @@ class _Capture:
                 original,
                 report.duration,
                 _text(report.longreprtext),
-                _text(
-                    getattr(
-                        getattr(report.longrepr, "reprcrash", None), "message", report.longreprtext
-                    )
-                ).splitlines()[0]
-                if report.longreprtext
-                else "",
+                message.splitlines()[0] if message else "",
             )
         )
 
@@ -232,7 +239,7 @@ class _Capture:
             if status == "skip":
                 counts["skipped"] += 1
                 skipped = next(p for p in test.phases if p.original == "skipped")
-                ET.SubElement(case, "skipped", {"message": skipped.detail})
+                ET.SubElement(case, "skipped", {"message": skipped.message}).text = skipped.detail
                 continue
             if status in ("fail", "error"):
                 counts["errors" if status == "error" else "failures"] += 1

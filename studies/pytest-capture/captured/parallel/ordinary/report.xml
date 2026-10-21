@@ -1,10 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="3" failures="3" skipped="2" tests="19" time="0.556" timestamp="2026-10-21T05:24:38.006061-07:00" hostname="omnia"><testcase classname="test_retries" name="test_pass" time="0.001" /><testcase classname="test_retries" name="test_exhausted_call" time="0.001" /><testcase classname="test_retries" name="test_exhausted_call" time="0.001" /><testcase classname="test_retries" name="test_recovered_call" time="0.001" /><testcase classname="test_retries" name="test_exhausted_call" time="0.001"><failure message="Failed: service never ready">attempt = 3
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="3" failures="3" skipped="2" tests="19" time="0.271" timestamp="2026-10-21T05:36:08.396088-07:00" hostname="omnia"><testcase classname="test_retries" name="test_pass" time="0.000" /><testcase classname="test_retries" name="test_exhausted_call" time="0.001" /><testcase classname="test_retries" name="test_recovered_call" time="0.000" /><testcase classname="test_retries" name="test_exhausted_call" time="0.001" /><testcase classname="test_retries" name="test_recovered_call" time="0.000" /><testcase classname="test_retries" name="test_recovered_call" time="0.000" /><testcase classname="test_retries" name="test_exhausted_call" time="0.000"><failure message="Failed: service never ready">attempt = 3
 
     def test_exhausted_call(attempt):
 &gt;       pytest.fail("service never ready")
 E       Failed: service never ready
 
-test_retries.py:35: Failed</failure></testcase><testcase classname="test_retries" name="test_recovered_setup" time="0.001" /><testcase classname="test_retries" name="test_recovered_setup" time="0.001" /><testcase classname="test_retries" name="test_recovered_teardown" time="0.001" /><testcase classname="test_retries" name="test_recovered_teardown" time="0.000" /><testcase classname="test_retries" name="test_recovered_call" time="0.001" /><testcase classname="test_retries" name="test_exhausted_teardown" time="0.001" /><testcase classname="test_retries" name="test_recovered_call" time="0.005" /><testcase classname="test_retries" name="test_exhausted_teardown" time="0.001" /><testcase classname="test_retries" name="test_exhausted_teardown" time="0.000"><error message="failed on teardown with &quot;Failed: teardown never ready&quot;">attempt = 3
+test_retries.py:35: Failed</failure></testcase><testcase classname="test_retries" name="test_exhausted_setup" time="0.000" /><testcase classname="test_retries" name="test_exhausted_setup" time="0.000" /><testcase classname="test_retries" name="test_recovered_setup" time="0.000" /><testcase classname="test_retries" name="test_recovered_setup" time="0.000" /><testcase classname="test_retries" name="test_exhausted_setup" time="0.000"><error message="failed on setup with &quot;Failed: setup never ready&quot;">attempt = 3
+
+    @pytest.fixture
+    def setup_fails(attempt):
+&gt;       pytest.fail("setup never ready")
+E       Failed: setup never ready
+
+test_retries.py:49: Failed</error></testcase><testcase classname="test_retries" name="test_exhausted_teardown" time="0.000" /><testcase classname="test_retries" name="test_recovered_teardown" time="0.000" /><testcase classname="test_retries" name="test_recovered_teardown" time="0.000" /><testcase classname="test_retries" name="test_exhausted_teardown" time="0.000" /><testcase classname="test_retries" name="test_exhausted_teardown" time="0.000"><error message="failed on teardown with &quot;Failed: teardown never ready&quot;">attempt = 3
 
     @pytest.fixture
     def teardown_fails(attempt):
@@ -12,14 +19,7 @@ test_retries.py:35: Failed</failure></testcase><testcase classname="test_retries
 &gt;       pytest.fail("teardown never ready")
 E       Failed: teardown never ready
 
-test_retries.py:69: Failed</error></testcase><testcase classname="test_retries" name="test_recovered_call_and_teardown" time="0.001" /><testcase classname="test_retries" name="test_exhausted_setup" time="0.001" /><testcase classname="test_retries" name="test_recovered_call_and_teardown" time="0.001" /><testcase classname="test_retries" name="test_skipped" time="0.000"><skipped type="pytest.skip" message="not executed">/tmp/claude-1000/pytest-capture-working-final/parallel/test_retries.py:90: not executed</skipped></testcase><testcase classname="test_retries" name="test_exhausted_setup" time="0.000" /><testcase classname="test_retries" name="test_xfail" time="0.000"><skipped type="pytest.xfail" message="known failure" /></testcase><testcase classname="test_retries" name="test_xpass" time="0.000" /><testcase classname="test_retries" name="test_exhausted_setup" time="0.000"><error message="failed on setup with &quot;Failed: setup never ready&quot;">attempt = 3
-
-    @pytest.fixture
-    def setup_fails(attempt):
-&gt;       pytest.fail("setup never ready")
-E       Failed: setup never ready
-
-test_retries.py:49: Failed</error></testcase><testcase classname="test_retries" name="test_strict_xpass" time="0.000" /><testcase classname="test_retries" name="test_strict_xpass" time="0.000" /><testcase classname="test_retries" name="test_strict_xpass" time="0.000"><failure message="[XPASS(strict)] strict unexpected pass">[XPASS(strict)] strict unexpected pass</failure></testcase><testcase classname="test_retries" name="test_parameter_identity[ordinary]" time="0.000" /><testcase classname="test_retries" name="test_exhausted_call_and_teardown" time="0.000" /><testcase classname="test_retries" name="test_exhausted_call_and_teardown" time="0.001" /><testcase classname="test_retries" name="test_exhausted_call_and_teardown" time="0.000"><failure message="Failed: call never ready either">teardown_fails = None
+test_retries.py:69: Failed</error></testcase><testcase classname="test_retries" name="test_exhausted_call_and_teardown" time="0.001" /><testcase classname="test_retries" name="test_recovered_call_and_teardown" time="0.000" /><testcase classname="test_retries" name="test_recovered_call_and_teardown" time="0.000" /><testcase classname="test_retries" name="test_exhausted_call_and_teardown" time="0.000" /><testcase classname="test_retries" name="test_xfail" time="0.000"><skipped type="pytest.xfail" message="known failure" /></testcase><testcase classname="test_retries" name="test_xpass" time="0.000" /><testcase classname="test_retries" name="test_strict_xpass" time="0.000" /><testcase classname="test_retries" name="test_exhausted_call_and_teardown" time="0.000"><failure message="Failed: call never ready either">teardown_fails = None
 
     def test_exhausted_call_and_teardown(teardown_fails):
 &gt;       pytest.fail("call never ready either")
@@ -33,4 +33,4 @@ test_retries.py:87: Failed</failure></testcase><testcase classname="test_retries
 &gt;       pytest.fail("teardown never ready")
 E       Failed: teardown never ready
 
-test_retries.py:69: Failed</error></testcase><testcase classname="test_retries" name="test_parameter_identity[&lt;xml&gt;&amp;[name]]" time="0.001" /></testsuite></testsuites>
+test_retries.py:69: Failed</error></testcase><testcase classname="test_retries" name="test_strict_xpass" time="0.000" /><testcase classname="test_retries" name="test_strict_xpass" time="0.000"><failure message="[XPASS(strict)] strict unexpected pass">[XPASS(strict)] strict unexpected pass</failure></testcase><testcase classname="test_retries" name="test_skipped" time="0.000"><skipped type="pytest.skip" message="not executed">/tmp/claude-1000/pytest-capture-reasons-current/parallel/test_retries.py:90: not executed</skipped></testcase><testcase classname="test_retries" name="test_parameter_identity[&lt;xml&gt;&amp;[name]]" time="0.000" /><testcase classname="test_retries" name="test_parameter_identity[ordinary]" time="0.000" /></testsuite></testsuites>

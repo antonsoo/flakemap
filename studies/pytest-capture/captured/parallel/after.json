@@ -13,8 +13,8 @@
       "report"
     ],
     "timestamp_range": [
-      "2026-10-21T12:24:38.744303+00:00",
-      "2026-10-21T12:24:38.744303+00:00"
+      "2026-10-21T12:36:08.806907+00:00",
+      "2026-10-21T12:36:08.806907+00:00"
     ],
     "total_tests": 15,
     "cofailure_groups": 2,
@@ -38,7 +38,7 @@
         "run_id": "report",
         "commit": null,
         "branch": null,
-        "timestamp": "2026-10-21T12:24:38.744303+00:00",
+        "timestamp": "2026-10-21T12:36:08.806907+00:00",
         "runner": null,
         "os": null,
         "sequence": null,
@@ -84,7 +84,7 @@
                 },
                 "status": "fail",
                 "message": "call: Failed: service never ready",
-                "reported_duration_seconds": 0.0019635159842437133,
+                "reported_duration_seconds": 0.0012599320034496486,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -125,7 +125,7 @@
                 },
                 "status": "error",
                 "message": "call: Failed: call never ready either; teardown: Failed: teardown never ready",
-                "reported_duration_seconds": 0.001536425988888368,
+                "reported_duration_seconds": 0.0011093789798906073,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -166,7 +166,7 @@
                 },
                 "status": "error",
                 "message": "setup: Failed: setup never ready",
-                "reported_duration_seconds": 0.0010684920125640929,
+                "reported_duration_seconds": 0.0008662009931867942,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -207,7 +207,7 @@
                 },
                 "status": "error",
                 "message": "teardown: Failed: teardown never ready",
-                "reported_duration_seconds": 0.0015172709681792185,
+                "reported_duration_seconds": 0.0010850639664568007,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -247,8 +247,8 @@
                   "testcase": 13
                 },
                 "status": "fail",
-                "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python",
-                "reported_duration_seconds": 0.001293016001000069,
+                "message": "call: [XPASS(strict)] strict unexpected pass",
+                "reported_duration_seconds": 0.0009141540067503229,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -257,17 +257,17 @@
                     {
                       "tag": "rerunFailure",
                       "status": "fail",
-                      "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python"
+                      "message": "call: [XPASS(strict)] strict unexpected pass"
                     },
                     {
                       "tag": "rerunFailure",
                       "status": "fail",
-                      "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python"
+                      "message": "call: [XPASS(strict)] strict unexpected pass"
                     },
                     {
                       "tag": "failure",
                       "status": "fail",
-                      "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python"
+                      "message": "call: [XPASS(strict)] strict unexpected pass"
                     }
                   ]
                 }
@@ -313,7 +313,7 @@
                 },
                 "status": "pass",
                 "message": null,
-                "reported_duration_seconds": 0.001695431987172924,
+                "reported_duration_seconds": 0.0012809140171157196,
                 "issue": null,
                 "retry": {
                   "outcome": "recovered",
@@ -349,7 +349,7 @@
                 },
                 "status": "pass",
                 "message": null,
-                "reported_duration_seconds": 0.0011316079908283427,
+                "reported_duration_seconds": 0.0007572289905510843,
                 "issue": null,
                 "retry": {
                   "outcome": "recovered",
@@ -380,7 +380,7 @@
                 },
                 "status": "pass",
                 "message": null,
-                "reported_duration_seconds": 0.0010396190191386268,
+                "reported_duration_seconds": 0.0006967559893382713,
                 "issue": null,
                 "retry": {
                   "outcome": "recovered",
@@ -411,7 +411,7 @@
                 },
                 "status": "pass",
                 "message": null,
-                "reported_duration_seconds": 0.0010066120157716796,
+                "reported_duration_seconds": 0.0007132429891498759,
                 "issue": null,
                 "retry": {
                   "outcome": "recovered",
@@ -475,7 +475,7 @@
                 },
                 "status": "pass",
                 "message": null,
-                "reported_duration_seconds": 0.001695431987172924,
+                "reported_duration_seconds": 0.0012809140171157196,
                 "issue": null,
                 "retry": {
                   "outcome": "recovered",
@@ -537,8 +537,8 @@
           "count": 2
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -585,7 +585,7 @@
                 },
                 "status": "pass",
                 "message": null,
-                "reported_duration_seconds": 0.0011316079908283427,
+                "reported_duration_seconds": 0.0007572289905510843,
                 "issue": null,
                 "retry": {
                   "outcome": "recovered",
@@ -642,8 +642,8 @@
           "count": 1
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -690,7 +690,7 @@
                 },
                 "status": "pass",
                 "message": null,
-                "reported_duration_seconds": 0.0010396190191386268,
+                "reported_duration_seconds": 0.0006967559893382713,
                 "issue": null,
                 "retry": {
                   "outcome": "recovered",
@@ -747,8 +747,8 @@
           "count": 1
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -795,7 +795,7 @@
                 },
                 "status": "pass",
                 "message": null,
-                "reported_duration_seconds": 0.0010066120157716796,
+                "reported_duration_seconds": 0.0007132429891498759,
                 "issue": null,
                 "retry": {
                   "outcome": "recovered",
@@ -852,8 +852,8 @@
           "count": 1
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -900,7 +900,7 @@
                 },
                 "status": "fail",
                 "message": "call: Failed: service never ready",
-                "reported_duration_seconds": 0.0019635159842437133,
+                "reported_duration_seconds": 0.0012599320034496486,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -954,7 +954,7 @@
         {
           "run_id": "report",
           "index": 0,
-          "timestamp": "2026-10-21T12:24:38.744303+00:00",
+          "timestamp": "2026-10-21T12:36:08.806907+00:00",
           "commit": null,
           "status": "fail",
           "message": "call: Failed: service never ready",
@@ -980,8 +980,8 @@
           "count": 3
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "fail",
       "temporal_available": true
     },
@@ -1028,7 +1028,7 @@
                 },
                 "status": "error",
                 "message": "call: Failed: call never ready either; teardown: Failed: teardown never ready",
-                "reported_duration_seconds": 0.001536425988888368,
+                "reported_duration_seconds": 0.0011093789798906073,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -1082,7 +1082,7 @@
         {
           "run_id": "report",
           "index": 0,
-          "timestamp": "2026-10-21T12:24:38.744303+00:00",
+          "timestamp": "2026-10-21T12:36:08.806907+00:00",
           "commit": null,
           "status": "error",
           "message": "call: Failed: call never ready either; teardown: Failed: teardown never ready",
@@ -1108,8 +1108,8 @@
           "count": 3
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "error",
       "temporal_available": true
     },
@@ -1156,7 +1156,7 @@
                 },
                 "status": "error",
                 "message": "setup: Failed: setup never ready",
-                "reported_duration_seconds": 0.0010684920125640929,
+                "reported_duration_seconds": 0.0008662009931867942,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -1210,7 +1210,7 @@
         {
           "run_id": "report",
           "index": 0,
-          "timestamp": "2026-10-21T12:24:38.744303+00:00",
+          "timestamp": "2026-10-21T12:36:08.806907+00:00",
           "commit": null,
           "status": "error",
           "message": "setup: Failed: setup never ready",
@@ -1236,8 +1236,8 @@
           "count": 3
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "error",
       "temporal_available": true
     },
@@ -1284,7 +1284,7 @@
                 },
                 "status": "error",
                 "message": "teardown: Failed: teardown never ready",
-                "reported_duration_seconds": 0.0015172709681792185,
+                "reported_duration_seconds": 0.0010850639664568007,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -1338,7 +1338,7 @@
         {
           "run_id": "report",
           "index": 0,
-          "timestamp": "2026-10-21T12:24:38.744303+00:00",
+          "timestamp": "2026-10-21T12:36:08.806907+00:00",
           "commit": null,
           "status": "error",
           "message": "teardown: Failed: teardown never ready",
@@ -1364,8 +1364,8 @@
           "count": 3
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "error",
       "temporal_available": true
     },
@@ -1421,8 +1421,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -1478,8 +1478,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -1535,8 +1535,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -1588,8 +1588,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "skip",
       "temporal_available": true
     },
@@ -1635,8 +1635,8 @@
                   "testcase": 13
                 },
                 "status": "fail",
-                "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python",
-                "reported_duration_seconds": 0.001293016001000069,
+                "message": "call: [XPASS(strict)] strict unexpected pass",
+                "reported_duration_seconds": 0.0009141540067503229,
                 "issue": null,
                 "retry": {
                   "outcome": "exhausted",
@@ -1645,17 +1645,17 @@
                     {
                       "tag": "rerunFailure",
                       "status": "fail",
-                      "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python"
+                      "message": "call: [XPASS(strict)] strict unexpected pass"
                     },
                     {
                       "tag": "rerunFailure",
                       "status": "fail",
-                      "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python"
+                      "message": "call: [XPASS(strict)] strict unexpected pass"
                     },
                     {
                       "tag": "failure",
                       "status": "fail",
-                      "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python"
+                      "message": "call: [XPASS(strict)] strict unexpected pass"
                     }
                   ]
                 }
@@ -1690,10 +1690,10 @@
         {
           "run_id": "report",
           "index": 0,
-          "timestamp": "2026-10-21T12:24:38.744303+00:00",
+          "timestamp": "2026-10-21T12:36:08.806907+00:00",
           "commit": null,
           "status": "fail",
-          "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python",
+          "message": "call: [XPASS(strict)] strict unexpected pass",
           "failed_within": [],
           "same_commit": "unknown",
           "same_commit_other_runs": 0,
@@ -1712,12 +1712,12 @@
       "os_rates": [],
       "top_failure_messages": [
         {
-          "message": "call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python",
+          "message": "call: [XPASS(strict)] strict unexpected pass",
           "count": 3
         }
       ],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "fail",
       "temporal_available": true
     },
@@ -1769,8 +1769,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "skip",
       "temporal_available": true
     },
@@ -1826,8 +1826,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:38.744303+00:00",
-      "last_seen": "2026-10-21T12:24:38.744303+00:00",
+      "first_seen": "2026-10-21T12:36:08.806907+00:00",
+      "last_seen": "2026-10-21T12:36:08.806907+00:00",
       "last_status": "pass",
       "temporal_available": true
     }

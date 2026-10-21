@@ -13,8 +13,8 @@
       "report"
     ],
     "timestamp_range": [
-      "2026-10-21T12:24:37.061178+00:00",
-      "2026-10-21T12:24:37.061178+00:00"
+      "2026-10-21T12:36:07.700526+00:00",
+      "2026-10-21T12:36:07.700526+00:00"
     ],
     "total_tests": 15,
     "cofailure_groups": 0,
@@ -59,7 +59,7 @@
         "run_id": "report",
         "commit": null,
         "branch": null,
-        "timestamp": "2026-10-21T05:24:37.061178-07:00",
+        "timestamp": "2026-10-21T05:36:07.700526-07:00",
         "runner": null,
         "os": null,
         "sequence": null,
@@ -121,8 +121,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -167,7 +167,7 @@
               },
               "status": "pass",
               "message": null,
-              "reported_duration_seconds": 0.001,
+              "reported_duration_seconds": 0.0,
               "issue": null,
               "retry": null
             },
@@ -180,7 +180,7 @@
               },
               "status": "pass",
               "message": null,
-              "reported_duration_seconds": 0.001,
+              "reported_duration_seconds": 0.0,
               "issue": null,
               "retry": null
             },
@@ -221,8 +221,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -293,7 +293,7 @@
               },
               "status": "fail",
               "message": "Failed: service never ready",
-              "reported_duration_seconds": 0.001,
+              "reported_duration_seconds": 0.0,
               "issue": null,
               "retry": null
             }
@@ -321,8 +321,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -408,8 +408,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -508,8 +508,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -595,8 +595,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -695,8 +695,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -782,8 +782,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -895,8 +895,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -948,8 +948,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "skip",
       "temporal_available": true
     },
@@ -1001,8 +1001,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "skip",
       "temporal_available": true
     },
@@ -1058,8 +1058,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -1158,8 +1158,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "unknown",
       "temporal_available": true
     },
@@ -1215,8 +1215,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "pass",
       "temporal_available": true
     },
@@ -1272,8 +1272,8 @@
       "runner_rates": [],
       "os_rates": [],
       "top_failure_messages": [],
-      "first_seen": "2026-10-21T12:24:37.061178+00:00",
-      "last_seen": "2026-10-21T12:24:37.061178+00:00",
+      "first_seen": "2026-10-21T12:36:07.700526+00:00",
+      "last_seen": "2026-10-21T12:36:07.700526+00:00",
       "last_status": "pass",
       "temporal_available": true
     }

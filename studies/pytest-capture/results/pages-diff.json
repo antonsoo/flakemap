@@ -1,0 +1,30 @@
+{
+  "parent": "3f907bdaf0c63e2535da0b8c8aaacd5b38c155c9",
+  "reviewedBuildFiles": 18,
+  "previousFiles": 16,
+  "changedPreviousFiles": [
+    "cofailure.html",
+    "generic.html",
+    "incomplete.html",
+    "index.html",
+    "kubernetes.html",
+    "nunit.html",
+    "retry.html"
+  ],
+  "preservedPreviousFiles": [
+    ".nojekyll",
+    "cofailure.json",
+    "generic-inputs.zip",
+    "generic.json",
+    "incomplete.json",
+    "index.json",
+    "nunit-inputs.zip",
+    "nunit.json",
+    "retry.json"
+  ],
+  "newFiles": [
+    "pytest.html",
+    "pytest.json",
+    "pytest-inputs.zip"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "baseURL": "http://127.0.0.1:4198/",
+  "baseURL": "http://127.0.0.1:4199/",
   "results": [
     {
       "engine": "chromium",
@@ -11,9 +11,10 @@
       "tests": 15,
       "recovered": 4,
       "exhausted": 5,
+      "keyboardEntry": true,
       "keyboardEvidence": true,
       "jsonMatches": true,
-      "inputZipSha256": "f6e2a7388e68cc04dfeb0711dbf8358b6c0c72c5015f07779ae7019848b0194b",
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
       "offlineDownloads": true,
       "networkAfterOffline": [],
       "pageErrors": [],
@@ -22,7 +23,8 @@
         "scrollWidth": 375,
         "clientWidth": 375
       },
-      "screenshot": "chromium-375-light.png"
+      "screenshot": "chromium-375-light.png",
+      "evidenceScreenshot": "chromium-375-light-evidence.png"
     },
     {
       "engine": "chromium",
@@ -34,9 +36,10 @@
       "tests": 15,
       "recovered": 4,
       "exhausted": 5,
+      "keyboardEntry": true,
       "keyboardEvidence": true,
       "jsonMatches": true,
-      "inputZipSha256": "f6e2a7388e68cc04dfeb0711dbf8358b6c0c72c5015f07779ae7019848b0194b",
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
       "offlineDownloads": true,
       "networkAfterOffline": [],
       "pageErrors": [],
@@ -45,7 +48,8 @@
         "scrollWidth": 375,
         "clientWidth": 375
       },
-      "screenshot": "chromium-375-dark.png"
+      "screenshot": "chromium-375-dark.png",
+      "evidenceScreenshot": "chromium-375-dark-evidence.png"
     },
     {
       "engine": "chromium",
@@ -57,9 +61,10 @@
       "tests": 15,
       "recovered": 4,
       "exhausted": 5,
+      "keyboardEntry": true,
       "keyboardEvidence": true,
       "jsonMatches": true,
-      "inputZipSha256": "f6e2a7388e68cc04dfeb0711dbf8358b6c0c72c5015f07779ae7019848b0194b",
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
       "offlineDownloads": true,
       "networkAfterOffline": [],
       "pageErrors": [],
@@ -68,7 +73,8 @@
         "scrollWidth": 1440,
         "clientWidth": 1440
       },
-      "screenshot": "chromium-1440-light.png"
+      "screenshot": "chromium-1440-light.png",
+      "evidenceScreenshot": "chromium-1440-light-evidence.png"
     },
     {
       "engine": "chromium",
@@ -80,9 +86,10 @@
       "tests": 15,
       "recovered": 4,
       "exhausted": 5,
+      "keyboardEntry": true,
       "keyboardEvidence": true,
       "jsonMatches": true,
-      "inputZipSha256": "f6e2a7388e68cc04dfeb0711dbf8358b6c0c72c5015f07779ae7019848b0194b",
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
       "offlineDownloads": true,
       "networkAfterOffline": [],
       "pageErrors": [],
@@ -91,7 +98,8 @@
         "scrollWidth": 1440,
         "clientWidth": 1440
       },
-      "screenshot": "chromium-1440-dark.png"
+      "screenshot": "chromium-1440-dark.png",
+      "evidenceScreenshot": "chromium-1440-dark-evidence.png"
     },
     {
       "engine": "firefox",
@@ -103,9 +111,10 @@
       "tests": 15,
       "recovered": 4,
       "exhausted": 5,
+      "keyboardEntry": true,
       "keyboardEvidence": true,
       "jsonMatches": true,
-      "inputZipSha256": "f6e2a7388e68cc04dfeb0711dbf8358b6c0c72c5015f07779ae7019848b0194b",
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
       "offlineDownloads": true,
       "networkAfterOffline": [],
       "pageErrors": [],
@@ -114,7 +123,8 @@
         "scrollWidth": 375,
         "clientWidth": 375
       },
-      "screenshot": "firefox-375-light.png"
+      "screenshot": "firefox-375-light.png",
+      "evidenceScreenshot": "firefox-375-light-evidence.png"
     },
     {
       "engine": "firefox",
@@ -126,9 +136,10 @@
       "tests": 15,
       "recovered": 4,
       "exhausted": 5,
+      "keyboardEntry": true,
       "keyboardEvidence": true,
       "jsonMatches": true,
-      "inputZipSha256": "f6e2a7388e68cc04dfeb0711dbf8358b6c0c72c5015f07779ae7019848b0194b",
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
       "offlineDownloads": true,
       "networkAfterOffline": [],
       "pageErrors": [],
@@ -137,7 +148,8 @@
         "scrollWidth": 375,
         "clientWidth": 375
       },
-      "screenshot": "firefox-375-dark.png"
+      "screenshot": "firefox-375-dark.png",
+      "evidenceScreenshot": "firefox-375-dark-evidence.png"
     },
     {
       "engine": "firefox",
@@ -149,9 +161,10 @@
       "tests": 15,
       "recovered": 4,
       "exhausted": 5,
+      "keyboardEntry": true,
       "keyboardEvidence": true,
       "jsonMatches": true,
-      "inputZipSha256": "f6e2a7388e68cc04dfeb0711dbf8358b6c0c72c5015f07779ae7019848b0194b",
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
       "offlineDownloads": true,
       "networkAfterOffline": [],
       "pageErrors": [],
@@ -160,7 +173,8 @@
         "scrollWidth": 1440,
         "clientWidth": 1440
       },
-      "screenshot": "firefox-1440-light.png"
+      "screenshot": "firefox-1440-light.png",
+      "evidenceScreenshot": "firefox-1440-light-evidence.png"
     },
     {
       "engine": "firefox",
@@ -172,9 +186,10 @@
       "tests": 15,
       "recovered": 4,
       "exhausted": 5,
+      "keyboardEntry": true,
       "keyboardEvidence": true,
       "jsonMatches": true,
-      "inputZipSha256": "f6e2a7388e68cc04dfeb0711dbf8358b6c0c72c5015f07779ae7019848b0194b",
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
       "offlineDownloads": true,
       "networkAfterOffline": [],
       "pageErrors": [],
@@ -183,7 +198,8 @@
         "scrollWidth": 1440,
         "clientWidth": 1440
       },
-      "screenshot": "firefox-1440-dark.png"
+      "screenshot": "firefox-1440-dark.png",
+      "evidenceScreenshot": "firefox-1440-dark-evidence.png"
     }
   ]
 }

@@ -7,10 +7,14 @@ names alone cannot establish which records were retries. Flakemap keeps those
 ordinary records excluded instead of guessing.
 
 The source checkout provides a companion reporter that observes the evidence
-while pytest runs. Install this checkout in the environment that runs your tests:
+while pytest runs. Install the verified revision in the environment that runs
+your tests. `--force-reinstall` replaces an existing registry 0.3.7 installation;
+this source revision still declares that version.
 
 ```sh
-python -m pip install '.[pytest]' 'pytest-rerunfailures>=16.7'
+python -m pip install --force-reinstall \
+  'flakemap[pytest] @ git+https://github.com/antonsoo/flakemap.git@bb6a48e3259dffac29d4ac609934681f2a40b386' \
+  'pytest-rerunfailures>=16.7'
 pytest -p flakemap.pytest_plugin --reruns 2 \
   --flakemap-xml=flakemap-history/run-001.xml tests/
 flakemap flakemap-history --html retries.html --fail-on-retry --fail-on-incomplete
@@ -32,7 +36,8 @@ pytest -p flakemap.pytest_plugin --reruns 2 -n 2 \
 The second command additionally needs `pytest-xdist`. Loading the plugin does
 not enable retries; `--reruns` belongs to pytest-rerunfailures. There is no
 automatic pytest entry point. Base Flakemap installations still need only Rich.
-The reporter is not yet in the tested PyPI release; install the source checkout.
+The reporter is not in the tested PyPI 0.3.7 release. The source upgrade and
+installed runtime are verified separately in the [study](../studies/pytest-capture/README.md).
 
 ## What the report establishes
 

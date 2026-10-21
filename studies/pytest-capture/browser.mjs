@@ -23,8 +23,15 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
           const page = await context.newPage();
           const errors = [], requests = [];
           page.on("pageerror", error => errors.push(error.message));
-          const response = await page.goto(new URL("pytest.html", baseURL).href);
+          const response = await page.goto(new URL("index.html", baseURL).href);
           assert(response && response.status() === 200);
+          const target = new URL("pytest.html", baseURL).href;
+          await page.getByRole("navigation", { name: "Report examples" }).getByRole("link", { name: "Pytest retries", exact: true }).focus();
+          const navigation = page.waitForURL(target);
+          const destination = page.waitForResponse(reply => reply.url() === target);
+          await page.keyboard.press("Enter");
+          await navigation;
+          assert.equal((await destination).status(), 200);
           await page.evaluate(() => document.fonts.ready);
           assert.equal(await page.getByRole("navigation", { name: "Report examples" }).getByRole("link").count(), 8);
           assert.equal(await page.locator("details.row").count(), 15);
@@ -58,7 +65,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
           await page.screenshot({ path: resolve(directory, screenshot), fullPage: true });
           const evidenceScreenshot = `${engine}-${width}-${colorScheme}-evidence.png`;
           await row.screenshot({ path: resolve(directory, evidenceScreenshot) });
-          results.push({ engine, viewport: page.viewportSize(), colorScheme, tests: 15, recovered: 4, exhausted: 5, keyboardEvidence: true, jsonMatches: true, inputZipSha256: sha256(zip), offlineDownloads: true, networkAfterOffline: requests, pageErrors: errors, bounds, screenshot, evidenceScreenshot });
+          results.push({ engine, viewport: page.viewportSize(), colorScheme, tests: 15, recovered: 4, exhausted: 5, keyboardEntry: true, keyboardEvidence: true, jsonMatches: true, inputZipSha256: sha256(zip), offlineDownloads: true, networkAfterOffline: requests, pageErrors: errors, bounds, screenshot, evidenceScreenshot });
         } finally { await context.close(); }
       }
     }

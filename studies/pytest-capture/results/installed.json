@@ -1,0 +1,62 @@
+{
+  "versions": {
+    "python": "3.12.12",
+    "flakemap": "0.3.7",
+    "pytest": "9.1.1",
+    "pytest-rerunfailures": "16.7",
+    "pytest-xdist": "3.8.0"
+  },
+  "runtimeSha256": {
+    "pytest_plugin.py": "fdd1871a3c86704b294d886cc76b98ca209757b7bfc997731d85c22f523196d3",
+    "parse/junit.py": "52482500e92d5345c655450ef635449c242b764449c7a9a9aeba0914bf89ec4f"
+  },
+  "fixtureSha256": "4a85c2507804c570a9ca56dcfd8f3d136af8c53a4ef96c4c3a59ae5717066625",
+  "runs": [
+    {
+      "workers": 0,
+      "testcaseRecords": 15,
+      "ordinaryTestcaseRecords": 31,
+      "ordinaryDeclaredTests": "19",
+      "executionLedgerAttempts": 29,
+      "markers": {
+        "rerunFailure": 4,
+        "failure": 2,
+        "rerunError": 6,
+        "error": 3,
+        "flakyFailure": 2,
+        "flakyError": 3
+      },
+      "recoveredRuns": 4,
+      "exhaustedRuns": 5,
+      "unchangedOrdinaryOutcomes": true,
+      "unchangedExecutionLedger": true,
+      "beforeIncompleteExit": 2,
+      "captureIncompleteExit": 0,
+      "captureRetryGateExit": 1,
+      "beforeWarnings": 10
+    },
+    {
+      "workers": 2,
+      "testcaseRecords": 15,
+      "ordinaryTestcaseRecords": 31,
+      "ordinaryDeclaredTests": "19",
+      "executionLedgerAttempts": 29,
+      "markers": {
+        "rerunFailure": 4,
+        "failure": 2,
+        "rerunError": 6,
+        "error": 3,
+        "flakyFailure": 2,
+        "flakyError": 3
+      },
+      "recoveredRuns": 4,
+      "exhaustedRuns": 5,
+      "unchangedOrdinaryOutcomes": true,
+      "unchangedExecutionLedger": true,
+      "beforeIncompleteExit": 2,
+      "captureIncompleteExit": 0,
+      "captureRetryGateExit": 1,
+      "beforeWarnings": 10
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "sourceAtDeployment": "bb6a48e3259dffac29d4ac609934681f2a40b386",
+  "pagesCommit": "1e3c9a604f12a4ba02837bf7551cee5b03b472ec",
+  "pagesParent": "3f907bdaf0c63e2535da0b8c8aaacd5b38c155c9",
+  "site": "https://antonsoo.github.io/flakemap/pytest.html",
+  "reviewedBuildFiles": 18,
+  "canonicalFilesMatched": 19,
+  "publicKeyboardEntries": 8,
+  "publicKeyboardEvidenceOpenings": 8,
+  "publicOfflineDownloads": 16,
+  "publicResultsMatchClean": true,
+  "publicScreenshotsMatchReviewedBytes": 16,
+  "registryRelease": false,
+  "hostedWorkbenchUpdated": false
+}

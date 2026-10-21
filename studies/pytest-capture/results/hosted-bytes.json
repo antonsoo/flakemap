@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "node": "v24.22.0",
+  "requestTimeoutMs": 10000,
+  "retryWindowMs": 60000,
+  "pollIntervalMs": 5000,
+  "concurrency": 6,
+  "baseURL": "https://antonsoo.github.io/flakemap/",
+  "state": "verified",
+  "attempts": 1,
+  "startedAtUtc": "2026-10-21T12:47:04.608Z",
+  "checkedAtUtc": "2026-10-21T12:47:05.460Z",
+  "buildManifestSha256": "9f318c95a9ccbfb0f1dd430d355b79088c5451ae3ca63210b285bbe1ffc1a737",
+  "expectedFileCount": 19,
+  "checkedFileCount": 19,
+  "verifiedFileCount": 19,
+  "rootBefore": {
+    "path": "index.html",
+    "bytes": 878948,
+    "sha256": "170e484124f0d094c93125e99ef28c6f88eb9fb8e90e3314b0f989123453889b",
+    "url": "https://antonsoo.github.io/flakemap/",
+    "httpStatus": 200,
+    "observedBytes": 878948,
+    "observedSha256": "170e484124f0d094c93125e99ef28c6f88eb9fb8e90e3314b0f989123453889b",
+    "state": "verified"
+  },
+  "rootAfter": {
+    "path": "index.html",
+    "bytes": 878948,
+    "sha256": "170e484124f0d094c93125e99ef28c6f88eb9fb8e90e3314b0f989123453889b",
+    "url": "https://antonsoo.github.io/flakemap/",
+    "httpStatus": 200,
+    "observedBytes": 878948,
+    "observedSha256": "170e484124f0d094c93125e99ef28c6f88eb9fb8e90e3314b0f989123453889b",
+    "state": "verified"
+  },
+  "files": [
+    {
+      "path": ".nojekyll",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "url": "https://antonsoo.github.io/flakemap/.nojekyll",
+      "httpStatus": 200,
+      "observedBytes": 0,
+      "observedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "state": "verified"
+    },
+    {
+      "path": "cofailure.html",
+      "bytes": 102761,
+      "sha256": "0c43eee062dcc4f3ac0215b1c70ae4987536f94acf3e181a8ee39a92f47c96c0",
+      "url": "https://antonsoo.github.io/flakemap/cofailure.html",
+      "httpStatus": 200,
+      "observedBytes": 102761,
+      "observedSha256": "0c43eee062dcc4f3ac0215b1c70ae4987536f94acf3e181a8ee39a92f47c96c0",
+      "state": "verified"
+    },
+    {
+      "path": "cofailure.json",
+      "bytes": 29777,
+      "sha256": "1089510668ec4153d95e0ac1ac5301ab5d34086151e1ed76ff794f3bf73a6353",
+      "url": "https://antonsoo.github.io/flakemap/cofailure.json",
+      "httpStatus": 200,
+      "observedBytes": 29777,
+      "observedSha256": "1089510668ec4153d95e0ac1ac5301ab5d34086151e1ed76ff794f3bf73a6353",
+      "state": "verified"
+    },
+    {
+      "path": "generic-inputs.zip",
+      "bytes": 14663,
+      "sha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "url": "https://antonsoo.github.io/flakemap/generic-inputs.zip",
+      "httpStatus": 200,
+      "observedBytes": 14663,
+      "observedSha256": "ec23f7859a528286238ed13f86141fc71c25201627f4314529c313769f293b2c",
+      "state": "verified"
+    },
+    {
+      "path": "generic.html",
+      "bytes": 61072,
+      "sha256": "8d396c080751a7041781a96465095f5d19b1b184b8670f9a54b44fa007003d03",
+      "url": "https://antonsoo.github.io/flakemap/generic.html",
+      "httpStatus": 200,
+      "observedBytes": 61072,
+      "observedSha256": "8d396c080751a7041781a96465095f5d19b1b184b8670f9a54b44fa007003d03",
+      "state": "verified"
+    },
+    {
+      "path": "generic.json",
+      "bytes": 9994,
+      "sha256": "e400ecff63dffb048f09536a3acda7b9a312ac21b5d6c6c03717b0d61fee52fc",
+      "url": "https://antonsoo.github.io/flakemap/generic.json",
+      "httpStatus": 200,
+      "observedBytes": 9994,
+      "observedSha256": "e400ecff63dffb048f09536a3acda7b9a312ac21b5d6c6c03717b0d61fee52fc",
+      "state": "verified"
+    },
+    {
+      "path": "incomplete.html",
+      "bytes": 52274,
+      "sha256": "acf49d76b0f3c5c54d1897c74672b7af32f13f52104763ea443c57d563d80131",
+      "url": "https://antonsoo.github.io/flakemap/incomplete.html",
+      "httpStatus": 200,
+      "observedBytes": 52274,
+      "observedSha256": "acf49d76b0f3c5c54d1897c74672b7af32f13f52104763ea443c57d563d80131",
+      "state": "verified"
+    },
+    {
+      "path": "incomplete.json",
+      "bytes": 13645,
+      "sha256": "763f53f144c703c2db6679700722ed10bca3871fe732af6f83611c5b16f78df8",
+      "url": "https://antonsoo.github.io/flakemap/incomplete.json",
+      "httpStatus": 200,
+      "observedBytes": 13645,
+      "observedSha256": "763f53f144c703c2db6679700722ed10bca3871fe732af6f83611c5b16f78df8",
+      "state": "verified"
+    },
+    {
+      "path": "index.html",
+      "bytes": 878948,
+      "sha256": "170e484124f0d094c93125e99ef28c6f88eb9fb8e90e3314b0f989123453889b",
+      "url": "https://antonsoo.github.io/flakemap/index.html",
+      "httpStatus": 200,
+      "observedBytes": 878948,
+      "observedSha256": "170e484124f0d094c93125e99ef28c6f88eb9fb8e90e3314b0f989123453889b",
+      "state": "verified"
+    },
+    {
+      "path": "index.json",
+      "bytes": 199838,
+      "sha256": "1d07cf28991c3f79511f60ddafa761b78e05e042c63a645da3df553c1e32b71e",
+      "url": "https://antonsoo.github.io/flakemap/index.json",
+      "httpStatus": 200,
+      "observedBytes": 199838,
+      "observedSha256": "1d07cf28991c3f79511f60ddafa761b78e05e042c63a645da3df553c1e32b71e",
+      "state": "verified"
+    },
+    {
+      "path": "kubernetes.html",
+      "bytes": 417389,
+      "sha256": "65db85456b34cc4cbf37ea7b588eb371736eb9799cd2d26483ee9e6d2e56d22d",
+      "url": "https://antonsoo.github.io/flakemap/kubernetes.html",
+      "httpStatus": 200,
+      "observedBytes": 417389,
+      "observedSha256": "65db85456b34cc4cbf37ea7b588eb371736eb9799cd2d26483ee9e6d2e56d22d",
+      "state": "verified"
+    },
+    {
+      "path": "nunit-inputs.zip",
+      "bytes": 3275,
+      "sha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff",
+      "url": "https://antonsoo.github.io/flakemap/nunit-inputs.zip",
+      "httpStatus": 200,
+      "observedBytes": 3275,
+      "observedSha256": "9efed8cbcfeb32b2f2ea819bb76e8356fe5ac21a977cd6366ca37dd663beffff",
+      "state": "verified"
+    },
+    {
+      "path": "nunit.html",
+      "bytes": 134151,
+      "sha256": "cc9f509c98637045bc5f658bfbdae01304af26469b5ea31e2c4d9b7333b5f8a4",
+      "url": "https://antonsoo.github.io/flakemap/nunit.html",
+      "httpStatus": 200,
+      "observedBytes": 134151,
+      "observedSha256": "cc9f509c98637045bc5f658bfbdae01304af26469b5ea31e2c4d9b7333b5f8a4",
+      "state": "verified"
+    },
+    {
+      "path": "nunit.json",
+      "bytes": 42919,
+      "sha256": "dedcb407e3614a5492a8a7ea454cca6e1ea6f4d930fe3067fbcfc1bc024bc356",
+      "url": "https://antonsoo.github.io/flakemap/nunit.json",
+      "httpStatus": 200,
+      "observedBytes": 42919,
+      "observedSha256": "dedcb407e3614a5492a8a7ea454cca6e1ea6f4d930fe3067fbcfc1bc024bc356",
+      "state": "verified"
+    },
+    {
+      "path": "pytest-inputs.zip",
+      "bytes": 3022,
+      "sha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "url": "https://antonsoo.github.io/flakemap/pytest-inputs.zip",
+      "httpStatus": 200,
+      "observedBytes": 3022,
+      "observedSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "state": "verified"
+    },
+    {
+      "path": "pytest.html",
+      "bytes": 156106,
+      "sha256": "7ab8d58688b818e941c35a98d544fb296e3c4caee564754fd1865cd72d1e2158",
+      "url": "https://antonsoo.github.io/flakemap/pytest.html",
+      "httpStatus": 200,
+      "observedBytes": 156106,
+      "observedSha256": "7ab8d58688b818e941c35a98d544fb296e3c4caee564754fd1865cd72d1e2158",
+      "state": "verified"
+    },
+    {
+      "path": "pytest.json",
+      "bytes": 56161,
+      "sha256": "d67c1fe17909c3c5d3d88164b70f5289c2e1a1210f7f5f704ccd337b1e51947f",
+      "url": "https://antonsoo.github.io/flakemap/pytest.json",
+      "httpStatus": 200,
+      "observedBytes": 56161,
+      "observedSha256": "d67c1fe17909c3c5d3d88164b70f5289c2e1a1210f7f5f704ccd337b1e51947f",
+      "state": "verified"
+    },
+    {
+      "path": "retry.html",
+      "bytes": 74738,
+      "sha256": "6ff31ee3cb5ea49feeabd88221ebf29ed0f606e11fb2bb08b5a20413960b5227",
+      "url": "https://antonsoo.github.io/flakemap/retry.html",
+      "httpStatus": 200,
+      "observedBytes": 74738,
+      "observedSha256": "6ff31ee3cb5ea49feeabd88221ebf29ed0f606e11fb2bb08b5a20413960b5227",
+      "state": "verified"
+    },
+    {
+      "path": "retry.json",
+      "bytes": 23334,
+      "sha256": "9a020cb76039170a4cd8567023bab62035ca239fff9223aaf345de8544960d5e",
+      "url": "https://antonsoo.github.io/flakemap/retry.json",
+      "httpStatus": 200,
+      "observedBytes": 23334,
+      "observedSha256": "9a020cb76039170a4cd8567023bab62035ca239fff9223aaf345de8544960d5e",
+      "state": "verified"
+    }
+  ],
+  "scope": "Compares canonical responses with this captured build inventory during the recorded pass. Extra hosted files, browser behavior, public source, registry releases and deployment provenance are not established."
+}

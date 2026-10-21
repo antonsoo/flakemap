@@ -1,0 +1,205 @@
+{
+  "baseURL": "https://antonsoo.github.io/flakemap/",
+  "results": [
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 375,
+        "height": 1000
+      },
+      "colorScheme": "light",
+      "tests": 15,
+      "recovered": 4,
+      "exhausted": 5,
+      "keyboardEntry": true,
+      "keyboardEvidence": true,
+      "jsonMatches": true,
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "offlineDownloads": true,
+      "networkAfterOffline": [],
+      "pageErrors": [],
+      "bounds": {
+        "width": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375
+      },
+      "screenshot": "chromium-375-light.png",
+      "evidenceScreenshot": "chromium-375-light-evidence.png"
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 375,
+        "height": 1000
+      },
+      "colorScheme": "dark",
+      "tests": 15,
+      "recovered": 4,
+      "exhausted": 5,
+      "keyboardEntry": true,
+      "keyboardEvidence": true,
+      "jsonMatches": true,
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "offlineDownloads": true,
+      "networkAfterOffline": [],
+      "pageErrors": [],
+      "bounds": {
+        "width": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375
+      },
+      "screenshot": "chromium-375-dark.png",
+      "evidenceScreenshot": "chromium-375-dark-evidence.png"
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "colorScheme": "light",
+      "tests": 15,
+      "recovered": 4,
+      "exhausted": 5,
+      "keyboardEntry": true,
+      "keyboardEvidence": true,
+      "jsonMatches": true,
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "offlineDownloads": true,
+      "networkAfterOffline": [],
+      "pageErrors": [],
+      "bounds": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "screenshot": "chromium-1440-light.png",
+      "evidenceScreenshot": "chromium-1440-light-evidence.png"
+    },
+    {
+      "engine": "chromium",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "colorScheme": "dark",
+      "tests": 15,
+      "recovered": 4,
+      "exhausted": 5,
+      "keyboardEntry": true,
+      "keyboardEvidence": true,
+      "jsonMatches": true,
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "offlineDownloads": true,
+      "networkAfterOffline": [],
+      "pageErrors": [],
+      "bounds": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "screenshot": "chromium-1440-dark.png",
+      "evidenceScreenshot": "chromium-1440-dark-evidence.png"
+    },
+    {
+      "engine": "firefox",
+      "viewport": {
+        "width": 375,
+        "height": 1000
+      },
+      "colorScheme": "light",
+      "tests": 15,
+      "recovered": 4,
+      "exhausted": 5,
+      "keyboardEntry": true,
+      "keyboardEvidence": true,
+      "jsonMatches": true,
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "offlineDownloads": true,
+      "networkAfterOffline": [],
+      "pageErrors": [],
+      "bounds": {
+        "width": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375
+      },
+      "screenshot": "firefox-375-light.png",
+      "evidenceScreenshot": "firefox-375-light-evidence.png"
+    },
+    {
+      "engine": "firefox",
+      "viewport": {
+        "width": 375,
+        "height": 1000
+      },
+      "colorScheme": "dark",
+      "tests": 15,
+      "recovered": 4,
+      "exhausted": 5,
+      "keyboardEntry": true,
+      "keyboardEvidence": true,
+      "jsonMatches": true,
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "offlineDownloads": true,
+      "networkAfterOffline": [],
+      "pageErrors": [],
+      "bounds": {
+        "width": 375,
+        "scrollWidth": 375,
+        "clientWidth": 375
+      },
+      "screenshot": "firefox-375-dark.png",
+      "evidenceScreenshot": "firefox-375-dark-evidence.png"
+    },
+    {
+      "engine": "firefox",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "colorScheme": "light",
+      "tests": 15,
+      "recovered": 4,
+      "exhausted": 5,
+      "keyboardEntry": true,
+      "keyboardEvidence": true,
+      "jsonMatches": true,
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "offlineDownloads": true,
+      "networkAfterOffline": [],
+      "pageErrors": [],
+      "bounds": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "screenshot": "firefox-1440-light.png",
+      "evidenceScreenshot": "firefox-1440-light-evidence.png"
+    },
+    {
+      "engine": "firefox",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "colorScheme": "dark",
+      "tests": 15,
+      "recovered": 4,
+      "exhausted": 5,
+      "keyboardEntry": true,
+      "keyboardEvidence": true,
+      "jsonMatches": true,
+      "inputZipSha256": "eb248d658e98823bf66f6488f5809e3216d0b3a2032b321a51ed8e84ee8b12f6",
+      "offlineDownloads": true,
+      "networkAfterOffline": [],
+      "pageErrors": [],
+      "bounds": {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "clientWidth": 1440
+      },
+      "screenshot": "firefox-1440-dark.png",
+      "evidenceScreenshot": "firefox-1440-dark-evidence.png"
+    }
+  ]
+}

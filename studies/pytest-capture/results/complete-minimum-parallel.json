@@ -1,0 +1,11 @@
+{
+  "completeAnalysisEqual": true,
+  "excludedRecordedFields": [
+    "first_seen",
+    "last_seen",
+    "reported_duration_seconds",
+    "timestamp",
+    "timestamp_range"
+  ],
+  "normalizedSha256": "667178e3ea4daae69e1f937f3e8bd10a25093d8fdf17acadf6be19fdcf10f67f"
+}

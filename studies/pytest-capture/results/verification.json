@@ -1,0 +1,43 @@
+{
+  "sourceCommit": "bb6a48e3259dffac29d4ac609934681f2a40b386",
+  "python": "3.12.12",
+  "node": "24.22.0",
+  "npm": "11.19.1",
+  "cleanInstall": {
+    "uvLocked": true,
+    "npmCi": true,
+    "npmAuditVulnerabilities": 0
+  },
+  "checks": {
+    "ruff": true,
+    "format": true,
+    "mypy": true,
+    "pytestPassed": 438,
+    "selfCapturePassed": 438,
+    "offlineReportScenarios": 160,
+    "staticBuildFiles": 18,
+    "buildCommand": "uv run python scripts/build_demo_site.py"
+  },
+  "minimum": {
+    "python": "3.10.21",
+    "pytest": "9.0.3",
+    "pytestRandomly": "3.15.0",
+    "pytestRerunfailures": "16.7",
+    "pytestXdist": "3.8.0",
+    "rich": "13.7.0",
+    "passed": 438
+  },
+  "nativeMinimum": {
+    "python": "3.10.21",
+    "pytest": "8.2.0",
+    "serialAndTwoWorkers": true
+  },
+  "focusedBrowserCases": 8,
+  "actualOfflineDownloads": 16,
+  "installedRuntimeFiles": 33,
+  "logSha256": {
+    "flakemap-pytest-final-clean-test.log": "f1da019981e0f99f36d4f837fa0172a0490534480da6bbb1700758ce640115db",
+    "flakemap-pytest-final-minimum-test.log": "1b43f67dd4aa531f0416177b0578257001f5914cbcdc15e087f739839d49bcef",
+    "flakemap-pytest-final-clean-browser.log": "b5f76fdc6ac1bbd4aaebd3a5e05e0040f622eb4a7cae333276eb202343b2df32"
+  }
+}

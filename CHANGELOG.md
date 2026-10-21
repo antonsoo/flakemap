@@ -4,6 +4,21 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+### Capture pytest retries before XML loses them
+
+- Add the opt-in `flakemap.pytest_plugin` companion reporter. Capture explicit
+  retry indices and original setup/call/teardown outcomes, including xdist
+  controller reports. One logical test remains one history observation.
+- Preserve both failures when call and teardown fail in one attempt. Recovered
+  and exhausted attempts feed the existing report and `--fail-on-retry` gate;
+  pytest outcomes, retry scheduling and ordinary JUnit output are unchanged.
+- Mark interrupted, early-stopped, missing-phase and skip-ended retry captures
+  incomplete. Replace a stale report with an incomplete marker at session start.
+  Pytest remains optional and the plugin is loaded explicitly.
+- Retain real producer outputs, independent execution ledgers and the installed
+  replay in [the capture study](studies/pytest-capture/README.md). No registry
+  release is included.
+
 ### Native NUnit reports
 
 - Read native NUnit 3 result XML directly, including NUnit 4 and NUnitLite

@@ -29,6 +29,13 @@ def common_prefix(names: list[str]) -> str:
     """
     if len(names) < 2:
         return ""
+    # Native pytest IDs separate the file from test/class names with ::.
+    # Splitting their .py extension as a dotted module leaves an unhelpful
+    # "py::test_name" in every row. Full identities remain in report details.
+    if "::" in names[0]:
+        file_prefix = names[0].split("::", 1)[0] + "::"
+        if all(name.startswith(file_prefix) and name != file_prefix for name in names):
+            return file_prefix
     split = [n.split(".") for n in names]
     shared: list[str] = []
     for parts in zip(*(s[:-1] for s in split), strict=False):

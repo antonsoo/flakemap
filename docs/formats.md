@@ -416,7 +416,7 @@ These rules follow [Surefire's retry XML documentation](https://maven.apache.org
 | Recovered markers mixed with terminal or exhausted markers | unknown | Contradictory evidence; excluded |
 | Skip mixed with failures or retries | unknown | Contradictory evidence; excluded |
 
-The overall testcase `time` is the successful attempt's duration for recovered
+In the captured Surefire reports, testcase `time` is the successful attempt's duration for recovered
 tests, or the original failure's duration for exhausted tests. It is **not** the
 sum of attempts. No per-attempt duration or retry cost is inferred. Failed records
 retain XML order, tag, status and the first message/stack-trace line, capped at
@@ -428,6 +428,14 @@ Gradle's default unmerged repeated testcases are deliberately ambiguous here.
 Enable `reports.junitXml.mergeReruns = true` to emit explicit recovered markers.
 Other retry dialects need their own documented format support; a name repeated
 near a passing result is not enough to infer recovery.
+
+The opt-in [pytest companion reporter](pytest-capture.md) writes the same explicit
+retry markers from live pytest phase reports. Its testcase `time` instead sums
+all observed phase durations across attempts, with individual phase durations
+retained in `flakemap.pytest.phases`. It excludes retry delays and is not elapsed
+wall-clock retry cost. Identical native node IDs stay one logical test; incomplete
+phase sequences carry `status="unknown"` and a `flakemap.capture_issue` property.
+The reader surfaces that reason without making an unknown outcome eligible.
 
 ## JSON output version 3
 

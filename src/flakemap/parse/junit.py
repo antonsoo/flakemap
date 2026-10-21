@@ -279,6 +279,12 @@ def _testcase_from_element(
         status, retry = Status.UNKNOWN, None
         issue = "missing JUnit test name; cannot identify this observation"
 
+    capture_issue = el.find("./properties/property[@name='flakemap.capture_issue']")
+    if status is Status.UNKNOWN and capture_issue is not None:
+        detail = _first_line(capture_issue.get("value"))
+        if detail:
+            issue = f"{issue}; pytest capture: {detail}"
+
     duration = _parse_duration(el.get("time"))
     if el.get("time") is not None and duration is None:
         warnings.append(f"{classname}.{name}: invalid duration; retained as unknown")

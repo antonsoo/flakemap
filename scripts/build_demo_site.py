@@ -52,6 +52,16 @@ DEMOS = (
         "a green final result does not erase a failure, and why attempts are not extra runs.",
     ),
     (
+        "pytest",
+        "Pytest retries",
+        "studies/pytest-capture/captured/serial/captured",
+        "Fifteen controlled pytest tests captured by the opt-in companion reporter. "
+        "Four recover after call, setup or teardown failures; five exhaust their retries. "
+        "Open the recovered call-and-teardown test: two failed phases remain one attempt. "
+        "Ordinary pytest JUnit omits those failure details. These are deterministic "
+        "producer checks, not production reliability measurements.",
+    ),
+    (
         "generic",
         "Distinct generic fixtures",
         "studies/trx-generics/native-capture/history",
@@ -161,7 +171,7 @@ def build(output: Path) -> list[dict[str, object]]:
             f'<a href="https://github.com/antonsoo/flakemap/tree/main/{source}">Source fixture</a>'
         )
         extra: dict[str, object] = {}
-        if slug in ("generic", "nunit"):
+        if slug in ("generic", "nunit", "pytest"):
             # Retain native XML bytes inside an offline download; timestamps in
             # the ZIP envelope are fixed, while each report's recorded time stays intact.
             archive = io.BytesIO()
@@ -175,11 +185,11 @@ def build(output: Path) -> list[dict[str, object]]:
             inputs = archive.getvalue()
             (output / f"{slug}-inputs.zip").write_bytes(inputs)
             input_data = base64.b64encode(inputs).decode("ascii")
-            filename, download_label = (
-                ("nunit-generic-history.zip", "Download native TRX inputs")
-                if slug == "generic"
-                else ("nunit-native-inputs.zip", "Download native NUnit XML")
-            )
+            filename, download_label = {
+                "generic": ("nunit-generic-history.zip", "Download native TRX inputs"),
+                "nunit": ("nunit-native-inputs.zip", "Download native NUnit XML"),
+                "pytest": ("pytest-captured-inputs.zip", "Download captured pytest XML"),
+            }[slug]
             actions += (
                 f' · <a href="data:application/zip;base64,{input_data}" '
                 f'download="{filename}">{download_label}</a>'

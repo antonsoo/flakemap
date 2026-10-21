@@ -102,6 +102,10 @@ def test_common_prefix_drops_shared_components_only() -> None:
     assert common_prefix(["only.one"]) == ""
     # never swallow a whole name: the last component always stays
     assert common_prefix(["pkg.test_a", "pkg.test_a"]) == "pkg."
+    node_ids = ["pytest capture.tests/a.py::test_one[x.y]", "pytest capture.tests/a.py::test_two"]
+    prefix = common_prefix(node_ids)
+    assert prefix == "pytest capture.tests/a.py::"
+    assert short_name(node_ids[0], prefix) == "test_one[x.y]"
 
 
 # A parametrized test, named the way pytest and Playwright name them: long, and with brackets.

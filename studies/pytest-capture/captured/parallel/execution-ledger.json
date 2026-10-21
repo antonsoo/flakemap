@@ -1,0 +1,120 @@
+{
+  "baseline": {
+    "test_retries.py::test_exhausted_call": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_exhausted_call_and_teardown": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_exhausted_setup": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_exhausted_teardown": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_parameter_identity[<xml>&[name]]": [
+      1
+    ],
+    "test_retries.py::test_parameter_identity[ordinary]": [
+      1
+    ],
+    "test_retries.py::test_pass": [
+      1
+    ],
+    "test_retries.py::test_recovered_call": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_recovered_call_and_teardown": [
+      1,
+      2
+    ],
+    "test_retries.py::test_recovered_setup": [
+      1,
+      2
+    ],
+    "test_retries.py::test_recovered_teardown": [
+      1,
+      2
+    ],
+    "test_retries.py::test_strict_xpass": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_xfail": [
+      1
+    ],
+    "test_retries.py::test_xpass": [
+      1
+    ]
+  },
+  "capture": {
+    "test_retries.py::test_exhausted_call": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_exhausted_call_and_teardown": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_exhausted_setup": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_exhausted_teardown": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_parameter_identity[<xml>&[name]]": [
+      1
+    ],
+    "test_retries.py::test_parameter_identity[ordinary]": [
+      1
+    ],
+    "test_retries.py::test_pass": [
+      1
+    ],
+    "test_retries.py::test_recovered_call": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_recovered_call_and_teardown": [
+      1,
+      2
+    ],
+    "test_retries.py::test_recovered_setup": [
+      1,
+      2
+    ],
+    "test_retries.py::test_recovered_teardown": [
+      1,
+      2
+    ],
+    "test_retries.py::test_strict_xpass": [
+      1,
+      2,
+      3
+    ],
+    "test_retries.py::test_xfail": [
+      1
+    ],
+    "test_retries.py::test_xpass": [
+      1
+    ]
+  }
+}

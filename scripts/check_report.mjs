@@ -53,7 +53,7 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
               assert.match(await page.locator('meta[http-equiv="Content-Security-Policy"]').getAttribute("content"), /default-src 'none'/);
               if (fixture.name.startsWith("gallery/")) {
                 const nav = page.getByRole("navigation", { name: "Report examples" });
-                assert.equal(await nav.getByRole("link").count(), 7);
+                assert.equal(await nav.getByRole("link").count(), 8);
                 assert.equal(await nav.getByRole("link", { name: "Distinct generic fixtures", exact: true }).count(), 1);
                 if (fixture.name === "gallery/nunit") assert.equal(await page.locator(".demo-context h2").innerText(), "Native NUnit results");
                 if (fixture.name === "gallery/generic") assert.equal(await page.locator(".demo-context h2").innerText(), "Distinct generic fixtures");
@@ -119,6 +119,19 @@ for (const [engine, browserType] of Object.entries({ chromium, firefox })) {
                 const pair = page.locator("details.row").filter({ hasText: "Pair<Int32,Double>.Check" });
                 await pair.locator("summary").click();
                 assert.match(await pair.locator(".test-identity").innerText(), /NativeNUnit\.Pair<Int32,Double>\.Check/);
+              }
+              if (fixture.name === "gallery/pytest") {
+                assert.equal(await page.locator(".demo-context h2").innerText(), "Pytest retries");
+                assert.equal(await page.locator(".row-heatmap .s-recovered").count(), 4);
+                assert.equal(await page.locator(".row-heatmap .s-fail").count(), 2);
+                assert.equal(await page.locator(".row-heatmap .s-error").count(), 3);
+                assert.equal(await page.locator(".row-heatmap .s-skip").count(), 2);
+                const row = page.locator("details.row").filter({ hasText: "test_recovered_call_and_teardown" });
+                await row.locator("summary").focus();
+                await page.keyboard.press("Enter");
+                assert.match(await row.innerText(), /call failed first/);
+                assert.match(await row.innerText(), /teardown failed too/);
+                assert.match(await row.innerText(), /2 recorded attempts; 1 failed/);
               }
               if (fixture.name === "retry") {
                 assert.equal(await page.locator(".row-heatmap .s-recovered").count(), 2);

@@ -22,6 +22,14 @@ account or service required. It pairs with the same author's
 [`logdelta`](https://github.com/antonsoo/logdelta) (diff logs from a failing CI
 run against known-good baselines) once you know *which* test to look at.
 
+**Using pytest retries? Capture them before JUnit loses the evidence.** The
+source checkout adds an opt-in reporter for pytest and pytest-rerunfailures,
+including two-worker xdist runs. It retains recovered call, setup and teardown
+failures without changing pytest's results or counting retries as independent
+runs. [Install and use the companion reporter](docs/pytest-capture.md).
+The [native replay](studies/pytest-capture/README.md) checks actual test executions
+with an independent ledger. This feature is separate from the PyPI release.
+
 The source checkout also honors **GoogleTest's explicit non-execution markers**.
 In the [compiled reproduction](examples/googletest_project/README.md), one real
 failure followed by seven disabled runs previously became seven passes and a

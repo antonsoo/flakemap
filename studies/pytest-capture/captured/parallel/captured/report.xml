@@ -1,0 +1,231 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="pytest retry capture" timestamp="2026-10-21T12:24:38.744303+00:00" tests="15" failures="2" errors="3" skipped="2" time="0.3919140200014226"><properties><property name="flakemap.version" value="0.3.7" /><property name="pytest.version" value="9.1.1" /></properties><testcase name="test_retries.py::test_exhausted_call" time="0.0019635159842437133"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_exhausted_call&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00040958299359772354},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00012628499825950712},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0001737569982651621},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0003058629954466596},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:9.69179964158684e-05},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00011971200001426041},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00020178100385237485},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;failed&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00041986399446614087},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00010975300392601639}]" /></properties><rerunFailure message="call: Failed: service never ready" attempt="1"><stackTrace>[call]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 1
+
+    def test_exhausted_call(attempt):
+&gt;       pytest.fail("service never ready")
+E       Failed: service never ready
+
+test_retries.py:35: Failed</stackTrace></rerunFailure><rerunFailure message="call: Failed: service never ready" attempt="2"><stackTrace>[call]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 2
+
+    def test_exhausted_call(attempt):
+&gt;       pytest.fail("service never ready")
+E       Failed: service never ready
+
+test_retries.py:35: Failed</stackTrace></rerunFailure><failure message="call: Failed: service never ready" attempt="3"><stackTrace>[call]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 3
+
+    def test_exhausted_call(attempt):
+&gt;       pytest.fail("service never ready")
+E       Failed: service never ready
+
+test_retries.py:35: Failed</stackTrace></failure></testcase><testcase name="test_retries.py::test_exhausted_call_and_teardown" time="0.001536425988888368"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_exhausted_call_and_teardown&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0002509559999452904},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00010894099250435829},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00011703600466717035},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00031327699252869934},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00011706700024660677},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00013838800077792257},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00027596400468610227},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;failed&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00010763900354504585},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;failed&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00010715798998717219}]" /></properties><rerunError message="call: Failed: call never ready either; teardown: Failed: teardown never ready" attempt="1"><stackTrace>[call]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+teardown_fails = None
+
+    def test_exhausted_call_and_teardown(teardown_fails):
+&gt;       pytest.fail("call never ready either")
+E       Failed: call never ready either
+
+test_retries.py:87: Failed
+
+[teardown]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 1
+
+    @pytest.fixture
+    def teardown_fails(attempt):
+        yield
+&gt;       pytest.fail("teardown never ready")
+E       Failed: teardown never ready
+
+test_retries.py:69: Failed</stackTrace></rerunError><rerunError message="call: Failed: call never ready either; teardown: Failed: teardown never ready" attempt="2"><stackTrace>[call]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+teardown_fails = None
+
+    def test_exhausted_call_and_teardown(teardown_fails):
+&gt;       pytest.fail("call never ready either")
+E       Failed: call never ready either
+
+test_retries.py:87: Failed
+
+[teardown]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 2
+
+    @pytest.fixture
+    def teardown_fails(attempt):
+        yield
+&gt;       pytest.fail("teardown never ready")
+E       Failed: teardown never ready
+
+test_retries.py:69: Failed</stackTrace></rerunError><error message="call: Failed: call never ready either; teardown: Failed: teardown never ready" attempt="3"><stackTrace>[call]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+teardown_fails = None
+
+    def test_exhausted_call_and_teardown(teardown_fails):
+&gt;       pytest.fail("call never ready either")
+E       Failed: call never ready either
+
+test_retries.py:87: Failed
+
+[teardown]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 3
+
+    @pytest.fixture
+    def teardown_fails(attempt):
+        yield
+&gt;       pytest.fail("teardown never ready")
+E       Failed: teardown never ready
+
+test_retries.py:69: Failed</stackTrace></error></testcase><testcase name="test_retries.py::test_exhausted_setup" time="0.0010684920125640929"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_exhausted_setup&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00029589299811050296},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00010669699986465275},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.0002587020135251805},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00010828000085894018},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;failed&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00021641000057570636},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:8.25099996291101e-05}]" /></properties><rerunError message="setup: Failed: setup never ready" attempt="1"><stackTrace>[setup]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 1
+
+    @pytest.fixture
+    def setup_fails(attempt):
+&gt;       pytest.fail("setup never ready")
+E       Failed: setup never ready
+
+test_retries.py:49: Failed</stackTrace></rerunError><rerunError message="setup: Failed: setup never ready" attempt="2"><stackTrace>[setup]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 2
+
+    @pytest.fixture
+    def setup_fails(attempt):
+&gt;       pytest.fail("setup never ready")
+E       Failed: setup never ready
+
+test_retries.py:49: Failed</stackTrace></rerunError><error message="setup: Failed: setup never ready" attempt="3"><stackTrace>[setup]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 3
+
+    @pytest.fixture
+    def setup_fails(attempt):
+&gt;       pytest.fail("setup never ready")
+E       Failed: setup never ready
+
+test_retries.py:49: Failed</stackTrace></error></testcase><testcase name="test_retries.py::test_exhausted_teardown" time="0.0015172709681792185"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_exhausted_teardown&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00034609599970281124},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00013004599895793945},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00019765298929996789},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00025837100110948086},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:7.879300392232835e-05},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:9.211899305228144e-05},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00025108699628617615},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:7.638799434062093e-05},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;failed&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:8.671799150761217e-05}]" /></properties><rerunError message="teardown: Failed: teardown never ready" attempt="1"><stackTrace>[teardown]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 1
+
+    @pytest.fixture
+    def teardown_fails(attempt):
+        yield
+&gt;       pytest.fail("teardown never ready")
+E       Failed: teardown never ready
+
+test_retries.py:69: Failed</stackTrace></rerunError><rerunError message="teardown: Failed: teardown never ready" attempt="2"><stackTrace>[teardown]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 2
+
+    @pytest.fixture
+    def teardown_fails(attempt):
+        yield
+&gt;       pytest.fail("teardown never ready")
+E       Failed: teardown never ready
+
+test_retries.py:69: Failed</stackTrace></rerunError><error message="teardown: Failed: teardown never ready" attempt="3"><stackTrace>[teardown]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 3
+
+    @pytest.fixture
+    def teardown_fails(attempt):
+        yield
+&gt;       pytest.fail("teardown never ready")
+E       Failed: teardown never ready
+
+test_retries.py:69: Failed</stackTrace></error></testcase><testcase name="test_retries.py::test_parameter_identity[&lt;xml&gt;&amp;[name]]" time="0.0004714639944722876"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_parameter_identity[&lt;xml&gt;&amp;[name]]&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00027702700754161924},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00010008399840444326},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:9.435298852622509e-05}]" /></properties></testcase><testcase name="test_retries.py::test_parameter_identity[ordinary]" time="0.0006054219993529841"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_parameter_identity[ordinary]&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0003616839967435226},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0001383540075039491},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00010538399510551244}]" /></properties></testcase><testcase name="test_retries.py::test_pass" time="0.0006752179906470701"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_pass&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00046039199514780194},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00011293900024611503},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00010188699525315315}]" /></properties></testcase><testcase name="test_retries.py::test_recovered_call" time="0.001695431987172924"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_recovered_call&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0002802729868562892},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00022203000844456255},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00015220401110127568},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00030070298817008734},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00018550899403635412},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00010800900054164231},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0002858929947251454},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:8.449300366919488e-05},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:7.631799962837249e-05}]" /></properties><flakyFailure message="call: AssertionError: connection not ready" attempt="1"><stackTrace>[call]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 1
+
+    def test_recovered_call(attempt):
+&gt;       assert attempt &gt;= 3, "connection not ready"
+E       AssertionError: connection not ready
+E       assert 1 &gt;= 3
+
+test_retries.py:31: AssertionError</stackTrace></flakyFailure><flakyFailure message="call: AssertionError: connection not ready" attempt="2"><stackTrace>[call]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 2
+
+    def test_recovered_call(attempt):
+&gt;       assert attempt &gt;= 3, "connection not ready"
+E       AssertionError: connection not ready
+E       assert 2 &gt;= 3
+
+test_retries.py:31: AssertionError</stackTrace></flakyFailure></testcase><testcase name="test_retries.py::test_recovered_call_and_teardown" time="0.0011316079908283427"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_recovered_call_and_teardown&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0002780189970508218},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.0001523160026408732},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00015687300765421242},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00034341998980380595},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0001078589993994683},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:9.31209942791611e-05}]" /></properties><flakyError message="call: AssertionError: call failed first; teardown: AssertionError: teardown failed too" attempt="1"><stackTrace>[call]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+two_phases_recover = 1
+
+    def test_recovered_call_and_teardown(two_phases_recover):
+&gt;       assert two_phases_recover &gt;= 2, "call failed first"
+E       AssertionError: call failed first
+E       assert 1 &gt;= 2
+
+test_retries.py:83: AssertionError
+
+[teardown]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 1
+
+    @pytest.fixture
+    def two_phases_recover(attempt):
+        yield attempt
+&gt;       assert attempt &gt;= 2, "teardown failed too"
+E       AssertionError: teardown failed too
+E       assert 1 &gt;= 2
+
+test_retries.py:79: AssertionError</stackTrace></flakyError></testcase><testcase name="test_retries.py::test_recovered_setup" time="0.0010396190191386268"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_recovered_setup&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.0003281450044596568},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00012018300185445696},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0004034870071336627},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:9.654700988903642e-05},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:9.12569958018139e-05}]" /></properties><flakyError message="setup: AssertionError: setup not ready" attempt="1"><stackTrace>[setup]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 1
+
+    @pytest.fixture
+    def setup_recovers(attempt):
+&gt;       assert attempt &gt;= 2, "setup not ready"
+E       AssertionError: setup not ready
+E       assert 1 &gt;= 2
+
+test_retries.py:40: AssertionError</stackTrace></flakyError></testcase><testcase name="test_retries.py::test_recovered_teardown" time="0.0010066120157716796"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_recovered_teardown&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0003084780037170276},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0001102539972634986},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.0001725449983496219},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00025451301189605147},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:8.084700675681233e-05},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:7.997499778866768e-05}]" /></properties><flakyError message="teardown: AssertionError: teardown not ready" attempt="1"><stackTrace>[teardown]
+[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+
+attempt = 1
+
+    @pytest.fixture
+    def teardown_recovers(attempt):
+        yield
+&gt;       assert attempt &gt;= 2, "teardown not ready"
+E       AssertionError: teardown not ready
+E       assert 1 &gt;= 2
+
+test_retries.py:59: AssertionError</stackTrace></flakyError></testcase><testcase name="test_retries.py::test_skipped" time="0.00017696301802061498"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_skipped&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;skipped&quot;,&quot;original_outcome&quot;:&quot;skipped&quot;,&quot;duration&quot;:9.717801003716886e-05},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:7.978500798344612e-05}]" /></properties><skipped message="[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python&#10;('/tmp/claude-1000/pytest-capture-working-final/parallel/test_retries.py', 90, 'Skipped: not executed')" /></testcase><testcase name="test_retries.py::test_strict_xpass" time="0.001293016001000069"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_strict_xpass&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00023716999567113817},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:8.186799823306501e-05},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:9.469300857745111e-05},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00025788000493776053},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;rerun&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:9.283001418225467e-05},{&quot;attempt&quot;:2,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:8.337199687957764e-05},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0002258280001115054},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;failed&quot;,&quot;original_outcome&quot;:&quot;failed&quot;,&quot;duration&quot;:0.00012093498662579805},{&quot;attempt&quot;:3,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:9.843999578151852e-05}]" /></properties><rerunFailure message="call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python" attempt="1"><stackTrace>[call]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+[XPASS(strict)] strict unexpected pass</stackTrace></rerunFailure><rerunFailure message="call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python" attempt="2"><stackTrace>[call]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+[XPASS(strict)] strict unexpected pass</stackTrace></rerunFailure><failure message="call: [gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python" attempt="3"><stackTrace>[call]
+[gw0] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python
+[XPASS(strict)] strict unexpected pass</stackTrace></failure></testcase><testcase name="test_retries.py::test_xfail" time="0.0004328479844843969"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_xfail&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00024259999918285757},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;skipped&quot;,&quot;original_outcome&quot;:&quot;skipped&quot;,&quot;duration&quot;:8.408298890572041e-05},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.00010616499639581889}]" /></properties><skipped message="[gw1] linux -- Python 3.15.0 /tmp/claude-1000/pytest-retries-native/venv/bin/python&#10;&#10;attempt = 1&#10;&#10;    @pytest.mark.xfail(reason=&quot;known failure&quot;)&#10;    def test_xfail(attempt):&#10;&gt;       pytest.fail(&quot;expected failure&quot;)&#10;E       Failed: expected failure&#10;&#10;test_retries.py:97: Failed" /></testcase><testcase name="test_retries.py::test_xpass" time="0.0008917070081224665"><properties><property name="flakemap.pytest.nodeid" value="&quot;test_retries.py::test_xpass&quot;" /><property name="flakemap.pytest.phases" value="[{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;setup&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:0.0007230909977806732},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;call&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:8.457399962935597e-05},{&quot;attempt&quot;:1,&quot;phase&quot;:&quot;teardown&quot;,&quot;outcome&quot;:&quot;passed&quot;,&quot;original_outcome&quot;:&quot;passed&quot;,&quot;duration&quot;:8.404201071243733e-05}]" /></properties></testcase></testsuite>

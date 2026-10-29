@@ -4,7 +4,7 @@ version = "0.3.7"
 description = "Inspect failures and retries in JUnit, NUnit 3 XML and TRX test histories."
 dynamic = ["readme"]
 license = { text = "MIT" }
-authors = [{ name = "Anton Soloviev", email = "anton@praviel.com" }]
+authors = [{ name = "Anthony Mercer", email = "anthony@praviel.com" }]
 requires-python = ">=3.10"
 keywords = [
     "testing",

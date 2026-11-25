@@ -9,7 +9,7 @@ the PyPI release is separate and has not been replaced.
 | Final gallery heading and report caption | `6c14af96a106f71a22ee81efdb5b10e0e5288047`; [final installed artifact](final-artifact.json) |
 | Pages deployment | `3f907bdaf0c63e2535da0b8c8aaacd5b38c155c9`; [all served files](hosted-bytes.json) |
 | Public browser workflows | [Chromium and Firefox receipt](hosted/browser.json), desktop 1200 px and phone 375 px |
-| Separate interactive Space | [Hub revision fef6bbc](https://huggingface.co/spaces/antonsoloviev/flakemap/tree/fef6bbcfcc7105c9580b1627d2a8619270d6e409), engine pinned to `6c14af9`; its adapter refuses uncertain native input |
+| Separate interactive Space | [Hub revision fef6bbc](https://huggingface.co/spaces/tonymerx/flakemap/tree/fef6bbcfcc7105c9580b1627d2a8619270d6e409), engine pinned to `6c14af9`; its adapter refuses uncertain native input |
 
 The clean clone at `4d52c1b` passed lint, types and all 430 unit checks, including
 Python 3.10.21 with Rich 13.7.0. Its independent wheel installation retained all

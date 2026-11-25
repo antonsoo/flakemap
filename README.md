@@ -6,7 +6,7 @@ to the failed attempts and source records.**
 [![PyPI](https://img.shields.io/pypi/v/flakemap)](https://pypi.org/project/flakemap/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Live demo](https://img.shields.io/badge/live%20demo-heatmap%20report-1c4f63)](https://antonsoo.github.io/flakemap/)
-[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-workbench-ffd21e)](https://huggingface.co/spaces/antonsoloviev/flakemap)
+[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-workbench-ffd21e)](https://huggingface.co/spaces/tonymerx/flakemap)
 
 CI can turn green after a test fails twice and passes on its third attempt.
 Surefire preserves those failures as `<flakyFailure>` records, but a reader that

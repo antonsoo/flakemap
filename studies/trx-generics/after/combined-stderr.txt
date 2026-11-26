@@ -1,1 +1,1 @@
-HTML report written to /home/antonsoloviev/work/projects/showcases/flakemap/studies/trx-generics/after/combined.html
+HTML report written to <workspace>/flakemap/studies/trx-generics/after/combined.html

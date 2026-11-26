@@ -133,3 +133,9 @@ executable. Use fresh output directories. To generate a new native pytest captur
 run `uv run python studies/markdown-literals/produce.py /tmp/new-pytest-capture`;
 timestamps and durations will differ from the retained capture. Neither pytest
 production nor browser verification sends requests to the example URLs.
+
+On 2026-11-25 the home-directory path inside a pytest skip message in
+`examples/cofailure_history/run-04/report.xml` was replaced with `<workspace>/`
+(SHA-256 `eeb56dee68cd12ae…` became `6f39970716b37352…`). The runs in
+`results/` read the earlier bytes and keep their hash; no flakemap output
+contains that message.

@@ -281,7 +281,7 @@ $ flakemap examples/demo_project/runs --fail-on-new-flake; echo "exit: $?"
 
 The source checkout preserves imported test names, run IDs and warnings as
 literal text in Markdown reports. Previously, parameter IDs such as
-`![literal](image.png)` became images even inside HTML `<code>` wrappers.
+`![literal](https://example.com/image.png)` became images even inside HTML `<code>` wrappers.
 [Actual pytest captures and reference-rendered before/after reports](studies/markdown-literals/README.md)
 verify the correction. This is a source update, pending a package release.
 

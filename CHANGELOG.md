@@ -4,6 +4,10 @@ All notable changes to this project are documented in this file.
 
 ## Unreleased
 
+## [0.4.0] - 2026-11-26
+
+- Package metadata names Anthony Mercer (anthony@praviel.com) as the author.
+
 ### Capture pytest retries before XML loses them
 
 - Add the opt-in `flakemap.pytest_plugin` companion reporter. Capture explicit

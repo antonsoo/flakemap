@@ -1,6 +1,6 @@
 [project]
 name = "flakemap"
-version = "0.3.7"
+version = "0.4.0"
 description = "Inspect failures and retries in JUnit, NUnit 3 XML and TRX test histories."
 dynamic = ["readme"]
 license = { text = "MIT" }
